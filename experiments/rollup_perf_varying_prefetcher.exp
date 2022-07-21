@@ -1,0 +1,50 @@
+##############################################################
+##
+## This file contains all the experiments required
+## to reproduce single-core performance results of Hermes.
+##
+## Please follow the README to know how to use this file.
+##
+## Owner: Rahul Bera (write2bera@gmail.com)
+##
+###############################################################
+
+# configurations
+BASE = --warmup_instructions=100000000 --simulation_instructions=500000000 --llc_replacement_type=ship --config=/home/rahbera/skipper/ChampSim/config/nopref.ini --num_rob_partitions=3 --rob_partition_size=64,128,320 --rob_frontal_partition_ids=0 --rob_dorsal_partition_ids=2
+SMS = --l2c_prefetcher_types=sms --config=/home/rahbera/skipper/ChampSim/config/sms.ini --l2c_prefetcher_force_prefetch_at=true
+SPP = --l2c_prefetcher_types=spp_ppf_dev --config=/home/rahbera/skipper/ChampSim/config/spp_ppf_dev.ini --ppf_perc_threshold_hi=2000
+MLOP = --l2c_prefetcher_types=mlop --config=/home/rahbera/skipper/ChampSim/config/mlop.ini --mlop_l2c_thresh=2.0
+BINGO = --l2c_prefetcher_types=bingo --config=/home/rahbera/skipper/ChampSim/config/bingo.ini --bingo_l2c_thresh=2.0 --bingo_thresh=0.5 --bingo_pc_address_fill_level=LLC
+PYTHIA = --l2c_prefetcher_types=scooby --config=/home/rahbera/skipper/ChampSim/config/pythia.ini --scooby_enable_direct_pref_issue=true --scooby_pref_at_lower_level=true --scooby_dyn_degrees_type2=1,1,2,4
+
+OCP_PERC = --config=/home/rahbera/skipper/ChampSim/config/ocp_hermes.ini
+OCP_HMP_ENSEMBLE = --config=/home/rahbera/skipper/ChampSim/config/ocp_hmp_ensemble.ini
+OCP_LP = --config=/home/rahbera/skipper/ChampSim/config/ocp_lp.ini
+OCP_RANDOM = --config=/home/rahbera/skipper/ChampSim/config/ocp_random.ini
+
+HERMES_O = --config=/home/rahbera/skipper/ChampSim/config/hermes_base.ini --ddrp_req_latency=6
+HERMES_P = --config=/home/rahbera/skipper/ChampSim/config/hermes_base.ini --ddrp_req_latency=18
+
+# no-prefetching system
+nopref              $(BASE)
+
+# system with prior prefetchers
+pythia              $(BASE) $(PYTHIA)
+sms                 $(BASE) $(SMS)
+spp                 $(BASE) $(SPP)
+bingo               $(BASE) $(BINGO)
+mlop                $(BASE) $(MLOP)
+
+# Hermes along with Pythia
+pythia_with_hermes_o    $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O)
+pythia_with_hermes_p    $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_P)
+
+# Hermes in presence of various prior prefetchers
+sms_with_hermes_o           $(BASE) $(SMS) $(OCP_PERC) $(HERMES_O)
+sms_with_hermes_p           $(BASE) $(SMS) $(OCP_PERC) $(HERMES_P)
+spp_with_hermes_o           $(BASE) $(SPP) $(OCP_PERC) $(HERMES_O)
+spp_with_hermes_p           $(BASE) $(SPP) $(OCP_PERC) $(HERMES_P)
+bingo_with_hermes_o         $(BASE) $(BINGO) $(OCP_PERC) $(HERMES_O)
+bingo_with_hermes_p         $(BASE) $(BINGO) $(OCP_PERC) $(HERMES_P)
+mlop_with_hermes_o          $(BASE) $(MLOP) $(OCP_PERC) $(HERMES_O)
+mlop_with_hermes_p          $(BASE) $(MLOP) $(OCP_PERC) $(HERMES_P)
