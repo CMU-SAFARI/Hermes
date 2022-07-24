@@ -1,138 +1,219 @@
 <p align="center">
-  <h1 align="center"> ChampSim </h1>
-  <p> ChampSim is a trace-based simulator for a microarchitecture study. You can sign up to the public mailing list by sending an empty mail to champsim+subscribe@googlegroups.com. Traces for the 3rd Data Prefetching Championship (DPC-3) can be found from here (https://dpc3.compas.cs.stonybrook.edu/?SW_IS). A set of traces used for the 2nd Cache Replacement Championship (CRC-2) can be found from this link. (http://bit.ly/2t2nkUj) <p>
+  <a href="https://github.com/CMU-SAFARI/Hermes">
+    <img src="logo.png" alt="Logo" width="424.8" height="120">
+  </a>
+  <h3 align="center">A Customizable Hardware Prefetching Framework Using Online Reinforcement Learning
+  </h3>
 </p>
 
-# Clone ChampSim repository
+<p align="center">
+    <a href="https://github.com/CMU-SAFARI/Hermes/blob/master/LICENSE">
+        <img alt="GitHub" src="https://img.shields.io/badge/License-MIT-yellow.svg">
+    </a>
+    <a href="https://github.com/CMU-SAFARI/Hermes/releases">
+        <img alt="GitHub release" src="https://img.shields.io/github/release/CMU-SAFARI/Hermes">
+    </a>
+    <a href="https://doi.org/10.5281/zenodo.5520125"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.5520125.svg" alt="DOI"></a>
+</p>
+
+<!-- ## Update
+### Aug 13th, 2021
+It has been brought to our attention that the Ligra and PARSEC-2.1 traces required to evaluate the artifact are not correctly getting downloaded using the `download_traces.pl` script. For now, we ask the reader to download **all** Ligra and PARSEC-2.1 traces (~10 GB) by (1) clicking on the mega link (see [Section 5](https://github.com/CMU-SAFARI/Hermes#more-traces)), and (2) clicking on "Download as ZIP" option. We are working with megatools developer to resolve the issue soon.  -->
+
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#what-is-hermes">What is Hermes?</a></li>
+    <li><a href="#about-the-framework">About the Framework</a></li>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#preparing-traces">Preparing Traces</a></li>
+    <li><a href="#experimental-workflow">Experimental Workflow</a></li>
+      <ul>
+        <li><a href="#launching-experiments">Launching Experiments</a></li>
+        <li><a href="#rolling-up-statistics">Rolling up Statistics</a></li>
+      </ul>
+    </li>
+    <li><a href="#brief-code-walkthrough">Brief Code Walkthrough</a></li>
+    <li><a href="#citation">Citation</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+  </ol>
+</details>
+
+## What is Hermes?
+
+> Hermes is a speculative mechanism that accelerates long-latency off-chip load requests by removing on-chip cache access latency from their critical path. 
+
+The key idea behind Hermes is to: (1) accurately predict which load requests might go to off-chip, and (2) speculatively start fetching the data required by the predicted off-chip loads directly from the main memory in parallel to the cache accesses. Hermes proposes a lightweight, perceptron-based off-chip predictor that identifies off-chip load requests using multiple disparate program features. The predictor is implemented using only tables and simple arithmatic operations like increment and decrement.
+
+## About The Framework
+
+Hermes is modeled in [ChampSim simulator](https://github.com/ChampSim/ChampSim). This modified simulator version is largely similar to the one used by [Pythia](https://arxiv.org/pdf/2109.12021.pdf) [Bera+, MICRO'21], and fully-compatible with all publicly-available traces for ChampSim.
+
+## Prerequisites
+
+The infrastructure has been tested with the following system configuration:
+
+  * cmake 3.20.2
+  * gcc v6.3.0
+  * perl v5.24.1
+  * xz v5.2.5
+  * gzip v1.6
+  * md5sum v8.26
+  * wget v1.18
+  * [megatools v1.11.0](https://megatools.megous.com) (Note that v1.9.98 does **NOT** work)
+
+## Installation
+
+0. Install necessary prequisites
+    ```bash
+    sudo apt install perl xz gzip
+    ```
+1. Clone the GitHub repo
+   
+   ```bash
+   git clone https://github.com/CMU-SAFARI/Hermes.git
+   ```
+2. Set the environment variable as:
+   ```bash
+    cd Hermes/
+    source setvars.sh
+   ```
+3. Clone the bloomfilter library inside Hermes home directory
+   
+   ```bash
+   cd $HERMES_HOME/
+   git clone https://github.com/mavam/libbf.git libbf
+   ```
+4. Build bloomfilter library. This should create the static `libbf.a` library inside `build` directory
+   
+    ```bash
+    cd libbf
+    mkdir build && cd build
+    cmake ../
+    make clean && make
+    ```
+4. Build Hermes for single/multi core using build script. This should create the executable inside `bin` directory.
+   
+   ```bash
+   cd $HERMES_HOME
+   # ./build_champsim.sh <uarch> <l1d_ref> <l2c_pref> <llc_pref> <llc_repl> <ncores> <DRAM-channels> <log-DRAM-channels>
+   ./build_champsim.sh glc multi multi multi multi 1 1 0
+   ```
+
+   Currently we support two core microarchitectures: 
+    * glc (modeled after [Intel Goldencove](https://www.anandtech.com/show/16881/a-deep-dive-into-intels-alder-lake-microarchitectures/3))
+    * firestorm (modelded after [Apple A14](https://www.anandtech.com/show/16226/apple-silicon-m1-a14-deep-dive/2))
+
+## Preparing Traces
+0. Install the megatools executable
+
+    ```bash
+    cd $HERMES_HOME/scripts
+    wget --no-check-certificate https://megatools.megous.com/builds/builds/megatools-1.11.0.20220519-linux-x86_64.tar.gz
+    tar -xvf megatools-1.11.0.20220519-linux-x86_64.tar.gz
+    ```
+> Note: The megatools link might change in the future depending on latest release. Please recheck the link if the download fails.
+
+1. Use the `download_traces.pl` perl script to download necessary ChampSim traces used in our paper.
+
+    ```bash
+    cd $HERMES_HOME/traces/
+    perl $HERMES_HOME/scripts/download_traces.pl --csv artifact_traces.csv --dir ./
+    ```
+> Note: The script should download **110** traces. Please check the final log for any incomplete downloads. The total size of all traces would be **~36 GB**.
+
+2. Once the trace download completes, please verify the checksum as follows. _Please make sure all traces pass the checksum test._
+
+    ```bash
+    cd $HERMES_HOME/traces
+    md5sum -c artifact_traces.md5
+    ```
+
+3. If the traces are downloaded in some other path, please change the full path in `experiments/MICRO22_AE.tlist` accordingly.
+
+## Experimental Workflow
+Our experimental workflow consists of two stages: (1) launching experiments, and (2) rolling up statistics from experiment outputs.
+
+### Launching Experiments
+1. To create necessary experiment commands in bulk, we will use `scripts/create_jobfile.pl` script. Please see `scripts/README.md` to get a detailed list of supported arguments and their intended use cases.
+2. `create_jobfile.pl` requires three necessary arguments:
+      * `exe`: the full path of the executable to run
+      * `tlist`: contains trace definitions
+      * `exp`: contains knobs of the experiements to run
+3. Create experiments as follows. _Please make sure the paths used in tlist and exp files are appropriate_.
+   
+      ```bash
+      cd $HERMES_HOME/experiments/
+      perl $HERMES_HOME/scripts/create_jobfile.pl --exe $HERMES_HOME/bin/glc-perceptron-no-multi-multi-multi-multi-1core-1ch --tlist MICRO22_AE.tlist --exp MICRO22_AE.exp --local 1 > jobfile.sh
+      ```
+
+4. Go to a run directory (or create one) inside `experiements` to launch runs in the following way:
+      ```bash
+      cd $HERMES_HOME/experiments/outputs/
+      source ../jobfile.sh
+      ```
+
+5. If you have [slurm](https://slurm.schedmd.com) support to launch multiple jobs in a compute cluster, please provide `--local 0` to `create_jobfile.pl`
+
+### Rolling-up Statistics
+1. To rollup stats in bulk, we will use `scripts/rollup.pl` script. Please see `scripts/README.md` to get a detailed list of supported arguments and their intended use cases.
+2. `rollup.pl` requires three necessary arguments:
+      * `tlist`
+      * `exp`
+      * `mfile`: specifies stat names and reduction method to rollup
+3. Rollup statistics as follows. _Please make sure the paths used in tlist and exp files are appropriate_.
+   
+      ```bash
+      cd $HERMES_HOME/experiments/outputs/
+      perl ../../scripts/rollup.pl --tlist ../MICRO22_AE.tlist --exp ../rollup_perf_hermes.exp --mfile ../rollup_perf.mfile > rollup.csv
+      ```
+
+4. Export the `rollup.csv` file in you favourite data processor (Python Pandas, Excel, Numbers, etc.) to gain insights.
+
+## Brief Code Walkthrough
+> Hermes was code-named DDRP (Direct DRAM Prefetch) during developement. So any mention of DDRP anywhere in the code inadvertently means Hermes.
+
+- Off-chip prediction mechanism is implemented with an extensible interface in mind. The base off-chip predictor class is defined in `inc/offchip_pred_base.h`.
+- There are _nine_ implementations of off-chip predictor shipped out-of-the-box.
+
+  | Predictor type | Description |
+  |----------------|-------------|
+  | Base | Always NO |
+  | Basic | Simple confidence counter-based threshold |
+  | Random | Random Hit-miss predictor with a given positive probability |
+  | HMP-Local | [Hit-miss predictor](https://ieeexplore.ieee.org/document/765938) [Yoaz+, ISCA'99] with local prediction |
+  | HMP-GShare | Hit-miss predictor with GShare prediction |
+  | HMP-GSkew | Hit-miss predictor with GSkew prediction |
+  | HMP-Ensemble | Hit-miss predictor with all three types combined |
+  | LP | [Level predictor](https://arxiv.org/pdf/2103.14808.pdf) [Jalili+, HPCA'22] with only on-chip metadata storage |
+  | Perc | Perceptron-based OCP used in this paper |
+
+- You can also quickly implement your own off-chip predictor just by extending `OffchipPredBase` class and implement your own `predict()` and `train()` functions. For a new type of off-chip predictor, please call the initialization function in `src/offchip_pred.cc`.
+- The off-chip predictor `predict()` function is called at `src/ooo_cpu.cc:1354`, when an LQ entry gets created. The `train()` function is called at `src/ooo_cpu.cc:2281` when an LQ entry gets released.
+- Please note that, in out-of-the-box Hermes configuration, _only_ the memory request that goes out of the LLC is marked as off-chip. If a memory request gets merged on another memory request that has already went out to off-chip, the waiting memory request will *NOT* be marked as off-chip. This property can be toggled by setting `offchip_pred_mark_merged_load=true`.
+- Hermes issues the speculative load requests directly to the main memory controller using the function `issue_ddrp_request()`. This function is only called *after* the translation has been done.
+
+## Citation
+If you use this framework, please cite the following paper:
 ```
-git clone https://github.com/ChampSim/ChampSim.git
+@inproceedings{bera2022,
+  author = {Bera, Rahul and Kanellopoulos, Konstantinos and Balachandran, Shankar and Novo, David and Olgun, Ataberk and Sadrosadati, Mohammad and Mutlu, Onur},
+  title = {{Hermes: Accelerating Long-Latency Load Requests via Perceptron-Based Off-Chip Load Prediction}},
+  booktitle = {Proceedings of the 55th Annual IEEE/ACM International Symposium on Microarchitecture},
+  year = {2022}
+}
 ```
 
-# Compile
+## License
 
-ChampSim takes five parameters: Branch predictor, L1D prefetcher, L2C prefetcher, LLC replacement policy, and the number of cores. 
-For example, `./build_champsim.sh bimodal no no lru 1` builds a single-core processor with bimodal branch predictor, no L1/L2 data prefetchers, and the baseline LRU replacement policy for the LLC.
-```
-$ ./build_champsim.sh bimodal no no no no lru 1
+Distributed under the MIT License. See `LICENSE` for more information.
 
-$ ./build_champsim.sh ${BRANCH} ${L1I_PREFETCHER} ${L1D_PREFETCHER} ${L2C_PREFETCHER} ${LLC_PREFETCHER} ${LLC_REPLACEMENT} ${NUM_CORE}
-```
+## Contact
 
-# Download DPC-3 trace
+Rahul Bera - write2bera@gmail.com
 
-Professor Daniel Jimenez at Texas A&M University kindly provided traces for DPC-3. Use the following script to download these traces (~20GB size and max simpoint only).
-```
-$ cd scripts
-
-$ ./download_dpc3_traces.sh
-```
-
-# Run simulation
-
-Execute `run_champsim.sh` with proper input arguments. The default `TRACE_DIR` in `run_champsim.sh` is set to `$PWD/dpc3_traces`. <br>
-
-* Single-core simulation: Run simulation with `run_champsim.sh` script.
-
-```
-Usage: ./run_champsim.sh [BINARY] [N_WARM] [N_SIM] [TRACE] [OPTION]
-$ ./run_champsim.sh bimodal-no-no-no-no-lru-1core 1 10 400.perlbench-41B.champsimtrace.xz
-
-${BINARY}: ChampSim binary compiled by "build_champsim.sh" (bimodal-no-no-lru-1core)
-${N_WARM}: number of instructions for warmup (1 million)
-${N_SIM}:  number of instructinos for detailed simulation (10 million)
-${TRACE}: trace name (400.perlbench-41B.champsimtrace.xz)
-${OPTION}: extra option for "-low_bandwidth" (src/main.cc)
-```
-Simulation results will be stored under "results_${N_SIM}M" as a form of "${TRACE}-${BINARY}-${OPTION}.txt".<br> 
-
-* Multi-core simulation: Run simulation with `run_4core.sh` script. <br>
-```
-Usage: ./run_4core.sh [BINARY] [N_WARM] [N_SIM] [N_MIX] [TRACE0] [TRACE1] [TRACE2] [TRACE3] [OPTION]
-$ ./run_4core.sh bimodal-no-no-no-lru-4core 1 10 0 400.perlbench-41B.champsimtrace.xz \\
-  401.bzip2-38B.champsimtrace.xz 403.gcc-17B.champsimtrace.xz 410.bwaves-945B.champsimtrace.xz
-```
-Note that we need to specify multiple trace files for `run_4core.sh`. `N_MIX` is used to represent a unique ID for mixed multi-programmed workloads. 
-
-
-# Add your own branch predictor, data prefetchers, and replacement policy
-**Copy an empty template**
-```
-$ cp branch/branch_predictor.cc branch/mybranch.bpred
-$ cp prefetcher/l1d_prefetcher.cc prefetcher/mypref.l1d_pref
-$ cp prefetcher/l2c_prefetcher.cc prefetcher/mypref.l2c_pref
-$ cp prefetcher/llc_prefetcher.cc prefetcher/mypref.llc_pref
-$ cp replacement/llc_replacement.cc replacement/myrepl.llc_repl
-```
-
-**Work on your algorithms with your favorite text editor**
-```
-$ vim branch/mybranch.bpred
-$ vim prefetcher/mypref.l1d_pref
-$ vim prefetcher/mypref.l2c_pref
-$ vim prefetcher/mypref.llc_pref
-$ vim replacement/myrepl.llc_repl
-```
-
-**Compile and test**
-```
-$ ./build_champsim.sh mybranch mypref mypref mypref myrepl 1
-$ ./run_champsim.sh mybranch-mypref-mypref-mypref-myrepl-1core 1 10 bzip2_183B
-```
-
-# How to create traces
-
-We have included only 4 sample traces, taken from SPEC CPU 2006. These 
-traces are short (10 million instructions), and do not necessarily cover the range of behaviors your 
-replacement algorithm will likely see in the full competition trace list (not
-included).  We STRONGLY recommend creating your own traces, covering
-a wide variety of program types and behaviors.
-
-The included Pin Tool champsim_tracer.cpp can be used to generate new traces.
-We used Pin 3.2 (pin-3.2-81205-gcc-linux), and it may require 
-installing libdwarf.so, libelf.so, or other libraries, if you do not already 
-have them. Please refer to the Pin documentation (https://software.intel.com/sites/landingpage/pintool/docs/81205/Pin/html/)
-for working with Pin 3.2.
-
-Get this version of Pin:
-```
-wget http://software.intel.com/sites/landingpage/pintool/downloads/pin-3.2-81205-gcc-linux.tar.gz
-```
-
-**Note on compatibility**: If you are using newer linux kernels/Ubuntu versions (eg. 20.04LTS), you might run into issues (such as [[1](https://github.com/ChampSim/ChampSim/issues/102)],[[2](https://stackoverflow.com/questions/55698095/intel-pin-tools-32-bit-processsectionheaders-560-assertion-failed)],[[3](https://stackoverflow.com/questions/43589174/pin-tool-segmentation-fault-for-ubuntu-17-04)]) with the PIN3.2. ChampSim tracer works fine with newer PIN tool versions that can be downloaded from [here](https://software.intel.com/content/www/us/en/develop/articles/pin-a-binary-instrumentation-tool-downloads.html). PIN3.17 is [confirmed](https://github.com/ChampSim/ChampSim/issues/102) to work with Ubuntu 20.04.1 LTS.
-
-Once downloaded, open tracer/make_tracer.sh and change PIN_ROOT to Pin's location.
-Run ./make_tracer.sh to generate champsim_tracer.so.
-
-**Use the Pin tool like this**
-```
-pin -t obj-intel64/champsim_tracer.so -- <your program here>
-```
-
-The tracer has three options you can set:
-```
--o
-Specify the output file for your trace.
-The default is default_trace.champsim
-
--s <number>
-Specify the number of instructions to skip in the program before tracing begins.
-The default value is 0.
-
--t <number>
-The number of instructions to trace, after -s instructions have been skipped.
-The default value is 1,000,000.
-```
-For example, you could trace 200,000 instructions of the program ls, after
-skipping the first 100,000 instructions, with this command:
-```
-pin -t obj/champsim_tracer.so -o traces/ls_trace.champsim -s 100000 -t 200000 -- ls
-```
-Traces created with the champsim_tracer.so are approximately 64 bytes per instruction,
-but they generally compress down to less than a byte per instruction using xz compression.
-
-# Evaluate Simulation
-
-ChampSim measures the IPC (Instruction Per Cycle) value as a performance metric. <br>
-There are some other useful metrics printed out at the end of simulation. <br>
-
-Good luck and be a champion! <br>
+## Acknowledgements
+We acklowledge support from SAFARI Research Group's industrial partners.

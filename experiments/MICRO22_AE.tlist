@@ -183,135 +183,135 @@ TRACE=$(HERMES_HOME)/traces/ligra_Radii.com-lj.ungraph.gcc_6.3.0_O3.drop_36000M.
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
 
 NAME=secret_compute_fp_101
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_fp/compute_fp_101.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_fp_101.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_fp_111
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_fp/compute_fp_111.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_fp_111.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_fp_116
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_fp/compute_fp_116.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_fp_116.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_fp_14
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_fp/compute_fp_14.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_fp_14.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_fp_44
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_fp/compute_fp_44.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_fp_44.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_fp_51
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_fp/compute_fp_51.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_fp_51.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_fp_59
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_fp/compute_fp_59.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_fp_59.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_fp_94
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_fp/compute_fp_94.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_fp_94.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_fp_96
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_fp/compute_fp_96.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_fp_96.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_105
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_105.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_105.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_249
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_249.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_249.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_24
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_24.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_24.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_264
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_264.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_264.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_272
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_272.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_272.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_273
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_273.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_273.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_454
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_454.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_454.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_479
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_479.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_479.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_513
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_513.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_513.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_539
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_539.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_539.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_568
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_568.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_568.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_617
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_617.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_617.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_691
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_691.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_691.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_719
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_719.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_719.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_72
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_72.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_72.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_756
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_756.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_756.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_770
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_770.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_770.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_780
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_780.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_780.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_782
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_782.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_782.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_878
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_878.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_878.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_879
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_879.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_879.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_943
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_943.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_943.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_952
-TRACE=$(HERMES_HOME)/traces/secrect_converted/compute_int/compute_int_952.champsim.gz
+TRACE=$(HERMES_HOME)/traces/compute_int_952.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_srv612
-TRACE=$(HERMES_HOME)/traces/secrect_converted/srv_part2/srv612.champsim.gz
+TRACE=$(HERMES_HOME)/traces/srv612.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=410.bwaves-1963B
