@@ -1,8 +1,8 @@
 <p align="center">
   <a href="https://github.com/CMU-SAFARI/Hermes">
-    <img src="logo.png" alt="Logo" width="424.8" height="120">
+    <img src="logo.png" alt="Logo" width="564" height="180">
   </a>
-  <h3 align="center">A Customizable Hardware Prefetching Framework Using Online Reinforcement Learning
+  <h3 align="center">Accelerating Long-Latency Load Requests via Perceptron-Based Off-Chip Load Prediction
   </h3>
 </p>
 
