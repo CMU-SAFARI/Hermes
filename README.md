@@ -1,7 +1,9 @@
 <p align="center">
-  <a href="https://github.com/CMU-SAFARI/Hermes">
-    <img src="logo.png" alt="Logo" width="564" height="180">
-  </a>
+  <picture>
+  	<source media="(prefers-color-scheme: dark)" srcset="logo/Light.png">
+  	<source media="(prefers-color-scheme: light)" srcset="logo/Dark.png">
+  <img alt="Shows an illustrated sun in light color mode and a moon with stars in dark color mode." src="logo/Dark.png" width="400">
+</picture>
   <h3 align="center">Accelerating Long-Latency Load Requests via Perceptron-Based Off-Chip Load Prediction
   </h3>
 </p>
