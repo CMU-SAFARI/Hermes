@@ -2,7 +2,7 @@
   <picture>
   	<source media="(prefers-color-scheme: dark)" srcset="logo/Light.png">
   	<source media="(prefers-color-scheme: light)" srcset="logo/Dark.png">
-  <img alt="Shows an illustrated sun in light color mode and a moon with stars in dark color mode." src="logo/Dark.png" width="400">
+  <img alt="hermes-logo" src="logo/Dark.png" width="400">
 </picture>
   <h3 align="center">Accelerating Long-Latency Load Requests via Perceptron-Based Off-Chip Load Prediction
   </h3>
@@ -17,10 +17,6 @@
     </a>
     <a href="https://doi.org/10.5281/zenodo.5520125"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.5520125.svg" alt="DOI"></a>
 </p>
-
-<!-- ## Update
-### Aug 13th, 2021
-It has been brought to our attention that the Ligra and PARSEC-2.1 traces required to evaluate the artifact are not correctly getting downloaded using the `download_traces.pl` script. For now, we ask the reader to download **all** Ligra and PARSEC-2.1 traces (~10 GB) by (1) clicking on the mega link (see [Section 5](https://github.com/CMU-SAFARI/Hermes#more-traces)), and (2) clicking on "Download as ZIP" option. We are working with megatools developer to resolve the issue soon.  -->
 
 <details open="open">
   <summary>Table of Contents</summary>
@@ -37,6 +33,7 @@ It has been brought to our attention that the Ligra and PARSEC-2.1 traces requir
       </ul>
     </li>
     <li><a href="#brief-code-walkthrough">Brief Code Walkthrough</a></li>
+    <li><a href="#frequently-asked-questions">Frequently Asked Questions</a></li>
     <li><a href="#citation">Citation</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -197,6 +194,20 @@ Our experimental workflow consists of two stages: (1) launching experiments, and
 - The off-chip predictor `predict()` function is called at `src/ooo_cpu.cc:1354`, when an LQ entry gets created. The `train()` function is called at `src/ooo_cpu.cc:2281` when an LQ entry gets released.
 - Please note that, in out-of-the-box Hermes configuration, _only_ the memory request that goes out of the LLC is marked as off-chip. If a memory request gets merged on another memory request that has already went out to off-chip, the waiting memory request will *NOT* be marked as off-chip. This property can be toggled by setting `offchip_pred_mark_merged_load=true`.
 - Hermes issues the speculative load requests directly to the main memory controller using the function `issue_ddrp_request()`. This function is only called *after* the translation has been done.
+
+## Frequently Asked Questions
+
+**1. How much memory and timeout should I allocate for each job?**
+
+    While most of the experiments to reproduce MICRO'22 key results finish within 4 hours in our Intel(R) Xeon(R) Gold 5118 CPU @ 2.30GHz, some experiments might take considerably higher time to finish (e.g., different experiments with different prefetchers). We suggest to put 12 hours as the timeout and 4 GB as maximum memory required per job.
+
+**2. Some slurm job failed with the error: *"STEPD TERMINATED DUE TO JOB NOT ENDING WITH SIGNALS"*. What to do?**
+
+    This is likely stemming from the slurm scheduler. Please rerun the job either in slurm or in local machine.
+
+**3. Some experiments are not correctly ending. They show the output: _"Reached end of trace for Core: 0 Repeating trace"_... and the error log says _"/usr/bin/xz: Argument list too long_". What to do?**
+    
+    We have encountered this problem sometime while running jobs in slurm. Please check the xz version in the local machine and rerun the job locally. 
 
 ## Citation
 If you use this framework, please cite the following paper:
