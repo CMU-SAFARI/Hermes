@@ -22,36 +22,43 @@ This README contains documentation of additional scripts present in this directo
 * `tlist`: Contains trace definitions
 * `exp`: Contains knobs of the experiements to run
 
-Some sample `tilst`, and `exp` can be found in `$PYTHIA_HOME/experiments` directory.
+Some sample `tilst`, and `exp` can be found in `$HERMES_HOME/experiments` directory.
 
 The additional arguments of the scripts are:
 
 | Argument | Description | Default |
 | -------- | ----------- | --------------|
 | `local` | Set to 0 (or 1) to generate commandlines to run in slurm cluster (or in local machine). | 0 |
+| `ncores` | Number of cores requested by each slurm job to slurm controller. Typically set to 1, as ChampSim is inherently a single-threaded simulator. | 1 |
 | `partition` | Default slurm partition name. | `slurm_part` |
-| `ncores` | Number of cores requested by each slurm job to slurm controller. Typically set to 1, as ChampSim is inherently a single-core simulator. | 1 |
-| `include_list` | IDs of only those cluster nodes that will be used to launch runs. Setting NULL will include all nodes by default. The default node hostname is set to `kratos`. | NULL |
-| `exclude_list` | IDs of the cluster nodes to exclude from lauching runs. The default node hostname is set to `kratos`. | NULL |
+| `hostname`  | Default slurm machine hostname. | `kratos` | 
+| `include_list` | IDs of only those cluster nodes that will be used to launch runs. Setting NULL will include all nodes by default. Note: `hostname` needs to be defined to use this argument. | NULL |
+| `exclude_list` | IDs of the cluster nodes to exclude from lauching runs. Note: `hostname` needs to be defined to use this argument. | NULL |
 | `extra` | Any extra configuration knobs to supply to slurm scheduler. | NULL |
 
 Some example usage of the scripts are as follows:
 
-1. Generate jobs for local machine
+1. Generate jobs for local machine:
    
     ```bash
-    perl ../scripts/create_jobfile.pl --exe $PYTHIA_HOME/bin/perceptron-multi-multi-no-ship-1core --tlist MICRO21_1C.tlist --exp MICRO21_1C.exp --local 1 > jobfile.sh
-    ```
-2. Generate jobs to run on all machines in slurm cluster parition named "develop", but excluding machines `kratos2` and `kratos4`
-   
-    ```bash
-    perl ../scripts/create_jobfile.pl --exe $PYTHIA_HOME/bin/perceptron-multi-multi-no-ship-1core --tlist MICRO21_1C.tlist --exp MICRO21_1C.exp --local 0 --partition develop --exclude_list "2,4" > jobfile.sh
+    perl $HERMES_HOME/scripts/create_jobfile.pl --exe $HERMES_HOME/bin/glc-perceptron-no-multi-multi-multi-multi-1core-1ch --tlist MICRO22_AE.tlist --exp MICRO22_AE.exp --local 1 > jobfile.sh
     ```
 
-3. Generate jobs to run on all machines in slurm cluster parition named "develop" with less priority
+2. Generate jobs that run on all machines in a slurm parition named "production" with a minimum 4 GB allocated memory in each CPU and a timeout of 12 hours:
+    ```bash
+    perl $HERMES_HOME/scripts/create_jobfile.pl --exe $HERMES_HOME/bin/glc-perceptron-no-multi-multi-multi-multi-1core-1ch --tlist MICRO22_AE.tlist --exp MICRO22_AE.exp --local 0 --partition production --extra "--max-mem-cpu=4096 --time=0-12:00:00" > jobfile.sh
+    ```
+
+3. Generate jobs that run on all machines in a slurm parition named "develop", but excluding machines `kratos2` and `kratos4`:
    
     ```bash
-    perl ../scripts/create_jobfile.pl --exe $PYTHIA_HOME/bin/perceptron-multi-multi-no-ship-1core --tlist MICRO21_1C.tlist --exp MICRO21_1C.exp --local 0 --partition develop --extra "--nice=200" > jobfile.sh
+    perl $HERMES_HOME/scripts/create_jobfile.pl --exe $HERMES_HOME/bin/glc-perceptron-no-multi-multi-multi-multi-1core-1ch --tlist MICRO22_AE.tlist --exp MICRO22_AE.exp --local 0 --partition develop --exclude_list "2,4" > jobfile.sh
+    ```
+
+4. Generate jobs that run on all machines in a slurm cluster parition named "develop" with less priority:
+   
+    ```bash
+    perl $HERMES_HOME/scripts/create_jobfile.pl --exe $HERMES_HOME/bin/glc-perceptron-no-multi-multi-multi-multi-1core-1ch --tlist MICRO22_AE.tlist --exp MICRO22_AE.exp --local 0 --partition develop --extra "--nice=200" > jobfile.sh
     ```
 
 ## Rollup Stats Script
@@ -65,7 +72,7 @@ For each trace and each experiment, the script populates a `filter` column. The 
 * `exp`: Contains knobs of the experiements to run
 * `mfile`: Specifies stat names and reduction method to rollup
 
-Some sample `tilst`, `exp`, and `mfile` can be found in `$PYTHIA_HOME/experiments` directory.
+Some sample `tilst`, `exp`, and `mfile` can be found in `$HERMES_HOME/experiments` directory.
 
 The additional arguments of the scripts are:
 | Argument | Description | Default |
@@ -76,6 +83,6 @@ Some example usages are:
 1. Rollup from `.out` stat files:
    
     ```bash
-      cd experiements_1C/
-      perl ../../scripts/rollup.pl --tlist ../MICRO21_1C.tlist --exp ../MICRO21_1C.exp --mfile ../rollup_1C_base_config.mfile --ext "out" > rollup.csv
+      cd $HERMES_HOME/experiments/outputs/
+      perl $HERMES_HOME/scripts/rollup.pl --tlist ../MICRO22_AE.tlist --exp ../rollup_perf_hermes.exp --mfile ../rollup_perf.mfile --ext "out" > rollup.csv
     ``` 
