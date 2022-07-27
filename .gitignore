@@ -12,10 +12,13 @@ inc/defs.h.bak
 extras/
 libbf/
 
+traces/*.xz
+traces/*.gz
+
 bin/
 obj/
 .vscode/
-traces/
+
 tools/gen_fwd_reuse
 tools/optcache_driver
 tracer/obj-intel64/

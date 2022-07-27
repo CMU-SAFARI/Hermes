@@ -2,8 +2,20 @@ NAME=403.gcc-16B
 TRACE=$(HERMES_HOME)/traces/403.gcc-16B.champsimtrace.xz
 KNOBS=
 
+NAME=410.bwaves-1963B
+TRACE=$(HERMES_HOME)/traces/410.bwaves-1963B.champsimtrace.xz
+KNOBS=
+
+NAME=410.bwaves-2097B
+TRACE=$(HERMES_HOME)/traces/410.bwaves-2097B.champsimtrace.xz
+KNOBS=
+
 NAME=429.mcf-184B
 TRACE=$(HERMES_HOME)/traces/429.mcf-184B.champsimtrace.xz
+KNOBS=
+
+NAME=429.mcf-217B
+TRACE=$(HERMES_HOME)/traces/429.mcf-217B.champsimtrace.xz
 KNOBS=
 
 NAME=429.mcf-22B
@@ -14,8 +26,16 @@ NAME=429.mcf-51B
 TRACE=$(HERMES_HOME)/traces/429.mcf-51B.champsimtrace.xz
 KNOBS=
 
+NAME=433.milc-127B
+TRACE=$(HERMES_HOME)/traces/433.milc-127B.champsimtrace.xz
+KNOBS=
+
 NAME=433.milc-274B
 TRACE=$(HERMES_HOME)/traces/433.milc-274B.champsimtrace.xz
+KNOBS=
+
+NAME=437.leslie3d-134B
+TRACE=$(HERMES_HOME)/traces/437.leslie3d-134B.champsimtrace.xz
 KNOBS=
 
 NAME=450.soplex-247B
@@ -30,6 +50,18 @@ NAME=459.GemsFDTD-1211B
 TRACE=$(HERMES_HOME)/traces/459.GemsFDTD-1211B.champsimtrace.xz
 KNOBS=
 
+NAME=459.GemsFDTD-1491B
+TRACE=$(HERMES_HOME)/traces/459.GemsFDTD-1491B.champsimtrace.xz
+KNOBS=
+
+NAME=462.libquantum-714B
+TRACE=$(HERMES_HOME)/traces/462.libquantum-714B.champsimtrace.xz
+KNOBS=
+
+NAME=470.lbm-1274B
+TRACE=$(HERMES_HOME)/traces/470.lbm-1274B.champsimtrace.xz
+KNOBS=
+
 NAME=471.omnetpp-188B
 TRACE=$(HERMES_HOME)/traces/471.omnetpp-188B.champsimtrace.xz
 KNOBS=
@@ -42,8 +74,28 @@ NAME=481.wrf-455B
 TRACE=$(HERMES_HOME)/traces/481.wrf-455B.champsimtrace.xz
 KNOBS=
 
+NAME=482.sphinx3-234B
+TRACE=$(HERMES_HOME)/traces/482.sphinx3-234B.champsimtrace.xz
+KNOBS=
+
+NAME=482.sphinx3-417B
+TRACE=$(HERMES_HOME)/traces/482.sphinx3-417B.champsimtrace.xz
+KNOBS=
+
 NAME=483.xalancbmk-127B
 TRACE=$(HERMES_HOME)/traces/483.xalancbmk-127B.champsimtrace.xz
+KNOBS=
+
+NAME=602.gcc_s-1850B
+TRACE=$(HERMES_HOME)/traces/602.gcc_s-1850B.champsimtrace.xz
+KNOBS=
+
+NAME=602.gcc_s-2226B
+TRACE=$(HERMES_HOME)/traces/602.gcc_s-2226B.champsimtrace.xz
+KNOBS=
+
+NAME=602.gcc_s-734B
+TRACE=$(HERMES_HOME)/traces/602.gcc_s-734B.champsimtrace.xz
 KNOBS=
 
 NAME=603.bwaves_s-1740B
@@ -62,8 +114,16 @@ NAME=605.mcf_s-1152B
 TRACE=$(HERMES_HOME)/traces/605.mcf_s-1152B.champsimtrace.xz
 KNOBS=
 
+NAME=605.mcf_s-1536B
+TRACE=$(HERMES_HOME)/traces/605.mcf_s-1536B.champsimtrace.xz
+KNOBS=
+
 NAME=605.mcf_s-472B
 TRACE=$(HERMES_HOME)/traces/605.mcf_s-472B.champsimtrace.xz
+KNOBS=
+
+NAME=605.mcf_s-484B
+TRACE=$(HERMES_HOME)/traces/605.mcf_s-484B.champsimtrace.xz
 KNOBS=
 
 NAME=605.mcf_s-782B
@@ -76,6 +136,14 @@ KNOBS=
 
 NAME=607.cactuBSSN_s-2421B
 TRACE=$(HERMES_HOME)/traces/607.cactuBSSN_s-2421B.champsimtrace.xz
+KNOBS=
+
+NAME=619.lbm_s-2676B
+TRACE=$(HERMES_HOME)/traces/619.lbm_s-2676B.champsimtrace.xz
+KNOBS=
+
+NAME=619.lbm_s-4268B
+TRACE=$(HERMES_HOME)/traces/619.lbm_s-4268B.champsimtrace.xz
 KNOBS=
 
 NAME=620.omnetpp_s-141B
@@ -98,6 +166,10 @@ NAME=627.cam4_s-490B
 TRACE=$(HERMES_HOME)/traces/627.cam4_s-490B.champsimtrace.xz
 KNOBS=
 
+NAME=649.fotonik3d_s-8225B
+TRACE=$(HERMES_HOME)/traces/649.fotonik3d_s-8225B.champsimtrace.xz
+KNOBS=
+
 NAME=654.roms_s-1390B
 TRACE=$(HERMES_HOME)/traces/654.roms_s-1390B.champsimtrace.xz
 KNOBS=
@@ -105,6 +177,86 @@ KNOBS=
 NAME=654.roms_s-523B
 TRACE=$(HERMES_HOME)/traces/654.roms_s-523B.champsimtrace.xz
 KNOBS=
+
+NAME=ligra_BC.com-lj.ungraph.gcc_6.3.0_O3.drop_15750M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_BC.com-lj.ungraph.gcc_6.3.0_O3.drop_15750M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_BC.com-lj.ungraph.gcc_6.3.0_O3.drop_26750M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_BC.com-lj.ungraph.gcc_6.3.0_O3.drop_26750M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_BellmanFord.com-lj.ungraph.gcc_6.3.0_O3.drop_33750M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_BellmanFord.com-lj.ungraph.gcc_6.3.0_O3.drop_33750M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_BFS.com-lj.ungraph.gcc_6.3.0_O3.drop_20250M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_BFS.com-lj.ungraph.gcc_6.3.0_O3.drop_20250M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_BFSCC.com-lj.ungraph.gcc_6.3.0_O3.drop_18750M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_BFSCC.com-lj.ungraph.gcc_6.3.0_O3.drop_18750M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_CF.com-lj.ungraph.gcc_6.3.0_O3.drop_184750M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_CF.com-lj.ungraph.gcc_6.3.0_O3.drop_184750M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_Components-Shortcut.com-lj.ungraph.gcc_6.3.0_O3.drop_21000M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_Components-Shortcut.com-lj.ungraph.gcc_6.3.0_O3.drop_21000M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_Components-Shortcut.com-lj.ungraph.gcc_6.3.0_O3.drop_22000M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_Components-Shortcut.com-lj.ungraph.gcc_6.3.0_O3.drop_22000M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_Components.com-lj.ungraph.gcc_6.3.0_O3.drop_15750M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_Components.com-lj.ungraph.gcc_6.3.0_O3.drop_15750M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_Components.com-lj.ungraph.gcc_6.3.0_O3.drop_22750M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_Components.com-lj.ungraph.gcc_6.3.0_O3.drop_22750M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_MIS.com-lj.ungraph.gcc_6.3.0_O3.drop_21250M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_MIS.com-lj.ungraph.gcc_6.3.0_O3.drop_21250M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_PageRank.com-lj.ungraph.gcc_6.3.0_O3.drop_60750M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_PageRank.com-lj.ungraph.gcc_6.3.0_O3.drop_60750M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_PageRank.com-lj.ungraph.gcc_6.3.0_O3.drop_79500M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_PageRank.com-lj.ungraph.gcc_6.3.0_O3.drop_79500M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_PageRankDelta.com-lj.ungraph.gcc_6.3.0_O3.drop_52000M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_PageRankDelta.com-lj.ungraph.gcc_6.3.0_O3.drop_52000M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_PageRankDelta.com-lj.ungraph.gcc_6.3.0_O3.drop_56500M.length_208M
+TRACE=$(HERMES_HOME)/traces/ligra_PageRankDelta.com-lj.ungraph.gcc_6.3.0_O3.drop_56500M.length_208M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_Radii.com-lj.ungraph.gcc_6.3.0_O3.drop_25000M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_Radii.com-lj.ungraph.gcc_6.3.0_O3.drop_25000M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_Radii.com-lj.ungraph.gcc_6.3.0_O3.drop_32000M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_Radii.com-lj.ungraph.gcc_6.3.0_O3.drop_32000M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_Radii.com-lj.ungraph.gcc_6.3.0_O3.drop_36000M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_Radii.com-lj.ungraph.gcc_6.3.0_O3.drop_36000M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_Triangle.com-lj.ungraph.gcc_6.3.0_O3.drop_25000M.length_250M
+TRACE=$(HERMES_HOME)/traces/ligra_Triangle.com-lj.ungraph.gcc_6.3.0_O3.drop_25000M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
+NAME=ligra_Triangle.com-lj.ungraph.gcc_6.3.0_O3.drop_25250M.length_8M
+TRACE=$(HERMES_HOME)/traces/ligra_Triangle.com-lj.ungraph.gcc_6.3.0_O3.drop_25250M.length_8M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
 
 NAME=parsec_2.1.canneal.simlarge.prebuilt.drop_1250M.length_250M
 TRACE=$(HERMES_HOME)/traces/parsec_2.1.canneal.simlarge.prebuilt.drop_1250M.length_250M.champsimtrace.xz
@@ -130,6 +282,10 @@ NAME=parsec_2.1.canneal.simlarge.prebuilt.drop_500M.length_250M
 TRACE=$(HERMES_HOME)/traces/parsec_2.1.canneal.simlarge.prebuilt.drop_500M.length_250M.champsimtrace.xz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
 
+NAME=parsec_2.1.fluidanimate.simlarge.prebuilt.drop_9500M.length_250M
+TRACE=$(HERMES_HOME)/traces/parsec_2.1.fluidanimate.simlarge.prebuilt.drop_9500M.length_250M.champsimtrace.xz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
+
 NAME=parsec_2.1.raytrace.simlarge.prebuilt.drop_25500M.length_250M
 TRACE=$(HERMES_HOME)/traces/parsec_2.1.raytrace.simlarge.prebuilt.drop_25500M.length_250M.champsimtrace.xz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
@@ -148,38 +304,6 @@ KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
 
 NAME=parsec_2.1.streamcluster.simlarge.prebuilt.drop_6250M.length_250M
 TRACE=$(HERMES_HOME)/traces/parsec_2.1.streamcluster.simlarge.prebuilt.drop_6250M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_BC.com-lj.ungraph.gcc_6.3.0_O3.drop_26750M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_BC.com-lj.ungraph.gcc_6.3.0_O3.drop_26750M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_BellmanFord.com-lj.ungraph.gcc_6.3.0_O3.drop_33750M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_BellmanFord.com-lj.ungraph.gcc_6.3.0_O3.drop_33750M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_Components.com-lj.ungraph.gcc_6.3.0_O3.drop_22750M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_Components.com-lj.ungraph.gcc_6.3.0_O3.drop_22750M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_Components-Shortcut.com-lj.ungraph.gcc_6.3.0_O3.drop_22000M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_Components-Shortcut.com-lj.ungraph.gcc_6.3.0_O3.drop_22000M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_PageRank.com-lj.ungraph.gcc_6.3.0_O3.drop_60750M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_PageRank.com-lj.ungraph.gcc_6.3.0_O3.drop_60750M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_Radii.com-lj.ungraph.gcc_6.3.0_O3.drop_25000M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_Radii.com-lj.ungraph.gcc_6.3.0_O3.drop_25000M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_Radii.com-lj.ungraph.gcc_6.3.0_O3.drop_32000M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_Radii.com-lj.ungraph.gcc_6.3.0_O3.drop_32000M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_Radii.com-lj.ungraph.gcc_6.3.0_O3.drop_36000M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_Radii.com-lj.ungraph.gcc_6.3.0_O3.drop_36000M.length_250M.champsimtrace.xz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
 
 NAME=secret_compute_fp_101
@@ -222,12 +346,12 @@ NAME=secret_compute_int_105
 TRACE=$(HERMES_HOME)/traces/compute_int_105.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
-NAME=secret_compute_int_249
-TRACE=$(HERMES_HOME)/traces/compute_int_249.champsim.gz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
-
 NAME=secret_compute_int_24
 TRACE=$(HERMES_HOME)/traces/compute_int_24.champsim.gz
+KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
+
+NAME=secret_compute_int_249
+TRACE=$(HERMES_HOME)/traces/compute_int_249.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 
 NAME=secret_compute_int_264
@@ -313,127 +437,3 @@ KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
 NAME=secret_srv612
 TRACE=$(HERMES_HOME)/traces/srv612.champsim.gz
 KNOBS=--warmup_instructions=100000000 --simulation_instructions=300000000
-
-NAME=410.bwaves-1963B
-TRACE=$(HERMES_HOME)/traces/410.bwaves-1963B.champsimtrace.xz
-KNOBS=
-
-NAME=410.bwaves-2097B
-TRACE=$(HERMES_HOME)/traces/410.bwaves-2097B.champsimtrace.xz
-KNOBS=
-
-NAME=429.mcf-217B
-TRACE=$(HERMES_HOME)/traces/429.mcf-217B.champsimtrace.xz
-KNOBS=
-
-NAME=433.milc-127B
-TRACE=$(HERMES_HOME)/traces/433.milc-127B.champsimtrace.xz
-KNOBS=
-
-NAME=437.leslie3d-134B
-TRACE=$(HERMES_HOME)/traces/437.leslie3d-134B.champsimtrace.xz
-KNOBS=
-
-NAME=459.GemsFDTD-1491B
-TRACE=$(HERMES_HOME)/traces/459.GemsFDTD-1491B.champsimtrace.xz
-KNOBS=
-
-NAME=462.libquantum-714B
-TRACE=$(HERMES_HOME)/traces/462.libquantum-714B.champsimtrace.xz
-KNOBS=
-
-NAME=470.lbm-1274B
-TRACE=$(HERMES_HOME)/traces/470.lbm-1274B.champsimtrace.xz
-KNOBS=
-
-NAME=482.sphinx3-234B
-TRACE=$(HERMES_HOME)/traces/482.sphinx3-234B.champsimtrace.xz
-KNOBS=
-
-NAME=482.sphinx3-417B
-TRACE=$(HERMES_HOME)/traces/482.sphinx3-417B.champsimtrace.xz
-KNOBS=
-
-NAME=602.gcc_s-1850B
-TRACE=$(HERMES_HOME)/traces/602.gcc_s-1850B.champsimtrace.xz
-KNOBS=
-
-NAME=602.gcc_s-2226B
-TRACE=$(HERMES_HOME)/traces/602.gcc_s-2226B.champsimtrace.xz
-KNOBS=
-
-NAME=602.gcc_s-734B
-TRACE=$(HERMES_HOME)/traces/602.gcc_s-734B.champsimtrace.xz
-KNOBS=
-
-NAME=605.mcf_s-1536B
-TRACE=$(HERMES_HOME)/traces/605.mcf_s-1536B.champsimtrace.xz
-KNOBS=
-
-NAME=605.mcf_s-484B
-TRACE=$(HERMES_HOME)/traces/605.mcf_s-484B.champsimtrace.xz
-KNOBS=
-
-NAME=619.lbm_s-2676B
-TRACE=$(HERMES_HOME)/traces/619.lbm_s-2676B.champsimtrace.xz
-KNOBS=
-
-NAME=619.lbm_s-4268B
-TRACE=$(HERMES_HOME)/traces/619.lbm_s-4268B.champsimtrace.xz
-KNOBS=
-
-NAME=649.fotonik3d_s-8225B
-TRACE=$(HERMES_HOME)/traces/649.fotonik3d_s-8225B.champsimtrace.xz
-KNOBS=
-
-NAME=parsec_2.1.fluidanimate.simlarge.prebuilt.drop_9500M.length_250M
-TRACE=$(HERMES_HOME)/traces/parsec_2.1.fluidanimate.simlarge.prebuilt.drop_9500M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_BC.com-lj.ungraph.gcc_6.3.0_O3.drop_15750M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_BC.com-lj.ungraph.gcc_6.3.0_O3.drop_15750M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_BFSCC.com-lj.ungraph.gcc_6.3.0_O3.drop_18750M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_BFSCC.com-lj.ungraph.gcc_6.3.0_O3.drop_18750M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_BFS.com-lj.ungraph.gcc_6.3.0_O3.drop_20250M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_BFS.com-lj.ungraph.gcc_6.3.0_O3.drop_20250M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_CF.com-lj.ungraph.gcc_6.3.0_O3.drop_184750M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_CF.com-lj.ungraph.gcc_6.3.0_O3.drop_184750M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_Components.com-lj.ungraph.gcc_6.3.0_O3.drop_15750M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_Components.com-lj.ungraph.gcc_6.3.0_O3.drop_15750M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_Components-Shortcut.com-lj.ungraph.gcc_6.3.0_O3.drop_21000M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_Components-Shortcut.com-lj.ungraph.gcc_6.3.0_O3.drop_21000M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_MIS.com-lj.ungraph.gcc_6.3.0_O3.drop_21250M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_MIS.com-lj.ungraph.gcc_6.3.0_O3.drop_21250M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_PageRank.com-lj.ungraph.gcc_6.3.0_O3.drop_79500M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_PageRank.com-lj.ungraph.gcc_6.3.0_O3.drop_79500M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_PageRankDelta.com-lj.ungraph.gcc_6.3.0_O3.drop_52000M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_PageRankDelta.com-lj.ungraph.gcc_6.3.0_O3.drop_52000M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_PageRankDelta.com-lj.ungraph.gcc_6.3.0_O3.drop_56500M.length_208M
-TRACE=$(HERMES_HOME)/traces/ligra_PageRankDelta.com-lj.ungraph.gcc_6.3.0_O3.drop_56500M.length_208M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_Triangle.com-lj.ungraph.gcc_6.3.0_O3.drop_25000M.length_250M
-TRACE=$(HERMES_HOME)/traces/ligra_Triangle.com-lj.ungraph.gcc_6.3.0_O3.drop_25000M.length_250M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
-
-NAME=ligra_Triangle.com-lj.ungraph.gcc_6.3.0_O3.drop_25250M.length_8M
-TRACE=$(HERMES_HOME)/traces/ligra_Triangle.com-lj.ungraph.gcc_6.3.0_O3.drop_25250M.length_8M.champsimtrace.xz
-KNOBS=--warmup_instructions=100000000 --simulation_instructions=150000000
