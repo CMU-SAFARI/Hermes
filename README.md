@@ -137,7 +137,7 @@ The infrastructure has been tested with the following system configuration:
 Our experimental workflow consists of two stages: (1) launching experiments, and (2) rolling up statistics from experiment outputs.
 
 ### Launching Experiments
-1. To create necessary experiment commands in bulk, we will use `scripts/create_jobfile.pl` script. Please see `scripts/README.md` to get a detailed list of supported arguments and their intended use cases.
+1. To create necessary experiment commands in bulk, we will use `scripts/create_jobfile.pl` script. Please see [scripts/README](https://github.com/CMU-SAFARI/Hermes/blob/main/scripts/README.md) to get a detailed list of supported arguments and their intended use cases.
 2. `create_jobfile.pl` requires three necessary arguments:
       * `exe`: the full path of the executable to run
       * `tlist`: contains trace definitions
@@ -158,7 +158,7 @@ Our experimental workflow consists of two stages: (1) launching experiments, and
 5. If you have [slurm](https://slurm.schedmd.com) support to launch multiple jobs in a compute cluster, please provide `--local 0` to `create_jobfile.pl`
 
 ### Rolling-up Statistics
-1. To rollup stats in bulk, we will use `scripts/rollup.pl` script. Please see `scripts/README.md` to get a detailed list of supported arguments and their intended use cases.
+1. To rollup stats in bulk, we will use `scripts/rollup.pl` script. Please see [scripts/README](https://github.com/CMU-SAFARI/Hermes/blob/main/scripts/README.md) to get a detailed list of supported arguments and their intended use cases.
 2. `rollup.pl` requires three necessary arguments:
       * `tlist`
       * `exp`
