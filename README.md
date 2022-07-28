@@ -37,7 +37,7 @@
     <li><a href="#citation">Citation</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -45,11 +45,11 @@
 
 > Hermes is a speculative mechanism that accelerates long-latency off-chip load requests by removing on-chip cache access latency from their critical path. 
 
-The key idea behind Hermes is to: (1) accurately predict which load requests might go to off-chip, and (2) speculatively start fetching the data required by the predicted off-chip loads directly from the main memory in parallel to the cache accesses. Hermes proposes a lightweight, perceptron-based off-chip predictor that identifies off-chip load requests using multiple disparate program features. The predictor is implemented using only tables and simple arithmatic operations like increment and decrement.
+The key idea behind Hermes is to: (1) accurately predict which load requests might go to off-chip, and (2) speculatively start fetching the data required by the predicted off-chip loads directly from the main memory in parallel to the cache accesses. Hermes proposes a lightweight, perceptron-based off-chip predictor that identifies off-chip load requests using multiple disparate program features. The predictor is implemented using only tables and simple arithmetic operations like increment and decrement.
 
 ## About The Framework
 
-Hermes is modeled in [ChampSim simulator](https://github.com/ChampSim/ChampSim). This modified simulator version is largely similar to the one used by [Pythia](https://arxiv.org/pdf/2109.12021.pdf) [Bera+, MICRO'21], and fully-compatible with all publicly-available traces for ChampSim.
+Hermes is modeled in [ChampSim simulator](https://github.com/ChampSim/ChampSim). This modified simulator version is largely similar to the one used by [Pythia](https://arxiv.org/pdf/2109.12021.pdf) [Bera+, MICRO'21], and fully compatible with all publicly-available traces for ChampSim.
 
 ## Prerequisites
 
@@ -66,7 +66,7 @@ The infrastructure has been tested with the following system configuration:
 
 ## Installation
 
-0. Install necessary prequisites
+0. Install necessary prerequisites
     ```bash
     sudo apt install perl xz gzip
     ```
@@ -94,7 +94,7 @@ The infrastructure has been tested with the following system configuration:
     cmake ../
     make clean && make
     ```
-4. Build Hermes for single/multi core using build script. This should create the executable inside `bin` directory.
+4. Build Hermes the using build script as follows. This should create the executable inside `bin` directory.
    
    ```bash
    cd $HERMES_HOME
@@ -102,9 +102,9 @@ The infrastructure has been tested with the following system configuration:
    ./build_champsim.sh glc multi multi multi multi 1 1 0
    ```
 
-   Currently we support two core microarchitectures: 
-    * glc (modeled after [Intel Goldencove](https://www.anandtech.com/show/16881/a-deep-dive-into-intels-alder-lake-microarchitectures/3))
-    * firestorm (modelded after [Apple A14](https://www.anandtech.com/show/16226/apple-silicon-m1-a14-deep-dive/2))
+   Currently, we support two core microarchitectures: 
+    * [glc](https://github.com/CMU-SAFARI/Hermes/blob/main/inc/uarch/glc.h) (modeled after [Intel Goldencove](https://www.anandtech.com/show/16881/a-deep-dive-into-intels-alder-lake-microarchitectures/3))
+    * [firestorm](https://github.com/CMU-SAFARI/Hermes/blob/main/inc/uarch/firestorm.h) (modeled after [Apple A14](https://www.anandtech.com/show/16226/apple-silicon-m1-a14-deep-dive/2))
 
 ## Preparing Traces
 0. Install the megatools executable
@@ -114,9 +114,9 @@ The infrastructure has been tested with the following system configuration:
     wget --no-check-certificate https://megatools.megous.com/builds/builds/megatools-1.11.0.20220519-linux-x86_64.tar.gz
     tar -xvf megatools-1.11.0.20220519-linux-x86_64.tar.gz
     ```
-> Note: The megatools link might change in the future depending on latest release. Please recheck the link if the download fails.
+> Note: The megatools link might change in the future depending on the latest release. Please recheck the link if the download fails.
 
-1. Use the `download_traces.pl` perl script to download necessary ChampSim traces used in our paper.
+1. Use the `download_traces.pl` perl script to download the necessary ChampSim traces used in our paper.
 
     ```bash
     cd $HERMES_HOME/traces/
@@ -141,7 +141,7 @@ Our experimental workflow consists of two stages: (1) launching experiments, and
 2. `create_jobfile.pl` requires three necessary arguments:
       * `exe`: the full path of the executable to run
       * `tlist`: contains trace definitions
-      * `exp`: contains knobs of the experiements to run
+      * `exp`: contains knobs of the experiments to run
 3. Create experiments as follows. _Please make sure the paths used in tlist and exp files are appropriate_.
    
       ```bash
@@ -149,7 +149,7 @@ Our experimental workflow consists of two stages: (1) launching experiments, and
       perl $HERMES_HOME/scripts/create_jobfile.pl --exe $HERMES_HOME/bin/glc-perceptron-no-multi-multi-multi-multi-1core-1ch --tlist MICRO22_AE.tlist --exp MICRO22_AE.exp --local 1 > jobfile.sh
       ```
 
-4. Go to a run directory (or create one) inside `experiements` to launch runs in the following way:
+4. Go to a run directory (or create one) inside `experiments` to launch runs in the following way:
       ```bash
       cd $HERMES_HOME/experiments/outputs/
       source ../jobfile.sh
@@ -170,13 +170,13 @@ Our experimental workflow consists of two stages: (1) launching experiments, and
       perl ../../scripts/rollup.pl --tlist ../MICRO22_AE.tlist --exp ../rollup_perf_hermes.exp --mfile ../rollup_perf.mfile > rollup.csv
       ```
 
-4. Export the `rollup.csv` file in you favourite data processor (Python Pandas, Excel, Numbers, etc.) to gain insights.
+4. Export the `rollup.csv` file in your favorite data processor (Python Pandas, Excel, Numbers, etc.) to gain insights.
 
 ## Brief Code Walkthrough
-> Hermes was code-named DDRP (Direct DRAM Prefetch) during developement. So any mention of DDRP anywhere in the code inadvertently means Hermes.
+> Hermes was code-named DDRP (Direct DRAM Prefetch) during development. So any mention of DDRP anywhere in the code inadvertently means Hermes.
 
 - Off-chip prediction mechanism is implemented with an extensible interface in mind. The base off-chip predictor class is defined in `inc/offchip_pred_base.h`.
-- There are _nine_ implementations of off-chip predictor shipped out-of-the-box.
+- There are _nine_ implementations of off-chip predictor shipped out of the box.
 
   | Predictor type | Description |
   |----------------|-------------|
@@ -192,14 +192,14 @@ Our experimental workflow consists of two stages: (1) launching experiments, and
 
 - You can also quickly implement your own off-chip predictor just by extending `OffchipPredBase` class and implement your own `predict()` and `train()` functions. For a new type of off-chip predictor, please call the initialization function in `src/offchip_pred.cc`.
 - The off-chip predictor `predict()` function is called at `src/ooo_cpu.cc:1354`, when an LQ entry gets created. The `train()` function is called at `src/ooo_cpu.cc:2281` when an LQ entry gets released.
-- Please note that, in out-of-the-box Hermes configuration, _only_ the memory request that goes out of the LLC is marked as off-chip. If a memory request gets merged on another memory request that has already went out to off-chip, the waiting memory request will *NOT* be marked as off-chip. This property can be toggled by setting `offchip_pred_mark_merged_load=true`.
+- Please note that, in the out-of-the-box Hermes configuration, _only_ the memory request that goes out of the LLC is marked as off-chip. If a memory request gets merged on another memory request that has already gone out to off-chip, the waiting memory request will *NOT* be marked as off-chip. This property can be toggled by setting `offchip_pred_mark_merged_load=true`.
 - Hermes issues the speculative load requests directly to the main memory controller using the function `issue_ddrp_request()`. This function is only called *after* the translation has been done.
 
 ## Frequently Asked Questions
 
 **1. How much memory and timeout should I allocate for each job?**
 
-While most of the experiments to reproduce MICRO'22 key results finish within 4 hours in our Intel(R) Xeon(R) Gold 5118 CPU @ 2.30GHz, some experiments might take considerably higher time to finish (e.g., different experiments with different prefetchers). We suggest to put 12 hours as the timeout and 4 GB as maximum memory required per job.
+While most of the experiments to reproduce MICRO'22 key results finish within 4 hours in our Intel(R) Xeon(R) Gold 5118 CPU @ 2.30GHz, some experiments might take considerably higher time to finish (e.g., different experiments with different prefetchers). We suggest putting 12 hours as the timeout and 4 GB as the maximum memory required per job.
 
 **2. Some slurm job failed with the error: *"STEPD TERMINATED DUE TO JOB NOT ENDING WITH SIGNALS"*. What to do?**
 
@@ -207,7 +207,7 @@ This is likely stemming from the slurm scheduler. Please rerun the job either in
 
 **3. Some experiments are not correctly ending. They show the output: _"Reached end of trace for Core: 0 Repeating trace"_... and the error log says _"/usr/bin/xz: Argument list too long_". What to do?**
     
-We have encountered this problem sometime while running jobs in slurm. Please check the xz version in the local machine and rerun the job locally. 
+We have encountered this problem sometimes while running jobs in slurm. Please check the xz version in the local machine and rerun the job locally. 
 
 ## Citation
 If you use this framework, please cite the following paper:
@@ -228,5 +228,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Rahul Bera - write2bera@gmail.com
 
-## Acknowledgements
-We acklowledge support from SAFARI Research Group's industrial partners.
+## Acknowledgments
+We acknowledge support from SAFARI Research Group's industrial partners.
