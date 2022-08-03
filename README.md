@@ -80,20 +80,16 @@ The infrastructure has been tested with the following system configuration:
     cd Hermes/
     source setvars.sh
    ```
-3. Clone the bloomfilter library inside Hermes home directory
+3. Clone the bloomfilter library inside Hermes home directory and build. This should create the static `libbf.a` library inside `build` directory.
    
    ```bash
    cd $HERMES_HOME/
    git clone https://github.com/mavam/libbf.git libbf
+   cd libbf/
+   mkdir build && cd build/
+   cmake ../
+   make clean && make -j
    ```
-4. Build bloomfilter library. This should create the static `libbf.a` library inside `build` directory
-   
-    ```bash
-    cd libbf
-    mkdir build && cd build
-    cmake ../
-    make clean && make
-    ```
 4. Build Hermes the using build script as follows. This should create the executable inside `bin` directory.
    
    ```bash
