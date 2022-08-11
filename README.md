@@ -15,7 +15,7 @@
     <a href="https://github.com/CMU-SAFARI/Hermes/releases">
         <img alt="GitHub release" src="https://img.shields.io/github/release/CMU-SAFARI/Hermes">
     </a>
-    <a href="https://doi.org/10.5281/zenodo.6930111"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.6930111.svg" alt="DOI"></a>
+    <a href="https://doi.org/10.5281/zenodo.6909799"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.6909799.svg" alt="DOI"></a>
 </p>
 
 <details open="open">
@@ -204,6 +204,14 @@ This is likely stemming from the slurm scheduler. Please rerun the job either in
 **3. Some experiments are not correctly ending. They show the output: _"Reached end of trace for Core: 0 Repeating trace"_... and the error log says _"/usr/bin/xz: Argument list too long_". What to do?**
     
 We have encountered this problem sometimes while running jobs in slurm. Please check the xz version in the local machine and rerun the job locally. 
+
+**4. The perl `create_jobfile.pl` script cannot find the Trace module. What to do?**
+
+Have you sourced the `setvars.sh`? The `setvars.sh` script should set the `PERL5LIB` path variable appropriately to make the library discoverable. If the problem still persists, execute the perl script as follows:
+
+```bash
+perl -I$HERMES_HOME/scripts $HERMES_HOME/scripts/create_jobfile.pl # the remaining command
+```
 
 ## Citation
 If you use this framework, please cite the following paper:
