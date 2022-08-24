@@ -10,6 +10,7 @@ my $tlist_file;
 my $exp_file;
 my $exe;
 my $local = "0";
+my $num_parallel = 8;
 my $ncores = 1;
 my $slurm_partition = "slurm_part";
 my $hostname = "kratos";
@@ -22,6 +23,7 @@ GetOptions('tlist=s' => \$tlist_file,
 	   'exe=s' => \$exe,
 	   'ncores=s' => \$ncores,
 	   'local=s' => \$local,
+	   'num_parallel=s' => \$num_parallel,
 	   'partition=s' => \$slurm_partition,
 	   'hostname=s' => \$hostname,
 	   'exclude=s' => \$exclude_list,
@@ -84,6 +86,8 @@ print "#\n";
 print "#\n";
 print "#\n";
 
+my $count = 0;
+
 foreach $trace (@trace_info)
 {
 	foreach $exp (@exp_info)
@@ -98,6 +102,11 @@ foreach $trace (@trace_info)
 		if($local)
 		{
 			$cmdline = "$exe $exp_knobs $trace_knobs -traces $trace_input > ${trace_name}_${exp_name}.out 2>&1";
+			$count++;
+			if($count % $num_parallel)
+			{
+				$cmdline = $cmdline . ' &';
+			}
 		}
 		else
 		{

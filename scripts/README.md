@@ -29,6 +29,7 @@ The additional arguments of the scripts are:
 | Argument | Description | Default |
 | -------- | ----------- | --------------|
 | `local` | Set to 0 (or 1) to generate commandlines to run in slurm cluster (or in local machine). | 0 |
+| `num_parallel` | Number of experiements to run in parallel when in local mode. Not useful in slurm mode. | 8 |
 | `ncores` | Number of cores requested by each slurm job to slurm controller. Typically set to 1, as ChampSim is inherently a single-threaded simulator. | 1 |
 | `partition` | Default slurm partition name. | `slurm_part` |
 | `hostname`  | Default slurm machine hostname. | `kratos` | 
