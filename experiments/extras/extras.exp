@@ -1,0 +1,99 @@
+##############################################################
+##
+## This file contains all the experiments required
+## to reproduce single-core performance results of Hermes.
+##
+## Please follow the README to know how to use this file.
+##
+## Owner: Rahul Bera (write2bera@gmail.com)
+##
+###############################################################
+
+# configurations
+BASE = --warmup_instructions=100000000 --simulation_instructions=500000000 --llc_replacement_type=ship --config=$(HERMES_HOME)/config/nopref.ini --num_rob_partitions=3 --rob_partition_size=64,128,320 --rob_frontal_partition_ids=0 --rob_dorsal_partition_ids=2
+SMS = --l2c_prefetcher_types=sms --config=$(HERMES_HOME)/config/sms.ini --l2c_prefetcher_force_prefetch_at_llc=true
+SPP = --l2c_prefetcher_types=spp_ppf_dev --config=$(HERMES_HOME)/config/spp_ppf_dev.ini --ppf_perc_threshold_hi=2000
+MLOP = --l2c_prefetcher_types=mlop --config=$(HERMES_HOME)/config/mlop.ini --mlop_l2c_thresh=2.0
+BINGO = --l2c_prefetcher_types=bingo --config=$(HERMES_HOME)/config/bingo.ini --bingo_l2c_thresh=2.0 --bingo_thresh=0.5 --bingo_pc_address_fill_level=LLC
+PYTHIA = --l2c_prefetcher_types=scooby --config=$(HERMES_HOME)/config/pythia.ini --scooby_enable_direct_pref_issue=true --scooby_pref_at_lower_level=true --scooby_dyn_degrees_type2=1,1,2,4
+
+OCP_PERC = --config=$(HERMES_HOME)/config/ocp_hermes.ini
+OCP_HMP_ENSEMBLE = --config=$(HERMES_HOME)/config/ocp_hmp_ensemble.ini
+OCP_LP = --config=$(HERMES_HOME)/config/ocp_lp.ini
+OCP_RANDOM = --config=$(HERMES_HOME)/config/ocp_random.ini
+
+HERMES_O = --config=$(HERMES_HOME)/config/hermes_base.ini --ddrp_req_latency=6
+HERMES_P = --config=$(HERMES_HOME)/config/hermes_base.ini --ddrp_req_latency=18
+
+# OCP per-feature analysis
+# For Fig. 9 and 10
+pc_offset                           $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activated_features=5 --ocp_perc_weight_array_sizes=1024 --ocp_perc_feature_hash_types=2 --ocp_perc_activation_threshold=-2 --ocp_perc_pos_train_thresh=10 --ocp_perc_neg_train_thresh=-9
+pc_first_access                     $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activated_features=8 --ocp_perc_weight_array_sizes=1024 --ocp_perc_feature_hash_types=2 --ocp_perc_activation_threshold=-2 --ocp_perc_pos_train_thresh=10 --ocp_perc_neg_train_thresh=-9
+cacheline_offset_first_access       $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activated_features=9 --ocp_perc_weight_array_sizes=1024 --ocp_perc_feature_hash_types=2 --ocp_perc_activation_threshold=-2 --ocp_perc_pos_train_thresh=10 --ocp_perc_neg_train_thresh=-9
+pc_byte_offset                      $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activated_features=11 --ocp_perc_weight_array_sizes=1024 --ocp_perc_feature_hash_types=2 --ocp_perc_activation_threshold=-2 --ocp_perc_pos_train_thresh=10 --ocp_perc_neg_train_thresh=-9
+last_4_load_pcs                     $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activated_features=16 --ocp_perc_weight_array_sizes=1024 --ocp_perc_feature_hash_types=2 --ocp_perc_activation_threshold=-2 --ocp_perc_pos_train_thresh=10 --ocp_perc_neg_train_thresh=-9
+1_2                                 $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activated_features=5,16 --ocp_perc_weight_array_sizes=1024,1024 --ocp_perc_feature_hash_types=2,2 --ocp_perc_activation_threshold=-6 --ocp_perc_pos_train_thresh=16 --ocp_perc_neg_train_thresh=-14
+1_2_3                               $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activated_features=5,16,11 --ocp_perc_weight_array_sizes=1024,1024,1024 --ocp_perc_feature_hash_types=2,2,2 --ocp_perc_activation_threshold=-9 --ocp_perc_pos_train_thresh=24 --ocp_perc_neg_train_thresh=-21
+1_2_3_4                             $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activated_features=5,16,11,8 --ocp_perc_weight_array_sizes=1024,1024,1024,1024 --ocp_perc_feature_hash_types=2,2,2,2 --ocp_perc_activation_threshold=-14 --ocp_perc_pos_train_thresh=32 --ocp_perc_neg_train_thresh=-28
+
+# Bandwidth sensitivity runs
+# For Fig. 16(a)
+baseline_MTPS200                        $(BASE) --dram_io_freq=200
+pythia_MTPS200                          $(BASE) $(PYTHIA) --dram_io_freq=200
+hermes_MTPS200                          $(BASE) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=6 --dram_io_freq=200
+hermes_with_pythia_MTPS200              $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=6 --dram_io_freq=200 --enable_ddrp_monitor=true --ddrp_monitor_enable_hysterisis=true --ddrp_monitor_explore_epoch=10000 --ddrp_monitor_exploit_epoch=100000
+
+baseline_MTPS400                        $(BASE) --dram_io_freq=400
+pythia_MTPS400                          $(BASE) $(PYTHIA) --dram_io_freq=400
+hermes_MTPS400                          $(BASE) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=6 --dram_io_freq=400
+hermes_with_pythia_MTPS400              $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=6 --dram_io_freq=400
+
+baseline_MTPS800                        $(BASE) --dram_io_freq=800
+pythia_MTPS800                          $(BASE) $(PYTHIA) --dram_io_freq=800
+hermes_MTPS800                          $(BASE) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=6 --dram_io_freq=800
+hermes_with_pythia_MTPS800              $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=6 --dram_io_freq=800
+
+baseline_MTPS1600                        $(BASE) --dram_io_freq=1600
+pythia_MTPS1600                          $(BASE) $(PYTHIA) --dram_io_freq=1600
+hermes_MTPS1600                          $(BASE) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=6 --dram_io_freq=1600
+hermes_with_pythia_MTPS1600              $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=6 --dram_io_freq=1600
+
+baseline_MTPS6400                        $(BASE) --dram_io_freq=6400
+pythia_MTPS6400                          $(BASE) $(PYTHIA) --dram_io_freq=6400
+hermes_MTPS6400                          $(BASE) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=6 --dram_io_freq=6400
+hermes_with_pythia_MTPS6400              $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=6 --dram_io_freq=6400
+
+baseline_MTPS12800                        $(BASE) --dram_io_freq=12800
+pythia_MTPS12800                          $(BASE) $(PYTHIA) --dram_io_freq=12800
+hermes_MTPS12800                          $(BASE) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=6 --dram_io_freq=12800
+hermes_with_pythia_MTPS12800              $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=6 --dram_io_freq=12800
+
+# Speculative load issue latency sensitivity runs
+# For Fig. 16(c)
+hermes_with_pythia_lat0         $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=0
+hermes_with_pythia_lat3         $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=3
+hermes_with_pythia_lat6         $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=6
+hermes_with_pythia_lat9         $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=9
+hermes_with_pythia_lat12        $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=12
+hermes_with_pythia_lat15        $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=15
+hermes_with_pythia_lat18        $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=18
+hermes_with_pythia_lat21        $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=21
+hermes_with_pythia_lat24        $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ddrp_req_latency=24
+
+# Cache latency sensitivity runs
+# For Fig. 16(d)
+# Please change the LLC_LATENCY in uarch/glc.h and prepare the executables for each configuration
+# The commandline to use for each configuration is just the basic Hermes-O commandline
+
+# Activation threshold sensitivity runs
+# For Fig. 17
+hermes_with_pythia_act_th_-14       $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activation_threshold=-14
+hermes_with_pythia_act_th_-10       $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activation_threshold=-10
+hermes_with_pythia_act_th_-6        $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activation_threshold=-6
+hermes_with_pythia_act_th_-2        $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activation_threshold=-2
+hermes_with_pythia_act_th_2         $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activation_threshold=2
+hermes_with_pythia_act_th_-22       $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activation_threshold=-22
+hermes_with_pythia_act_th_-26       $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activation_threshold=-26
+hermes_with_pythia_act_th_-30       $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activation_threshold=-30
+hermes_with_pythia_act_th_-34       $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activation_threshold=-34
+hermes_with_pythia_act_th_-38       $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O) --ocp_perc_activation_threshold=-38

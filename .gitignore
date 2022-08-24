@@ -9,7 +9,6 @@ inc/champsim.h.bak
 inc/defs.h
 inc/defs.h.bak
 
-extras/
 libbf/
 
 traces/*.xz
