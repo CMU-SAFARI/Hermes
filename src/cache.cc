@@ -330,6 +330,12 @@ void CACHE::handle_fill()
                 update_replacement_state(fill_cpu, set, way, MSHR.entry[mshr_index].full_addr, MSHR.entry[mshr_index].ip, block[set][way].full_addr, MSHR.entry[mshr_index].type, 0);
             }
 
+            // update off-chip predictor for LLC evictions
+            if (cache_type == IS_LLC)
+            {
+                ooo_cpu[fill_cpu].offchip_predictor_track_llc_eviction(set, way, block[set][way].full_addr);
+            }
+
             // // @RBERA: moved this code to handle_read
             // // @RBERA: if this is a load fill in LLC, then monitor the position of the load in ROB
             // if(cache_type == IS_LLC && MSHR.entry[mshr_index].type == LOAD)

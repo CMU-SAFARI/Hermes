@@ -183,7 +183,7 @@ Our experimental workflow consists of two stages: (1) launching experiments, and
   | HMP-GShare | Hit-miss predictor with GShare prediction |
   | HMP-GSkew | Hit-miss predictor with GSkew prediction |
   | HMP-Ensemble | Hit-miss predictor with all three types combined |
-  | LP | [Level predictor](https://arxiv.org/pdf/2103.14808.pdf) [Jalili+, HPCA'22] with only on-chip metadata storage |
+  | TTP | Tag-tracking based predictor |
   | Perc | Perceptron-based OCP used in this paper |
 
 - You can also quickly implement your own off-chip predictor just by extending `OffchipPredBase` class and implement your own `predict()` and `train()` functions. For a new type of off-chip predictor, please call the initialization function in `src/offchip_pred.cc`.

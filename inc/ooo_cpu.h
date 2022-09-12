@@ -368,7 +368,8 @@ public:
   void  initialize_offchip_predictor(uint64_t seed),
         dump_stats_offchip_predictor(),
         print_config_offchip_predictor(),
-        offchip_predictor_update_dram_bw(uint8_t dram_bw);
+        offchip_predictor_update_dram_bw(uint8_t dram_bw),
+        offchip_predictor_track_llc_eviction(uint32_t set, uint32_t way, uint64_t address);
 
   // DDRP 
   void issue_ddrp_request(uint32_t lq_index, uint32_t call_type);

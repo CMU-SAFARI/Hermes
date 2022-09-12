@@ -8,7 +8,7 @@
 #include "offchip_pred_hmp_gshare.h"
 #include "offchip_pred_hmp_gskew.h"
 #include "offchip_pred_hmp_ensemble.h"
-#include "offchip_pred_lp.h"
+#include "offchip_pred_ttp.h"
 
 namespace knob
 {
@@ -60,8 +60,8 @@ void O3_CPU::initialize_offchip_predictor(uint64_t seed)
     }
     else if(!knob::offchip_pred_type.compare("lp"))
     {
-            cout << "Adding Offchip predictor: Level Prediction (HPCA'22)" << endl;
-            offchip_pred = (OffchipPredLP*) new OffchipPredLP(cpu, knob::offchip_pred_type, seed);
+            cout << "Adding Offchip predictor: Tag-Tracking based Predictor (TTP)" << endl;
+            offchip_pred = (OffchipPredTTP*) new OffchipPredTTP(cpu, knob::offchip_pred_type, seed);
     }
 }
 
@@ -93,4 +93,17 @@ void O3_CPU::dump_stats_offchip_predictor()
 void O3_CPU::offchip_predictor_update_dram_bw(uint8_t dram_bw)
 {
     if(offchip_pred) offchip_pred->update_dram_bw(dram_bw);
+}
+
+/* This function is called at every LLC eviction.
+ * Cache-level prediction mechanisms that operate as tag-tracking mechanisms
+ * need to track LLC evictions to make accurate off-chip predictions.
+ * This function is written to track such evictions */
+void O3_CPU::offchip_predictor_track_llc_eviction(uint32_t set, uint32_t way, uint64_t address)
+{
+	if(!knob::offchip_pred_type.compare("lp"))
+	{
+		OffchipPredTTP *ocp_lp = (OffchipPredTTP*) offchip_pred;
+		ocp_lp->track_llc_eviction(address);
+	}
 }

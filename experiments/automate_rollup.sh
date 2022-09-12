@@ -12,9 +12,9 @@ cd outputs/
 $ROLLUP_SCRIPT --tlist ../MICRO22_AE.tlist --exp ../rollup_perf_hermes.exp --mfile ../rollup_perf.mfile > ../rollup_perf_hermes.csv
 cd -
 
-echo "Rolling up statistics for perf. comparison of Pythia, Pythia+LP, Pythia+HMP, and Pythia+Hermes (Fig. 13)..."
+echo "Rolling up statistics for perf. comparison of Pythia, Pythia+HMP, Pythia+TTP, and Pythia+Hermes (Fig. 13)..."
 cd outputs/
-$ROLLUP_SCRIPT --tlist ../MICRO22_AE.tlist --exp ../rollup_perf_hermes_hmp_lp.exp --mfile ../rollup_perf.mfile > ../rollup_perf_hermes_hmp_lp.csv
+$ROLLUP_SCRIPT --tlist ../MICRO22_AE.tlist --exp ../rollup_perf_hermes_hmp_ttp.exp --mfile ../rollup_perf.mfile > ../rollup_perf_hermes_hmp_ttp.csv
 cd -
 
 echo "Rolling up statistics for perf. comparison of Hermes with varying underlying prefetchers (Fig. 16b)..."

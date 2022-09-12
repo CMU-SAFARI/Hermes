@@ -19,7 +19,7 @@ PYTHIA = --l2c_prefetcher_types=scooby --config=$(HERMES_HOME)/config/pythia.ini
 
 OCP_PERC = --config=$(HERMES_HOME)/config/ocp_hermes.ini
 OCP_HMP_ENSEMBLE = --config=$(HERMES_HOME)/config/ocp_hmp_ensemble.ini
-OCP_LP = --config=$(HERMES_HOME)/config/ocp_lp.ini
+OCP_TTP = --config=$(HERMES_HOME)/config/ocp_ttp.ini
 OCP_RANDOM = --config=$(HERMES_HOME)/config/ocp_random.ini
 
 HERMES_O = --config=$(HERMES_HOME)/config/hermes_base.ini --ddrp_req_latency=6

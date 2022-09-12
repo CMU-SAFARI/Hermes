@@ -395,11 +395,12 @@ namespace knob
 	vector<int32_t> ocp_hmp_gskew_hash_types;
     uint32_t ocp_hmp_gskew_pht_size = 1024;
 
-	/* Offchip Predictor LP */
-    uint32_t ocp_lp_partial_tag_size = 16;
-    uint32_t ocp_lp_catalog_cache_sets = 1024;
-    uint32_t ocp_lp_catalog_cache_assoc = 24;
-    uint32_t ocp_lp_hash_type = 5;
+	/* Offchip Predictor TTP */
+    uint32_t ocp_ttp_partial_tag_size = 16;
+    uint32_t ocp_ttp_catalog_cache_sets = 1024;
+    uint32_t ocp_ttp_catalog_cache_assoc = 24;
+    uint32_t ocp_ttp_hash_type = 5;
+	bool     ocp_ttp_enable_track_llc_eviction = true;
 
 	// DDRP
 	bool enable_ddrp = false;
@@ -1832,22 +1833,26 @@ int parse_knobs(void* user, const char* section, const char* name, const char* v
 		knob::ocp_hmp_gskew_pht_size = atoi(value);
 	}
 
-	/* Offchip Predictor LP */
-	else if (MATCH("", "ocp_lp_partial_tag_size"))
+	/* Offchip Predictor TTP */
+	else if (MATCH("", "ocp_ttp_partial_tag_size"))
 	{
-		knob::ocp_lp_partial_tag_size = atoi(value);
+		knob::ocp_ttp_partial_tag_size = atoi(value);
 	}
-	else if (MATCH("", "ocp_lp_catalog_cache_sets"))
+	else if (MATCH("", "ocp_ttp_catalog_cache_sets"))
 	{
-		knob::ocp_lp_catalog_cache_sets = atoi(value);
+		knob::ocp_ttp_catalog_cache_sets = atoi(value);
 	}
-	else if (MATCH("", "ocp_lp_catalog_cache_assoc"))
+	else if (MATCH("", "ocp_ttp_catalog_cache_assoc"))
 	{
-		knob::ocp_lp_catalog_cache_assoc = atoi(value);
+		knob::ocp_ttp_catalog_cache_assoc = atoi(value);
 	}
-	else if (MATCH("", "ocp_lp_hash_type"))
+	else if (MATCH("", "ocp_ttp_hash_type"))
 	{
-		knob::ocp_lp_hash_type = atoi(value);
+		knob::ocp_ttp_hash_type = atoi(value);
+	}
+	else if (MATCH("", "ocp_ttp_enable_track_llc_eviction"))
+	{
+		knob::ocp_ttp_enable_track_llc_eviction = !strcmp(value, "true") ? true : false;
 	}
 
 	// Direcr DRAM Prefetch (DDRP)
