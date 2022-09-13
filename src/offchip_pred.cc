@@ -58,7 +58,7 @@ void O3_CPU::initialize_offchip_predictor(uint64_t seed)
             cout << "Adding Offchip predictor: HMP-Ensemble" << endl;
             offchip_pred = (OffchipPredHMPEnsemble*) new OffchipPredHMPEnsemble(cpu, knob::offchip_pred_type, seed);
     }
-    else if(!knob::offchip_pred_type.compare("lp"))
+    else if(!knob::offchip_pred_type.compare("ttp"))
     {
             cout << "Adding Offchip predictor: Tag-Tracking based Predictor (TTP)" << endl;
             offchip_pred = (OffchipPredTTP*) new OffchipPredTTP(cpu, knob::offchip_pred_type, seed);
@@ -101,7 +101,7 @@ void O3_CPU::offchip_predictor_update_dram_bw(uint8_t dram_bw)
  * This function is written to track such evictions */
 void O3_CPU::offchip_predictor_track_llc_eviction(uint32_t set, uint32_t way, uint64_t address)
 {
-	if(!knob::offchip_pred_type.compare("lp"))
+	if(!knob::offchip_pred_type.compare("ttp"))
 	{
 		OffchipPredTTP *ocp_lp = (OffchipPredTTP*) offchip_pred;
 		ocp_lp->track_llc_eviction(address);
