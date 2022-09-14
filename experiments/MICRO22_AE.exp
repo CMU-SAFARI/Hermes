@@ -30,29 +30,29 @@ nopref              $(BASE)
 
 # system with prior prefetchers
 pythia              $(BASE) $(PYTHIA)
-# sms                 $(BASE) $(SMS)
-# spp                 $(BASE) $(SPP)
-# bingo               $(BASE) $(BINGO)
-# mlop                $(BASE) $(MLOP)
+sms                 $(BASE) $(SMS)
+spp                 $(BASE) $(SPP)
+bingo               $(BASE) $(BINGO)
+mlop                $(BASE) $(MLOP)
 
-# # Hermes standalone
-# hermes_o                $(BASE) $(OCP_PERC) $(HERMES_O)
-# hermes_p                $(BASE) $(OCP_PERC) $(HERMES_P)
+# Hermes standalone
+hermes_o                $(BASE) $(OCP_PERC) $(HERMES_O)
+hermes_p                $(BASE) $(OCP_PERC) $(HERMES_P)
 
 # Hermes along with Pythia
 pythia_with_hermes_o    $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_O)
-# pythia_with_hermes_p    $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_P)
+pythia_with_hermes_p    $(BASE) $(PYTHIA) $(OCP_PERC) $(HERMES_P)
 
 # HMP and TTP with Pythia
 pythia_with_hmp             $(BASE) $(PYTHIA) $(OCP_HMP_ENSEMBLE) $(HERMES_O)
 pythia_with_ttp              $(BASE) $(PYTHIA) $(OCP_TTP) $(HERMES_O)
 
 # Hermes in presence of various prior prefetchers
-# sms_with_hermes_o           $(BASE) $(SMS) $(OCP_PERC) $(HERMES_O)
-# sms_with_hermes_p           $(BASE) $(SMS) $(OCP_PERC) $(HERMES_P)
-# spp_with_hermes_o           $(BASE) $(SPP) $(OCP_PERC) $(HERMES_O)
-# spp_with_hermes_p           $(BASE) $(SPP) $(OCP_PERC) $(HERMES_P)
-# bingo_with_hermes_o         $(BASE) $(BINGO) $(OCP_PERC) $(HERMES_O)
-# bingo_with_hermes_p         $(BASE) $(BINGO) $(OCP_PERC) $(HERMES_P)
-# mlop_with_hermes_o          $(BASE) $(MLOP) $(OCP_PERC) $(HERMES_O)
-# mlop_with_hermes_p          $(BASE) $(MLOP) $(OCP_PERC) $(HERMES_P)
+sms_with_hermes_o           $(BASE) $(SMS) $(OCP_PERC) $(HERMES_O)
+sms_with_hermes_p           $(BASE) $(SMS) $(OCP_PERC) $(HERMES_P)
+spp_with_hermes_o           $(BASE) $(SPP) $(OCP_PERC) $(HERMES_O)
+spp_with_hermes_p           $(BASE) $(SPP) $(OCP_PERC) $(HERMES_P)
+bingo_with_hermes_o         $(BASE) $(BINGO) $(OCP_PERC) $(HERMES_O)
+bingo_with_hermes_p         $(BASE) $(BINGO) $(OCP_PERC) $(HERMES_P)
+mlop_with_hermes_o          $(BASE) $(MLOP) $(OCP_PERC) $(HERMES_O)
+mlop_with_hermes_p          $(BASE) $(MLOP) $(OCP_PERC) $(HERMES_P)
