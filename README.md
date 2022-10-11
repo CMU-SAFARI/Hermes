@@ -47,6 +47,10 @@
 
 The key idea behind Hermes is to: (1) accurately predict which load requests might go to off-chip, and (2) speculatively start fetching the data required by the predicted off-chip loads directly from the main memory in parallel to the cache accesses. Hermes proposes a lightweight, perceptron-based off-chip predictor that identifies off-chip load requests using multiple disparate program features. The predictor is implemented using only tables and simple arithmetic operations like increment and decrement.
 
+Hermes was presented at MICRO 2022
+
+> _Rahul Bera, Konstantinos Kanellopoulos, Shankar Balachandran, David Novo, Ataberk Olgun, Mohammad Sadrosadati, Onur Mutlu, "Hermes: Accelerating Long-Latency Load Requests via Perceptron-Based Off-Chip Load Prediction", In Proceedings of the 55th Annual IEEE/ACM International Symposium on Microarchitecture (MICRO), 2022_
+
 ## About The Framework
 
 Hermes is modeled in [ChampSim simulator](https://github.com/ChampSim/ChampSim). This modified simulator version is largely similar to the one used by [Pythia](https://arxiv.org/pdf/2109.12021.pdf) [Bera+, MICRO'21], and fully compatible with all publicly-available traces for ChampSim.
