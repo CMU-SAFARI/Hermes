@@ -28,24 +28,38 @@ GetOptions('tlist=s' => \$tlist_file,
 	   'exclude=s' => \$exclude_list,
 	   'include=s' => \$include_list,
 	   'extra=s' => \$extra,
-) or die "Usage: $0 --exe <executable> --exp <exp file> --tlist <trace list>\n";
+	   'xmltemplate=s' => \$xml_template,
+	   'mcpatexe=s' => \$mcpat_exe,
+	   'statsdir=s' => \$stats_dir,
+	   'outdir=s' => \$out_dir
+) or die "Usage: $0 --exe <executable> 
+			--exp <exp file> 
+			--tlist <trace list> 
+			--xmltemplate <XML template file> 
+			--mcpatexe <McPAT exe path> 
+			--statsdir <dir where the .out files are from the simulator> 
+			--outdir <dir where McPAT outputs will be saved>\n";
 
 die "\$HERMES_HOME env variable is not defined.\nHave you sourced setvars.sh?\n" unless defined $ENV{'HERMES_HOME'};
 
 die "Supply exe\n" unless defined $exe;
 die "Supply tlist\n" unless defined $tlist_file;
 die "Supply exp\n" unless defined $exp_file;
+die "Supply xmltemplate\n" unless defined $xml_template;
+die "Supply mcpatexe\n" unless defined $mcpat_exe;
+die "Supply statsdir\n" unless defined $stats_dir;
+die "Supply outdir\n" unless defined $out_dir;
 
 my $exclude_nodes_list = "";
 $exclude_nodes_list = "kratos[$exclude_list]" if defined $exclude_list;
 my $include_nodes_list = "";
 $include_nodes_list = "kratos[$include_list]" if defined $include_list;
 
-$stats_dir = getcwd;
-$out_dir = $stats_dir;
+# $stats_dir = getcwd;
+# $out_dir = $stats_dir;
 
-my $xml_template = "$HERMES_HOME/mcpat/hermes_glc_template.xml";
-my $mcpat_exe = "${HERMES_HOME}/mcpat/mcpat";
+# my $xml_template = "$HERMES_HOME/mcpat/hermes_glc_template.xml";
+# my $mcpat_exe = "${HERMES_HOME}/mcpat/mcpat";
 
 my @trace_info = Trace::parse($tlist_file);
 my @exp_info = Exp::parse($exp_file);
