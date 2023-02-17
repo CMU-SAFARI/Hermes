@@ -80,7 +80,7 @@ foreach $num_comb (@num_combs)
 		# $sel_feat_names = join("+", map { $feature_names[$_] } @combo2);
 		# $exp_name = "f_${sel_feat_names}";
 		$exp_name = "f_${sel_feat_ids_string}";
-		print "${exp_name}  \$(BASE) \$(PYTHIA_LLC) \$(OCP_PERC) --ocp_perc_activated_features=${sel_feat_ids} $more_knobs\n";
+		print "${exp_name}  \$(BASE) \$(PYTHIA) \$(OCP_PERC) \$(HERMES_O) --ocp_perc_activated_features=${sel_feat_ids} $more_knobs\n";
 	}
 	print "\n";
 }

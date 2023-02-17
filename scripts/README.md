@@ -9,7 +9,7 @@
     <li><a href="#overview">Overview</a></li>
     <li><a href="#create-jobfile-script">Create Jobfile Script</a></li>
     <li><a href="#rollup-stats-script">Rollup Stats Script</a></li>
-    <li><a href="#installation">Installation</a></li>
+    <li><a href="#script-to-generate-feature-combination-experiments">Script to Generate Feature Combination Experiments</a></li>
   </ol>
 </details>
 
@@ -87,3 +87,11 @@ Some example usages are:
       cd $HERMES_HOME/experiments/outputs/
       perl $HERMES_HOME/scripts/rollup.pl --tlist ../MICRO22_AE.tlist --exp ../rollup_perf_hermes.exp --mfile ../rollup_perf.mfile --ext "out" > rollup.csv
     ``` 
+
+## Script to Generate Feature Combination Experiments
+`gen_feature_exps.pl` script auto-generates a bunch of _experiment definitions_ to run Hermes with different feature combinations. This script is helpful for fine tuning feature selection for more set of workload traces. The steps to use this script is the following:
+1. Define the list of features on which you want to try different combinations in the `selected_features` array. Each entry in this array should be the index of the feature from the `feature_name` array. For example, index 0 represents the feature PC.
+2. Define a list of combinations you want to try out in the array `num_combs`. For example, if you have provided 10 features in `selected_features` array and want to try out 3 combninations of them, then the script will generate 10C2 = 45 experiment definitions.
+3. You can optionally define the weight array size of each feature. We would recommend to provide a considerably bigger size to start with to reduce the interference of feature hashing and aliasing. Once you have narrowed down the set of features to select, then try experimenting with smaller size and different hash functions. (PS: the current script always uses hash type 2, [defined here](https://github.com/CMU-SAFARI/Hermes/blob/main/src/util.cc#L252). This script does not yet support experimentation with various hash functions.)
+4. Execute the script and save the output in a file: `perl gen_feature_exps.pl > feature_sweep.exp`. This file should now contain a list of **experiment definitions**. Each line should start with an experiment name (e.g., f_0_9_11) followed by a list of macros and commandline knobs. To make this file ready for generating experiments using `create_jobfile.pl` script, copy the preamble (line 12 to 26, both inclusive) from [MICRO22_AE.exp](https://github.com/CMU-SAFARI/Hermes/blob/main/experiments/MICRO22_AE.exp) and paste it at the beggining of `feature_sweep.exp` file.
+5. Now `feature_sweep.exp` is ready for generating experiments. Follow the steps mentioned at the beggining of this README to know how to use this experiment file with `create_jobfile.pl` script to generate experiments.
