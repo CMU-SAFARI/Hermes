@@ -112,8 +112,8 @@ The infrastructure has been tested with the following system configuration:
 
     ```bash
     cd $HERMES_HOME/scripts
-    wget --no-check-certificate https://megatools.megous.com/builds/builds/megatools-1.11.0.20220519-linux-x86_64.tar.gz
-    tar -xvf megatools-1.11.0.20220519-linux-x86_64.tar.gz
+    wget --no-check-certificate https://megatools.megous.com/builds/megatools-1.11.1.20230212.tar.gz
+    tar -xvf megatools-1.11.1.20230212.tar.gz
     ```
 > Note: The megatools link might change in the future depending on the latest release. Please recheck the link if the download fails.
 

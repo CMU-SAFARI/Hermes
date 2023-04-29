@@ -5,7 +5,7 @@ use Getopt::Long;
 
 die "\$HERMES_HOME env variable is not defined.\nHave you sourced setvars.sh?\n" unless defined $ENV{'HERMES_HOME'};
 
-my $megatool_exe = "$ENV{'HERMES_HOME'}/scripts/megatools-1.11.0.20220519-linux-x86_64/megatools";
+my $megatool_exe = "$ENV{'HERMES_HOME'}/scripts/megatools-1.11.1.20230212/megatools";
 my $input_file;
 my $dir=".";
 GetOptions('csv=s' => \$input_file,
