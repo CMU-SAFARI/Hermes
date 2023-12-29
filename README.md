@@ -95,7 +95,7 @@ The infrastructure has been tested with the following system configuration:
    cmake ../
    make clean && make -j
    ```
-4. Build Hermes the using build script as follows. This should create the executable inside `bin` directory.
+4. Build Hermes using the build script as follows. This should create the executable inside `bin` directory.
    
    ```bash
    cd $HERMES_HOME
