@@ -38,9 +38,9 @@ die "Supply tlist\n" unless defined $tlist_file;
 die "Supply exp\n" unless defined $exp_file;
 
 my $exclude_nodes_list = "";
-$exclude_nodes_list = "$hostname[$exclude_list]" if defined $exclude_list;
+$exclude_nodes_list = "$hostname\[$exclude_list\]" if defined $exclude_list;
 my $include_nodes_list = "";
-$include_nodes_list = "$hostname[$include_list]" if defined $include_list;
+$include_nodes_list = "$hostname\[$include_list\]" if defined $include_list;
 
 my @trace_info = Trace::parse($tlist_file);
 my @exp_info = Exp::parse($exp_file);
