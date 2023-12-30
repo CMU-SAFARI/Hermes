@@ -19,7 +19,7 @@ GetOptions('tlist=s' => \$tlist_file,
 	   'ext=s' => \$ext,
 ) or die "Usage: $0 --exe <executable> --exp <exp file> --tlist <trace list>\n";
 
-die "\$CHAMPSIM_HOME env variable is not defined.\nHave you sourced setvars.sh?\n" unless defined $ENV{'CHAMPSIM_HOME'};
+die "\$HERMES_HOME env variable is not defined.\nHave you sourced setvars.sh?\n" unless defined $ENV{'HERMES_HOME'};
 
 die "Supply tlist\n" unless defined $tlist_file;
 die "Supply exp\n" unless defined $exp_file;
