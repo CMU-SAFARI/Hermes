@@ -169,12 +169,12 @@ uint32_t perceptron_pred_t::generate_index_from_feature(feature_type_t feature, 
         case feature_type_t::PC_Addr:               return process_PC_Addr(state, metadata, hash_type, weight_array_size);
         case feature_type_t::PC_FirstAccess:        return process_PC_FirstAccess(state, metadata, hash_type, weight_array_size);
         case feature_type_t::Offset_FirstAccess:    return process_Offset_FirstAccess(state, metadata, hash_type, weight_array_size);
-        case feature_type_t::CLOffset:              return process_CLWordOffset(state, metadata, hash_type, weight_array_size);
-        case feature_type_t::PC_CLOffset:           return process_PC_CLWordOffset(state, metadata, hash_type, weight_array_size);
+        case feature_type_t::CLOffset:              return process_CLOffset(state, metadata, hash_type, weight_array_size);
+        case feature_type_t::PC_CLOffset:           return process_PC_CLOffset(state, metadata, hash_type, weight_array_size);
         case feature_type_t::CLWordOffset:          return process_CLWordOffset(state, metadata, hash_type, weight_array_size);
         case feature_type_t::PC_CLWordOffset:       return process_PC_CLWordOffset(state, metadata, hash_type, weight_array_size);
-        case feature_type_t::CLDWordOffset:         return process_CLWordOffset(state, metadata, hash_type, weight_array_size);
-        case feature_type_t::PC_CLDWordOffset:      return process_PC_CLWordOffset(state, metadata, hash_type, weight_array_size);
+        case feature_type_t::CLDWordOffset:         return process_CLDWordOffset(state, metadata, hash_type, weight_array_size);
+        case feature_type_t::PC_CLDWordOffset:      return process_PC_CLDWordOffset(state, metadata, hash_type, weight_array_size);
         case feature_type_t::LastNLoadPCs:          return process_LastNLoadPCs(state, metadata, hash_type, weight_array_size);
         case feature_type_t::LastNPCs:              return process_LastNPCs(state, metadata, hash_type, weight_array_size);
         default:                                    assert(false);
