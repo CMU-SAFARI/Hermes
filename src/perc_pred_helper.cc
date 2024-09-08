@@ -129,7 +129,7 @@ uint32_t process_CLDWordOffset(state_info_t *state, uint64_t metadata, int32_t h
     return (raw % weight_array_size);
 }
 
-uint32_t process_PC_CLDwordOffset(state_info_t *state, uint64_t metadata, int32_t hash_type, uint32_t weight_array_size)
+uint32_t process_PC_CLDWordOffset(state_info_t *state, uint64_t metadata, int32_t hash_type, uint32_t weight_array_size)
 {
     uint64_t raw = state->pc;
     uint32_t val = folded_xor(raw, 2);
