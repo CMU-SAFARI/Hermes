@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--************************************************************************-->
+<!--                        CACTI Cache Configuration                       -->
+<!--************************************************************************-->
+<!--                               06/22/2014                               -->
+<!--************************************************************************-->
+
+<cache_config>
+	<!-- Transistor type = "cmos" or "finfet" -->
+	<transistor_type>finfet</transistor_type>
+	
+	<!-- Technology node (um) = FinFET: 5nm, 7nm
+	                            CMOS: 14, 16, 22, 32, 45, 65, 90nm -->
+	<technology_node>0.007</technology_node>
+	
+	<!-- Operating voltage = "super-threshold" or "near-threshold" -->
+	<operating_voltage>super-threshold</operating_voltage>
+	
+	<!-- Operating temperature (K) = 300K to 400K in steps of 10K -->
+	<temperature>300</temperature>
+	
+	<!-- Cache size (B) =  integer number, power of 2 -->
+	<!-- Alderlake has upto 30MB, 12-way associative LLC -->
+	<!-- https://chipsandcheese.com/p/popping-the-hood-on-golden-cove -->
+	<!-- https://en.wikipedia.org/wiki/Alder_Lake -->
+	<!-- Setting this to 32MB 16-way assoc to keep cacti happy -->
+	<cache_size>33554432</cache_size>
+	
+	<!-- Cache block (line) size (B) = integer number,
+	                                   power of 2 (8, 32, 64) -->
+	<block_size>64</block_size>
+	
+	<!-- Associativity = 0, 1, 4, 8, 16.
+	     To model Fully Associative cache, set the associativity to 0. -->
+	<associativity>16</associativity>
+	
+	<!-- Paths to XML files that define the data and tag arrays -->
+	<devices>
+		<data_array>
+			<cell>xmls/devices/finfet_7nm_std.xml</cell>
+			<peripheral>xmls/devices/finfet_7nm_std.xml</peripheral>
+		</data_array>
+		
+		<tag_array>
+			<cell>xmls/devices/finfet_7nm_std.xml</cell>
+			<peripheral>xmls/devices/finfet_7nm_std.xml</peripheral>
+		</tag_array>
+		
+		<dram>xmls/devices/finfet_7nm_std.xml</dram>
+	</devices>
+	
+	<sram_cell>xmls/sram_cells/finfet_sram_6T1.xml</sram_cell>
+
+	<ports>
+		<read_write_port>1</read_write_port>
+		<exclusive_read_port>0</exclusive_read_port>
+		<exclusive_write_port>0</exclusive_write_port>
+		<single_ended_read_ports>0</single_ended_read_ports>
+	</ports>
+	
+	<!-- Cache model = "NUCA", or "UCA" -->
+	<cache_model>NUCA</cache_model>
+	
+	<!-- Number of UCA banks = integer number (1, 4).
+	     Multiple banks connected using a bus. -->
+	<uca_bank_count>4</uca_bank_count>
+	
+	<!-- In order to let CACTI find the optimal NUCA bank count,
+        the following variable should be 0. -->
+	<nuca_bank_count>0</nuca_bank_count>
+	
+	<!-- Output/Input bus width = integer number (256, 512).
+	     Bus width includes data and address bits required by the decoder. -->
+	<bus_width>512</bus_width>
+	
+	<!-- Type of memory = "cache" (with a tag array),
+	                      "ram" (scratch ram similar to a register file), or
+	                      "main memory" (no tag array and every access will
+								 happen at a page granularity Ref: CACTI5.3 report) -->
+	<memory_type>cache</memory_type>
+	
+	<!-- Tag size (bits) = "default", or "45".
+	     To model special structure like branch target buffers, directory, etc.
+		  change the tag size parameter if you want cacti to calculate the
+		  tag bits, set the tag size to "default". -->
+	<tag_size>default</tag_size>
+	
+	<!-- Access mode = "normal", "sequential", or "fast". 
+        fast - data and tag access happen in parallel
+        sequential - data array is accessed after accessing the tag array
+        normal - data array lookup and tag access happen in parallel
+                 final data block is broadcasted in data array h-tree
+                 after getting the signal from the tag array -->
+	<access_mode>sequential</access_mode>
+	
+	<objective_function>
+		<!-- Optimize = "ED", "ED^2", or "NONE".
+			Set optimize tag to ED or ED^2 to obtain a cache configuration
+			optimized for energy-delay or energy-delay sq. product.
+			Note: Optimize tag will disable weight or deviate values.
+			Set it to NONE to let weight and deviate values determine the
+			appropriate cache configuration -->
+		<optimize>ED</optimize>
+		
+		<!-- Design objective for UCA (or banks in NUCA) -->
+		<design_objective>
+			<!-- Weight of each objective is an integer number between 0 to 100. -->
+			<weights>
+				<delay>0</delay>
+				<dynamic_power>0</dynamic_power>
+				<leakage_power>0</leakage_power>
+				<cycle_time>0</cycle_time>
+				<area>100</area>
+			</weights>
+			
+			<!-- Percentage deviation from the minimum value.
+				Example: A deviation value of 10:1000:1000:1000:1000 will try to
+			find an organization that compromises at most 10% delay.
+				NOTE: Try reasonable values for % deviation. Inconsistent deviation
+			percentage values will not produce any valid organizations. For
+			example, 0:0:100:100:100 will try to identify an organization that has
+			both least delay and dynamic power. Since such an organization is not
+			possible, CACTI will throw an error. Refer CACTI-6 Technical report
+			for more details -->
+			<deviations>
+				<delay>60</delay>
+				<dynamic_power>100000</dynamic_power>
+				<leakage_power>100000</leakage_power>
+				<cycle_time>100000</cycle_time>
+				<area>1000000</area>
+			</deviations>
+		</design_objective>
+		
+		<!-- Design objective for NUCA -->
+		<nuca_design_objective>
+			<weights>
+				<delay>100</delay>
+				<dynamic_power>100</dynamic_power>
+				<leakage_power>0</leakage_power>
+				<cycle_time>0</cycle_time>
+				<area>100</area>
+			</weights>
+			<deviations>
+				<delay>10</delay>
+				<dynamic_power>10000</dynamic_power>
+				<leakage_power>10000</leakage_power>
+				<cycle_time>10000</cycle_time>
+				<area>10000</area>
+			</deviations>
+		</nuca_design_objective>
+	</objective_function>
+	
+	<interconnects>
+		<!-- Source of wire data = "RonHo2003", or "ITRS2012" -->
+		<source>RonHo2003</source>
+		
+		<!-- NOTE: for nuca network frequency is set to a default value of 5GHz
+		     in time.c. CACTI automatically calculates the maximum possible
+			  frequency and downgrades this value if necessary -->
+		
+		<!-- Wire signaling = "fullswing", "lowswing", or "default".
+		     By default CACTI considers both full-swing and low-swing wires to 
+			  find an optimal configuration. However, it is possible to restrict
+			  the search space by changing the signaling from "default" to
+		     "fullswing" or "lowswing" type. -->
+		<wire_signalling>Global_10</wire_signalling>
+		
+		<!-- Wire type = "global", "semi-global", or "local" -->
+		<wire_type>
+			<inside_mat>global</inside_mat>
+			<outside_mat>global</outside_mat>
+		</wire_type>
+		
+		<!-- Interconnect projection = "conservative", or "aggressive" -->
+		<projection>conservative</projection>
+	</interconnects>
+	
+	<!-- Contention in network (which is a function of core count and cache
+	     level) is one of the critical factor used for deciding the optimal
+		  bank count value core count can be 4, 8, or 16 -->
+	<core_count>8</core_count>
+	
+	<!-- Cache level = "L2", or "L3" -->
+	<cache_level>L3</cache_level>
+	
+	<add_ecc>true</add_ecc>
+	
+	<!-- Print level = "DETAILED", or "CONCISE" -->
+	<print_level>DETAILED</print_level>
+	
+	<!-- For debugging -->
+	<print_input_parameters>false</print_input_parameters>
+
+	<!-- Force CACTI to model the cache with the following Ndbl, Ndwl, Nspd,
+	     Ndsam, and Ndcm values -->
+	<force_cache_config>false</force_cache_config>
+	<Ndwl>64</Ndwl>
+	<Ndbl>64</Ndbl>
+	<Nspd>64</Nspd>
+	<Ndcm>1</Ndcm>
+	<Ndsam1>4</Ndsam1>
+	<Ndsam2>1</Ndsam2>
+	
+	<!-- Following three parameters are meaningful only for main memories -->
+	<page_size>8192</page_size> <!-- in bits -->
+	<burst_length>8</burst_length>
+	<internal_prefetch_width>8</internal_prefetch_width>
+</cache_config>

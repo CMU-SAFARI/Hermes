@@ -1,0 +1,378 @@
+
+
+Router stats:
+	Maximum possible network frequency - 5.83127GHz
+	Network frequency - 5 GHz
+	No. of Virtual channels - 4
+	No. of pipeline stages - 4
+	Link bandwidth - 64 (bits)
+	No. of buffer entries per virtual channel -  8
+	Simple buffer access (Read) - 0.0020821 (nJ)
+	Cross bar access energy - 0.00332928 (nJ)
+	Arbiter access energy (VC arb + Crossbar arb) - 0.00057388 (nJ)
+
+
+Router stats:
+	Maximum possible network frequency - 5.83127GHz
+	Network frequency - 5 GHz
+	No. of Virtual channels - 4
+	No. of pipeline stages - 4
+	Link bandwidth - 128 (bits)
+	No. of buffer entries per virtual channel -  8
+	Simple buffer access (Read) - 0.00415337 (nJ)
+	Cross bar access energy - 0.00987139 (nJ)
+	Arbiter access energy (VC arb + Crossbar arb) - 0.00107109 (nJ)
+
+
+Router stats:
+	Maximum possible network frequency - 5.83127GHz
+	Network frequency - 5 GHz
+	No. of Virtual channels - 4
+	No. of pipeline stages - 4
+
+--------------------------------------------
+
+--------------------------------------------
+
+--------------------------------------------
+
+--------------------------------------------
+
+--------------------------------------------
+
+--------------------------------------------
+
+--------------------------------------------
+
+--------------------------------------------
+
+--------------------------------------------
+
+--------------------------------------------
+
+--------------------------------------------
+
+--------------------------------------------
+
+--------------------------------------------
+
+--------------------------------------------
+
+--------------------------------------------
+	Link bandwidth - 256 (bits)
+	No. of buffer entries per virtual channel -  8
+	Simple buffer access (Read) - 0.00829589 (nJ)
+	Cross bar access energy - 0.0325941 (nJ)
+	Arbiter access energy (VC arb + Crossbar arb) - 0.00206546 (nJ)
+Simulating various NUCA configurations
+====4194304
+NUCA___stats 8 	bankcount: lat = 115 	dynP = 1.73012e-09 	wt = 0	 bank_dpower = 2.41595e-10 	leak = 1.36138e-13 	cycle = 200
+NUCA___stats 8 	bankcount: lat = 114 	dynP = 1.74279e-09 	wt = 0	 bank_dpower = 2.41595e-10 	leak = 2.68932e-13 	cycle = 200
+NUCA___stats 8 	bankcount: lat = 114 	dynP = 1.78548e-09 	wt = 0	 bank_dpower = 2.41595e-10 	leak = 5.34519e-13 	cycle = 200
+NUCA___stats 8 	bankcount: lat = 119 	dynP = 1.05726e-09 	wt = 1	 bank_dpower = 2.41595e-10 	leak = 4.25822e-14 	cycle = 200
+NUCA___stats 8 	bankcount: lat = 118 	dynP = 1.06994e-09 	wt = 1	 bank_dpower = 2.41595e-10 	leak = 8.41181e-14 	cycle = 200
+NUCA___stats 8 	bankcount: lat = 118 	dynP = 1.11263e-09 	wt = 1	 bank_dpower = 2.41595e-10 	leak = 1.6719e-13 	cycle = 200
+NUCA___stats 8 	bankcount: lat = 119 	dynP = 1.01753e-09 	wt = 2	 bank_dpower = 2.41595e-10 	leak = 3.744e-14 	cycle = 200
+NUCA___stats 8 	bankcount: lat = 118 	dynP = 1.0302e-09 	wt = 2	 bank_dpower = 2.41595e-10 	leak = 7.39602e-14 	cycle = 200
+NUCA___stats 8 	bankcount: lat = 118 	dynP = 1.07289e-09 	wt = 2	 bank_dpower = 2.41595e-10 	leak = 1.47e-13 	cycle = 200
+NUCA___stats 8 	bankcount: lat = 123 	dynP = 9.7367e-10 	wt = 3	 bank_dpower = 2.41595e-10 	leak = 3.20234e-14 	cycle = 200
+NUCA___stats 8 	bankcount: lat = 122 	dynP = 9.86341e-10 	wt = 3	 bank_dpower = 2.41595e-10 	leak = 6.32599e-14 	cycle = 200
+NUCA___stats 8 	bankcount: lat = 122 	dynP = 1.02903e-09 	wt = 3	 bank_dpower = 2.41595e-10 	leak = 1.25733e-13 	cycle = 200
+NUCA___stats 8 	bankcount: lat = 123 	dynP = 9.6039e-10 	wt = 4	 bank_dpower = 2.41595e-10 	leak = 2.56373e-14 	cycle = 200
+NUCA___stats 8 	bankcount: lat = 122 	dynP = 9.73061e-10 	wt = 4	 bank_dpower = 2.41595e-10 	leak = 5.06448e-14 	cycle = 200
+NUCA___stats 8 	bankcount: lat = 122 	dynP = 1.01575e-09 	wt = 4	 bank_dpower = 2.41595e-10 	leak = 1.0066e-13 	cycle = 200
+
+---------- CACTI version 6.5, Non-uniform Cache Access ----------
+
+Optimal number of banks - 8
+Grid organization rows x columns - 2 x 4
+Network frequency - 5 GHz
+Cache dimension (mm x mm) - 4.71984 x 5.86642
+
+
+Router stats:
+	Maximum possible network frequency - 5.83127GHz
+	Network frequency - 5 GHz
+	No. of Virtual channels - 4
+	No. of pipeline stages - 4
+	Link bandwidth - 64 (bits)
+	No. of buffer entries per virtual channel -  8
+	Simple buffer access (Read) - 0.0020821 (nJ)
+	Cross bar access energy - 0.00332928 (nJ)
+	Arbiter access energy (VC arb + Crossbar arb) - 0.00057388 (nJ)
+
+
+Wire stats:
+	Wire type - Full swing global wires with 30% delay penalty
+	Horizontal link delay - 0.405573 (ns)
+	Vertical link delay - 0.653823 (ns)
+	Delay/length - 0.000277897 (ns/mm)
+	Horizontal link energy -dynamic/access 0.000315382 (nJ)
+	                       -leakage 642.286 (nW)
+
+	Vertical link energy -dynamic/access 0.000508426 (nJ)
+	                     -leakage 1035.43 (nW)
+
+
+
+
+Wire Properties:
+
+  Delay Optimal
+	Repeater size - 245.299 
+	Repeater spacing - 0.12638 (mm) 
+	Delay - 0.214517 (ns/mm) 
+	PowerD - 0.000475304 (nJ/mm) 
+	PowerL - 0.0042051 (mW/mm)
+	Wire width - 0.224 microns
+	Wire spacing - 0.224 microns
+
+  5% Overhead
+	Repeater size - 94.2991 
+	Repeater spacing - 0.22638 (mm) 
+	Delay - 0.225089 (ns/mm) 
+	PowerD - 0.00024551 (nJ/mm) 
+	PowerL - 0.00090246 (mW/mm)
+	Wire width - 0.224 microns
+	Wire spacing - 0.224 microns
+
+  10% Overhead
+	Repeater size - 79.2991 
+	Repeater spacing - 0.22638 (mm) 
+	Delay - 0.235343 (ns/mm) 
+	PowerD - 0.000233447 (nJ/mm) 
+	PowerL - 0.000758907 (mW/mm)
+	Wire width - 0.224 microns
+	Wire spacing - 0.224 microns
+
+  20% Overhead
+	Repeater size - 62.2991 
+	Repeater spacing - 0.22638 (mm) 
+	Delay - 0.256223 (ns/mm) 
+	PowerD - 0.00022013 (nJ/mm) 
+	PowerL - 0.000596214 (mW/mm)
+	Wire width - 0.224 microns
+	Wire spacing - 0.224 microns
+
+  30% Overhead
+	Repeater size - 66.2991 
+	Repeater spacing - 0.32638 (mm) 
+	Delay - 0.277897 (ns/mm) 
+	PowerD - 0.000216098 (nJ/mm) 
+	PowerL - 0.000440091 (mW/mm)
+	Wire width - 0.224 microns
+	Wire spacing - 0.224 microns
+
+  Low-swing wire (1 mm) - Note: Unlike repeated wires, 
+	delay and power values of low-swing wires do not
+	have a linear relationship with length. 
+	delay - 0.692902 (ns) 
+	powerD - 2.36167e-05 (nJ) 
+	PowerL - 2.25232e-07 (mW)
+	Wire width - 4.48e-07 microns
+	Wire spacing - 4.48e-07 microns
+
+
+
+
+Bank stats:
+
+----------------------------------------
+            Input Parameters            
+----------------------------------------
+Cache size                    : 4194304B
+Block size                    : 64B
+Associativity                 : 16
+Read only ports               : 0
+Write only ports              : 0
+Read write ports              : 1
+Single ended read ports       : 0
+Cache banks (UCA)             : 4
+Technology                    : 14nm
+Transistor type               : CMOS
+Operating voltage             : Super-threshold
+SRAM cell type                : Standard 6T
+Temperature                   : 300K
+Tag size                      : 42
+cache type                    : Cache
+Access mode                   : 1
+Data array cell type          : 0
+Data array peripheral type    : 0
+Tag array cell type           : 0
+Tag array peripheral type     : 0
+Design objective (UCA wt)     : 0 0 0 0 100
+Design objective (UCA dev)    : 60 100000 100000 100000 1000000
+Design objective (NUCA wt)    : 100 100 0 0 100
+Design objective (NUCA dev)   : 10 10000 10000 10000 10000
+Cache model                   : NUCA
+Nuca bank                     : 8
+Wire inside mat               : 2
+Wire outside mat              : 2
+Interconnect projection       : 1
+Wire signalling               : 1
+Cores                         : 8
+Print details                 : Yes
+ECC overhead                  : Yes
+Page size                     : 8192
+Burst length                  : 8
+Internal prefetch width       : 8
+Force cache config            : No
+
+---------- P-CACTI, Uniform Cache Access SRAM Model ----------
+
+Cache Parameters:
+    Total cache size (bytes): 4194304
+    Number of banks: 4
+    Associativity: 16
+    Block size (bytes): 64
+    Read/write Ports: 1
+    Read ports: 0
+    Write ports: 0
+    Technology size (nm): 14
+
+    Access time (ns): 2.65081
+    Cycle time (ns):  1.39052
+    Total dynamic read energy per access (nJ): 0.241595
+    Total dynamic write energy per access (nJ): 0.241182
+    Total leakage power of a bank (mW): 54.138
+    Cache height x width (mm): 2.35275 x 1.45944
+    Cache area (mm2): 3.43369
+
+    Best Ndwl : 2
+    Best Ndbl : 8
+    Best Nspd : 4
+    Best Ndcm : 8
+    Best Ndsam L1 : 1
+    Best Ndsam L2 : 1
+
+    Best Ntwl : 2
+    Best Ntbl : 1
+    Best Ntspd : 2
+    Best Ntcm : 2
+    Best Ntsam L1 : 1
+    Best Ntsam L2 : 1
+    Data array, H-tree wire type: Delay optimized global wires
+    Tag array, H-tree wire type: Global wires with 30% delay penalty
+
+Time Components:
+
+  Data side (with Output driver) (ns): 1.79045
+	H-tree input delay (ns): 0.386114
+	Decoder + wordline delay (ns): 0.438174
+	Bitline delay (ns): 0.451783
+	Sense Amplifier delay (ns): 0.00782875
+	H-tree output delay (ns): 0.232803
+
+  Tag side (with Output driver) (ns): 0.86036
+	H-tree input delay (ns): 0.0496556
+	Decoder + wordline delay (ns): 0.283821
+	Bitline delay (ns): 0.396504
+	Sense Amplifier delay (ns): 0.00782875
+	Comparator delay (ns): 0.0602037
+	H-tree output delay (ns): 0.0728954
+
+
+Power Components:
+
+  Data array: Total dynamic read energy/access  (nJ): 0.235099
+	Total leakage read/write power of a bank (mW): 51.2902
+	Total energy in H-tree (that includes both address and data transfer) (nJ): 0.197651
+	Output Htree Energy (nJ): 0.0533402
+	Decoder (nJ): 8.90148e-05
+	Wordline (nJ): 0.000183468
+	Bitline mux & associated drivers (nJ): 0.000120727
+	Sense amp mux & associated drivers (nJ): 0
+	Bitlines (nJ): 0.0208172
+	Sense amplifier energy (nJ): 0.000229886
+	Sub-array output driver (nJ): 0.0149041
+
+  Tag array:  Total dynamic read energy/access (nJ): 0.00649537
+	Total leakage read/write power of a bank (mW): 2.84786
+	Total energy in H-tree (that includes both address and data transfer) (nJ): 0.000541812
+	Output Htree Energy (nJ): 0
+	Decoder (nJ): 8.50789e-05
+	Wordline (nJ): 4.52702e-05
+	Bitline mux & associated drivers (nJ): 8.50797e-05
+	Sense amp mux & associated drivers (nJ): 0
+	Bitlines (nJ): 0.00459235
+	Sense amplifier energy (nJ): 0.00020115
+	Sub-array output driver (nJ): 0.000465752
+
+
+Area Components:
+
+  Data array: Area (mm2): 2.70556
+	Height (mm): 2.35275
+	Width (mm): 1.14995
+	Area efficiency (Memory cell area/Total area) - 35.4897 %
+		MAT Height (mm): 0.278764
+		MAT Length (mm): 0.341457
+		Subarray Height (mm): 0.104653
+		Subarray Length (mm): 0.168
+
+  Tag array: Area (mm2): 0.0696349
+	Height (mm): 0.225003
+	Width (mm): 0.309484
+	Area efficiency (Memory cell area/Total area) - 75.4085 %
+		MAT Height (mm): 0.110318
+		MAT Length (mm): 0.152558
+		Subarray Height (mm): 0.104653
+		Subarray Length (mm): 0.0735
+
+Wire Properties:
+
+  Delay Optimal
+	Repeater size - 245.299 
+	Repeater spacing - 0.12638 (mm) 
+	Delay - 0.214517 (ns/mm) 
+	PowerD - 0.000475304 (nJ/mm) 
+	PowerL - 0.0042051 (mW/mm)
+	Wire width - 0.056 microns
+	Wire spacing - 0.056 microns
+
+  5% Overhead
+	Repeater size - 94.2991 
+	Repeater spacing - 0.22638 (mm) 
+	Delay - 0.225089 (ns/mm) 
+	PowerD - 0.00024551 (nJ/mm) 
+	PowerL - 0.00090246 (mW/mm)
+	Wire width - 0.056 microns
+	Wire spacing - 0.056 microns
+
+  10% Overhead
+	Repeater size - 79.2991 
+	Repeater spacing - 0.22638 (mm) 
+	Delay - 0.235343 (ns/mm) 
+	PowerD - 0.000233447 (nJ/mm) 
+	PowerL - 0.000758907 (mW/mm)
+	Wire width - 0.056 microns
+	Wire spacing - 0.056 microns
+
+  20% Overhead
+	Repeater size - 62.2991 
+	Repeater spacing - 0.22638 (mm) 
+	Delay - 0.256223 (ns/mm) 
+	PowerD - 0.00022013 (nJ/mm) 
+	PowerL - 0.000596214 (mW/mm)
+	Wire width - 0.056 microns
+	Wire spacing - 0.056 microns
+
+  30% Overhead
+	Repeater size - 66.2991 
+	Repeater spacing - 0.32638 (mm) 
+	Delay - 0.277897 (ns/mm) 
+	PowerD - 0.000216098 (nJ/mm) 
+	PowerL - 0.000440091 (mW/mm)
+	Wire width - 0.056 microns
+	Wire spacing - 0.056 microns
+
+  Low-swing wire (1 mm) - Note: Unlike repeated wires, 
+	delay and power values of low-swing wires do not
+	have a linear relationship with length. 
+	delay - 0.692902 (ns) 
+	powerD - 2.36167e-05 (nJ) 
+	PowerL - 2.25232e-07 (mW)
+	Wire width - 1.12e-07 microns
+	Wire spacing - 1.12e-07 microns
+
+
