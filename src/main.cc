@@ -29,6 +29,7 @@ namespace knob
     extern uint64_t simulation_instructions;
     extern bool     cloudsuite;
     extern bool     low_bandwidth;
+    extern uint32_t trace_version;
     extern bool     measure_ipc;
     extern uint32_t measure_ipc_epoch;
     extern uint32_t dram_io_freq;
@@ -1108,47 +1109,13 @@ int main(int argc, char** argv)
         {
             printf("CPU_%d runs %s\n", count_traces, argv[i]);
 
-            sprintf(ooo_cpu[count_traces].trace_string, "%s", argv[i]);
-
-            std::string full_name(argv[i]);
-            std::string last_dot = full_name.substr(full_name.find_last_of("."));
-
-            std::string fmtstr;
-            std::string decomp_program;
-            if (full_name.substr(0,4) == "http")
-            {
-                // Check file exists
-                char testfile_command[4096];
-                sprintf(testfile_command, "wget -q --spider %s", argv[i]);
-                FILE *testfile = popen(testfile_command, "r");
-                if (pclose(testfile))
-                {
-                    std::cerr << "TRACE FILE NOT FOUND" << std::endl;
-                    assert(0);
-                }
-                fmtstr = "wget -qO- %2$s | %1$s -dc";
+            try {
+                ooo_cpu[count_traces].trace_reader.reset(new TraceReader(argv[i]));
             }
-            else
-            {
-                std::ifstream testfile(argv[i]);
-                if (!testfile.good())
-                {
-                    std::cerr << "TRACE FILE NOT FOUND" << std::endl;
-                    assert(0);
-                }
-                fmtstr = "%1$s -dc %2$s";
+            catch (const std::exception &e) {
+                std::cerr << "*** " << e.what() << " ***" << std::endl;
+                exit(1);
             }
-
-            if (last_dot[1] == 'g') // gzip format
-                decomp_program = "gzip";
-            else if (last_dot[1] == 'x') // xz
-                decomp_program = "xz";
-            else {
-                std::cout << "ChampSim does not support traces other than gz or xz compression!" << std::endl;
-                assert(0);
-            }
-
-            sprintf(ooo_cpu[count_traces].gunzip_command, fmtstr.c_str(), decomp_program.c_str(), argv[i]);
 
             char *pch[100];
             int count_str = 0;
@@ -1167,12 +1134,6 @@ int main(int argc, char** argv)
                 seed_number += pch[count_str-3][j];
                 //printf("%c %d %d\n", pch[count_str-3][j], j, seed_number);
                 j++;
-            }
-
-            ooo_cpu[count_traces].trace_file = popen(ooo_cpu[count_traces].gunzip_command, "r");
-            if (ooo_cpu[count_traces].trace_file == NULL) {
-                printf("\n*** Trace file not found: %s ***\n\n", argv[i]);
-                assert(0);
             }
 
             count_traces++;

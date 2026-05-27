@@ -9,7 +9,7 @@ inc = inc
 debug = 0
 
 CFlags = -Wall -O3 -std=c++11 -D_DEFAULT_SOURCE -I./libbf/
-LDFlags = ./libbf/build/lib/libbf.a -lz
+LDFlags = ./libbf/build/lib/libbf.a -lz -llzma -lzstd
 libs = 
 libDir =
 

@@ -1,0 +1,846 @@
+diff --git a/Makefile b/Makefile
+index 7cdbd6c..ce2aa32 100644
+--- a/Makefile
++++ b/Makefile
+@@ -9,7 +9,7 @@ inc = inc
+ debug = 0
+ 
+ CFlags = -Wall -O3 -std=c++11 -D_DEFAULT_SOURCE -I./libbf/
+-LDFlags = ./libbf/build/lib/libbf.a -lz
++LDFlags = ./libbf/build/lib/libbf.a -lz -llzma -lzstd
+ libs = 
+ libDir =
+ 
+diff --git a/inc/commons.h b/inc/commons.h
+index c08cf68..2a68bcb 100644
+--- a/inc/commons.h
++++ b/inc/commons.h
+@@ -14,6 +14,14 @@
+ #define NUM_INSTR_DESTINATIONS 2
+ #define NUM_INSTR_SOURCES 4
+ 
++// v2 trace format
++#define MAX_MEM_VALUE_SIZE 64 /* AVX-512: 512 bits = 64 bytes */
++
++// instruction type classification
++#define INSTR_TYPE_INT  0
++#define INSTR_TYPE_FP   1
++#define INSTR_TYPE_SIMD 2
++
+ // CACHE BASICS
+ #define BLOCK_SIZE 64
+ #define LOG2_BLOCK_SIZE 6
+diff --git a/inc/instruction.h b/inc/instruction.h
+index d94a4b8..f2193b8 100644
+--- a/inc/instruction.h
++++ b/inc/instruction.h
+@@ -4,6 +4,7 @@
+ #include <string>
+ #include <sstream>
+ #include <iomanip>
++#include <cstring>
+ #include "defs.h"
+ #include "set.h"
+ 
+@@ -40,6 +41,41 @@ class input_instr {
+     };
+ };
+ 
++// v2: extended trace format (512 bytes)
++// First 64 bytes are layout-identical to input_instr.
++// Adds: physical addresses, memory values (up to AVX-512),
++// access sizes, privilege level, and instruction type.
++class __attribute__((packed)) input_instr_v2
++{
++  public:
++  /* --- Block 1: Vanilla ChampSim layout (64 bytes) --- */
++  uint64_t ip;
++  uint8_t  is_branch;
++  uint8_t  branch_taken;
++  uint8_t  destination_registers[NUM_INSTR_DESTINATIONS];
++  uint8_t  source_registers[NUM_INSTR_SOURCES];
++  uint64_t destination_memory[NUM_INSTR_DESTINATIONS];      // VA
++  uint64_t source_memory[NUM_INSTR_SOURCES];                // VA
++
++  /* --- Block 2: Physical addresses + metadata (64 bytes) --- */
++  uint64_t destination_memory_pa[NUM_INSTR_DESTINATIONS];   // PA
++  uint64_t source_memory_pa[NUM_INSTR_SOURCES];             // PA
++  uint8_t  source_memory_size[NUM_INSTR_SOURCES];           // load widths
++  uint8_t  destination_memory_size[NUM_INSTR_DESTINATIONS];  // store widths
++  uint8_t  privilege;     // 0=user, 1=kernel
++  uint8_t  instr_type;    // INSTR_TYPE_INT / _FP / _SIMD
++  uint8_t  reserved[8];
++
++  /* --- Block 3: Memory values (384 bytes) --- */
++  uint8_t  source_memory_value[NUM_INSTR_SOURCES][MAX_MEM_VALUE_SIZE];
++  uint8_t  destination_memory_value[NUM_INSTR_DESTINATIONS][MAX_MEM_VALUE_SIZE];
++
++  input_instr_v2()
++  {
++    memset(this, 0, sizeof(*this));
++  };
++};
++
+ class cloudsuite_instr {
+   public:
+ 
+@@ -283,4 +319,6 @@ class ooo_model_instr {
+     }
+ };
+ 
++static_assert(sizeof(input_instr_v2) == 512, "input_instr_v2 must be 512 bytes");
++
+ #endif
+diff --git a/inc/ooo_cpu.h b/inc/ooo_cpu.h
+index 14cf686..8ad1997 100644
+--- a/inc/ooo_cpu.h
++++ b/inc/ooo_cpu.h
+@@ -7,7 +7,9 @@
+ #include "offchip_pred_base.h"
+ #include "ddrp_monitor.h"
+ #include "offchip_tracer.h"
++#include "trace_reader.h"
+ #include <bitset>
++#include <memory>
+ #include <unordered_map>
+ #include <vector>
+ 
+@@ -61,13 +63,12 @@ public:
+     uint32_t cpu;
+ 
+     // trace
+-    FILE *trace_file;
+-    char trace_string[1024];
+-    char gunzip_command[1024];
++    std::unique_ptr<TraceReader> trace_reader;
+ 
+     // instruction
+     input_instr next_instr;
+     input_instr current_instr;
++    input_instr_v2 current_instr_v2;
+     cloudsuite_instr current_cloudsuite_instr;
+     uint64_t instr_unique_id, completed_executions, 
+              begin_sim_cycle, begin_sim_instr, 
+@@ -172,9 +173,6 @@ public:
+     {
+         cpu = 0;
+ 
+-        // trace
+-        trace_file = NULL;
+-
+         // instruction
+         instr_unique_id = 0;
+         completed_executions = 0;
+diff --git a/inc/trace_reader.h b/inc/trace_reader.h
+new file mode 100644
+index 0000000..cfeb34a
+--- /dev/null
++++ b/inc/trace_reader.h
+@@ -0,0 +1,48 @@
++#ifndef TRACE_READER_H
++#define TRACE_READER_H
++
++#include <cstddef>
++#include <memory>
++#include <string>
++
++// TraceReader owns a single trace file and exposes a decompressed byte
++// stream to the simulator. The compression format (gzip, xz, zstd) is
++// detected from the file extension. All buffering, prefetch, and decoder
++// state is encapsulated here so that ooo_cpu / main do not need to know
++// how the bytes are produced.
++//
++// v1 implementation backs onto popen() of the appropriate decompressor,
++// matching the historical behavior. A future revision swaps that for an
++// in-process streaming decoder with posix_fadvise-driven NFS prefetch
++// without changing this public API.
++class TraceReader
++{
++  public:
++  // Opens the trace at `path`. Throws std::runtime_error if the file is
++  // missing/unreadable, has no recognizable compression extension, or if
++  // the decompressor cannot be launched.
++  explicit TraceReader(const std::string &path);
++  ~TraceReader();
++
++  TraceReader(const TraceReader &)            = delete;
++  TraceReader &operator=(const TraceReader &) = delete;
++
++  // Reads exactly `nbytes` of decompressed data into `dst`.
++  // Returns true on success, false at end of stream (mirrors the
++  // fread(..., size, 1, fp) == 1 idiom the simulator used previously).
++  bool read(void *dst, std::size_t nbytes);
++
++  // Resets the stream to the start of the trace. Used when the simulator
++  // loops a trace after exhausting it.
++  void rewind();
++
++  const std::string &path() const noexcept { return path_; }
++
++  private:
++  struct Impl;
++
++  std::string           path_;
++  std::unique_ptr<Impl> impl_;
++};
++
++#endif  // TRACE_READER_H
+diff --git a/src/knobs.cc b/src/knobs.cc
+index a6688d3..96c28d9 100644
+--- a/src/knobs.cc
++++ b/src/knobs.cc
+@@ -16,6 +16,7 @@ namespace knob
+ 	uint64_t simulation_instructions = 1000000;
+ 	bool  	 cloudsuite = false;
+ 	bool     low_bandwidth = false;
++	uint32_t trace_version = 1;
+ 	vector<string> 	 l1d_prefetcher_types;
+ 	vector<string> 	 l2c_prefetcher_types;
+ 	vector<string> 	 llc_prefetcher_types;
+@@ -486,6 +487,10 @@ int parse_knobs(void* user, const char* section, const char* name, const char* v
+     {
+ 		knob::low_bandwidth = !strcmp(value, "true") ? true : false;
+     }
++    else if (MATCH("", "trace_version"))
++    {
++		knob::trace_version = atoi(value);
++    }
+     else if (MATCH("", "l1d_prefetcher_types"))
+     {
+ 		knob::l1d_prefetcher_types.push_back(string(value));
+diff --git a/src/main.cc b/src/main.cc
+index 4c7ba8e..180090e 100644
+--- a/src/main.cc
++++ b/src/main.cc
+@@ -29,6 +29,7 @@ namespace knob
+     extern uint64_t simulation_instructions;
+     extern bool     cloudsuite;
+     extern bool     low_bandwidth;
++    extern uint32_t trace_version;
+     extern bool     measure_ipc;
+     extern uint32_t measure_ipc_epoch;
+     extern uint32_t dram_io_freq;
+@@ -1108,48 +1109,14 @@ int main(int argc, char** argv)
+         {
+             printf("CPU_%d runs %s\n", count_traces, argv[i]);
+ 
+-            sprintf(ooo_cpu[count_traces].trace_string, "%s", argv[i]);
+-
+-            std::string full_name(argv[i]);
+-            std::string last_dot = full_name.substr(full_name.find_last_of("."));
+-
+-            std::string fmtstr;
+-            std::string decomp_program;
+-            if (full_name.substr(0,4) == "http")
+-            {
+-                // Check file exists
+-                char testfile_command[4096];
+-                sprintf(testfile_command, "wget -q --spider %s", argv[i]);
+-                FILE *testfile = popen(testfile_command, "r");
+-                if (pclose(testfile))
+-                {
+-                    std::cerr << "TRACE FILE NOT FOUND" << std::endl;
+-                    assert(0);
+-                }
+-                fmtstr = "wget -qO- %2$s | %1$s -dc";
+-            }
+-            else
+-            {
+-                std::ifstream testfile(argv[i]);
+-                if (!testfile.good())
+-                {
+-                    std::cerr << "TRACE FILE NOT FOUND" << std::endl;
+-                    assert(0);
+-                }
+-                fmtstr = "%1$s -dc %2$s";
++            try {
++                ooo_cpu[count_traces].trace_reader.reset(new TraceReader(argv[i]));
+             }
+-
+-            if (last_dot[1] == 'g') // gzip format
+-                decomp_program = "gzip";
+-            else if (last_dot[1] == 'x') // xz
+-                decomp_program = "xz";
+-            else {
+-                std::cout << "ChampSim does not support traces other than gz or xz compression!" << std::endl;
+-                assert(0);
++            catch (const std::exception &e) {
++                std::cerr << "*** " << e.what() << " ***" << std::endl;
++                exit(1);
+             }
+ 
+-            sprintf(ooo_cpu[count_traces].gunzip_command, fmtstr.c_str(), decomp_program.c_str(), argv[i]);
+-
+             char *pch[100];
+             int count_str = 0;
+             pch[0] = strtok (argv[i], " /,.-");
+@@ -1169,12 +1136,6 @@ int main(int argc, char** argv)
+                 j++;
+             }
+ 
+-            ooo_cpu[count_traces].trace_file = popen(ooo_cpu[count_traces].gunzip_command, "r");
+-            if (ooo_cpu[count_traces].trace_file == NULL) {
+-                printf("\n*** Trace file not found: %s ***\n\n", argv[i]);
+-                assert(0);
+-            }
+-
+             count_traces++;
+             if (count_traces > NUM_CPUS) {
+                 printf("\n*** Too many traces for the configured number of cores ***\n\n");
+diff --git a/src/ooo_cpu.cc b/src/ooo_cpu.cc
+index 3870a16..9588f5f 100644
+--- a/src/ooo_cpu.cc
++++ b/src/ooo_cpu.cc
+@@ -18,6 +18,7 @@ uint32_t SCHEDULING_LATENCY = 0, EXEC_LATENCY = 0, DECODE_LATENCY = 0;
+ namespace knob
+ {
+     extern bool cloudsuite;
++    extern uint32_t trace_version;
+     extern uint32_t load_hit_dependency_max_level;
+     extern uint32_t num_rob_partitions;
+     extern vector<int32_t> rob_parition_size;
+@@ -66,28 +67,33 @@ void O3_CPU::read_from_trace()
+     instrs_to_read_this_cycle = FETCH_WIDTH;
+ 
+     // first, read PIN trace
+-    while (continue_reading) 
++    while (continue_reading)
+     {
+-        size_t instr_size = knob::cloudsuite ? sizeof(cloudsuite_instr) : sizeof(input_instr);
++        size_t instr_size;
++        if (knob::trace_version == 2)
++            instr_size = sizeof(input_instr_v2);
++        else if (knob::cloudsuite)
++            instr_size = sizeof(cloudsuite_instr);
++        else
++            instr_size = sizeof(input_instr);
+ 
+-        if (knob::cloudsuite) 
++        if (knob::cloudsuite)
+         {
+-            if (!fread(&current_cloudsuite_instr, instr_size, 1, trace_file)) 
++            if (!trace_reader->read(&current_cloudsuite_instr, instr_size))
+             {
+                 // reached end of file for this trace
+-                cout << "*** Reached end of trace for Core: " << cpu << " Repeating trace: " << trace_string << endl; 
++                cout << "*** Reached end of trace for Core: " << cpu << " Repeating trace: " << trace_reader->path() << endl;
+ 
+-                // close the trace file and re-open it
+-                pclose(trace_file);
+-                trace_file = popen(gunzip_command, "r");
+-                if (trace_file == NULL) 
+-                {
+-                    cerr << endl << "*** CANNOT REOPEN TRACE FILE: " << trace_string << " ***" << endl;
+-                    assert(0);
++                try {
++                    trace_reader->rewind();
++                }
++                catch (const std::exception &e) {
++                    cerr << endl << "*** CANNOT REOPEN TRACE FILE: " << trace_reader->path() << " (" << e.what() << ") ***" << endl;
++                    exit(1);
+                 }
+-            } 
++            }
+             else // successfully read the trace
+-            { 
++            {
+                 // copy the instruction into the performance model's instruction format
+                 ooo_model_instr arch_instr;
+                 int num_reg_ops = 0, num_mem_ops = 0, num_mem_src = 0, num_mem_dest = 0;
+@@ -210,22 +216,46 @@ void O3_CPU::read_from_trace()
+ 	    else // not a cloudsuite trace
+ 	    {
+             input_instr trace_read_instr;
+-            if (!fread(&trace_read_instr, instr_size, 1, trace_file))
++            input_instr_v2 trace_read_instr_v2;
++            bool read_ok;
++            if (knob::trace_version == 2) {
++                read_ok = trace_reader->read(&trace_read_instr_v2, instr_size);
++            } else {
++                read_ok = trace_reader->read(&trace_read_instr, instr_size);
++            }
++
++            if (!read_ok)
+             {
+                 // reached end of file for this trace
+-                cout << "*** Reached end of trace for Core: " << cpu << " Repeating trace: " << trace_string << endl; 
+-                
+-                // close the trace file and re-open it
+-                pclose(trace_file);
+-                trace_file = popen(gunzip_command, "r");
+-                if (trace_file == NULL) 
+-                {
+-                    cerr << endl << "*** CANNOT REOPEN TRACE FILE: " << trace_string << " ***" << endl;
+-                        assert(0);
++                cout << "*** Reached end of trace for Core: " << cpu << " Repeating trace: " << trace_reader->path() << endl;
++
++                try {
++                    trace_reader->rewind();
++                }
++                catch (const std::exception &e) {
++                    cerr << endl << "*** CANNOT REOPEN TRACE FILE: " << trace_reader->path() << " (" << e.what() << ") ***" << endl;
++                    exit(1);
+                 }
+             }
+             else // successfully read the trace
+-            { 
++            {
++                // For v2, alias the v2 record's base fields into trace_read_instr
++                // so the rest of the code works unchanged.
++                // The first 64 bytes of input_instr_v2 are layout-identical to input_instr.
++                if (knob::trace_version == 2) {
++                    trace_read_instr.ip           = trace_read_instr_v2.ip;
++                    trace_read_instr.is_branch    = trace_read_instr_v2.is_branch;
++                    trace_read_instr.branch_taken = trace_read_instr_v2.branch_taken;
++                    for (int i = 0; i < NUM_INSTR_DESTINATIONS; i++) {
++                        trace_read_instr.destination_registers[i] = trace_read_instr_v2.destination_registers[i];
++                        trace_read_instr.destination_memory[i]    = trace_read_instr_v2.destination_memory[i];
++                    }
++                    for (int i = 0; i < NUM_INSTR_SOURCES; i++) {
++                        trace_read_instr.source_registers[i] = trace_read_instr_v2.source_registers[i];
++                        trace_read_instr.source_memory[i]    = trace_read_instr_v2.source_memory[i];
++                    }
++                }
++
+                 if(instr_unique_id == 0)
+                 {
+                     current_instr = next_instr = trace_read_instr;
+diff --git a/src/trace_reader.cc b/src/trace_reader.cc
+new file mode 100644
+index 0000000..69c721e
+--- /dev/null
++++ b/src/trace_reader.cc
+@@ -0,0 +1,433 @@
++#include "trace_reader.h"
++
++#include <algorithm>
++#include <cerrno>
++#include <cstring>
++#include <stdexcept>
++#include <vector>
++
++#include <fcntl.h>
++#include <sys/types.h>
++#include <unistd.h>
++
++#include <zlib.h>
++#include <lzma.h>
++#include <zstd.h>
++
++// In-process streaming decoder for ChampSim trace files.
++//
++// Replaces the previous popen("gunzip|xz|zstd -dc FILE") pipeline with a
++// direct file descriptor + library-level streaming decode. The motivation
++// is NFS: popen'd decompressors read with small block sizes and serialize
++// RPCs, which becomes the dominant cost when many Slurm array jobs share
++// a node. Going in-process lets us:
++//
++//   * issue large reads (8 MiB) against the file, well above any plausible
++//     NFS rsize, so each kernel-side request becomes a coherent batch of
++//     parallel RPCs;
++//   * advise the kernel of access pattern (POSIX_FADV_SEQUENTIAL) to
++//     widen the readahead window;
++//   * pipeline the next chunk via POSIX_FADV_WILLNEED while the decoder
++//     is busy on the current one;
++//   * release already-consumed pages (POSIX_FADV_DONTNEED) so 16-32 jobs
++//     on the same node do not evict each other's working sets.
++//
++// Format dispatch is by file extension, matching the historical behavior:
++// .gz -> zlib (with auto-header so .zlib also works), .xz -> liblzma,
++// .zst / .zstd -> libzstd. Each backend implements the same Decoder
++// interface; TraceReader owns one and drives it through Impl.
++
++namespace
++{
++
++// 8 MiB compressed read buffer. Past ~4-8 MiB the NFS readahead window is
++// saturated; bigger buffers waste resident memory across the typical
++// 16-32 jobs/node fanout without further reducing wire RPC count.
++constexpr std::size_t COMP_BUF_BYTES = 8 * 1024 * 1024;
++
++// 1 MiB decompressed scratch. Doesn't touch NFS, just amortizes the
++// per-call overhead of the decoder against the simulator's 64-byte
++// record reads.
++constexpr std::size_t DECOMP_BUF_BYTES = 1 * 1024 * 1024;
++
++// Drop already-read pages once the read cursor is at least this far past
++// the previous DONTNEED point. Lagging by 2x the read buffer keeps very
++// recently-touched pages in cache (in case the decoder seeks back inside
++// a chunk) while still bounding cache footprint per process.
++constexpr off_t DONTNEED_LAG_BYTES = 2 * static_cast<off_t>(COMP_BUF_BYTES);
++
++// --- decoder strategy --------------------------------------------------
++
++// Result codes from one decoder step. The caller cares about three
++// outcomes: progress was made (Ok), no more bytes will ever come out
++// (StreamEnd), or the input is corrupt (Error).
++enum class DecodeStatus { Ok, StreamEnd, Error };
++
++class Decoder
++{
++  public:
++  virtual ~Decoder() = default;
++
++  // Feed up to src_len bytes from src and write up to dst_len bytes to
++  // dst. After return, *consumed and *produced report how many bytes
++  // were actually used in each direction.
++  virtual DecodeStatus decode(const std::uint8_t *src, std::size_t src_len,
++                              std::size_t *consumed, std::uint8_t *dst,
++                              std::size_t dst_len, std::size_t *produced) = 0;
++
++  // Reset to the start of a fresh stream (used by TraceReader::rewind).
++  virtual void reset() = 0;
++};
++
++class GzipDecoder : public Decoder
++{
++  z_stream s_{};
++  bool     ended_ = false;
++
++  void init_()
++  {
++    std::memset(&s_, 0, sizeof(s_));
++    // 15 is the max window bits; +32 enables auto-detection of zlib/gzip
++    // headers, which keeps us tolerant of either container.
++    if (inflateInit2(&s_, 15 + 32) != Z_OK)
++      throw std::runtime_error("TraceReader: zlib inflateInit2 failed");
++  }
++
++  public:
++  GzipDecoder() { init_(); }
++  ~GzipDecoder() override { inflateEnd(&s_); }
++
++  DecodeStatus decode(const std::uint8_t *src, std::size_t src_len,
++                      std::size_t *consumed, std::uint8_t *dst,
++                      std::size_t dst_len, std::size_t *produced) override
++  {
++    s_.next_in   = const_cast<Bytef *>(src);
++    s_.avail_in  = static_cast<uInt>(src_len);
++    s_.next_out  = dst;
++    s_.avail_out = static_cast<uInt>(dst_len);
++
++    int rc      = inflate(&s_, Z_NO_FLUSH);
++    *consumed   = src_len - s_.avail_in;
++    *produced   = dst_len - s_.avail_out;
++
++    if (rc == Z_STREAM_END) {
++      ended_ = true;
++      return DecodeStatus::StreamEnd;
++    }
++    // Z_BUF_ERROR just means "no progress without more input or output
++    // space" — that's a normal stall, not an error.
++    if (rc == Z_OK || rc == Z_BUF_ERROR)
++      return DecodeStatus::Ok;
++    return DecodeStatus::Error;
++  }
++
++  void reset() override
++  {
++    inflateEnd(&s_);
++    ended_ = false;
++    init_();
++  }
++};
++
++class XzDecoder : public Decoder
++{
++  lzma_stream s_     = LZMA_STREAM_INIT;
++  bool        ended_ = false;
++
++  void init_()
++  {
++    s_ = LZMA_STREAM_INIT;
++    // UINT64_MAX memlimit (no cap), CONCATENATED to handle multi-stream
++    // .xz files transparently.
++    if (lzma_stream_decoder(&s_, UINT64_MAX, LZMA_CONCATENATED) != LZMA_OK)
++      throw std::runtime_error("TraceReader: lzma_stream_decoder failed");
++  }
++
++  public:
++  XzDecoder() { init_(); }
++  ~XzDecoder() override { lzma_end(&s_); }
++
++  DecodeStatus decode(const std::uint8_t *src, std::size_t src_len,
++                      std::size_t *consumed, std::uint8_t *dst,
++                      std::size_t dst_len, std::size_t *produced) override
++  {
++    s_.next_in   = src;
++    s_.avail_in  = src_len;
++    s_.next_out  = dst;
++    s_.avail_out = dst_len;
++
++    lzma_ret rc = lzma_code(&s_, LZMA_RUN);
++    *consumed   = src_len - s_.avail_in;
++    *produced   = dst_len - s_.avail_out;
++
++    if (rc == LZMA_STREAM_END) {
++      ended_ = true;
++      return DecodeStatus::StreamEnd;
++    }
++    if (rc == LZMA_OK)
++      return DecodeStatus::Ok;
++    return DecodeStatus::Error;
++  }
++
++  void reset() override
++  {
++    lzma_end(&s_);
++    ended_ = false;
++    init_();
++  }
++};
++
++class ZstdDecoder : public Decoder
++{
++  ZSTD_DCtx *ctx_ = nullptr;
++
++  public:
++  ZstdDecoder()
++  {
++    ctx_ = ZSTD_createDCtx();
++    if (ctx_ == nullptr)
++      throw std::runtime_error("TraceReader: ZSTD_createDCtx failed");
++  }
++  ~ZstdDecoder() override
++  {
++    if (ctx_ != nullptr)
++      ZSTD_freeDCtx(ctx_);
++  }
++
++  DecodeStatus decode(const std::uint8_t *src, std::size_t src_len,
++                      std::size_t *consumed, std::uint8_t *dst,
++                      std::size_t dst_len, std::size_t *produced) override
++  {
++    ZSTD_inBuffer  in  = {src, src_len, 0};
++    ZSTD_outBuffer out = {dst, dst_len, 0};
++
++    std::size_t rc = ZSTD_decompressStream(ctx_, &out, &in);
++    *consumed      = in.pos;
++    *produced      = out.pos;
++
++    if (ZSTD_isError(rc))
++      return DecodeStatus::Error;
++    // Return value 0 indicates a frame is fully decoded. ChampSim trace
++    // files are single-frame, so we surface this as stream end. (For a
++    // multi-frame input we would need to keep going — not relevant here.)
++    if (rc == 0)
++      return DecodeStatus::StreamEnd;
++    return DecodeStatus::Ok;
++  }
++
++  void reset() override
++  {
++    // session_only resets stream state without freeing tables; cheap.
++    ZSTD_DCtx_reset(ctx_, ZSTD_reset_session_only);
++  }
++};
++
++std::unique_ptr<Decoder> make_decoder(const std::string &path)
++{
++  // Same first-character-after-last-dot check as the original code.
++  const auto dot = path.rfind('.');
++  if (dot == std::string::npos || dot + 1 >= path.size())
++    throw std::runtime_error(
++      "TraceReader: trace file has no extension: " + path);
++
++  const char tag = path[dot + 1];
++  if (tag == 'g')
++    return std::unique_ptr<Decoder>(new GzipDecoder());
++  if (tag == 'x')
++    return std::unique_ptr<Decoder>(new XzDecoder());
++  if (tag == 'z')
++    return std::unique_ptr<Decoder>(new ZstdDecoder());
++
++  throw std::runtime_error(
++    "TraceReader: unsupported compression (expected .gz/.xz/.zst): " + path);
++}
++
++}  // namespace
++
++// --- TraceReader::Impl -------------------------------------------------
++
++struct TraceReader::Impl {
++  int fd = -1;
++
++  std::vector<std::uint8_t> comp_buf;
++  std::vector<std::uint8_t> decomp_buf;
++
++  // [comp_pos, comp_size) is the unread portion of comp_buf.
++  std::size_t comp_pos  = 0;
++  std::size_t comp_size = 0;
++
++  // [decomp_pos, decomp_size) is the unread portion of decomp_buf.
++  std::size_t decomp_pos  = 0;
++  std::size_t decomp_size = 0;
++
++  // Total bytes ever read from the fd (for fadvise offset arithmetic).
++  off_t file_offset      = 0;
++  off_t dontneed_cursor  = 0;
++
++  bool file_eof      = false;
++  bool stream_ended  = false;
++
++  std::unique_ptr<Decoder> decoder;
++
++  Impl() : comp_buf(COMP_BUF_BYTES), decomp_buf(DECOMP_BUF_BYTES) {}
++
++  ~Impl()
++  {
++    if (fd >= 0)
++      ::close(fd);
++  }
++
++  void open_file(const std::string &path)
++  {
++    fd = ::open(path.c_str(), O_RDONLY | O_CLOEXEC);
++    if (fd < 0)
++      throw std::runtime_error("TraceReader: open(\"" + path
++                               + "\") failed: " + std::strerror(errno));
++    // SEQUENTIAL roughly doubles the kernel's NFS readahead window. This
++    // is the single biggest fadvise lever for our access pattern.
++    ::posix_fadvise(fd, 0, 0, POSIX_FADV_SEQUENTIAL);
++  }
++
++  void rewind_state()
++  {
++    if (fd < 0)
++      throw std::runtime_error("TraceReader: rewind on closed fd");
++    if (::lseek(fd, 0, SEEK_SET) == static_cast<off_t>(-1))
++      throw std::runtime_error("TraceReader: lseek failed: "
++                               + std::string(std::strerror(errno)));
++    comp_pos = comp_size = 0;
++    decomp_pos = decomp_size = 0;
++    file_offset              = 0;
++    dontneed_cursor          = 0;
++    file_eof                 = false;
++    stream_ended             = false;
++    decoder->reset();
++    ::posix_fadvise(fd, 0, 0, POSIX_FADV_SEQUENTIAL);
++  }
++
++  // Pull one chunk of compressed bytes from the file into comp_buf and
++  // update fadvise hints around it. Idempotent past EOF.
++  void refill_compressed()
++  {
++    if (file_eof) {
++      comp_pos = comp_size = 0;
++      return;
++    }
++
++    ssize_t n = ::read(fd, comp_buf.data(), comp_buf.size());
++    if (n < 0)
++      throw std::runtime_error("TraceReader: read failed: "
++                               + std::string(std::strerror(errno)));
++
++    comp_pos  = 0;
++    comp_size = static_cast<std::size_t>(n);
++
++    if (n == 0) {
++      file_eof = true;
++      return;
++    }
++
++    file_offset += n;
++
++    // Tell the kernel to start fetching the chunk we'll want next, so
++    // its NFS RPCs overlap with our decode work on the current chunk.
++    ::posix_fadvise(fd, file_offset, COMP_BUF_BYTES, POSIX_FADV_WILLNEED);
++
++    // Drop pages that are now well behind the read cursor. The lag
++    // (DONTNEED_LAG_BYTES) keeps "just-touched" pages in cache so a
++    // small backseek inside the decoder doesn't refault, while still
++    // bounding our resident set when many jobs share a node.
++    if (file_offset - dontneed_cursor >= DONTNEED_LAG_BYTES) {
++      ::posix_fadvise(fd, dontneed_cursor,
++                      file_offset - dontneed_cursor, POSIX_FADV_DONTNEED);
++      dontneed_cursor = file_offset;
++    }
++  }
++
++  // Push compressed bytes through the decoder until decomp_buf has at
++  // least one byte of output, or we determine the stream is exhausted.
++  // Returns false at end of stream, true otherwise.
++  bool refill_decompressed()
++  {
++    decomp_pos  = 0;
++    decomp_size = 0;
++
++    while (decomp_size == 0) {
++      if (stream_ended)
++        return false;
++
++      // If the compressed buffer is drained, pull another chunk. Note:
++      // we still call decode() once afterwards even if the file just
++      // hit EOF — the decoder may have buffered output to flush.
++      if (comp_pos >= comp_size && !file_eof)
++        refill_compressed();
++
++      std::size_t consumed = 0, produced = 0;
++      DecodeStatus st = decoder->decode(
++        comp_buf.data() + comp_pos, comp_size - comp_pos, &consumed,
++        decomp_buf.data() + decomp_size, decomp_buf.size() - decomp_size,
++        &produced);
++
++      if (st == DecodeStatus::Error)
++        throw std::runtime_error("TraceReader: decode error in stream");
++
++      comp_pos += consumed;
++      decomp_size += produced;
++
++      if (st == DecodeStatus::StreamEnd) {
++        stream_ended = true;
++        // Fall out of the loop on the next iteration if produced == 0,
++        // or deliver what we just produced if produced > 0.
++      }
++
++      // Guard against an infinite loop: if the decoder neither consumed
++      // nor produced anything, and we have no more bytes to feed, we're
++      // genuinely done.
++      if (consumed == 0 && produced == 0
++          && comp_pos >= comp_size && file_eof) {
++        stream_ended = true;
++      }
++    }
++    return true;
++  }
++
++  // Copy out exactly nbytes of decompressed data, or return false if
++  // the stream ends before nbytes are available. A short tail at EOF is
++  // reported as failure (mirrors fread(..., size, 1, fp) == 1).
++  bool read_bytes(void *dst, std::size_t nbytes)
++  {
++    auto       *out    = static_cast<std::uint8_t *>(dst);
++    std::size_t copied = 0;
++
++    while (copied < nbytes) {
++      if (decomp_pos >= decomp_size) {
++        if (!refill_decompressed())
++          return false;
++      }
++      const std::size_t avail = decomp_size - decomp_pos;
++      const std::size_t n     = std::min(avail, nbytes - copied);
++      std::memcpy(out + copied, decomp_buf.data() + decomp_pos, n);
++      decomp_pos += n;
++      copied += n;
++    }
++    return true;
++  }
++};
++
++// --- TraceReader (public) ---------------------------------------------
++
++TraceReader::TraceReader(const std::string &path)
++  : path_(path), impl_(new Impl())
++{
++  impl_->decoder = make_decoder(path);
++  impl_->open_file(path);
++}
++
++TraceReader::~TraceReader() = default;
++
++bool TraceReader::read(void *dst, std::size_t nbytes)
++{
++  return impl_->read_bytes(dst, nbytes);
++}
++
++void TraceReader::rewind() { impl_->rewind_state(); }
