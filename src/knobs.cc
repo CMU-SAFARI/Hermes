@@ -353,6 +353,13 @@ namespace knob
 	uint32_t ocp_basic_count_modulo = 8;
 	uint32_t ocp_basic_page_buf_size = 64;
 
+	/* Offchip Predictor XPT */
+	uint32_t ocp_xpt_num_entries = 256;
+	uint32_t ocp_xpt_assoc = 256;
+	uint32_t ocp_xpt_offchip_threshold = 32;
+	uint32_t ocp_xpt_hash_type = 11;
+	bool     ocp_xpt_use_physical_address = false;
+
 	/* Offchip Predictor random */
 	float ocp_random_pos_rate = 0.1;
 
@@ -1693,6 +1700,28 @@ int parse_knobs(void* user, const char* section, const char* name, const char* v
 	else if (MATCH("", "ocp_basic_page_buf_size"))
 	{
 		knob::ocp_basic_page_buf_size = atoi(value);
+	}
+
+	/* Offchip Predictor XPT */
+	else if (MATCH("", "ocp_xpt_num_entries"))
+	{
+		knob::ocp_xpt_num_entries = atoi(value);
+	}
+	else if (MATCH("", "ocp_xpt_assoc"))
+	{
+		knob::ocp_xpt_assoc = atoi(value);
+	}
+	else if (MATCH("", "ocp_xpt_offchip_threshold"))
+	{
+		knob::ocp_xpt_offchip_threshold = atoi(value);
+	}
+	else if (MATCH("", "ocp_xpt_hash_type"))
+	{
+		knob::ocp_xpt_hash_type = atoi(value);
+	}
+	else if (MATCH("", "ocp_xpt_use_physical_address"))
+	{
+		knob::ocp_xpt_use_physical_address = !strcmp(value, "true") ? true : false;
 	}
 
 	/* Offchip Predictor random */

@@ -9,6 +9,7 @@
 #include "offchip_pred_hmp_gskew.h"
 #include "offchip_pred_hmp_ensemble.h"
 #include "offchip_pred_ttp.h"
+#include "offchip_pred_xpt.h"
 
 namespace knob
 {
@@ -62,6 +63,11 @@ void O3_CPU::initialize_offchip_predictor(uint64_t seed)
     {
             cout << "Adding Offchip predictor: Tag-Tracking based Predictor (TTP)" << endl;
             offchip_pred = (OffchipPredTTP*) new OffchipPredTTP(cpu, knob::offchip_pred_type, seed);
+    }
+    else if(!knob::offchip_pred_type.compare("xpt"))
+    {
+            cout << "Adding Offchip predictor: XPT" << endl;
+            offchip_pred = (OffchipPredXPT*) new OffchipPredXPT(cpu, knob::offchip_pred_type, seed);
     }
 }
 
