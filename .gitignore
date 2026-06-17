@@ -21,3 +21,7 @@ obj/
 tools/gen_fwd_reuse
 tools/optcache_driver
 tracer/obj-intel64/
+
+# AI coding files
+.claude/settings.json
+.claude/settings.local.json
