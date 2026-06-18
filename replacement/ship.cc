@@ -1,5 +1,7 @@
 #include "ship.h"
 
+extern uint64_t champsim_seed; // deterministic, derived from the trace path in main.cc
+
 void SHiPRepl::print_config()
 {
     cout << "ship.SHIP_maxRRPV " << SHIP_maxRRPV << endl
@@ -30,7 +32,9 @@ void SHiPRepl::initialize_replacement()
     }
 
     // randomly selected sampler sets
-    srand(time(NULL));
+    // seed deterministically (champsim_seed) instead of wall-clock time, so runs
+    // are reproducible: srand(time(NULL)) made SHiP (and thus IPC) vary run-to-run.
+    srand(champsim_seed);
     unsigned long rand_seed = 1;
     unsigned long max_rand = 1048576;
     uint32_t my_set = LLC_SET;
