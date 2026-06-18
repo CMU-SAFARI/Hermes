@@ -26,6 +26,7 @@ namespace knob
 	extern vector<int32_t> rob_dorsal_partition_ids;
     extern bool enable_ddrp;
     extern bool offchip_pred_mark_merged_load;
+    extern string offchip_pred_location;
     extern uint32_t ddrp_req_latency;
     extern bool enable_ddrp_monitor;
     extern bool     enable_offchip_tracing;
@@ -1351,7 +1352,8 @@ void O3_CPU::add_load_queue(uint32_t rob_index, uint32_t data_index)
     LQ.entry[lq_index].asid[0] = ROB.entry[rob_index].asid[0];
     LQ.entry[lq_index].asid[1] = ROB.entry[rob_index].asid[1];
     LQ.entry[lq_index].event_cycle = current_core_cycle[cpu] + SCHEDULING_LATENCY;
-    LQ.entry[lq_index].went_offchip_pred = offchip_pred->predict(&ROB.entry[rob_index], data_index, &LQ.entry[lq_index]);
+    if(!knob::offchip_pred_location.compare("core"))
+        LQ.entry[lq_index].went_offchip_pred = offchip_pred->predict(&ROB.entry[rob_index], data_index, &LQ.entry[lq_index]);
     LQ.occupancy++;
 
     // check RAW dependency
@@ -2278,7 +2280,8 @@ void O3_CPU::release_load_queue(uint32_t lq_index)
     cout << hex << " full_addr: " << LQ.entry[lq_index].physical_address << dec << endl; });
 
     // offchip_predictor stats collection and training
-    offchip_pred_stats_and_train(lq_index);
+    if(!knob::offchip_pred_location.compare("core"))
+        offchip_pred_stats_and_train(lq_index);
 
     // dellocate ocp feature
     if(LQ.entry[lq_index].ocp_feature)

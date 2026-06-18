@@ -15,6 +15,7 @@ namespace knob
 {
     extern string offchip_pred_type;
     extern bool   offchip_pred_mark_merged_load;
+    extern string offchip_pred_location;
 }
 
 void O3_CPU::initialize_offchip_predictor(uint64_t seed)
@@ -75,6 +76,7 @@ void O3_CPU::print_config_offchip_predictor()
 {
     cout << "offchip_pred_type " << knob::offchip_pred_type << endl
          << "offchip_pred_mark_merged_load " << knob::offchip_pred_mark_merged_load << endl
+         << "offchip_pred_location " << knob::offchip_pred_location << endl
          << endl;
 
     offchip_pred->print_config();

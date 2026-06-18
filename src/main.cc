@@ -72,6 +72,7 @@ namespace knob
     extern bool     enable_ddrp;
     extern uint32_t ddrp_req_latency;
     extern bool     offchip_pred_mark_merged_load;
+    extern string   offchip_pred_location;
     extern bool     dram_cntlr_enable_ddrp_buffer;
     extern uint32_t dram_cntlr_ddrp_buffer_sets;
     extern uint32_t dram_cntlr_ddrp_buffer_assoc;
@@ -181,7 +182,8 @@ void print_knobs()
     ooo_cpu[0].L2C.l2c_prefetcher_print_config();
     uncore.LLC.llc_prefetcher_print_config();
     uncore.LLC.llc_replacement_print_config();
-    ooo_cpu[0].print_config_offchip_predictor();
+    if(!knob::offchip_pred_location.compare("core"))
+        ooo_cpu[0].print_config_offchip_predictor();
     ooo_cpu[0].print_config_ddrp_monitor();
     
     cout << endl;
@@ -360,7 +362,8 @@ void print_core_roi_stats(uint32_t cpu)
     cout << endl;
 
     // OFFCHIP PREDICTOR STATS
-    ooo_cpu[cpu].dump_stats_offchip_predictor();
+    if(!knob::offchip_pred_location.compare("core"))
+        ooo_cpu[cpu].dump_stats_offchip_predictor();
 
     cout << "Core_" << cpu << "_DDRP_total " << ooo_cpu[cpu].stats.ddrp.total << endl
          << "Core_" << cpu << "_DDRP_issued_after_direct_translation " << ooo_cpu[cpu].stats.ddrp.issued[0] << endl
@@ -1210,7 +1213,8 @@ int main(int argc, char** argv)
         ooo_cpu[i].initialize_branch_predictor();
 
         // OFFCHIP PREDICTOR
-        ooo_cpu[i].initialize_offchip_predictor(champsim_seed);
+        if(!knob::offchip_pred_location.compare("core"))
+            ooo_cpu[i].initialize_offchip_predictor(champsim_seed);
 
         // OFFCHIP TRACER
         if(knob::enable_offchip_tracing)
@@ -1486,7 +1490,8 @@ int main(int argc, char** argv)
             uncore.DRAM.total_bw_epochs++;
             uncore.DRAM.bw_level_hist[uncore.DRAM.bw]++;
             uncore.LLC.broadcast_bw(uncore.DRAM.bw);
-            for(uint32_t i = 0; i < NUM_CPUS; ++ i) ooo_cpu[i].offchip_predictor_update_dram_bw(uncore.DRAM.bw);
+            if(!knob::offchip_pred_location.compare("core"))
+                for(uint32_t i = 0; i < NUM_CPUS; ++ i) ooo_cpu[i].offchip_predictor_update_dram_bw(uncore.DRAM.bw);
         }
 
         // TODO: should it be backward?

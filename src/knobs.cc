@@ -341,6 +341,7 @@ namespace knob
 	/* Basic offchip predictor knobs */
 	string offchip_pred_type = "none";
 	bool   offchip_pred_mark_merged_load = false;
+	string offchip_pred_location = "core"; // {core, uncore}
 
 	/* Offchip Predictor */
 	uint32_t ocp_basic_table_size = 4096;
@@ -1662,6 +1663,10 @@ int parse_knobs(void* user, const char* section, const char* name, const char* v
 	else if (MATCH("", "offchip_pred_mark_merged_load"))
 	{
 		knob::offchip_pred_mark_merged_load = !strcmp(value, "true") ? true : false;
+	}
+	else if (MATCH("", "offchip_pred_location"))
+	{
+		knob::offchip_pred_location = string(value);
 	}
 
 	/* Offchip Predictor */

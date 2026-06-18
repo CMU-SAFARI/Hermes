@@ -27,6 +27,7 @@ namespace knob
     extern bool     l2c_pseudo_perfect_enable_dorsal;
     extern bool     enable_ddrp;
     extern bool     offchip_pred_mark_merged_load;
+    extern string   offchip_pred_location;
     extern bool     enable_itlb_priority_rq;
     extern bool     enable_dtlb_priority_rq;
     extern bool     enable_stlb_priority_rq;
@@ -331,7 +332,7 @@ void CACHE::handle_fill()
             }
 
             // update off-chip predictor for LLC evictions
-            if (cache_type == IS_LLC)
+            if (cache_type == IS_LLC && !knob::offchip_pred_location.compare("core"))
             {
                 ooo_cpu[fill_cpu].offchip_predictor_track_llc_eviction(set, way, block[set][way].full_addr);
             }

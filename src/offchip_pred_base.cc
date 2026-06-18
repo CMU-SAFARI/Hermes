@@ -27,3 +27,14 @@ bool OffchipPredBase::predict(ooo_model_instr *arch_instr, uint32_t data_index, 
     // return (rand() % 2) ? true : false;
     return false;
 }
+
+void OffchipPredBase::train(PACKET *packet)
+{
+    // nothing to train (uncore path default)
+}
+
+bool OffchipPredBase::predict(PACKET *packet)
+{
+    // uncore path default
+    return false;
+}

@@ -192,6 +192,8 @@ class PACKET {
              deque_cycle[NUM_MODULE_TYPES][NUM_QUEUE_TYPES];
 
     uint8_t went_offchip_pred; // populated from corresponding LQ entry
+    uint8_t went_offchip;      // uncore offchip-predictor path: LLC-miss outcome label for training
+    ocp_base_feature_t *ocp_feature; // uncore offchip-predictor path: feature state carried predict->train
 
     PACKET() {
         id = next_id++;
@@ -260,6 +262,8 @@ class PACKET {
             }
         }
         went_offchip_pred = 0;
+        went_offchip = 0;
+        ocp_feature = NULL;
     };
     std::string to_string();
 };

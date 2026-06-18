@@ -26,6 +26,12 @@ public:
     virtual void reset_stats();
     virtual void train(ooo_model_instr *arch_instr, uint32_t data_index, LSQ_ENTRY *lq_entry);
     virtual bool predict(ooo_model_instr *arch_instr, uint32_t data_index, LSQ_ENTRY *lq_entry);
+
+    // Uncore (beside-LLC) call path: predict/train operate on a PACKET, extracting
+    // everything internally. Derived classes that support the uncore path override these;
+    // others inherit these safe defaults.
+    virtual void train(PACKET *packet);
+    virtual bool predict(PACKET *packet);
 };
 
 #endif /* OFFCHIP_PRED_BASE_H */
