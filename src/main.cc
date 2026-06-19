@@ -1315,6 +1315,15 @@ int main(int argc, char** argv)
         // link DRAM controller from core for DDRP
         ooo_cpu[i].dram_controller = &uncore.DRAM;
 
+        // give every cache a direct line to the DRAM controller (for DDRP)
+        ooo_cpu[i].ITLB.dram_controller = &uncore.DRAM;
+        ooo_cpu[i].DTLB.dram_controller = &uncore.DRAM;
+        ooo_cpu[i].STLB.dram_controller = &uncore.DRAM;
+        ooo_cpu[i].L1I.dram_controller  = &uncore.DRAM;
+        ooo_cpu[i].L1D.dram_controller  = &uncore.DRAM;
+        ooo_cpu[i].L2C.dram_controller  = &uncore.DRAM;
+        uncore.LLC.dram_controller      = &uncore.DRAM;
+
         warmup_complete[i] = 0;
         //all_warmup_complete = NUM_CPUS;
         simulation_complete[i] = 0;

@@ -12,6 +12,7 @@
 extern uint32_t PAGE_TABLE_LATENCY, SWAP_LATENCY;
 
 class OffchipPredBase; // uncore-owned off-chip predictor (defined via offchip_pred_base.h)
+class MEMORY_CONTROLLER; // direct line to DRAM for DDRP (defined in dram_controller.h)
 
 class CACHE : public MEMORY {
   public:
@@ -25,13 +26,13 @@ class CACHE : public MEMORY {
     uint32_t reads_available_this_cycle;
     uint8_t cache_type;
 
+    // direct line from this cache straight to the DRAM controller (for DDRP, which
+    // bypasses the cache hierarchy). Linked in main.cc; NULL otherwise.
+    MEMORY_CONTROLLER *dram_controller;
+
     // Uncore (beside-LLC) off-chip predictor. Valid only on the LLC and only when
     // offchip_pred_location==uncore; NULL otherwise (core mode uses ooo_cpu[i].offchip_pred).
     OffchipPredBase *offchip_pred;
-    void initialize_offchip_predictor(uint64_t seed);
-    void print_config_offchip_predictor();
-    void dump_stats_offchip_predictor();
-    void offchip_pred_stats_and_train(PACKET *packet);
     // Off-chip predictor accuracy stats. In uncore mode the LLC owns the predictor and
     // tracks these here; in core mode O3_CPU::stats.offchip_pred is used instead.
     struct
@@ -41,6 +42,15 @@ class CACHE : public MEMORY {
         uint64_t false_pos;
         uint64_t false_neg;
     } offchip_pred_stats = {};
+    // DDRP (speculative direct-DRAM) stats. Like offchip_pred_stats, the LLC owns these in
+    // uncore mode (mirrors O3_CPU::stats.ddrp, which the core uses in core mode).
+    struct
+    {
+        uint64_t total;
+        uint64_t issued; // single call site at the uncore (unlike the core's issued[2])
+        uint64_t dram_rq_full;
+        uint64_t dram_mshr_full;
+    } ddrp_stats = {};
 
     // prefetch stats
     uint64_t pf_requested,
@@ -180,6 +190,7 @@ class CACHE : public MEMORY {
 
         llc_repl = NULL;
         offchip_pred = NULL;
+        dram_controller = NULL;
     }
 
     // destructor
@@ -341,6 +352,13 @@ class CACHE : public MEMORY {
         l1d_prefetcher_broadcast_acc(uint32_t bw_level),
         l2c_prefetcher_broadcast_acc(uint32_t bw_level),
         llc_prefetcher_broadcast_acc(uint32_t bw_level);
+
+    // Uncore (beside-LLC) off-chip predictor (see the offchip_pred member above)
+    void initialize_offchip_predictor(uint64_t seed);
+    void print_config_offchip_predictor();
+    void dump_stats_offchip_predictor();
+    void offchip_pred_stats_and_train(PACKET *packet);
+    void issue_ddrp_request(PACKET *packet); // uncore analog of O3_CPU::issue_ddrp_request
 };
 
 void print_cache_config();

@@ -17,6 +17,8 @@ namespace knob
     extern string offchip_pred_type;
     extern bool   offchip_pred_mark_merged_load;
     extern string offchip_pred_location;
+    extern bool     enable_ddrp;
+    extern uint32_t ddrp_req_latency;
 }
 
 //=============================================================================
@@ -115,6 +117,87 @@ void O3_CPU::offchip_predictor_track_llc_eviction(uint32_t set, uint32_t way, ui
 	}
 }
 
+// Core-side stats + training, run on LQ release (release_load_queue).
+void O3_CPU::offchip_pred_stats_and_train(uint32_t lq_index)
+{
+    // stats
+    stats.offchip_pred.pred_called++;
+    if(LQ.entry[lq_index].went_offchip == 1 && LQ.entry[lq_index].went_offchip_pred == 1) // true positive
+    {
+        stats.offchip_pred.true_pos++;
+    }
+    else if(LQ.entry[lq_index].went_offchip == 0 && LQ.entry[lq_index].went_offchip_pred == 1) // false negative
+    {
+        stats.offchip_pred.false_pos++;
+    }
+    else if(LQ.entry[lq_index].went_offchip == 1 && LQ.entry[lq_index].went_offchip_pred == 0) // false negative
+    {
+        stats.offchip_pred.false_neg++;
+    }
+
+    // training
+    uint32_t rob_index = LQ.entry[lq_index].rob_index;
+    int32_t data_index = -1;
+    for(int32_t index = 0; index < NUM_INSTR_SOURCES; ++index)
+    {
+        if(ROB.entry[rob_index].lq_index[index] == lq_index)
+        {
+            data_index = index;
+            break;
+        }
+    }
+    assert(data_index != -1);
+    if(offchip_pred) offchip_pred->train(&ROB.entry[rob_index], (uint32_t)data_index, &LQ.entry[lq_index]);
+}
+
+// Core-side speculative direct-DRAM (DDRP) fetch: issued when the prediction says off-chip.
+void O3_CPU::issue_ddrp_request(uint32_t lq_index, uint32_t call_type)
+{
+    stats.ddrp.total++;
+    assert(LQ.entry[lq_index].translated == COMPLETED);
+    assert(LQ.entry[lq_index].physical_address != 0);
+    assert(knob::enable_ddrp);
+
+    // check if DDRP is forcefully disabled by DDRP monitor
+    if(ddrp_monitor && ddrp_monitor->disable_ddrp == true)
+    {
+        return;
+    }
+
+    if(dram_controller->get_occupancy(1, LQ.entry[lq_index].physical_address >> LOG2_BLOCK_SIZE) == dram_controller->get_size(1, LQ.entry[lq_index].physical_address >> LOG2_BLOCK_SIZE)) // check RQ's occupancy
+    {
+        stats.ddrp.dram_rq_full++;
+        return;
+    }
+
+    // add it to DRAM_CONTROLLER's MSHR
+    PACKET data_packet;
+    data_packet.fill_level = FILL_DDRP;
+    data_packet.fill_l1d = 0;
+    data_packet.cpu = cpu;
+    data_packet.data_index = LQ.entry[lq_index].data_index;
+    data_packet.lq_index = lq_index;
+    data_packet.address = LQ.entry[lq_index].physical_address >> LOG2_BLOCK_SIZE;
+    data_packet.full_addr = LQ.entry[lq_index].physical_address;
+    data_packet.instr_id = LQ.entry[lq_index].instr_id;
+    data_packet.rob_index = LQ.entry[lq_index].rob_index;
+    data_packet.rob_position = LQ.entry[lq_index].rob_position;
+    data_packet.rob_part_type = LQ.entry[lq_index].rob_part_type;
+    data_packet.ip = LQ.entry[lq_index].ip;
+    data_packet.type = PREFETCH;
+    data_packet.asid[0] = LQ.entry[lq_index].asid[0];
+    data_packet.asid[1] = LQ.entry[lq_index].asid[1];
+    data_packet.event_cycle = LQ.entry[lq_index].event_cycle + knob::ddrp_req_latency;
+
+    DDRP_DP ( if(warmup_complete[data_packet.cpu]){
+    cout << "[CORE_DDRP_REQ] " <<  __func__ << " instr_id: " << data_packet.instr_id << " address: " << hex << data_packet.address;
+    cout << " full_addr: " << data_packet.full_addr << dec;
+    cout << " current: " << current_core_cycle[data_packet.cpu] << " event: " << data_packet.event_cycle << endl;});
+
+    dram_controller->add_rq(&data_packet);
+    stats.ddrp.issued[call_type]++;
+}
+
 //=============================================================================
 // CACHE: uncore-side placement (offchip_pred_location == uncore; LLC-owned)
 //=============================================================================
@@ -150,6 +233,13 @@ void CACHE::dump_stats_offchip_predictor()
          << "LLC_offchip_pred_recall " << recall*100 << endl
          << endl;
 
+    // LLC-owned DDRP (speculative direct-DRAM) stats (mirrors the core's Core_*_DDRP_*)
+    cout << "LLC_DDRP_total " << ddrp_stats.total << endl
+         << "LLC_DDRP_issued " << ddrp_stats.issued << endl
+         << "LLC_DDRP_dram_RQ_full " << ddrp_stats.dram_rq_full << endl
+         << "LLC_DDRP_dram_MSHR_full " << ddrp_stats.dram_mshr_full << endl
+         << endl;
+
     if(offchip_pred) offchip_pred->dump_stats();
 }
 
@@ -167,4 +257,51 @@ void CACHE::offchip_pred_stats_and_train(PACKET *packet)
     // train the LLC-owned predictor, then release the per-request feature state
     if(offchip_pred) offchip_pred->train(packet);
     if(packet->ocp_feature) { delete packet->ocp_feature; packet->ocp_feature = NULL; }
+}
+
+// Uncore analog of O3_CPU::issue_ddrp_request: on a positive uncore prediction, issue the
+// speculative direct-DRAM fetch for `packet`. Same logic as the core version (stats, DDRP
+// monitor, DRAM RQ occupancy check) but, since we already have the request's PACKET, we
+// generate a fresh DRAM packet populating only a minimal field set (like prefetch_line).
+// Stats + DDRP monitor are per-core (this serves packet->cpu); DRAM is the LLC's lower_level.
+void CACHE::issue_ddrp_request(PACKET *packet)
+{
+    uint32_t ddrp_cpu = packet->cpu;
+
+    ddrp_stats.total++;
+    assert(packet->full_addr != 0);
+    assert(knob::enable_ddrp);
+
+    // check if DDRP is forcefully disabled by the (per-core) DDRP monitor
+    if(ooo_cpu[ddrp_cpu].ddrp_monitor && ooo_cpu[ddrp_cpu].ddrp_monitor->disable_ddrp == true)
+    {
+        return;
+    }
+
+    // DDRP goes straight to DRAM (bypassing the cache hierarchy), so query this cache's
+    // direct line to the DRAM controller (linked in main.cc). Check its RQ occupancy first.
+    if(dram_controller->get_occupancy(1, packet->address) == dram_controller->get_size(1, packet->address))
+    {
+        ddrp_stats.dram_rq_full++;
+        return;
+    }
+
+    // build a minimal DDRP packet (only the fields the DRAM path needs), like prefetch_line
+    PACKET ddrp_packet;
+    ddrp_packet.fill_level = FILL_DDRP;
+    ddrp_packet.fill_l1d = 0;
+    ddrp_packet.cpu = ddrp_cpu;
+    ddrp_packet.address = packet->address;
+    ddrp_packet.full_addr = packet->full_addr;
+    ddrp_packet.ip = packet->ip;
+    ddrp_packet.type = PREFETCH;
+    ddrp_packet.event_cycle = current_core_cycle[ddrp_cpu] + knob::ddrp_req_latency;
+
+    DDRP_DP ( if(warmup_complete[ddrp_cpu]){
+    cout << "[UNCORE_DDRP_REQ] " << __func__ << " instr_id: " << ddrp_packet.instr_id << " address: " << hex << ddrp_packet.address;
+    cout << " full_addr: " << ddrp_packet.full_addr << dec;
+    cout << " current: " << current_core_cycle[ddrp_cpu] << " event: " << ddrp_packet.event_cycle << endl;});
+
+    dram_controller->add_rq(&ddrp_packet);
+    ddrp_stats.issued++;
 }

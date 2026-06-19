@@ -1089,6 +1089,11 @@ void CACHE::handle_read()
                                     && rq_entry.is_data && rq_entry.type == LOAD)
                                 {
                                     rq_entry.went_offchip_pred = uncore.LLC.offchip_pred->predict(&rq_entry);
+
+                                    // mirror the core-side gate (ooo_cpu.cc:2123): on a positive
+                                    // prediction, fire the uncore speculative direct-DRAM fetch
+                                    if(rq_entry.went_offchip_pred && knob::enable_ddrp)
+                                        uncore.LLC.issue_ddrp_request(&rq_entry);
                                 }
                                 lower_level->add_rq(&rq_entry);
                             }
