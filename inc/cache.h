@@ -11,6 +11,8 @@
 // PAGE
 extern uint32_t PAGE_TABLE_LATENCY, SWAP_LATENCY;
 
+class OffchipPredBase; // uncore-owned off-chip predictor (defined via offchip_pred_base.h)
+
 class CACHE : public MEMORY {
   public:
     uint32_t cpu;
@@ -22,6 +24,13 @@ class CACHE : public MEMORY {
     uint32_t MAX_READ, MAX_FILL;
     uint32_t reads_available_this_cycle;
     uint8_t cache_type;
+
+    // Uncore (beside-LLC) off-chip predictor. Valid only on the LLC and only when
+    // offchip_pred_location==uncore; NULL otherwise (core mode uses ooo_cpu[i].offchip_pred).
+    OffchipPredBase *offchip_pred;
+    void initialize_offchip_predictor(uint64_t seed);
+    void print_config_offchip_predictor();
+    void offchip_pred_stats_and_train(PACKET *packet);
 
     // prefetch stats
     uint64_t pf_requested,
@@ -160,6 +169,7 @@ class CACHE : public MEMORY {
         MAX_FILL = 1;
 
         llc_repl = NULL;
+        offchip_pred = NULL;
     }
 
     // destructor

@@ -852,7 +852,18 @@ void CACHE::handle_read()
             // access cache
             uint32_t set = get_set(rq_entry.address);
             int way = check_hit(&rq_entry);
-            
+
+            // Uncore (beside-LLC) off-chip predictor: train on the resolved hit/miss
+            // outcome (LLC miss => off-chip). The prediction is made earlier — predict()
+            // sets rq_entry.went_offchip_pred + ocp_feature before we reach here.
+            if (cache_type == IS_LLC && offchip_pred
+                && !knob::offchip_pred_location.compare("uncore")
+                && rq_entry.is_data && rq_entry.type == LOAD)
+            {
+                rq_entry.went_offchip = (way < 0) ? 1 : 0; // LLC miss => went off-chip
+                offchip_pred_stats_and_train(&rq_entry);
+            }
+
             if (way >= 0) // read hit
             {
                 rq_entry.hit_where = assign_hit_where(cache_type, 0); // read hit
@@ -1053,9 +1064,7 @@ void CACHE::handle_read()
                         }
 		            }
                     else
-                    {
-                        // add it to mshr (read miss)
-                        add_mshr(&rq_entry);                    
+                    {                   
                         // add it to the next level's read queue
                         if (lower_level)
                         {
@@ -1065,6 +1074,22 @@ void CACHE::handle_read()
                             }
                             else
                             {
+                                // add it to mshr (read miss)
+                                add_mshr(&rq_entry);
+
+                                // Uncore off-chip predictor: predict as early as possible — here,
+                                // where L2 has allocated its MSHR and is about to forward the demand
+                                // data-LOAD to the LLC's RQ. Predicting now (rather than when the LLC
+                                // controller later dequeues the request) hides the LLC RQ queuing
+                                // latency. The prediction + feature state ride on the PACKET copied
+                                // into the LLC RQ; the LLC trains on it after the tag lookup resolves.
+                                // Uses the LLC-owned predictor (the same instance that will train it).
+                                if (cache_type == IS_L2C && uncore.LLC.offchip_pred
+                                    && !knob::offchip_pred_location.compare("uncore")
+                                    && rq_entry.is_data && rq_entry.type == LOAD)
+                                {
+                                    rq_entry.went_offchip_pred = uncore.LLC.offchip_pred->predict(&rq_entry);
+                                }
                                 lower_level->add_rq(&rq_entry);
                             }
                             
@@ -1073,6 +1098,8 @@ void CACHE::handle_read()
                         {
                             if (cache_type == IS_STLB)
                             {
+                                // fake MSHR add to keep the return_data happy
+                                add_mshr(&rq_entry);
                                 // TODO: need to differentiate page table walk and actual swap                    
                                 // emulate page table walk
                                 uint64_t pa = va_to_pa(read_cpu, rq_entry.instr_id, rq_entry.full_addr, rq_entry.address, 0);

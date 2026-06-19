@@ -184,6 +184,8 @@ void print_knobs()
     uncore.LLC.llc_replacement_print_config();
     if(!knob::offchip_pred_location.compare("core"))
         ooo_cpu[0].print_config_offchip_predictor();
+    else if(!knob::offchip_pred_location.compare("uncore"))
+        uncore.LLC.print_config_offchip_predictor();
     ooo_cpu[0].print_config_ddrp_monitor();
     
     cout << endl;
@@ -361,9 +363,9 @@ void print_core_roi_stats(uint32_t cpu)
     }
     cout << endl;
 
-    // OFFCHIP PREDICTOR STATS
-    if(!knob::offchip_pred_location.compare("core"))
-        ooo_cpu[cpu].dump_stats_offchip_predictor();
+    // OFFCHIP PREDICTOR STATS (per-core Core_*_offchip_pred_*; attributed by the core in
+    // core mode and by the LLC hook in uncore mode, so print in both)
+    ooo_cpu[cpu].dump_stats_offchip_predictor();
 
     cout << "Core_" << cpu << "_DDRP_total " << ooo_cpu[cpu].stats.ddrp.total << endl
          << "Core_" << cpu << "_DDRP_issued_after_direct_translation " << ooo_cpu[cpu].stats.ddrp.issued[0] << endl
@@ -1332,6 +1334,20 @@ int main(int argc, char** argv)
         uncore.LLC.tracer.init_tracing(knob::llc_access_trace_filename, knob::llc_dump_access_trace_type, -1);
     }
     uncore.LLC.init_rand_engine(champsim_seed, knob::llc_pseudo_perfect_prob);
+
+    // OFFCHIP PREDICTOR (uncore/beside-LLC placement): one LLC-owned instance;
+    // per-core ooo_cpu[i].offchip_pred stay NULL in this mode.
+    if(!knob::offchip_pred_location.compare("uncore"))
+        uncore.LLC.initialize_offchip_predictor(champsim_seed);
+
+    // Invariant: the off-chip predictor is owned by exactly one side — either every
+    // core (core mode) or the LLC (uncore mode), never both and never neither.
+    {
+        bool core_has = (ooo_cpu[0].offchip_pred != NULL);
+        for(uint32_t i = 0; i < NUM_CPUS; ++i)
+            assert((ooo_cpu[i].offchip_pred != NULL) == core_has); // all cores consistent
+        assert(core_has != (uncore.LLC.offchip_pred != NULL));     // exactly one side owns it
+    }
 
     print_knobs();
 

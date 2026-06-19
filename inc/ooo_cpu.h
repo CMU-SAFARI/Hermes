@@ -271,7 +271,7 @@ public:
 	        total_branch_types[j] = 0;
 	    }
 
-        offchip_pred->reset_stats();
+        if(offchip_pred) offchip_pred->reset_stats(); // NULL in uncore mode (LLC owns the predictor)
         if(ddrp_monitor) ddrp_monitor->reset_stats();
 
         bzero(&stats, sizeof(stats));
