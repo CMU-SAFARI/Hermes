@@ -363,9 +363,12 @@ void print_core_roi_stats(uint32_t cpu)
     }
     cout << endl;
 
-    // OFFCHIP PREDICTOR STATS (per-core Core_*_offchip_pred_*; attributed by the core in
-    // core mode and by the LLC hook in uncore mode, so print in both)
-    ooo_cpu[cpu].dump_stats_offchip_predictor();
+    // OFFCHIP PREDICTOR STATS. Owner reports them: core mode -> per-core Core_*_offchip_pred_*;
+    // uncore mode -> the LLC-owned predictor's LLC_offchip_pred_* (printed once).
+    if(!knob::offchip_pred_location.compare("core"))
+        ooo_cpu[cpu].dump_stats_offchip_predictor();
+    else if(!knob::offchip_pred_location.compare("uncore") && cpu == 0)
+        uncore.LLC.dump_stats_offchip_predictor();
 
     cout << "Core_" << cpu << "_DDRP_total " << ooo_cpu[cpu].stats.ddrp.total << endl
          << "Core_" << cpu << "_DDRP_issued_after_direct_translation " << ooo_cpu[cpu].stats.ddrp.issued[0] << endl

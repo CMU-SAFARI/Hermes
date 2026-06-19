@@ -30,7 +30,17 @@ class CACHE : public MEMORY {
     OffchipPredBase *offchip_pred;
     void initialize_offchip_predictor(uint64_t seed);
     void print_config_offchip_predictor();
+    void dump_stats_offchip_predictor();
     void offchip_pred_stats_and_train(PACKET *packet);
+    // Off-chip predictor accuracy stats. In uncore mode the LLC owns the predictor and
+    // tracks these here; in core mode O3_CPU::stats.offchip_pred is used instead.
+    struct
+    {
+        uint64_t pred_called;
+        uint64_t true_pos;
+        uint64_t false_pos;
+        uint64_t false_neg;
+    } offchip_pred_stats = {};
 
     // prefetch stats
     uint64_t pf_requested,

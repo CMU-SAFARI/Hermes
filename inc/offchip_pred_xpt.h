@@ -66,11 +66,19 @@ public:
 
     uint32_t get_set(uint64_t page);
 
+    // shared core/uncore logic, parameterized by the already-selected address
+    bool predict_helper(uint64_t addr);
+    void train_helper(uint64_t addr, bool went_offchip);
+
     void print_config();
     void dump_stats();
     void reset_stats();
     void train(ooo_model_instr *arch_instr, uint32_t data_index, LSQ_ENTRY *lq_entry);
     bool predict(ooo_model_instr *arch_instr, uint32_t data_index, LSQ_ENTRY *lq_entry);
+
+    // Uncore (beside-LLC) path: operate on the PACKET (physical address available).
+    void train(PACKET *packet);
+    bool predict(PACKET *packet);
 };
 
 #endif /* OFFCHIP_PRED_XPT_H */

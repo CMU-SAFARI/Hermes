@@ -25,7 +25,12 @@ namespace knob
     extern uint32_t ocp_xpt_offchip_threshold;
     extern uint32_t ocp_xpt_hash_type;
     extern bool     ocp_xpt_use_physical_address;
+    extern string   offchip_pred_location;
 }
+
+//=============================================================================
+// Common: config, stats, construction, and shared helpers (both placements)
+//=============================================================================
 
 void OffchipPredXPT::print_config()
 {
@@ -62,13 +67,11 @@ OffchipPredXPT::OffchipPredXPT(uint32_t _cpu, string _type, uint64_t _seed) : Of
 {
     bzero(&stats, sizeof(stats));
 
-    // XPT is natively a physical-page-indexed, LLC-side predictor. When instantiated
-    // inside the core (as here), it is invoked at add_load_queue() time where the
-    // physical address has not been translated yet (it is still 0). Indexing by
-    // physical address core-side is therefore meaningless, so we forbid it and index
-    // by virtual page instead. The knob is kept so XPT can later be evaluated beside
-    // the LLC (as in the paper), where the physical address is available.
-    if (knob::ocp_xpt_use_physical_address)
+    // XPT is natively a physical-page-indexed, LLC-side predictor. At the CORE, predict()
+    // runs at add_load_queue() before translation, where the physical address is still 0 —
+    // so physical indexing is meaningless and we forbid it there. At the LLC (uncore) the
+    // physical address IS available, so physical indexing is allowed; only bar it core-side.
+    if (knob::ocp_xpt_use_physical_address && !knob::offchip_pred_location.compare("core"))
     {
         cerr << "[XPT] ERROR: ocp_xpt_use_physical_address=true, but XPT is instantiated inside the core." << endl
              << "[XPT] The physical address is not available at prediction time (add_load_queue), so XPT" << endl
@@ -103,11 +106,10 @@ uint32_t OffchipPredXPT::get_set(uint64_t page)
     return hash % num_sets;
 }
 
-bool OffchipPredXPT::predict(ooo_model_instr *arch_instr, uint32_t data_index, LSQ_ENTRY *lq_entry)
+// Shared prediction logic. `addr` has already been selected by the caller (virtual
+// or physical, core- or uncore-side); everything below is placement-agnostic.
+bool OffchipPredXPT::predict_helper(uint64_t addr)
 {
-    // XPT is natively physical-page-indexed; core-side it falls back to virtual page
-    // (see constructor). The knob selects which address to use.
-    uint64_t addr = knob::ocp_xpt_use_physical_address ? lq_entry->physical_address : lq_entry->virtual_address;
     uint64_t page = addr >> LOG2_PAGE_SIZE;
     uint32_t set = get_set(page);
 
@@ -135,14 +137,15 @@ bool OffchipPredXPT::predict(ooo_model_instr *arch_instr, uint32_t data_index, L
     return prediction;
 }
 
-void OffchipPredXPT::train(ooo_model_instr *arch_instr, uint32_t data_index, LSQ_ENTRY *lq_entry)
+// Shared training logic. `addr` already selected by the caller; `went_offchip` is the
+// resolved outcome (LSQ_ENTRY::went_offchip core-side, PACKET::went_offchip uncore-side).
+void OffchipPredXPT::train_helper(uint64_t addr, bool went_offchip)
 {
-    uint64_t addr = knob::ocp_xpt_use_physical_address ? lq_entry->physical_address : lq_entry->virtual_address;
     uint64_t page = addr >> LOG2_PAGE_SIZE;
     uint32_t set = get_set(page);
 
     stats.train.called++;
-    if (lq_entry->went_offchip) stats.train.went_offchip++;
+    if (went_offchip) stats.train.went_offchip++;
 
     // look up the page in the tracker set
     auto it = find_if(m_tracker[set].begin(), m_tracker[set].end(),
@@ -152,7 +155,7 @@ void OffchipPredXPT::train(ooo_model_instr *arch_instr, uint32_t data_index, LSQ
     {
         stats.tracker.hit++;
         ocp_xpt_tracker_entry_t entry = (*it);
-        if (lq_entry->went_offchip) entry.offchip_count++;
+        if (went_offchip) entry.offchip_count++;
         // move to MRU position
         m_tracker[set].erase(it);
         m_tracker[set].push_back(entry);
@@ -167,8 +170,42 @@ void OffchipPredXPT::train(ooo_model_instr *arch_instr, uint32_t data_index, LSQ
 
         ocp_xpt_tracker_entry_t entry;
         entry.page = page;
-        entry.offchip_count = lq_entry->went_offchip ? 1 : 0;
+        entry.offchip_count = went_offchip ? 1 : 0;
         m_tracker[set].push_back(entry);
         stats.tracker.insertion++;
     }
+}
+
+//=============================================================================
+// Core-side placement (offchip_pred_location == core): LSQ_ENTRY interface
+//=============================================================================
+
+bool OffchipPredXPT::predict(ooo_model_instr *arch_instr, uint32_t data_index, LSQ_ENTRY *lq_entry)
+{
+    // XPT is natively physical-page-indexed; core-side it falls back to virtual page
+    // (see constructor). The knob selects which address to use.
+    uint64_t addr = knob::ocp_xpt_use_physical_address ? lq_entry->physical_address : lq_entry->virtual_address;
+    return predict_helper(addr);
+}
+
+void OffchipPredXPT::train(ooo_model_instr *arch_instr, uint32_t data_index, LSQ_ENTRY *lq_entry)
+{
+    uint64_t addr = knob::ocp_xpt_use_physical_address ? lq_entry->physical_address : lq_entry->virtual_address;
+    train_helper(addr, lq_entry->went_offchip);
+}
+
+//=============================================================================
+// Uncore-side placement (LLC; offchip_pred_location == uncore): PACKET interface
+//=============================================================================
+
+bool OffchipPredXPT::predict(PACKET *packet)
+{
+    // beside the LLC the physical address is available on the PACKET. (PACKET has no
+    // virtual address yet — to be added later to compare virtual vs physical indexing.)
+    return predict_helper(packet->full_addr);
+}
+
+void OffchipPredXPT::train(PACKET *packet)
+{
+    train_helper(packet->full_addr, packet->went_offchip);
 }

@@ -2666,6 +2666,7 @@ uint32_t O3_CPU::get_source_index_from_rob(uint32_t rob_index, uint32_t lq_index
 void O3_CPU::offchip_pred_stats_and_train(uint32_t lq_index)
 {
     // stats
+    stats.offchip_pred.pred_called++;
     if(LQ.entry[lq_index].went_offchip == 1 && LQ.entry[lq_index].went_offchip_pred == 1) // true positive
     {
         stats.offchip_pred.true_pos++;

@@ -24,17 +24,19 @@ namespace knob
 //=============================================================================
 
 // Factory: build the predictor selected by offchip_pred_type and return it.
-// `owner` is "core" or "LLC" (purely for logging + the LLC-support guard).
-static OffchipPredBase* create_offchip_predictor(uint32_t cpu, string type, uint64_t seed, string owner)
+// Placement (core vs uncore) comes from knob::offchip_pred_location, kept consistent
+// everywhere instead of passing an explicit owner string.
+static OffchipPredBase* create_offchip_predictor(uint32_t cpu, string type, uint64_t seed)
 {
-    // single, greppable log line: "Adding Offchip predictor: <type> at <core/LLC>"
-    cout << "Adding Offchip predictor: " << type << " at " << owner << endl;
+    // single, greppable log line: "Adding Offchip predictor: <type> at <core/uncore>"
+    cout << "Adding Offchip predictor: " << type << " at " << knob::offchip_pred_location << endl;
 
     // LLC-side (uncore) support is added incrementally; only the types that have a
-    // working uncore PACKET* path may live at the LLC. For now that is just "none".
-    // Relax this as XPT/perc/etc. gain their uncore implementations.
-    if(!owner.compare("LLC"))
-        assert(!type.compare("none") && "LLC-side offchip predictor currently supports only type 'none'");
+    // working uncore PACKET* path may live at the LLC. Currently: "none" and "xpt".
+    // Relax this further as perc/etc. gain their uncore implementations.
+    if(!knob::offchip_pred_location.compare("uncore"))
+        assert((!type.compare("none") || !type.compare("xpt"))
+               && "LLC-side offchip predictor currently supports only 'none' and 'xpt'");
 
     if(!type.compare("none"))
             return new OffchipPredBase(cpu, type, seed);
@@ -65,7 +67,7 @@ static OffchipPredBase* create_offchip_predictor(uint32_t cpu, string type, uint
 
 void O3_CPU::initialize_offchip_predictor(uint64_t seed)
 {
-    offchip_pred = create_offchip_predictor(cpu, knob::offchip_pred_type, seed, "core");
+    offchip_pred = create_offchip_predictor(cpu, knob::offchip_pred_type, seed);
 }
 
 void O3_CPU::print_config_offchip_predictor()
@@ -84,7 +86,8 @@ void O3_CPU::dump_stats_offchip_predictor()
           recall = (float)stats.offchip_pred.true_pos / (stats.offchip_pred.true_pos + stats.offchip_pred.false_neg);
 
 
-    cout << "Core_" << cpu << "_offchip_pred_true_pos " << stats.offchip_pred.true_pos << endl
+    cout << "Core_" << cpu << "_offchip_pred_pred_called " << stats.offchip_pred.pred_called << endl
+         << "Core_" << cpu << "_offchip_pred_true_pos " << stats.offchip_pred.true_pos << endl
          << "Core_" << cpu << "_offchip_pred_false_pos " << stats.offchip_pred.false_pos << endl
          << "Core_" << cpu << "_offchip_pred_false_neg " << stats.offchip_pred.false_neg << endl
          << "Core_" << cpu << "_offchip_pred_precision " << precision*100 << endl
@@ -119,7 +122,7 @@ void O3_CPU::offchip_predictor_track_llc_eviction(uint32_t set, uint32_t way, ui
 // The LLC owns a single predictor instance (per-core ooo_cpu[i].offchip_pred stay NULL).
 void CACHE::initialize_offchip_predictor(uint64_t seed)
 {
-    offchip_pred = create_offchip_predictor(cpu, knob::offchip_pred_type, seed, "LLC");
+    offchip_pred = create_offchip_predictor(cpu, knob::offchip_pred_type, seed);
 }
 
 void CACHE::print_config_offchip_predictor()
@@ -132,16 +135,34 @@ void CACHE::print_config_offchip_predictor()
     if(offchip_pred) offchip_pred->print_config();
 }
 
+// Uncore mode: the LLC owns the predictor, so it also reports the accuracy stats
+// (LLC_offchip_pred_*) plus the predictor's own internal counters.
+void CACHE::dump_stats_offchip_predictor()
+{
+    float precision = (float)offchip_pred_stats.true_pos / (offchip_pred_stats.true_pos + offchip_pred_stats.false_pos),
+          recall    = (float)offchip_pred_stats.true_pos / (offchip_pred_stats.true_pos + offchip_pred_stats.false_neg);
+
+    cout << "LLC_offchip_pred_pred_called " << offchip_pred_stats.pred_called << endl
+         << "LLC_offchip_pred_true_pos " << offchip_pred_stats.true_pos << endl
+         << "LLC_offchip_pred_false_pos " << offchip_pred_stats.false_pos << endl
+         << "LLC_offchip_pred_false_neg " << offchip_pred_stats.false_neg << endl
+         << "LLC_offchip_pred_precision " << precision*100 << endl
+         << "LLC_offchip_pred_recall " << recall*100 << endl
+         << endl;
+
+    if(offchip_pred) offchip_pred->dump_stats();
+}
+
 // Uncore train path: mirror of O3_CPU::offchip_pred_stats_and_train. The hit/miss
 // outcome (packet->went_offchip) is set by the caller in CACHE::handle_read; the
 // prediction (packet->went_offchip_pred) + feature state were set earlier by predict().
 void CACHE::offchip_pred_stats_and_train(PACKET *packet)
 {
-    // per-core accuracy bookkeeping (same TP/FP/FN scheme as the core path)
-    auto &ocp_stats = ooo_cpu[packet->cpu].stats.offchip_pred;
-    if(packet->went_offchip && packet->went_offchip_pred)        ocp_stats.true_pos++;
-    else if(!packet->went_offchip && packet->went_offchip_pred)  ocp_stats.false_pos++;
-    else if(packet->went_offchip && !packet->went_offchip_pred)  ocp_stats.false_neg++;
+    // accuracy bookkeeping owned by the LLC (same TP/FP/FN scheme as the core path)
+    offchip_pred_stats.pred_called++;
+    if(packet->went_offchip && packet->went_offchip_pred)        offchip_pred_stats.true_pos++;
+    else if(!packet->went_offchip && packet->went_offchip_pred)  offchip_pred_stats.false_pos++;
+    else if(packet->went_offchip && !packet->went_offchip_pred)  offchip_pred_stats.false_neg++;
 
     // train the LLC-owned predictor, then release the per-request feature state
     if(offchip_pred) offchip_pred->train(packet);
