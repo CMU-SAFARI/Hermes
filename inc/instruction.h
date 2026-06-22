@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include <cstring>
 #include "defs.h"
 #include "set.h"
 
@@ -38,6 +39,41 @@ class input_instr {
             destination_memory[i] = 0;
         }
     };
+};
+
+// v2: extended trace format (512 bytes)
+// First 64 bytes are layout-identical to input_instr.
+// Adds: physical addresses, memory values (up to AVX-512),
+// access sizes, privilege level, and instruction type.
+class __attribute__((packed)) input_instr_v2
+{
+  public:
+  /* --- Block 1: Vanilla ChampSim layout (64 bytes) --- */
+  uint64_t ip;
+  uint8_t  is_branch;
+  uint8_t  branch_taken;
+  uint8_t  destination_registers[NUM_INSTR_DESTINATIONS];
+  uint8_t  source_registers[NUM_INSTR_SOURCES];
+  uint64_t destination_memory[NUM_INSTR_DESTINATIONS];      // VA
+  uint64_t source_memory[NUM_INSTR_SOURCES];                // VA
+
+  /* --- Block 2: Physical addresses + metadata (64 bytes) --- */
+  uint64_t destination_memory_pa[NUM_INSTR_DESTINATIONS];   // PA
+  uint64_t source_memory_pa[NUM_INSTR_SOURCES];             // PA
+  uint8_t  source_memory_size[NUM_INSTR_SOURCES];           // load widths
+  uint8_t  destination_memory_size[NUM_INSTR_DESTINATIONS];  // store widths
+  uint8_t  privilege;     // 0=user, 1=kernel
+  uint8_t  instr_type;    // INSTR_TYPE_INT / _FP / _SIMD
+  uint8_t  reserved[8];
+
+  /* --- Block 3: Memory values (384 bytes) --- */
+  uint8_t  source_memory_value[NUM_INSTR_SOURCES][MAX_MEM_VALUE_SIZE];
+  uint8_t  destination_memory_value[NUM_INSTR_DESTINATIONS][MAX_MEM_VALUE_SIZE];
+
+  input_instr_v2()
+  {
+    memset(this, 0, sizeof(*this));
+  };
 };
 
 class cloudsuite_instr {
@@ -282,5 +318,7 @@ class ooo_model_instr {
         return ss.str();
     }
 };
+
+static_assert(sizeof(input_instr_v2) == 512, "input_instr_v2 must be 512 bytes");
 
 #endif

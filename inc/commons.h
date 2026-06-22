@@ -14,6 +14,14 @@
 #define NUM_INSTR_DESTINATIONS 2
 #define NUM_INSTR_SOURCES 4
 
+// v2 trace format
+#define MAX_MEM_VALUE_SIZE 64 /* AVX-512: 512 bits = 64 bytes */
+
+// instruction type classification
+#define INSTR_TYPE_INT  0
+#define INSTR_TYPE_FP   1
+#define INSTR_TYPE_SIMD 2
+
 // CACHE BASICS
 #define BLOCK_SIZE 64
 #define LOG2_BLOCK_SIZE 6

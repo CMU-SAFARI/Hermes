@@ -16,6 +16,7 @@ namespace knob
 	uint64_t simulation_instructions = 1000000;
 	bool  	 cloudsuite = false;
 	bool     low_bandwidth = false;
+	uint32_t trace_version = 1;
 	vector<string> 	 l1d_prefetcher_types;
 	vector<string> 	 l2c_prefetcher_types;
 	vector<string> 	 llc_prefetcher_types;
@@ -493,6 +494,10 @@ int parse_knobs(void* user, const char* section, const char* name, const char* v
     else if (MATCH("", "low_bandwidth"))
     {
 		knob::low_bandwidth = !strcmp(value, "true") ? true : false;
+    }
+    else if (MATCH("", "trace_version"))
+    {
+		knob::trace_version = atoi(value);
     }
     else if (MATCH("", "l1d_prefetcher_types"))
     {
