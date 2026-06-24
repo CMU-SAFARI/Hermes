@@ -4,9 +4,8 @@
 class ocp_base_feature_t
 {
 public:
-    ocp_base_feature_t() {}
-    virtual ~ocp_base_feature_t() {} // MUST be pure virtual function
+  ocp_base_feature_t() {}
+  virtual ~ocp_base_feature_t() {}  // MUST be pure virtual function
 };
 
 #endif /* OFFCHIP_PRED_BASE_HELPER_H */
-

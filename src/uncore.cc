@@ -4,6 +4,7 @@
 UNCORE uncore;
 
 // constructor
-UNCORE::UNCORE() {
-    cycle = 0;
+UNCORE::UNCORE()
+{
+  cycle = 0;
 }

@@ -1,14 +1,14 @@
-#define PERL_constant_NOTFOUND	1
-#define PERL_constant_NOTDEF	2
-#define PERL_constant_ISIV	3
-#define PERL_constant_ISNO	4
-#define PERL_constant_ISNV	5
-#define PERL_constant_ISPV	6
-#define PERL_constant_ISPVN	7
-#define PERL_constant_ISSV	8
-#define PERL_constant_ISUNDEF	9
-#define PERL_constant_ISUV	10
-#define PERL_constant_ISYES	11
+#define PERL_constant_NOTFOUND 1
+#define PERL_constant_NOTDEF   2
+#define PERL_constant_ISIV     3
+#define PERL_constant_ISNO     4
+#define PERL_constant_ISNV     5
+#define PERL_constant_ISPV     6
+#define PERL_constant_ISPVN    7
+#define PERL_constant_ISSV     8
+#define PERL_constant_ISUNDEF  9
+#define PERL_constant_ISUV     10
+#define PERL_constant_ISYES    11
 
 #ifndef NVTYPE
 typedef double NV; /* 5.6 and later define NVTYPE, and typedef NV to it.  */
@@ -19,36 +19,30 @@ typedef double NV; /* 5.6 and later define NVTYPE, and typedef NV to it.  */
 #ifndef pTHX_
 #define pTHX_ /* 5.6 or later define this for threading support.  */
 #endif
-static int
-func_ord_by_type_1 (pTHX_ const char *name, IV *iv_return) {
+static int func_ord_by_type_1(pTHX_ const char *name, IV *iv_return)
+{
   /* When generated this function returned values for the list of names given
      here.  However, subsequent manual editing may have added or removed some.
      G L p */
   /* Offset 0 gives the best switch position.  */
   switch (name[0]) {
-  case 'G':
-    {
-      *iv_return = 18;
-      return PERL_constant_ISIV;
-    }
-    break;
-  case 'L':
-    {
-      *iv_return = 11;
-      return PERL_constant_ISIV;
-    }
-    break;
-  case 'p':
-    {
-      *iv_return = 0;
-      return PERL_constant_ISIV;
-    }
-    break;
+  case 'G': {
+    *iv_return = 18;
+    return PERL_constant_ISIV;
+  } break;
+  case 'L': {
+    *iv_return = 11;
+    return PERL_constant_ISIV;
+  } break;
+  case 'p': {
+    *iv_return = 0;
+    return PERL_constant_ISIV;
+  } break;
   }
   return PERL_constant_NOTFOUND;
 }
-static int
-func_ord_by_type_2 (pTHX_ const char *name, IV *iv_return) {
+static int func_ord_by_type_2(pTHX_ const char *name, IV *iv_return)
+{
   /* When generated this function returned values for the list of names given
      here.  However, subsequent manual editing may have added or removed some.
      GG GL Gp LG lG ls vS */
@@ -95,8 +89,8 @@ func_ord_by_type_2 (pTHX_ const char *name, IV *iv_return) {
   }
   return PERL_constant_NOTFOUND;
 }
-static int
-func_ord_by_type_3 (pTHX_ const char *name, IV *iv_return) {
+static int func_ord_by_type_3(pTHX_ const char *name, IV *iv_return)
+{
   /* When generated this function returned values for the list of names given
      here.  However, subsequent manual editing may have added or removed some.
      GDn GGG GGL GGp GVE GVI GnG GnP lGG vLL vLs */
@@ -165,8 +159,8 @@ func_ord_by_type_3 (pTHX_ const char *name, IV *iv_return) {
   }
   return PERL_constant_NOTFOUND;
 }
-static int
-func_ord_by_type_4 (pTHX_ const char *name, IV *iv_return) {
+static int func_ord_by_type_4(pTHX_ const char *name, IV *iv_return)
+{
   /* When generated this function returned values for the list of names given
      here.  However, subsequent manual editing may have added or removed some.
      GGGG lGGG vGVE vGVI vLGG vLLL */
@@ -174,38 +168,38 @@ func_ord_by_type_4 (pTHX_ const char *name, IV *iv_return) {
   switch (name[3]) {
   case 'E':
     if (memEQ(name, "vGV", 3)) {
-    /*                  E     */
+      /*                  E     */
       *iv_return = 84;
       return PERL_constant_ISIV;
     }
     break;
   case 'G':
     if (memEQ(name, "GGG", 3)) {
-    /*                  G     */
+      /*                  G     */
       *iv_return = 4;
       return PERL_constant_ISIV;
     }
     if (memEQ(name, "lGG", 3)) {
-    /*                  G     */
+      /*                  G     */
       *iv_return = 30;
       return PERL_constant_ISIV;
     }
     if (memEQ(name, "vLG", 3)) {
-    /*                  G     */
+      /*                  G     */
       *iv_return = 35;
       return PERL_constant_ISIV;
     }
     break;
   case 'I':
     if (memEQ(name, "vGV", 3)) {
-    /*                  I     */
+      /*                  I     */
       *iv_return = 84;
       return PERL_constant_ISIV;
     }
     break;
   case 'L':
     if (memEQ(name, "vLL", 3)) {
-    /*                  L     */
+      /*                  L     */
       *iv_return = 34;
       return PERL_constant_ISIV;
     }
@@ -213,8 +207,8 @@ func_ord_by_type_4 (pTHX_ const char *name, IV *iv_return) {
   }
   return PERL_constant_NOTFOUND;
 }
-static int
-func_ord_by_type_5 (pTHX_ const char *name, IV *iv_return) {
+static int func_ord_by_type_5(pTHX_ const char *name, IV *iv_return)
+{
   /* When generated this function returned values for the list of names given
      here.  However, subsequent manual editing may have added or removed some.
      GDVDE GDVDI "V=GEp" "V=GIp" */
@@ -222,26 +216,26 @@ func_ord_by_type_5 (pTHX_ const char *name, IV *iv_return) {
   switch (name[3]) {
   case 'D':
     if (memEQ(name, "GDVDE", 5)) {
-    /*                  ^       */
+      /*                  ^       */
       *iv_return = 28;
       return PERL_constant_ISIV;
     }
     if (memEQ(name, "GDVDI", 5)) {
-    /*                  ^       */
+      /*                  ^       */
       *iv_return = 28;
       return PERL_constant_ISIV;
     }
     break;
   case 'E':
     if (memEQ(name, "V=GEp", 5)) {
-    /*                  ^       */
+      /*                  ^       */
       *iv_return = 27;
       return PERL_constant_ISIV;
     }
     break;
   case 'I':
     if (memEQ(name, "V=GIp", 5)) {
-    /*                  ^       */
+      /*                  ^       */
       *iv_return = 27;
       return PERL_constant_ISIV;
     }
@@ -249,8 +243,8 @@ func_ord_by_type_5 (pTHX_ const char *name, IV *iv_return) {
   }
   return PERL_constant_NOTFOUND;
 }
-static int
-func_ord_by_type_6 (pTHX_ const char *name, IV *iv_return) {
+static int func_ord_by_type_6(pTHX_ const char *name, IV *iv_return)
+{
   /* When generated this function returned values for the list of names given
      here.  However, subsequent manual editing may have added or removed some.
      "V=GGEp" "V=GGIp" vLGGGG "vV=GGE" "vV=GGI" */
@@ -258,33 +252,33 @@ func_ord_by_type_6 (pTHX_ const char *name, IV *iv_return) {
   switch (name[5]) {
   case 'E':
     if (memEQ(name, "vV=GG", 5)) {
-    /*                    E     */
+      /*                    E     */
       *iv_return = 83;
       return PERL_constant_ISIV;
     }
     break;
   case 'G':
     if (memEQ(name, "vLGGG", 5)) {
-    /*                    G     */
+      /*                    G     */
       *iv_return = 59;
       return PERL_constant_ISIV;
     }
     break;
   case 'I':
     if (memEQ(name, "vV=GG", 5)) {
-    /*                    I     */
+      /*                    I     */
       *iv_return = 83;
       return PERL_constant_ISIV;
     }
     break;
   case 'p':
     if (memEQ(name, "V=GGE", 5)) {
-    /*                    p     */
+      /*                    p     */
       *iv_return = 37;
       return PERL_constant_ISIV;
     }
     if (memEQ(name, "V=GGI", 5)) {
-    /*                    p     */
+      /*                    p     */
       *iv_return = 37;
       return PERL_constant_ISIV;
     }
@@ -292,8 +286,8 @@ func_ord_by_type_6 (pTHX_ const char *name, IV *iv_return) {
   }
   return PERL_constant_NOTFOUND;
 }
-static int
-func_ord_by_type_7 (pTHX_ const char *name, IV *iv_return) {
+static int func_ord_by_type_7(pTHX_ const char *name, IV *iv_return)
+{
   /* When generated this function returned values for the list of names given
      here.  However, subsequent manual editing may have added or removed some.
      "GDGDGD&" "GGD0,L," "LGD0,L," "V=GGEDG" "V=GGIDG" "vV=GGGE" "vV=GGGI" */
@@ -301,45 +295,45 @@ func_ord_by_type_7 (pTHX_ const char *name, IV *iv_return) {
   switch (name[6]) {
   case '&':
     if (memEQ(name, "GDGDGD", 6)) {
-    /*                     &     */
+      /*                     &     */
       *iv_return = 31;
       return PERL_constant_ISIV;
     }
     break;
   case ',':
     if (memEQ(name, "GGD0,L", 6)) {
-    /*                     ,     */
+      /*                     ,     */
       *iv_return = 25;
       return PERL_constant_ISIV;
     }
     if (memEQ(name, "LGD0,L", 6)) {
-    /*                     ,     */
+      /*                     ,     */
       *iv_return = 45;
       return PERL_constant_ISIV;
     }
     break;
   case 'E':
     if (memEQ(name, "vV=GGG", 6)) {
-    /*                     E     */
+      /*                     E     */
       *iv_return = 86;
       return PERL_constant_ISIV;
     }
     break;
   case 'G':
     if (memEQ(name, "V=GGED", 6)) {
-    /*                     G     */
+      /*                     G     */
       *iv_return = 47;
       return PERL_constant_ISIV;
     }
     if (memEQ(name, "V=GGID", 6)) {
-    /*                     G     */
+      /*                     G     */
       *iv_return = 47;
       return PERL_constant_ISIV;
     }
     break;
   case 'I':
     if (memEQ(name, "vV=GGG", 6)) {
-    /*                     I     */
+      /*                     I     */
       *iv_return = 86;
       return PERL_constant_ISIV;
     }
@@ -347,8 +341,8 @@ func_ord_by_type_7 (pTHX_ const char *name, IV *iv_return) {
   }
   return PERL_constant_NOTFOUND;
 }
-static int
-func_ord_by_type_8 (pTHX_ const char *name, IV *iv_return) {
+static int func_ord_by_type_8(pTHX_ const char *name, IV *iv_return)
+{
   /* When generated this function returned values for the list of names given
      here.  However, subsequent manual editing may have added or removed some.
      "GD0,L,DG" GGDVDVDE GGDVDVDI */
@@ -356,21 +350,21 @@ func_ord_by_type_8 (pTHX_ const char *name, IV *iv_return) {
   switch (name[7]) {
   case 'E':
     if (memEQ(name, "GGDVDVD", 7)) {
-    /*                      E     */
+      /*                      E     */
       *iv_return = 49;
       return PERL_constant_ISIV;
     }
     break;
   case 'G':
     if (memEQ(name, "GD0,L,D", 7)) {
-    /*                      G     */
+      /*                      G     */
       *iv_return = 13;
       return PERL_constant_ISIV;
     }
     break;
   case 'I':
     if (memEQ(name, "GGDVDVD", 7)) {
-    /*                      I     */
+      /*                      I     */
       *iv_return = 49;
       return PERL_constant_ISIV;
     }
@@ -378,8 +372,8 @@ func_ord_by_type_8 (pTHX_ const char *name, IV *iv_return) {
   }
   return PERL_constant_NOTFOUND;
 }
-static int
-func_ord_by_type_17 (pTHX_ const char *name, IV *iv_return) {
+static int func_ord_by_type_17(pTHX_ const char *name, IV *iv_return)
+{
   /* When generated this function returned values for the list of names given
      here.  However, subsequent manual editing may have added or removed some.
      "GD0,G,D0,G,D0,L,p" "LV=GGEpD0,L,D0,L," "LV=GGIpD0,L,D0,L," */
@@ -387,21 +381,21 @@ func_ord_by_type_17 (pTHX_ const char *name, IV *iv_return) {
   switch (name[5]) {
   case ',':
     if (memEQ(name, "GD0,G,D0,G,D0,L,p", 17)) {
-    /*                    ^                  */
+      /*                    ^                  */
       *iv_return = 62;
       return PERL_constant_ISIV;
     }
     break;
   case 'E':
     if (memEQ(name, "LV=GGEpD0,L,D0,L,", 17)) {
-    /*                    ^                  */
+      /*                    ^                  */
       *iv_return = 73;
       return PERL_constant_ISIV;
     }
     break;
   case 'I':
     if (memEQ(name, "LV=GGIpD0,L,D0,L,", 17)) {
-    /*                    ^                  */
+      /*                    ^                  */
       *iv_return = 73;
       return PERL_constant_ISIV;
     }
@@ -409,8 +403,8 @@ func_ord_by_type_17 (pTHX_ const char *name, IV *iv_return) {
   }
   return PERL_constant_NOTFOUND;
 }
-static int
-func_ord_by_type (pTHX_ const char *name, STRLEN len, IV *iv_return) {
+static int func_ord_by_type(pTHX_ const char *name, STRLEN len, IV *iv_return)
+{
   /* Initially switch on the length of the name.  */
   /* When generated this function returned values for the list of names given
      in this section of perl code.  Rather than manually editing these functions
@@ -484,8 +478,8 @@ my @names = (qw(),
             {name=>"vV=GID0,L,", type=>"IV", macro=>"1", value=>"87"});
 
 print constant_types(); # macro defs
-foreach (C_constant ("Math::Pari::func_type", 'func_ord_by_type', 'IV', $types, undef, 3, @names) ) {
-    print $_, "\n"; # C constant subs
+foreach (C_constant ("Math::Pari::func_type", 'func_ord_by_type', 'IV', $types,
+undef, 3, @names) ) { print $_, "\n"; # C constant subs
 }
 print "#### XS Section:\n";
 print XS_constant ("Math::Pari::func_type", $types);
@@ -494,28 +488,28 @@ __END__
 
   switch (len) {
   case 1:
-    return func_ord_by_type_1 (aTHX_ name, iv_return);
+    return func_ord_by_type_1(aTHX_ name, iv_return);
     break;
   case 2:
-    return func_ord_by_type_2 (aTHX_ name, iv_return);
+    return func_ord_by_type_2(aTHX_ name, iv_return);
     break;
   case 3:
-    return func_ord_by_type_3 (aTHX_ name, iv_return);
+    return func_ord_by_type_3(aTHX_ name, iv_return);
     break;
   case 4:
-    return func_ord_by_type_4 (aTHX_ name, iv_return);
+    return func_ord_by_type_4(aTHX_ name, iv_return);
     break;
   case 5:
-    return func_ord_by_type_5 (aTHX_ name, iv_return);
+    return func_ord_by_type_5(aTHX_ name, iv_return);
     break;
   case 6:
-    return func_ord_by_type_6 (aTHX_ name, iv_return);
+    return func_ord_by_type_6(aTHX_ name, iv_return);
     break;
   case 7:
-    return func_ord_by_type_7 (aTHX_ name, iv_return);
+    return func_ord_by_type_7(aTHX_ name, iv_return);
     break;
   case 8:
-    return func_ord_by_type_8 (aTHX_ name, iv_return);
+    return func_ord_by_type_8(aTHX_ name, iv_return);
     break;
   case 9:
     /* Names all of length 9.  */
@@ -524,14 +518,14 @@ __END__
     switch (name[1]) {
     case 'D':
       if (memEQ(name, "GD0,L,DGp", 9)) {
-      /*                ^             */
+        /*                ^             */
         *iv_return = 96;
         return PERL_constant_ISIV;
       }
       break;
     case 'G':
       if (memEQ(name, "GGGD0,L,p", 9)) {
-      /*                ^             */
+        /*                ^             */
         *iv_return = 33;
         return PERL_constant_ISIV;
       }
@@ -545,14 +539,14 @@ __END__
     switch (name[4]) {
     case 'E':
       if (memEQ(name, "vV=GED0,L,", 10)) {
-      /*                   ^            */
+        /*                   ^            */
         *iv_return = 87;
         return PERL_constant_ISIV;
       }
       break;
     case 'I':
       if (memEQ(name, "vV=GID0,L,", 10)) {
-      /*                   ^            */
+        /*                   ^            */
         *iv_return = 87;
         return PERL_constant_ISIV;
       }
@@ -566,14 +560,14 @@ __END__
     switch (name[7]) {
     case ',':
       if (memEQ(name, "GDGDGD0,L,p", 11)) {
-      /*                      ^          */
+        /*                      ^          */
         *iv_return = 62;
         return PERL_constant_ISIV;
       }
       break;
     case '0':
       if (memEQ(name, "GD0,L,D0,G,", 11)) {
-      /*                      ^          */
+        /*                      ^          */
         *iv_return = 13;
         return PERL_constant_ISIV;
       }
@@ -581,9 +575,8 @@ __END__
     }
     break;
   case 17:
-    return func_ord_by_type_17 (aTHX_ name, iv_return);
+    return func_ord_by_type_17(aTHX_ name, iv_return);
     break;
   }
   return PERL_constant_NOTFOUND;
 }
-

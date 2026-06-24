@@ -1,0 +1,49 @@
+# C++ style for Hermes. 2-space, 80-col, all-braced, aligned.
+BasedOnStyle: LLVM
+Language: Cpp
+
+# --- indentation & width ---
+IndentWidth: 2
+TabWidth: 2
+UseTab: Never
+ColumnLimit: 80
+ContinuationIndentWidth: 4
+AccessModifierOffset: -2
+NamespaceIndentation: None
+
+# --- braces: Allman for funcs/namespaces/classes, attached+cuddled control ---
+BreakBeforeBraces: Linux
+InsertBraces: true
+FixNamespaceComments: true
+
+# --- pointers/references: '*' and '&' bind to the variable name ---
+PointerAlignment: Right
+ReferenceAlignment: Right
+DerivePointerAlignment: false
+
+# --- alignment (the "beautify" pass) ---
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+AlignConsecutiveMacros: true
+AlignTrailingComments: true
+AlignOperands: Align
+AlignAfterOpenBracket: Align
+AlignEscapedNewlines: Left
+
+# --- comments obey the column limit ---
+ReflowComments: true
+SpacesBeforeTrailingComments: 2
+
+# --- short-construct policy ---
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortBlocksOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+
+# --- misc tidy ---
+MaxEmptyLinesToKeep: 2
+KeepEmptyLinesAtTheStartOfBlocks: false
+SortIncludes: false
+Cpp11BracedListStyle: true
+SpaceBeforeParens: ControlStatements

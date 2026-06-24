@@ -11,8 +11,8 @@
  *********************/
 // instruction format
 #define NUM_INSTR_DESTINATIONS_SPARC 4
-#define NUM_INSTR_DESTINATIONS 2
-#define NUM_INSTR_SOURCES 4
+#define NUM_INSTR_DESTINATIONS       2
+#define NUM_INSTR_SOURCES            4
 
 // v2 trace format
 #define MAX_MEM_VALUE_SIZE 64 /* AVX-512: 512 bits = 64 bytes */
@@ -23,24 +23,24 @@
 #define INSTR_TYPE_SIMD 2
 
 // CACHE BASICS
-#define BLOCK_SIZE 64
-#define LOG2_BLOCK_SIZE 6
+#define BLOCK_SIZE         64
+#define LOG2_BLOCK_SIZE    6
 #define MAX_READ_PER_CYCLE 8
 #define MAX_FILL_PER_CYCLE 1
 
 // Page basics
-#define PAGE_SIZE 4096
+#define PAGE_SIZE      4096
 #define LOG2_PAGE_SIZE 12
 
-#define INFLIGHT 1
+#define INFLIGHT  1
 #define COMPLETED 2
 
-#define FILL_L1     1
-#define FILL_L2     2
-#define FILL_LLC    4
-#define FILL_DRC    8
-#define FILL_DDRP   9
-#define FILL_DRAM   16
+#define FILL_L1   1
+#define FILL_L2   2
+#define FILL_LLC  4
+#define FILL_DRC  8
+#define FILL_DDRP 9
+#define FILL_DRAM 16
 
 // CACHE ACCESS TYPE
 #define LOAD      0
@@ -56,14 +56,14 @@
 #define NUM_PARTITION_TYPES 3
 
 // MODULE TYPE
-#define IS_ITLB 0
-#define IS_DTLB 1
-#define IS_STLB 2
-#define IS_L1I  3
-#define IS_L1D  4
-#define IS_L2C  5
-#define IS_LLC  6
-#define IS_DRAM 7
+#define IS_ITLB          0
+#define IS_DTLB          1
+#define IS_STLB          2
+#define IS_L1I           3
+#define IS_L1D           4
+#define IS_L2C           5
+#define IS_LLC           6
+#define IS_DRAM          7
 #define NUM_MODULE_TYPES 8
 
 // QUEUE TYPES
@@ -75,8 +75,8 @@
 #define NUM_QUEUE_TYPES 5
 
 // special registers that help us identify branches
-#define REG_STACK_POINTER 6
-#define REG_FLAGS 25
+#define REG_STACK_POINTER       6
+#define REG_FLAGS               25
 #define REG_INSTRUCTION_POINTER 26
 
 // branch types
@@ -90,14 +90,13 @@
 #define BRANCH_OTHER         7
 
 // dependent instruction types
-#define DEP_INSTR_BRANCH_MISPRED    0
-#define DEP_INSTR_BRANCH_CORRECT    1
-#define DEP_INSTR_LOAD              2
-#define DEP_INSTR_TYPES             3
+#define DEP_INSTR_BRANCH_MISPRED 0
+#define DEP_INSTR_BRANCH_CORRECT 1
+#define DEP_INSTR_LOAD           2
+#define DEP_INSTR_TYPES          3
 
 // some more parameters for stat collection
-#define DRAM_BW_LEVELS 4
+#define DRAM_BW_LEVELS   4
 #define CACHE_ACC_LEVELS 10
 
 #endif /* CHAMPSIM_COMMONS_H */
-

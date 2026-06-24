@@ -7,14 +7,14 @@ Samuel Pakalapati - samuelpakalapati@gmail.com
 Biswabandan Panda - biswap@cse.iitk.ac.in
 ***************************************************************************/
 
-#define NUM_IP_TABLE_L1_ENTRIES 1024                        // IP table entries
-#define NUM_GHB_ENTRIES 16                                  // Entries in the GHB
-#define NUM_IP_INDEX_BITS 10                                // Bits to index into the IP table
-#define NUM_IP_TAG_BITS 6                                   // Tag bits per IP table entry
-#define S_TYPE 1                                            // stream
-#define CS_TYPE 2                                           // constant stride
-#define CPLX_TYPE 3                                         // complex stride
-#define NL_TYPE 4                                           // next line
+#define NUM_IP_TABLE_L1_ENTRIES 1024  // IP table entries
+#define NUM_GHB_ENTRIES         16    // Entries in the GHB
+#define NUM_IP_INDEX_BITS       10    // Bits to index into the IP table
+#define NUM_IP_TAG_BITS         6     // Tag bits per IP table entry
+#define S_TYPE                  1     // stream
+#define CS_TYPE                 2     // constant stride
+#define CPLX_TYPE               3     // complex stride
+#define NL_TYPE                 4     // next line
 #define NUM_IP_TABLE_L2_ENTRIES 1024
 
 // #define SIG_DEBUG_PRINT

@@ -17,7 +17,7 @@
 // without changing this public API.
 class TraceReader
 {
-  public:
+public:
   // Opens the trace at `path`. Throws std::runtime_error if the file is
   // missing/unreadable, has no recognizable compression extension, or if
   // the decompressor cannot be launched.
@@ -38,7 +38,7 @@ class TraceReader
 
   const std::string &path() const noexcept { return path_; }
 
-  private:
+private:
   struct Impl;
 
   std::string           path_;
