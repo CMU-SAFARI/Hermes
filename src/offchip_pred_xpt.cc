@@ -4,6 +4,7 @@
 #include "util.h"
 #include "offchip_pred_xpt.h"
 #include "ooo_cpu.h"
+#include "knobs.h"
 
 #if 0
 #define MYLOG(cond, ...)                                    \
@@ -18,16 +19,6 @@
   {                      \
   }
 #endif
-
-namespace knob
-{
-extern uint32_t ocp_xpt_num_entries;
-extern uint32_t ocp_xpt_assoc;
-extern uint32_t ocp_xpt_offchip_threshold;
-extern uint32_t ocp_xpt_hash_type;
-extern bool     ocp_xpt_use_physical_address;
-extern string   offchip_pred_location;
-}  // namespace knob
 
 //=============================================================================
 // Common: config, stats, construction, and shared helpers (both placements)

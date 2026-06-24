@@ -7,6 +7,7 @@
 #include "scooby.h"
 // #include "velma.h"
 #include "util.h"
+#include "knobs.h"
 
 #if 0
 #define LOCKED(...) \
@@ -23,21 +24,6 @@
   {                \
   }
 #endif
-
-namespace knob
-{
-extern bool                 le_enable_trace;
-extern uint32_t             le_trace_interval;
-extern std::string          le_trace_file_name;
-extern uint32_t             le_trace_state;
-extern bool                 le_enable_score_plot;
-extern std::vector<int32_t> le_plot_actions;
-extern std::string          le_plot_file_name;
-extern bool                 le_enable_action_trace;
-extern uint32_t             le_action_trace_interval;
-extern std::string          le_action_trace_name;
-extern bool                 le_enable_action_plot;
-}  // namespace knob
 
 LearningEngineBasic::LearningEngineBasic(Prefetcher *parent, float alpha,
                                          float gamma, float epsilon,

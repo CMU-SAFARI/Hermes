@@ -1,17 +1,7 @@
 #include <iostream>
 #include "pref_power7.h"
 #include "champsim.h"
-
-namespace knob
-{
-extern uint32_t streamer_num_trackers;
-extern uint32_t streamer_pref_degree;
-extern uint32_t stride_num_trackers;
-extern uint32_t stride_pref_degree;
-extern uint32_t power7_explore_epoch;
-extern uint32_t power7_exploit_epoch;
-extern uint32_t power7_default_streamer_degree;
-}  // namespace knob
+#include "knobs.h"
 
 string POWER7_Pref::get_mode_string(Mode mode)
 {

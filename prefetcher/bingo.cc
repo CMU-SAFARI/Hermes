@@ -2,25 +2,7 @@
 #include "cache.h"
 #include "champsim.h"
 #include "bingo.h"
-
-namespace knob
-{
-extern uint32_t bingo_region_size;
-extern uint32_t bingo_pattern_len;
-extern uint32_t bingo_pc_width;
-extern uint32_t bingo_min_addr_width;
-extern uint32_t bingo_max_addr_width;
-extern uint32_t bingo_ft_size;
-extern uint32_t bingo_at_size;
-extern uint32_t bingo_pht_size;
-extern uint32_t bingo_pht_ways;
-extern uint32_t bingo_pf_streamer_size;
-extern uint32_t bingo_debug_level;
-extern float    bingo_l1d_thresh;
-extern float    bingo_l2c_thresh;
-extern float    bingo_llc_thresh;
-extern string   bingo_pc_address_fill_level;
-}  // namespace knob
+#include "knobs.h"
 
 void Bingo::init_knobs()
 {

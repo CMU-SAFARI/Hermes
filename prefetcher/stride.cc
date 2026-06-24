@@ -1,12 +1,7 @@
 #include <algorithm>
 #include "stride.h"
 #include "champsim.h"
-
-namespace knob
-{
-extern uint32_t stride_num_trackers;
-extern uint32_t stride_pref_degree;
-}  // namespace knob
+#include "knobs.h"
 
 void StridePrefetcher::init_knobs() {}
 

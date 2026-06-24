@@ -1,9 +1,5 @@
 #include "ipcp_L1.h"
-
-namespace knob
-{
-
-}
+#include "knobs.h"
 
 void IPCP_L1::init_knobs() {}
 

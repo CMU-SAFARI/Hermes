@@ -1,16 +1,7 @@
 #include <algorithm>
 #include "ampm.h"
 #include "champsim.h"
-
-namespace knob
-{
-extern uint32_t ampm_pb_size;
-extern uint32_t ampm_pred_degree;
-extern uint32_t ampm_pref_degree;
-extern uint32_t ampm_pref_buffer_size;
-extern bool     ampm_enable_pref_buffer;
-extern uint32_t ampm_max_delta;
-}  // namespace knob
+#include "knobs.h"
 
 void AMPM::init_knobs() {}
 

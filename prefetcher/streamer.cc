@@ -2,12 +2,7 @@
 #include <algorithm>
 #include "streamer.h"
 #include "champsim.h"
-
-namespace knob
-{
-extern uint32_t streamer_num_trackers;
-extern uint32_t streamer_pref_degree;
-}  // namespace knob
+#include "knobs.h"
 
 void Streamer::init_knobs() {}
 

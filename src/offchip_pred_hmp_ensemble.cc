@@ -1,6 +1,7 @@
 #include <iostream>
 #include "offchip_pred_hmp_ensemble.h"
 #include "util.h"
+#include "knobs.h"
 
 #if 0
 #define MYLOG(cond, ...)                                    \
@@ -15,11 +16,6 @@
   {                      \
   }
 #endif
-
-namespace knob
-{
-
-}
 
 void OffchipPredHMPEnsemble::print_config()
 {

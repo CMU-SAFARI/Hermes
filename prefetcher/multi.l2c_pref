@@ -20,14 +20,9 @@
 #include "ampm.h"
 #include "streamer.h"
 #include "pref_power7.h"
+#include "knobs.h"
 
 using namespace std;
-
-namespace knob
-{
-extern vector<string> l2c_prefetcher_types;
-extern bool           l2c_prefetcher_force_prefetch_at_llc;
-}  // namespace knob
 
 // vector<Prefetcher*> prefetchers;
 

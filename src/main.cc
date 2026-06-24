@@ -7,6 +7,7 @@
 #include "knobs.h"
 #include "util.h"
 #include <fstream>
+#include <sstream>
 #include <algorithm>
 #include <numeric>
 
@@ -29,64 +30,6 @@
   }
 #endif
 
-namespace knob
-{
-extern uint64_t        warmup_instructions;
-extern uint64_t        simulation_instructions;
-extern bool            cloudsuite;
-extern bool            low_bandwidth;
-extern uint32_t        trace_version;
-extern bool            measure_ipc;
-extern uint32_t        measure_ipc_epoch;
-extern uint32_t        dram_io_freq;
-extern bool            measure_dram_bw;
-extern uint64_t        measure_dram_bw_epoch;
-extern bool            measure_cache_acc;
-extern uint64_t        measure_cache_acc_epoch;
-extern bool            l1d_perfect;
-extern bool            l2c_perfect;
-extern bool            llc_perfect;
-extern bool            l1d_semi_perfect;
-extern bool            l2c_semi_perfect;
-extern bool            llc_semi_perfect;
-extern uint32_t        semi_perfect_cache_page_buffer_size;
-extern bool            enable_offchip_tracing;
-extern string          offchip_trace_filename;
-extern bool            l2c_dump_access_trace;
-extern bool            llc_dump_access_trace;
-extern string          l2c_access_trace_filename;
-extern string          llc_access_trace_filename;
-extern uint32_t        l2c_dump_access_trace_type;
-extern uint32_t        llc_dump_access_trace_type;
-extern bool            track_load_hit_dependency_in_cache;
-extern uint32_t        load_hit_dependency_max_level;
-extern bool            llc_pseudo_perfect_enable;
-extern float           llc_pseudo_perfect_prob;
-extern bool            llc_pseudo_perfect_enable_frontal;
-extern bool            llc_pseudo_perfect_enable_dorsal;
-extern bool            l2c_pseudo_perfect_enable;
-extern float           l2c_pseudo_perfect_prob;
-extern bool            l2c_pseudo_perfect_enable_frontal;
-extern bool            l2c_pseudo_perfect_enable_dorsal;
-extern uint32_t        num_rob_partitions;
-extern vector<int32_t> rob_partition_size;
-extern vector<int32_t> rob_partition_boundaries;
-extern vector<int32_t> rob_frontal_partition_ids;
-extern vector<int32_t> rob_dorsal_partition_ids;
-extern bool            enable_pseudo_direct_dram_prefetch;
-extern bool            enable_pseudo_direct_dram_prefetch_on_prefetch;
-extern uint32_t        pseudo_direct_dram_prefetch_rob_part_type;
-extern bool            enable_ddrp;
-extern uint32_t        ddrp_req_latency;
-extern bool            offchip_pred_mark_merged_load;
-extern string          offchip_pred_location;
-extern bool            dram_cntlr_enable_ddrp_buffer;
-extern uint32_t        dram_cntlr_ddrp_buffer_sets;
-extern uint32_t        dram_cntlr_ddrp_buffer_assoc;
-extern uint32_t        dram_cntlr_ddrp_buffer_hash_type;
-extern bool            enable_ddrp_monitor;
-}  // namespace knob
-
 uint8_t warmup_complete[NUM_CPUS], simulation_complete[NUM_CPUS],
     all_warmup_complete = 0, all_simulation_complete = 0,
     MAX_INSTR_DESTINATIONS = NUM_INSTR_DESTINATIONS;
@@ -105,88 +48,33 @@ uint64_t previous_ppage, num_adjacent_page, num_cl[NUM_CPUS], allocated_pages,
 string is_data_names[2]      = {"instruction", "data"};
 string type_names[NUM_TYPES] = {"load", "RFO", "prefetch", "writeback"};
 
+// Uniform stringifier for the macro-generated knob dump: scalars stream
+// directly; vector knobs go through array_to_string (no operator<< for them).
+template <typename T> static std::string knob_to_string(const T &v)
+{
+  std::ostringstream o;
+  o << v;
+  return o.str();
+}
+static std::string knob_to_string(const std::vector<int32_t> &v)
+{
+  return array_to_string(v);
+}
+static std::string knob_to_string(const std::vector<float> &v)
+{
+  return array_to_string(v);
+}
+
 void print_knobs()
 {
-  cout << "warmup_instructions " << knob::warmup_instructions << endl
-       << "simulation_instructions " << knob::simulation_instructions << endl
-       << "champsim_seed " << champsim_seed << endl
-       << "low_bandwidth " << knob::low_bandwidth
-       << endl
-       // << "scramble_loads " << knob_scramble_loads << endl
-       << "cloudsuite " << knob::cloudsuite << endl
-       << "measure_ipc " << knob::measure_ipc << endl
-       << "measure_ipc_epoch " << knob::measure_ipc_epoch << endl
-       << "measure_dram_bw " << knob::measure_dram_bw << endl
-       << "measure_dram_bw_epoch " << knob::measure_dram_bw_epoch << endl
-       << "measure_cache_acc " << knob::measure_cache_acc << endl
-       << "measure_cache_acc_epoch " << knob::measure_cache_acc_epoch << endl
-       << "l1d_perfect " << knob::l1d_perfect << endl
-       << "l2c_perfect " << knob::l2c_perfect << endl
-       << "llc_perfect " << knob::llc_perfect << endl
-       << "l1d_semi_perfect " << knob::l1d_semi_perfect << endl
-       << "l2c_semi_perfect " << knob::l2c_semi_perfect << endl
-       << "llc_semi_perfect " << knob::llc_semi_perfect << endl
-       << "semi_perfect_cache_page_buffer_size "
-       << knob::semi_perfect_cache_page_buffer_size << endl
-       << "enable_offchip_tracing " << knob::enable_offchip_tracing << endl
-       << "offchip_trace_filename " << knob::offchip_trace_filename << endl
-       << "l2c_dump_access_trace " << knob::l2c_dump_access_trace << endl
-       << "llc_dump_access_trace " << knob::llc_dump_access_trace << endl
-       << "l2c_access_trace_filename " << knob::l2c_access_trace_filename
-       << endl
-       << "llc_access_trace_filename " << knob::llc_access_trace_filename
-       << endl
-       << "l2c_dump_access_trace_type " << knob::l2c_dump_access_trace_type
-       << endl
-       << "llc_dump_access_trace_type " << knob::llc_dump_access_trace_type
-       << endl
-       << "track_load_hit_dependency_in_cache "
-       << knob::track_load_hit_dependency_in_cache << endl
-       << "load_hit_dependency_max_level "
-       << knob::load_hit_dependency_max_level << endl
-       << "llc_pseudo_perfect_enable " << knob::llc_pseudo_perfect_enable
-       << endl
-       << "llc_pseudo_perfect_prob " << knob::llc_pseudo_perfect_prob << endl
-       << "llc_pseudo_perfect_enable_frontal "
-       << knob::llc_pseudo_perfect_enable_frontal << endl
-       << "llc_pseudo_perfect_enable_dorsal "
-       << knob::llc_pseudo_perfect_enable_dorsal << endl
-       << "l2c_pseudo_perfect_enable " << knob::l2c_pseudo_perfect_enable
-       << endl
-       << "l2c_pseudo_perfect_prob " << knob::l2c_pseudo_perfect_prob << endl
-       << "l2c_pseudo_perfect_enable_frontal "
-       << knob::l2c_pseudo_perfect_enable_frontal << endl
-       << "l2c_pseudo_perfect_enable_dorsal "
-       << knob::l2c_pseudo_perfect_enable_dorsal << endl
-       << "num_rob_partitions " << knob::num_rob_partitions << endl
-       << "rob_partition_size " << array_to_string(knob::rob_partition_size)
-       << endl
-       << "rob_partition_boundaries "
-       << array_to_string(knob::rob_partition_boundaries) << endl
-       << "rob_frontal_partition_ids "
-       << array_to_string(knob::rob_frontal_partition_ids) << endl
-       << "rob_dorsal_partition_ids "
-       << array_to_string(knob::rob_dorsal_partition_ids) << endl
-       << "enable_pseudo_direct_dram_prefetch "
-       << knob::enable_pseudo_direct_dram_prefetch << endl
-       << "enable_pseudo_direct_dram_prefetch_on_prefetch "
-       << knob::enable_pseudo_direct_dram_prefetch_on_prefetch << endl
-       << "pseudo_direct_dram_prefetch_rob_part_type "
-       << knob::pseudo_direct_dram_prefetch_rob_part_type << endl
-       << "offchip_pred_mark_merged_load "
-       << knob::offchip_pred_mark_merged_load << endl
-       << "enable_ddrp " << knob::enable_ddrp << endl
-       << "ddrp_req_latency " << knob::ddrp_req_latency << endl
-       << "dram_cntlr_enable_ddrp_buffer "
-       << knob::dram_cntlr_enable_ddrp_buffer << endl
-       << "dram_cntlr_ddrp_buffer_sets " << knob::dram_cntlr_ddrp_buffer_sets
-       << endl
-       << "dram_cntlr_ddrp_buffer_assoc " << knob::dram_cntlr_ddrp_buffer_assoc
-       << endl
-       << "dram_cntlr_ddrp_buffer_hash_type "
-       << knob::dram_cntlr_ddrp_buffer_hash_type << endl
-       << "enable_ddrp_monitor " << knob::enable_ddrp_monitor << endl
-       << endl;
+  /* all scalar + array knobs (auto-generated from knobs.def) */
+#define DEF_KNOB(opt, name, type, parser, defval) \
+  cout << #opt << " " << knob_to_string(knob::name) << endl;
+#include "knobs.def"
+#undef DEF_KNOB
+
+  /* non-knob globals + complex (vector) knobs */
+  cout << "champsim_seed " << champsim_seed << endl;
 
   cout << "num_cpus " << NUM_CPUS << endl
        << "cpu_freq " << CPU_FREQ << endl

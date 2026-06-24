@@ -4,6 +4,7 @@
 #include <vector>
 #include "ddrp_monitor.h"
 #include "champsim.h"
+#include "knobs.h"
 
 #if 0
 #define MYLOG(cond, ...)                                    \
@@ -18,19 +19,6 @@
   {                      \
   }
 #endif
-
-namespace knob
-{
-extern uint32_t ddrp_monitor_exploit_epoch;
-extern uint32_t ddrp_monitor_explore_epoch;
-// extern int32_t  ddrp_monitor_scooby_reward_incorrect;
-// extern int32_t  ddrp_monitor_scooby_reward_none;
-extern bool enable_ddrp;
-// extern int32_t scooby_reward_incorrect;
-// extern int32_t scooby_reward_none;
-// extern vector<string> l2c_prefetcher_types;
-extern bool ddrp_monitor_enable_hysterisis;
-}  // namespace knob
 
 string ddrp_monitor_config_string[] = {"DDRP_ON_DP_ON", "DDRP_ON_DP_OFF",
                                        "DDRP_OFF_DP_ON", "DDRP_OFF_DP_OFF"};

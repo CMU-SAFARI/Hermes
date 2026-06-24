@@ -13,13 +13,9 @@
 #include "stride.h"
 #include "ampm.h"
 #include "streamer.h"
+#include "knobs.h"
 
 using namespace std;
-
-namespace knob
-{
-extern vector<string> llc_prefetcher_types;
-}
 
 void CACHE::llc_prefetcher_initialize()
 {

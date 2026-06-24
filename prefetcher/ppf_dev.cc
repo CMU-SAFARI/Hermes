@@ -1,14 +1,9 @@
 #include "ppf_dev.h"
 #include "champsim.h"
 #include "memory_class.h"
+#include "knobs.h"
 using namespace std;
 using namespace spp_ppf;
-
-namespace knob
-{
-extern int32_t ppf_perc_threshold_hi;
-extern int32_t ppf_perc_threshold_lo;
-}  // namespace knob
 
 void SPP_PPF_dev::init_knobs() {}
 

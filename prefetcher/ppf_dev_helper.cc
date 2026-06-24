@@ -1,13 +1,8 @@
 #include <iostream>
 #include "ppf_dev_helper.h"
+#include "knobs.h"
 
 using namespace spp_ppf;
-
-namespace knob
-{
-extern int32_t ppf_perc_threshold_hi;
-extern int32_t ppf_perc_threshold_lo;
-}  // namespace knob
 
 // TODO: Find a good 64-bit hash function
 uint64_t spp_ppf::get_hash(uint64_t key)

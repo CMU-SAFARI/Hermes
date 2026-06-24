@@ -1,13 +1,8 @@
+#include "knobs.h"
 #ifndef STATEZOO_H
 #define STATEZOO_H
 
 #define DELTA_BITS 7
-
-namespace knob
-{
-extern vector<int32_t> le_cmac2_active_features;
-extern uint32_t        le_cmac2_feature_shift_amount;
-}  // namespace knob
 
 /*********************************************************************
  ******************* Feature processing functions ********************

@@ -2,15 +2,7 @@
 #include <assert.h>
 #include "hawkeye.h"
 #include "defs.h"
-
-namespace knob
-{
-extern uint32_t hawkeye_pred_counter_width;
-extern uint32_t hawkeye_max_rrip;
-extern uint32_t hawkeye_pred_size;
-extern uint32_t hawkeye_pred_hash_type;
-extern uint32_t hawkeye_optgen_hist_len_factor;
-}  // namespace knob
+#include "knobs.h"
 
 void HawkeyeRepl::init_knobs() {}
 

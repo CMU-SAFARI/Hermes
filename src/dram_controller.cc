@@ -3,20 +3,7 @@
 #include "ooo_cpu.h"
 #include "uncore.h"
 #include "util.h"
-
-namespace knob
-{
-extern bool     enable_pseudo_direct_dram_prefetch;
-extern bool     enable_pseudo_direct_dram_prefetch_on_prefetch;
-extern uint32_t pseudo_direct_dram_prefetch_rob_part_type;
-extern bool     enable_ddrp;
-extern uint32_t dram_rq_schedule_type;
-extern bool     dram_force_rq_row_buffer_miss;
-extern bool     dram_cntlr_enable_ddrp_buffer;
-extern uint32_t dram_cntlr_ddrp_buffer_sets;
-extern uint32_t dram_cntlr_ddrp_buffer_assoc;
-extern uint32_t dram_cntlr_ddrp_buffer_hash_type;
-}  // namespace knob
+#include "knobs.h"
 
 // initialized in main.cc
 uint32_t DRAM_MTPS, DRAM_DBUS_RETURN_TIME, DRAM_DBUS_MAX_CAS, tRP, tRCD, tCAS;

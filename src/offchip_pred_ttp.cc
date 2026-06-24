@@ -2,15 +2,7 @@
 #include <algorithm>
 #include "offchip_pred_ttp.h"
 #include "util.h"
-
-namespace knob
-{
-extern uint32_t ocp_ttp_catalog_cache_sets;
-extern uint32_t ocp_ttp_catalog_cache_assoc;
-extern uint32_t ocp_ttp_hash_type;
-extern uint32_t ocp_ttp_partial_tag_size;
-extern bool     ocp_ttp_enable_track_llc_eviction;
-}  // namespace knob
+#include "knobs.h"
 
 void OffchipPredTTP::print_config()
 {

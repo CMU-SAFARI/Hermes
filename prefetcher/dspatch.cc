@@ -5,6 +5,7 @@
 #include "util.h"
 #include "dspatch.h"
 #include "memory_class.h"
+#include "knobs.h"
 
 #if 0
 #define LOCKED(...) \
@@ -29,27 +30,6 @@ const char *Map_DSPatch_pref_candidate(DSPatch_pref_candidate candidate)
          DSPatch_pref_candidate::Num_DSPatch_pref_candidates);
   return DSPatch_pref_candidate_string[(uint32_t)candidate];
 }
-
-namespace knob
-{
-extern uint32_t dspatch_log2_region_size;
-extern uint32_t dspatch_num_cachelines_in_region;
-extern uint32_t dspatch_pb_size;
-extern uint32_t dspatch_num_spt_entries;
-extern uint32_t dspatch_compression_granularity;
-extern uint32_t dspatch_pred_throttle_bw_thr;
-extern uint32_t dspatch_bitmap_selection_policy;
-extern uint32_t dspatch_sig_type;
-extern uint32_t dspatch_sig_hash_type;
-extern uint32_t dspatch_or_count_max;
-extern uint32_t dspatch_measure_covP_max;
-extern uint32_t dspatch_measure_accP_max;
-extern uint32_t dspatch_acc_thr;
-extern uint32_t dspatch_cov_thr;
-extern bool     dspatch_enable_pref_buffer;
-extern uint32_t dspatch_pref_buffer_size;
-extern uint32_t dspatch_pref_degree;
-}  // namespace knob
 
 void DSPatch::init_knobs()
 {

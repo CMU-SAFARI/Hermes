@@ -11,15 +11,7 @@
 #include "offchip_pred_hmp_ensemble.h"
 #include "offchip_pred_ttp.h"
 #include "offchip_pred_xpt.h"
-
-namespace knob
-{
-extern string   offchip_pred_type;
-extern bool     offchip_pred_mark_merged_load;
-extern string   offchip_pred_location;
-extern bool     enable_ddrp;
-extern uint32_t ddrp_req_latency;
-}  // namespace knob
+#include "knobs.h"
 
 //=============================================================================
 // Common: shared by the core path (O3_CPU) and the uncore path (LLC CACHE)

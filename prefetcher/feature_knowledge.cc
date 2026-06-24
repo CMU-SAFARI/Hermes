@@ -2,6 +2,7 @@
 #include <assert.h>
 #include "feature_knowledge.h"
 #include "feature_knowledge_helper.h"
+#include "knobs.h"
 
 #if 0
 #define LOCKED(...) \
@@ -18,17 +19,6 @@
   {                \
   }
 #endif
-
-namespace knob
-{
-extern bool        le_featurewise_enable_action_fallback;
-extern bool        le_featurewise_enable_trace;
-extern uint32_t    le_featurewise_trace_feature_type;
-extern string      le_featurewise_trace_feature;
-extern uint32_t    le_featurewise_trace_interval;
-extern uint32_t    le_featurewise_trace_record_count;
-extern std::string le_featurewise_trace_file_name;
-}  // namespace knob
 
 const char *MapFeatureTypeString[] = {"PC",
                                       "Offset",

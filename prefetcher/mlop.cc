@@ -1,16 +1,7 @@
 #include <iostream>
 #include "mlop.h"
 #include "champsim.h"
-
-namespace knob
-{
-extern uint32_t mlop_pref_degree;
-extern uint32_t mlop_num_updates;
-extern float    mlop_l1d_thresh;
-extern float    mlop_l2c_thresh;
-extern float    mlop_llc_thresh;
-extern uint32_t mlop_debug_level;
-}  // namespace knob
+#include "knobs.h"
 
 char state_char[] = {'I', 'A', 'P'};
 char getStateChar(MLOP_State state)

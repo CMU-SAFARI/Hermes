@@ -7,6 +7,7 @@
 #include "scooby_helper.h"
 #include "util.h"
 #include "feature_knowledge.h"
+#include "knobs.h"
 
 #define DELTA_SIG_MAX_BITS  12
 #define DELTA_SIG_SHIFT     3
@@ -19,27 +20,6 @@
 #define SIG_BIT       12
 #define SIG_MASK      ((1 << SIG_BIT) - 1)
 #define SIG_DELTA_BIT 7
-
-namespace knob
-{
-extern uint32_t scooby_max_pcs;
-extern uint32_t scooby_max_offsets;
-extern uint32_t scooby_max_deltas;
-extern uint32_t scooby_state_type;
-extern uint32_t scooby_max_states;
-extern uint32_t scooby_state_hash_type;
-extern bool     scooby_enable_pt_address_compression;
-extern uint32_t scooby_pt_address_hash_type;
-extern uint32_t scooby_pt_address_hashed_bits;
-extern bool     scooby_access_debug;
-extern uint64_t scooby_print_access_debug_pc;
-extern uint32_t scooby_print_access_debug_pc_count;
-extern uint32_t scooby_seed;
-extern uint32_t scooby_bloom_filter_size;
-extern bool     scooby_enable_dyn_degree_detector;
-extern bool     scooby_print_trace;
-extern uint32_t scooby_action_tracker_size;
-}  // namespace knob
 
 uint32_t debug_print_count = 0;
 

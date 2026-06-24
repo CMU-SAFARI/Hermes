@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "ooo_cpu.h"
 #include "set.h"
+#include "knobs.h"
 
 #if 0
 #define LOCKED(...) \
@@ -22,24 +23,6 @@
 O3_CPU   ooo_cpu[NUM_CPUS];
 uint64_t current_core_cycle[NUM_CPUS], stall_cycle[NUM_CPUS];
 uint32_t SCHEDULING_LATENCY = 0, EXEC_LATENCY = 0, DECODE_LATENCY = 0;
-
-namespace knob
-{
-extern bool            cloudsuite;
-extern uint32_t        trace_version;
-extern uint32_t        load_hit_dependency_max_level;
-extern uint32_t        num_rob_partitions;
-extern vector<int32_t> rob_parition_size;
-extern vector<int32_t> rob_partition_boundaries;
-extern vector<int32_t> rob_frontal_partition_ids;
-extern vector<int32_t> rob_dorsal_partition_ids;
-extern bool            enable_ddrp;
-extern bool            offchip_pred_mark_merged_load;
-extern string          offchip_pred_location;
-extern uint32_t        ddrp_req_latency;
-extern bool            enable_ddrp_monitor;
-extern bool            enable_offchip_tracing;
-}  // namespace knob
 
 void O3_CPU::initialize_core() {}
 

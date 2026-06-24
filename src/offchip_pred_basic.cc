@@ -4,6 +4,7 @@
 #include "util.h"
 #include "offchip_pred_basic.h"
 #include "ooo_cpu.h"
+#include "knobs.h"
 
 #if 0
 #define MYLOG(cond, ...)                                    \
@@ -18,19 +19,6 @@
   {                      \
   }
 #endif
-
-namespace knob
-{
-extern uint32_t ocp_basic_table_size;
-extern uint32_t ocp_basic_counter_width;
-extern float    ocp_basic_conf_thresh;
-extern uint32_t ocp_basic_hash_type;
-extern uint32_t ocp_basic_include_data_index_type;
-extern uint32_t ocp_basic_pc_buf_size;
-extern uint32_t ocp_basic_feature_type;
-extern uint32_t ocp_basic_count_modulo;
-extern uint32_t ocp_basic_page_buf_size;
-}  // namespace knob
 
 const char *map_ocp_basic_feature_type_string[] = {
     "PC",      "PC_count", "PC_data_index",  "PC_offset",

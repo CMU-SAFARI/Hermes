@@ -5,13 +5,9 @@
 #include "next_line.h"
 #include "stride.h"
 #include "ipcp_L1.h"
+#include "knobs.h"
 
 using namespace std;
-
-namespace knob
-{
-extern vector<string> l1d_prefetcher_types;
-}
 
 void CACHE::l1d_prefetcher_initialize()
 {

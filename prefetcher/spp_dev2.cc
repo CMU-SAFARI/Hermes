@@ -2,14 +2,9 @@
 #include "spp_dev2.h"
 #include "champsim.h"
 #include "memory_class.h"
+#include "knobs.h"
 using namespace std;
 // using namespace spp;
-
-namespace knob
-{
-extern uint32_t spp_dev2_fill_threshold;
-extern uint32_t spp_dev2_pf_threshold;
-}  // namespace knob
 
 void SPP_dev2::init_knobs() {}
 

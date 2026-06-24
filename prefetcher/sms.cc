@@ -4,21 +4,9 @@
 #include <iomanip>
 #include "sms.h"
 #include "champsim.h"
+#include "knobs.h"
 
 using namespace std;
-
-namespace knob
-{
-extern uint32_t sms_at_size;
-extern uint32_t sms_ft_size;
-extern uint32_t sms_pht_size;
-extern uint32_t sms_pht_assoc;
-extern uint32_t sms_pref_degree;
-extern uint32_t sms_region_size;
-extern uint32_t sms_region_size_log;
-extern bool     sms_enable_pref_buffer;
-extern uint32_t sms_pref_buffer_size;
-}  // namespace knob
 
 void SMSPrefetcher::init_knobs()
 {

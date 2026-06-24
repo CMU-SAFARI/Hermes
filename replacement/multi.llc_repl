@@ -6,11 +6,7 @@
 #include "mp3b.h"
 #include "ship.h"
 #include "lru.h"
-
-namespace knob
-{
-extern string llc_replacement_type;
-}
+#include "knobs.h"
 
 // initialize replacement state
 void CACHE::llc_initialize_replacement()

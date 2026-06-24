@@ -5,19 +5,7 @@
 #include <strings.h>
 #include "next_line.h"
 #include "champsim.h"
-
-namespace knob
-{
-extern vector<int32_t> next_line_deltas;
-extern vector<float>   next_line_delta_prob;
-extern uint32_t        next_line_seed;
-extern uint32_t        next_line_pt_size;
-extern bool            next_line_enable_prefetch_tracking;
-extern bool            next_line_enable_trace;
-extern uint32_t        next_line_trace_interval;
-extern std::string     next_line_trace_name;
-extern uint32_t        next_line_pref_degree;
-}  // namespace knob
+#include "knobs.h"
 
 void NextLinePrefetcher::init_knobs()
 {

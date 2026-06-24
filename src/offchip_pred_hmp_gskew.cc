@@ -1,6 +1,7 @@
 #include <iostream>
 #include "offchip_pred_hmp_gskew.h"
 #include "util.h"
+#include "knobs.h"
 
 #if 0
 #define MYLOG(cond, ...)                                    \
@@ -15,14 +16,6 @@
   {                      \
   }
 #endif
-
-namespace knob
-{
-extern uint32_t        ocp_hmp_gskew_history_length;
-extern uint32_t        ocp_hmp_gskew_num_hashes;
-extern vector<int32_t> ocp_hmp_gskew_hash_types;
-extern uint32_t        ocp_hmp_gskew_pht_size;
-}  // namespace knob
 
 void OffchipPredHMPGskew::print_config()
 {

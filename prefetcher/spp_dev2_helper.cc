@@ -2,14 +2,9 @@
 #include <assert.h>
 #include "spp_dev2_helper.h"
 #include "cache.h"
+#include "knobs.h"
 
 using namespace std;
-
-namespace knob
-{
-extern uint32_t spp_dev2_fill_threshold;
-extern uint32_t spp_dev2_pf_threshold;
-}  // namespace knob
 
 // TODO: Find a good 64-bit hash function
 uint64_t get_hash(uint64_t key)

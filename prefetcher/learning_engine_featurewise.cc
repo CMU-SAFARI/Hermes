@@ -6,6 +6,7 @@
 #include "util.h"
 #include "learning_engine_featurewise.h"
 #include "scooby.h"
+#include "knobs.h"
 
 #if 0
 #define LOCKED(...) \
@@ -22,32 +23,6 @@
   {                \
   }
 #endif
-
-namespace knob
-{
-extern vector<int32_t> le_featurewise_active_features;
-extern vector<int32_t> le_featurewise_num_tilings;
-extern vector<int32_t> le_featurewise_num_tiles;
-extern vector<int32_t> le_featurewise_hash_types;
-extern vector<int32_t> le_featurewise_enable_tiling_offset;
-extern float           le_featurewise_max_q_thresh;
-extern bool            le_featurewise_enable_action_fallback;
-extern vector<float>   le_featurewise_feature_weights;
-extern bool            le_featurewise_enable_dynamic_weight;
-extern float           le_featurewise_weight_gradient; /* hyperparameter */
-extern bool            le_featurewise_disable_adjust_weight_all_features_align;
-extern bool            le_featurewise_selective_update;
-extern uint32_t        le_featurewise_pooling_type;
-extern bool            le_featurewise_enable_dyn_action_fallback;
-extern uint32_t        le_featurewise_bw_acc_check_level;
-extern uint32_t        le_featurewise_acc_thresh;
-extern bool            le_featurewise_enable_trace;
-extern std::string     le_featurewise_trace_file_name;
-extern bool            le_featurewise_enable_score_plot;
-extern vector<int32_t> le_featurewise_plot_actions;
-extern std::string     le_featurewise_plot_file_name;
-extern bool            le_featurewise_remove_plot_script;
-}  // namespace knob
 
 void LearningEngineFeaturewise::init_knobs()
 {

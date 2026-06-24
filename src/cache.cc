@@ -3,46 +3,7 @@
 #include "set.h"
 #include "ooo_cpu.h"
 #include "uncore.h"
-
-namespace knob
-{
-extern string   offchip_pred_type;
-extern uint32_t semi_perfect_cache_page_buffer_size;
-extern bool     measure_cache_acc;
-extern uint32_t measure_cache_acc_epoch;
-
-extern bool     l2c_dump_access_trace;
-extern bool     llc_dump_access_trace;
-extern bool     track_load_hit_dependency_in_cache;
-extern bool     l1d_perfect;
-extern bool     l2c_perfect;
-extern bool     llc_perfect;
-extern bool     llc_pseudo_perfect_enable;
-extern float    llc_pseudo_perfect_prob;
-extern bool     llc_pseudo_perfect_enable_frontal;
-extern bool     llc_pseudo_perfect_enable_dorsal;
-extern bool     l2c_pseudo_perfect_enable;
-extern float    l2c_pseudo_perfect_prob;
-extern bool     l2c_pseudo_perfect_enable_frontal;
-extern bool     l2c_pseudo_perfect_enable_dorsal;
-extern bool     enable_ddrp;
-extern bool     offchip_pred_mark_merged_load;
-extern string   offchip_pred_location;
-extern bool     enable_itlb_priority_rq;
-extern bool     enable_dtlb_priority_rq;
-extern bool     enable_stlb_priority_rq;
-extern bool     enable_l1i_priority_rq;
-extern bool     enable_l1d_priority_rq;
-extern bool     enable_l2c_priority_rq;
-extern bool     enable_llc_priority_rq;
-extern uint32_t itlb_priority_rq_priority_type;
-extern uint32_t dtlb_priority_rq_priority_type;
-extern uint32_t stlb_priority_rq_priority_type;
-extern uint32_t l1i_priority_rq_priority_type;
-extern uint32_t l1d_priority_rq_priority_type;
-extern uint32_t l2c_priority_rq_priority_type;
-extern uint32_t llc_priority_rq_priority_type;
-}  // namespace knob
+#include "knobs.h"
 
 uint64_t l2pf_access = 0;
 

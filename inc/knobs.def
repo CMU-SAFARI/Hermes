@@ -1,0 +1,457 @@
+// Knob definitions: DEF_KNOB(opt, name, type, parser, default).
+// Single source of truth -- expanded into externs, definitions, the parse
+// chain, and the startup dump. Grouped by subsystem for maintenance.
+
+// ==========================================================================
+// Core / Uncore
+// ==========================================================================
+DEF_KNOB(warmup_instructions, warmup_instructions, uint64_t, uint64, 1000000)
+DEF_KNOB(simulation_instructions, simulation_instructions, uint64_t, uint64, 1000000)
+DEF_KNOB(cloudsuite, cloudsuite, bool, bool, false)
+DEF_KNOB(low_bandwidth, low_bandwidth, bool, bool, false)
+DEF_KNOB(trace_version, trace_version, uint32_t, uint32, 1)
+DEF_KNOB(l2c_prefetcher_force_prefetch_at_llc, l2c_prefetcher_force_prefetch_at_llc, bool, bool, false)
+DEF_KNOB(l1d_perfect, l1d_perfect, bool, bool, false)
+DEF_KNOB(l2c_perfect, l2c_perfect, bool, bool, false)
+DEF_KNOB(llc_perfect, llc_perfect, bool, bool, false)
+DEF_KNOB(l1d_semi_perfect, l1d_semi_perfect, bool, bool, false)
+DEF_KNOB(l2c_semi_perfect, l2c_semi_perfect, bool, bool, false)
+DEF_KNOB(llc_semi_perfect, llc_semi_perfect, bool, bool, false)
+DEF_KNOB(semi_perfect_cache_page_buffer_size, semi_perfect_cache_page_buffer_size, uint32_t, uint32, 64)
+DEF_KNOB(measure_ipc, measure_ipc, bool, bool, false)
+DEF_KNOB(measure_ipc_epoch, measure_ipc_epoch, uint64_t, uint64, 1000)
+DEF_KNOB(dram_io_freq, dram_io_freq, uint32_t, uint32, 3200)
+DEF_KNOB(measure_dram_bw, measure_dram_bw, bool, bool, true)
+DEF_KNOB(measure_dram_bw_epoch, measure_dram_bw_epoch, uint64_t, uint64, 256)
+DEF_KNOB(measure_cache_acc, measure_cache_acc, bool, bool, true)
+DEF_KNOB(measure_cache_acc_epoch, measure_cache_acc_epoch, uint64_t, uint64, 1024)
+DEF_KNOB(enable_offchip_tracing, enable_offchip_tracing, bool, bool, false)
+DEF_KNOB(offchip_trace_filename, offchip_trace_filename, string, string, "offchip_trace")
+DEF_KNOB(llc_dump_access_trace, llc_dump_access_trace, bool, bool, false)
+DEF_KNOB(l2c_access_trace_filename, l2c_access_trace_filename, string, string, "sim.l2c")
+DEF_KNOB(llc_access_trace_filename, llc_access_trace_filename, string, string, "sim.llc")
+DEF_KNOB(l2c_dump_access_trace_type, l2c_dump_access_trace_type, uint32_t, uint32, 0)
+DEF_KNOB(llc_dump_access_trace_type, llc_dump_access_trace_type, uint32_t, uint32, 0)
+DEF_KNOB(llc_replacement_type, llc_replacement_type, string, string, "")
+DEF_KNOB(track_load_hit_dependency_in_cache, track_load_hit_dependency_in_cache, bool, bool, false)
+DEF_KNOB(load_hit_dependency_max_level, load_hit_dependency_max_level, uint32_t, uint32, 5)
+DEF_KNOB(llc_pseudo_perfect_enable, llc_pseudo_perfect_enable, bool, bool, false)
+DEF_KNOB(llc_pseudo_perfect_prob, llc_pseudo_perfect_prob, float, float, 0.1)
+DEF_KNOB(llc_pseudo_perfect_enable_frontal, llc_pseudo_perfect_enable_frontal, bool, bool, false)
+DEF_KNOB(llc_pseudo_perfect_enable_dorsal, llc_pseudo_perfect_enable_dorsal, bool, bool, false)
+DEF_KNOB(l2c_pseudo_perfect_enable, l2c_pseudo_perfect_enable, bool, bool, false)
+DEF_KNOB(l2c_pseudo_perfect_prob, l2c_pseudo_perfect_prob, float, float, 0.1)
+DEF_KNOB(l2c_pseudo_perfect_enable_frontal, l2c_pseudo_perfect_enable_frontal, bool, bool, false)
+DEF_KNOB(l2c_pseudo_perfect_enable_dorsal, l2c_pseudo_perfect_enable_dorsal, bool, bool, false)
+DEF_KNOB(num_rob_partitions, num_rob_partitions, uint32_t, uint32, 3)
+DEF_KNOB(enable_itlb_priority_rq, enable_itlb_priority_rq, bool, bool, false)
+DEF_KNOB(enable_dtlb_priority_rq, enable_dtlb_priority_rq, bool, bool, false)
+DEF_KNOB(enable_stlb_priority_rq, enable_stlb_priority_rq, bool, bool, false)
+DEF_KNOB(enable_l1i_priority_rq, enable_l1i_priority_rq, bool, bool, false)
+DEF_KNOB(enable_l1d_priority_rq, enable_l1d_priority_rq, bool, bool, false)
+DEF_KNOB(enable_l2c_priority_rq, enable_l2c_priority_rq, bool, bool, false)
+DEF_KNOB(enable_llc_priority_rq, enable_llc_priority_rq, bool, bool, false)
+DEF_KNOB(itlb_priority_rq_priority_type, itlb_priority_rq_priority_type, uint32_t, uint32, 0)
+DEF_KNOB(dtlb_priority_rq_priority_type, dtlb_priority_rq_priority_type, uint32_t, uint32, 0)
+DEF_KNOB(stlb_priority_rq_priority_type, stlb_priority_rq_priority_type, uint32_t, uint32, 0)
+DEF_KNOB(l1i_priority_rq_priority_type, l1i_priority_rq_priority_type, uint32_t, uint32, 0)
+DEF_KNOB(l1d_priority_rq_priority_type, l1d_priority_rq_priority_type, uint32_t, uint32, 0)
+DEF_KNOB(l2c_priority_rq_priority_type, l2c_priority_rq_priority_type, uint32_t, uint32, 0)
+DEF_KNOB(llc_priority_rq_priority_type, llc_priority_rq_priority_type, uint32_t, uint32, 0)
+DEF_KNOB(dram_rq_schedule_type, dram_rq_schedule_type, uint32_t, uint32, 0)
+DEF_KNOB(dram_force_rq_row_buffer_miss, dram_force_rq_row_buffer_miss, bool, bool, false)
+DEF_KNOB(rob_partition_size, rob_partition_size, vector<int32_t>, int32v, {})
+DEF_KNOB(rob_frontal_partition_ids, rob_frontal_partition_ids, vector<int32_t>, int32v, {})
+DEF_KNOB(rob_dorsal_partition_ids, rob_dorsal_partition_ids, vector<int32_t>, int32v, {})
+DEF_KNOB(l2c_dump_access_trace, l2c_dump_access_trace, bool, bool, false)
+DEF_KNOB(rob_partition_boundaries, rob_partition_boundaries, vector<int32_t>, int32v, {})
+
+// ==========================================================================
+// DDRP — speculative direct-DRAM prefetch
+// ==========================================================================
+DEF_KNOB(enable_pseudo_direct_dram_prefetch, enable_pseudo_direct_dram_prefetch, bool, bool, false)
+DEF_KNOB(enable_pseudo_direct_dram_prefetch_on_prefetch, enable_pseudo_direct_dram_prefetch_on_prefetch, bool, bool, false)
+DEF_KNOB(pseudo_direct_dram_prefetch_rob_part_type, pseudo_direct_dram_prefetch_rob_part_type, uint32_t, uint32, FRONTAL)
+DEF_KNOB(enable_ddrp, enable_ddrp, bool, bool, false)
+DEF_KNOB(ddrp_req_latency, ddrp_req_latency, uint32_t, uint32, 0)
+DEF_KNOB(dram_cntlr_enable_ddrp_buffer, dram_cntlr_enable_ddrp_buffer, bool, bool, false)
+DEF_KNOB(dram_cntlr_ddrp_buffer_sets, dram_cntlr_ddrp_buffer_sets, uint32_t, uint32, 64)
+DEF_KNOB(dram_cntlr_ddrp_buffer_assoc, dram_cntlr_ddrp_buffer_assoc, uint32_t, uint32, 16)
+DEF_KNOB(dram_cntlr_ddrp_buffer_hash_type, dram_cntlr_ddrp_buffer_hash_type, uint32_t, uint32, 2)
+DEF_KNOB(enable_ddrp_monitor, enable_ddrp_monitor, bool, bool, false)
+DEF_KNOB(ddrp_monitor_exploit_epoch, ddrp_monitor_exploit_epoch, uint32_t, uint32, 100000)
+DEF_KNOB(ddrp_monitor_explore_epoch, ddrp_monitor_explore_epoch, uint32_t, uint32, 10000)
+DEF_KNOB(ddrp_monitor_enable_hysterisis, ddrp_monitor_enable_hysterisis, bool, bool, false)
+
+// ==========================================================================
+// LLC criticality predictor
+// ==========================================================================
+DEF_KNOB(enable_cache_criticality, enable_cache_criticality, bool, bool, false)
+DEF_KNOB(llc_criticality_mispred_branch_thresh, llc_criticality_mispred_branch_thresh, uint32_t, uint32, 1)
+DEF_KNOB(llc_criticality_dep_load_thresh, llc_criticality_dep_load_thresh, uint32_t, uint32, 3)
+DEF_KNOB(llc_criticality_dep_all_thresh, llc_criticality_dep_all_thresh, uint32_t, uint32, 80)
+DEF_KNOB(llc_crit_pred_type, llc_crit_pred_type, string, string, "none")
+DEF_KNOB(crit_pred_simple_max_table_size, crit_pred_simple_max_table_size, uint32_t, uint32, 16384)
+DEF_KNOB(crit_pred_simple_counter_width, crit_pred_simple_counter_width, uint32_t, uint32, 12)
+DEF_KNOB(crit_pred_simple_conf_thresh, crit_pred_simple_conf_thresh, float, float, 0.8)
+DEF_KNOB(crit_pred_simple_hash_type, crit_pred_simple_hash_type, uint32_t, uint32, 11)
+
+// ==========================================================================
+// Prefetcher — Next-line
+// ==========================================================================
+DEF_KNOB(next_line_seed, next_line_seed, uint32_t, uint32, 255)
+DEF_KNOB(next_line_pt_size, next_line_pt_size, uint32_t, uint32, 256)
+DEF_KNOB(next_line_enable_prefetch_tracking, next_line_enable_prefetch_tracking, bool, bool, true)
+DEF_KNOB(next_line_enable_trace, next_line_enable_trace, bool, bool, false)
+DEF_KNOB(next_line_trace_interval, next_line_trace_interval, uint32_t, uint32, 5)
+DEF_KNOB(next_line_trace_name, next_line_trace_name, string, string, "next_line_trace.csv")
+DEF_KNOB(next_line_pref_degree, next_line_pref_degree, uint32_t, uint32, 1)
+DEF_KNOB(next_line_deltas, next_line_deltas, vector<int32_t>, int32v, {})
+DEF_KNOB(next_line_delta_prob, next_line_delta_prob, vector<float>, floatv, {})
+
+// ==========================================================================
+// Prefetcher — SMS
+// ==========================================================================
+DEF_KNOB(sms_at_size, sms_at_size, uint32_t, uint32, 32)
+DEF_KNOB(sms_ft_size, sms_ft_size, uint32_t, uint32, 64)
+DEF_KNOB(sms_pht_size, sms_pht_size, uint32_t, uint32, 16384)
+DEF_KNOB(sms_pht_assoc, sms_pht_assoc, uint32_t, uint32, 16)
+DEF_KNOB(sms_pref_degree, sms_pref_degree, uint32_t, uint32, 4)
+DEF_KNOB(sms_enable_pref_buffer, sms_enable_pref_buffer, bool, bool, true)
+DEF_KNOB(sms_pref_buffer_size, sms_pref_buffer_size, uint32_t, uint32, 256)
+DEF_KNOB(sms_region_size, sms_region_size, uint32_t, uint32, 2048)
+DEF_KNOB(sms_region_size_log, sms_region_size_log, uint32_t, uint32, 0)
+
+// ==========================================================================
+// Prefetcher — SPP
+// ==========================================================================
+DEF_KNOB(spp_st_size, spp_st_size, uint32_t, uint32, 256)
+DEF_KNOB(spp_pt_size, spp_pt_size, uint32_t, uint32, 512)
+DEF_KNOB(spp_max_outcomes, spp_max_outcomes, uint32_t, uint32, 4)
+DEF_KNOB(spp_max_depth, spp_max_depth, uint32_t, uint32, 64)
+DEF_KNOB(spp_max_prefetch_per_level, spp_max_prefetch_per_level, uint32_t, uint32, 1)
+DEF_KNOB(spp_max_confidence_counter_value, spp_max_confidence_counter_value, uint32_t, uint32, 16)
+DEF_KNOB(spp_max_global_counter_value, spp_max_global_counter_value, uint32_t, uint32, 1024)
+DEF_KNOB(spp_pf_size, spp_pf_size, uint32_t, uint32, 1024)
+DEF_KNOB(spp_enable_alpha, spp_enable_alpha, bool, bool, true)
+DEF_KNOB(spp_enable_pref_buffer, spp_enable_pref_buffer, bool, bool, true)
+DEF_KNOB(spp_pref_buffer_size, spp_pref_buffer_size, uint32_t, uint32, 256)
+DEF_KNOB(spp_pref_degree, spp_pref_degree, uint32_t, uint32, 4)
+DEF_KNOB(spp_enable_ghr, spp_enable_ghr, bool, bool, true)
+DEF_KNOB(spp_ghr_size, spp_ghr_size, uint32_t, uint32, 8)
+DEF_KNOB(spp_signature_bits, spp_signature_bits, uint32_t, uint32, 12)
+DEF_KNOB(spp_alpha_epoch, spp_alpha_epoch, uint32_t, uint32, 1024)
+DEF_KNOB(spp_dev2_fill_threshold, spp_dev2_fill_threshold, uint32_t, uint32, 90)
+DEF_KNOB(spp_dev2_pf_threshold, spp_dev2_pf_threshold, uint32_t, uint32, 25)
+DEF_KNOB(spp_max_confidence, spp_max_confidence, double, double, 25.0)
+
+// ==========================================================================
+// Prefetcher — BOP
+// ==========================================================================
+DEF_KNOB(bop_max_rounds, bop_max_rounds, uint32_t, uint32, 100)
+DEF_KNOB(bop_max_score, bop_max_score, uint32_t, uint32, 31)
+DEF_KNOB(bop_top_n, bop_top_n, uint32_t, uint32, 1)
+DEF_KNOB(bop_enable_pref_buffer, bop_enable_pref_buffer, bool, bool, false)
+DEF_KNOB(bop_pref_buffer_size, bop_pref_buffer_size, uint32_t, uint32, 256)
+DEF_KNOB(bop_pref_degree, bop_pref_degree, uint32_t, uint32, 4)
+DEF_KNOB(bop_rr_size, bop_rr_size, uint32_t, uint32, 256)
+DEF_KNOB(bop_candidates, bop_candidates, vector<int32_t>, int32v, {})
+
+// ==========================================================================
+// Prefetcher — Sandbox
+// ==========================================================================
+DEF_KNOB(sandbox_pref_degree, sandbox_pref_degree, uint32_t, uint32, 4)
+DEF_KNOB(sandbox_enable_stream_detect, sandbox_enable_stream_detect, bool, bool, false)
+DEF_KNOB(sandbox_stream_detect_length, sandbox_stream_detect_length, uint32_t, uint32, 4)
+DEF_KNOB(sandbox_num_access_in_phase, sandbox_num_access_in_phase, uint32_t, uint32, 256)
+DEF_KNOB(sandbox_num_cycle_offsets, sandbox_num_cycle_offsets, uint32_t, uint32, 4)
+DEF_KNOB(sandbox_bloom_filter_size, sandbox_bloom_filter_size, uint32_t, uint32, 2048)
+DEF_KNOB(sandbox_seed, sandbox_seed, uint32_t, uint32, 200)
+
+// ==========================================================================
+// Prefetcher — DSPatch
+// ==========================================================================
+DEF_KNOB(dspatch_pb_size, dspatch_pb_size, uint32_t, uint32, 0)
+DEF_KNOB(dspatch_num_spt_entries, dspatch_num_spt_entries, uint32_t, uint32, 0)
+DEF_KNOB(dspatch_compression_granularity, dspatch_compression_granularity, uint32_t, uint32, 0)
+DEF_KNOB(dspatch_pred_throttle_bw_thr, dspatch_pred_throttle_bw_thr, uint32_t, uint32, 0)
+DEF_KNOB(dspatch_bitmap_selection_policy, dspatch_bitmap_selection_policy, uint32_t, uint32, 0)
+DEF_KNOB(dspatch_sig_type, dspatch_sig_type, uint32_t, uint32, 0)
+DEF_KNOB(dspatch_sig_hash_type, dspatch_sig_hash_type, uint32_t, uint32, 0)
+DEF_KNOB(dspatch_or_count_max, dspatch_or_count_max, uint32_t, uint32, 0)
+DEF_KNOB(dspatch_measure_covP_max, dspatch_measure_covP_max, uint32_t, uint32, 0)
+DEF_KNOB(dspatch_measure_accP_max, dspatch_measure_accP_max, uint32_t, uint32, 0)
+DEF_KNOB(dspatch_acc_thr, dspatch_acc_thr, uint32_t, uint32, 0)
+DEF_KNOB(dspatch_cov_thr, dspatch_cov_thr, uint32_t, uint32, 0)
+DEF_KNOB(dspatch_enable_pref_buffer, dspatch_enable_pref_buffer, bool, bool, false)
+DEF_KNOB(dspatch_pref_buffer_size, dspatch_pref_buffer_size, uint32_t, uint32, 0)
+DEF_KNOB(dspatch_pref_degree, dspatch_pref_degree, uint32_t, uint32, 0)
+DEF_KNOB(dspatch_log2_region_size, dspatch_log2_region_size, uint32_t, uint32, 0)
+DEF_KNOB(dspatch_num_cachelines_in_region, dspatch_num_cachelines_in_region, uint32_t, uint32, 0)
+
+// ==========================================================================
+// Prefetcher — PPF
+// ==========================================================================
+DEF_KNOB(ppf_perc_threshold_hi, ppf_perc_threshold_hi, int32_t, int32, -5)
+DEF_KNOB(ppf_perc_threshold_lo, ppf_perc_threshold_lo, int32_t, int32, -15)
+
+// ==========================================================================
+// Prefetcher — MLOP
+// ==========================================================================
+DEF_KNOB(mlop_pref_degree, mlop_pref_degree, uint32_t, uint32, 0)
+DEF_KNOB(mlop_num_updates, mlop_num_updates, uint32_t, uint32, 0)
+DEF_KNOB(mlop_l1d_thresh, mlop_l1d_thresh, float, float, 0)
+DEF_KNOB(mlop_l2c_thresh, mlop_l2c_thresh, float, float, 0)
+DEF_KNOB(mlop_llc_thresh, mlop_llc_thresh, float, float, 0)
+DEF_KNOB(mlop_debug_level, mlop_debug_level, uint32_t, uint32, 0)
+
+// ==========================================================================
+// Prefetcher — Bingo
+// ==========================================================================
+DEF_KNOB(bingo_region_size, bingo_region_size, uint32_t, uint32, 2048)
+DEF_KNOB(bingo_pattern_len, bingo_pattern_len, uint32_t, uint32, 32)
+DEF_KNOB(bingo_pc_width, bingo_pc_width, uint32_t, uint32, 16)
+DEF_KNOB(bingo_min_addr_width, bingo_min_addr_width, uint32_t, uint32, 5)
+DEF_KNOB(bingo_max_addr_width, bingo_max_addr_width, uint32_t, uint32, 16)
+DEF_KNOB(bingo_ft_size, bingo_ft_size, uint32_t, uint32, 64)
+DEF_KNOB(bingo_at_size, bingo_at_size, uint32_t, uint32, 128)
+DEF_KNOB(bingo_pht_size, bingo_pht_size, uint32_t, uint32, 8192)
+DEF_KNOB(bingo_pht_ways, bingo_pht_ways, uint32_t, uint32, 16)
+DEF_KNOB(bingo_pf_streamer_size, bingo_pf_streamer_size, uint32_t, uint32, 128)
+DEF_KNOB(bingo_debug_level, bingo_debug_level, uint32_t, uint32, 0)
+DEF_KNOB(bingo_l1d_thresh, bingo_l1d_thresh, float, float, 0)
+DEF_KNOB(bingo_l2c_thresh, bingo_l2c_thresh, float, float, 0)
+DEF_KNOB(bingo_llc_thresh, bingo_llc_thresh, float, float, 0)
+DEF_KNOB(bingo_pc_address_fill_level, bingo_pc_address_fill_level, string, string, "")
+
+// ==========================================================================
+// Prefetcher — Stride
+// ==========================================================================
+DEF_KNOB(stride_num_trackers, stride_num_trackers, uint32_t, uint32, 64)
+DEF_KNOB(stride_pref_degree, stride_pref_degree, uint32_t, uint32, 2)
+
+// ==========================================================================
+// Prefetcher — Streamer
+// ==========================================================================
+DEF_KNOB(streamer_num_trackers, streamer_num_trackers, uint32_t, uint32, 64)
+DEF_KNOB(streamer_pref_degree, streamer_pref_degree, uint32_t, uint32, 5)
+
+// ==========================================================================
+// Prefetcher — AMPM
+// ==========================================================================
+DEF_KNOB(ampm_pb_size, ampm_pb_size, uint32_t, uint32, 64)
+DEF_KNOB(ampm_pred_degree, ampm_pred_degree, uint32_t, uint32, 4)
+DEF_KNOB(ampm_pref_degree, ampm_pref_degree, uint32_t, uint32, 4)
+DEF_KNOB(ampm_pref_buffer_size, ampm_pref_buffer_size, uint32_t, uint32, 256)
+DEF_KNOB(ampm_enable_pref_buffer, ampm_enable_pref_buffer, bool, bool, false)
+DEF_KNOB(ampm_max_delta, ampm_max_delta, uint32_t, uint32, 16)
+
+// ==========================================================================
+// Prefetcher — IBM POWER7
+// ==========================================================================
+DEF_KNOB(power7_explore_epoch, power7_explore_epoch, uint32_t, uint32, 1000)
+DEF_KNOB(power7_exploit_epoch, power7_exploit_epoch, uint32_t, uint32, 100000)
+DEF_KNOB(power7_default_streamer_degree, power7_default_streamer_degree, uint32_t, uint32, 4)
+
+// ==========================================================================
+// Prefetcher — Context (CP)
+// ==========================================================================
+DEF_KNOB(cp_cst_size, cp_cst_size, uint32_t, uint32, 2048)
+DEF_KNOB(cp_cst_assoc, cp_cst_assoc, uint32_t, uint32, 16)
+DEF_KNOB(cp_max_response_per_cst, cp_max_response_per_cst, uint32_t, uint32, 4)
+DEF_KNOB(cp_init_reward, cp_init_reward, int32_t, int32, 0)
+DEF_KNOB(cp_prefetch_queue_size, cp_prefetch_queue_size, uint32_t, uint32, 128)
+
+// ==========================================================================
+// Prefetcher — Pythia (Scooby)
+// ==========================================================================
+DEF_KNOB(scooby_alpha, scooby_alpha, float, float, 0.0065)
+DEF_KNOB(scooby_gamma, scooby_gamma, float, float, 0.55)
+DEF_KNOB(scooby_epsilon, scooby_epsilon, float, float, 0.002)
+DEF_KNOB(scooby_seed, scooby_seed, uint32_t, uint32, 200)
+DEF_KNOB(scooby_policy, scooby_policy, string, string, "EGreedy")
+DEF_KNOB(scooby_learning_type, scooby_learning_type, string, string, "SARSA")
+DEF_KNOB(scooby_pt_size, scooby_pt_size, uint32_t, uint32, 256)
+DEF_KNOB(scooby_st_size, scooby_st_size, uint32_t, uint32, 64)
+DEF_KNOB(scooby_reward_none, scooby_reward_none, int32_t, int32, -4)
+DEF_KNOB(scooby_reward_incorrect, scooby_reward_incorrect, int32_t, int32, -8)
+DEF_KNOB(scooby_reward_correct_untimely, scooby_reward_correct_untimely, int32_t, int32, 12)
+DEF_KNOB(scooby_reward_correct_timely, scooby_reward_correct_timely, int32_t, int32, 20)
+DEF_KNOB(scooby_max_pcs, scooby_max_pcs, uint32_t, uint32, 5)
+DEF_KNOB(scooby_max_offsets, scooby_max_offsets, uint32_t, uint32, 5)
+DEF_KNOB(scooby_max_deltas, scooby_max_deltas, uint32_t, uint32, 5)
+DEF_KNOB(scooby_brain_zero_init, scooby_brain_zero_init, bool, bool, false)
+DEF_KNOB(scooby_enable_reward_all, scooby_enable_reward_all, bool, bool, false)
+DEF_KNOB(scooby_enable_track_multiple, scooby_enable_track_multiple, bool, bool, false)
+DEF_KNOB(scooby_enable_reward_out_of_bounds, scooby_enable_reward_out_of_bounds, bool, bool, true)
+DEF_KNOB(scooby_reward_out_of_bounds, scooby_reward_out_of_bounds, int32_t, int32, -12)
+DEF_KNOB(scooby_state_type, scooby_state_type, uint32_t, uint32, 1)
+DEF_KNOB(scooby_access_debug, scooby_access_debug, bool, bool, false)
+DEF_KNOB(scooby_print_access_debug, scooby_print_access_debug, bool, bool, false)
+DEF_KNOB(scooby_print_access_debug_pc_count, scooby_print_access_debug_pc_count, uint32_t, uint32, 0)
+DEF_KNOB(scooby_print_trace, scooby_print_trace, bool, bool, false)
+DEF_KNOB(scooby_enable_state_action_stats, scooby_enable_state_action_stats, bool, bool, false)
+DEF_KNOB(scooby_enable_reward_tracker_hit, scooby_enable_reward_tracker_hit, bool, bool, false)
+DEF_KNOB(scooby_reward_tracker_hit, scooby_reward_tracker_hit, int32_t, int32, -2)
+DEF_KNOB(scooby_enable_shaggy, scooby_enable_shaggy, bool, bool, false)
+DEF_KNOB(scooby_state_hash_type, scooby_state_hash_type, uint32_t, uint32, 11)
+DEF_KNOB(scooby_prefetch_with_shaggy, scooby_prefetch_with_shaggy, bool, bool, false)
+DEF_KNOB(scooby_enable_featurewise_engine, scooby_enable_featurewise_engine, bool, bool, true)
+DEF_KNOB(scooby_pref_degree, scooby_pref_degree, uint32_t, uint32, 1)
+DEF_KNOB(scooby_enable_dyn_degree, scooby_enable_dyn_degree, bool, bool, true)
+DEF_KNOB(scooby_early_exploration_window, scooby_early_exploration_window, uint64_t, uint64, 0)
+DEF_KNOB(scooby_multi_deg_select_type, scooby_multi_deg_select_type, uint32_t, uint32, 2)
+DEF_KNOB(scooby_action_tracker_size, scooby_action_tracker_size, uint32_t, uint32, 2)
+DEF_KNOB(scooby_high_bw_thresh, scooby_high_bw_thresh, uint32_t, uint32, 4)
+DEF_KNOB(scooby_enable_hbw_reward, scooby_enable_hbw_reward, bool, bool, true)
+DEF_KNOB(scooby_reward_hbw_correct_timely, scooby_reward_hbw_correct_timely, int32_t, int32, 20)
+DEF_KNOB(scooby_reward_hbw_correct_untimely, scooby_reward_hbw_correct_untimely, int32_t, int32, 12)
+DEF_KNOB(scooby_reward_hbw_incorrect, scooby_reward_hbw_incorrect, int32_t, int32, -14)
+DEF_KNOB(scooby_reward_hbw_none, scooby_reward_hbw_none, int32_t, int32, -2)
+DEF_KNOB(scooby_reward_hbw_out_of_bounds, scooby_reward_hbw_out_of_bounds, int32_t, int32, -12)
+DEF_KNOB(scooby_reward_hbw_tracker_hit, scooby_reward_hbw_tracker_hit, int32_t, int32, -2)
+DEF_KNOB(scooby_enable_direct_pref_issue, scooby_enable_direct_pref_issue, bool, bool, false)
+DEF_KNOB(scooby_pref_at_lower_level, scooby_pref_at_lower_level, bool, bool, false)
+DEF_KNOB(scooby_max_to_avg_q_thresholds, scooby_max_to_avg_q_thresholds, vector<float>, floatv, {})
+DEF_KNOB(scooby_dyn_degrees, scooby_dyn_degrees, vector<int32_t>, int32v, {})
+DEF_KNOB(scooby_last_pref_offset_conf_thresholds, scooby_last_pref_offset_conf_thresholds, vector<int32_t>, int32v, {})
+DEF_KNOB(scooby_dyn_degrees_type2, scooby_dyn_degrees_type2, vector<int32_t>, int32v, {})
+DEF_KNOB(scooby_last_pref_offset_conf_thresholds_hbw, scooby_last_pref_offset_conf_thresholds_hbw, vector<int32_t>, int32v, {})
+DEF_KNOB(scooby_dyn_degrees_type2_hbw, scooby_dyn_degrees_type2_hbw, vector<int32_t>, int32v, {})
+DEF_KNOB(scooby_print_access_debug_pc, scooby_print_access_debug_pc, uint64_t, hex64, 0xdeadbeef)
+DEF_KNOB(scooby_state_num_bits, scooby_state_num_bits, uint32_t, uint32, 10)
+DEF_KNOB(scooby_actions, scooby_actions, vector<int32_t>, int32v, {})
+DEF_KNOB(scooby_max_states, scooby_max_states, uint32_t, uint32, 0)
+DEF_KNOB(scooby_max_actions, scooby_max_actions, uint32_t, uint32, 0)
+
+// ==========================================================================
+// Prefetcher — Pythia learning engine
+// ==========================================================================
+DEF_KNOB(le_enable_trace, le_enable_trace, bool, bool, false)
+DEF_KNOB(le_trace_interval, le_trace_interval, uint32_t, uint32, 0)
+DEF_KNOB(le_trace_file_name, le_trace_file_name, string, string, "")
+DEF_KNOB(le_enable_score_plot, le_enable_score_plot, bool, bool, false)
+DEF_KNOB(le_plot_file_name, le_plot_file_name, string, string, "")
+DEF_KNOB(le_enable_action_trace, le_enable_action_trace, bool, bool, false)
+DEF_KNOB(le_action_trace_interval, le_action_trace_interval, uint32_t, uint32, 0)
+DEF_KNOB(le_action_trace_name, le_action_trace_name, string, string, "")
+DEF_KNOB(le_enable_action_plot, le_enable_action_plot, bool, bool, false)
+DEF_KNOB(le_featurewise_max_q_thresh, le_featurewise_max_q_thresh, float, float, 0.5)
+DEF_KNOB(le_featurewise_enable_action_fallback, le_featurewise_enable_action_fallback, bool, bool, true)
+DEF_KNOB(le_featurewise_enable_dynamic_weight, le_featurewise_enable_dynamic_weight, bool, bool, false)
+DEF_KNOB(le_featurewise_weight_gradient, le_featurewise_weight_gradient, float, float, 0.001)
+DEF_KNOB(le_featurewise_disable_adjust_weight_all_features_align, le_featurewise_disable_adjust_weight_all_features_align, bool, bool, false)
+DEF_KNOB(le_featurewise_selective_update, le_featurewise_selective_update, bool, bool, false)
+DEF_KNOB(le_featurewise_pooling_type, le_featurewise_pooling_type, uint32_t, uint32, 2)
+DEF_KNOB(le_featurewise_enable_dyn_action_fallback, le_featurewise_enable_dyn_action_fallback, bool, bool, true)
+DEF_KNOB(le_featurewise_bw_acc_check_level, le_featurewise_bw_acc_check_level, uint32_t, uint32, 1)
+DEF_KNOB(le_featurewise_acc_thresh, le_featurewise_acc_thresh, uint32_t, uint32, 2)
+DEF_KNOB(le_featurewise_enable_trace, le_featurewise_enable_trace, bool, bool, false)
+DEF_KNOB(le_featurewise_trace_feature_type, le_featurewise_trace_feature_type, uint32_t, uint32, 0)
+DEF_KNOB(le_featurewise_trace_feature, le_featurewise_trace_feature, string, string, "")
+DEF_KNOB(le_featurewise_trace_interval, le_featurewise_trace_interval, uint32_t, uint32, 0)
+DEF_KNOB(le_featurewise_trace_record_count, le_featurewise_trace_record_count, uint32_t, uint32, 0)
+DEF_KNOB(le_featurewise_trace_file_name, le_featurewise_trace_file_name, string, string, "")
+DEF_KNOB(le_featurewise_enable_score_plot, le_featurewise_enable_score_plot, bool, bool, false)
+DEF_KNOB(le_featurewise_plot_file_name, le_featurewise_plot_file_name, string, string, "")
+DEF_KNOB(le_featurewise_remove_plot_script, le_featurewise_remove_plot_script, bool, bool, false)
+DEF_KNOB(le_plot_actions, le_plot_actions, vector<int32_t>, int32v, {})
+DEF_KNOB(le_featurewise_active_features, le_featurewise_active_features, vector<int32_t>, int32v, {})
+DEF_KNOB(le_featurewise_num_tilings, le_featurewise_num_tilings, vector<int32_t>, int32v, {})
+DEF_KNOB(le_featurewise_num_tiles, le_featurewise_num_tiles, vector<int32_t>, int32v, {})
+DEF_KNOB(le_featurewise_hash_types, le_featurewise_hash_types, vector<int32_t>, int32v, {})
+DEF_KNOB(le_featurewise_enable_tiling_offset, le_featurewise_enable_tiling_offset, vector<int32_t>, int32v, {})
+DEF_KNOB(le_featurewise_feature_weights, le_featurewise_feature_weights, vector<float>, floatv, {})
+DEF_KNOB(le_featurewise_plot_actions, le_featurewise_plot_actions, vector<int32_t>, int32v, {})
+DEF_KNOB(le_trace_state, le_trace_state, uint32_t, hex32, 0)
+
+// ==========================================================================
+// Off-chip predictor — common
+// ==========================================================================
+DEF_KNOB(offchip_pred_type, offchip_pred_type, string, string, "none")
+DEF_KNOB(offchip_pred_mark_merged_load, offchip_pred_mark_merged_load, bool, bool, false)
+DEF_KNOB(offchip_pred_location, offchip_pred_location, string, string, "core")
+
+// ==========================================================================
+// Off-chip predictor — Basic
+// ==========================================================================
+DEF_KNOB(ocp_basic_table_size, ocp_basic_table_size, uint32_t, uint32, 4096)
+DEF_KNOB(ocp_basic_counter_width, ocp_basic_counter_width, uint32_t, uint32, 10)
+DEF_KNOB(ocp_basic_conf_thresh, ocp_basic_conf_thresh, float, float, 0.6)
+DEF_KNOB(ocp_basic_hash_type, ocp_basic_hash_type, uint32_t, uint32, 11)
+DEF_KNOB(ocp_basic_include_data_index_type, ocp_basic_include_data_index_type, uint32_t, uint32, 0)
+DEF_KNOB(ocp_basic_pc_buf_size, ocp_basic_pc_buf_size, uint32_t, uint32, 64)
+DEF_KNOB(ocp_basic_feature_type, ocp_basic_feature_type, uint32_t, uint32, 0)
+DEF_KNOB(ocp_basic_count_modulo, ocp_basic_count_modulo, uint32_t, uint32, 8)
+DEF_KNOB(ocp_basic_page_buf_size, ocp_basic_page_buf_size, uint32_t, uint32, 64)
+
+// ==========================================================================
+// Off-chip predictor — XPT
+// ==========================================================================
+DEF_KNOB(ocp_xpt_num_entries, ocp_xpt_num_entries, uint32_t, uint32, 256)
+DEF_KNOB(ocp_xpt_assoc, ocp_xpt_assoc, uint32_t, uint32, 256)
+DEF_KNOB(ocp_xpt_offchip_threshold, ocp_xpt_offchip_threshold, uint32_t, uint32, 32)
+DEF_KNOB(ocp_xpt_hash_type, ocp_xpt_hash_type, uint32_t, uint32, 11)
+DEF_KNOB(ocp_xpt_use_physical_address, ocp_xpt_use_physical_address, bool, bool, false)
+
+// ==========================================================================
+// Off-chip predictor — Perceptron (POPET)
+// ==========================================================================
+DEF_KNOB(ocp_perc_activation_threshold, ocp_perc_activation_threshold, float, float, -1)
+DEF_KNOB(ocp_perc_max_weight, ocp_perc_max_weight, float, float, 15)
+DEF_KNOB(ocp_perc_min_weight, ocp_perc_min_weight, float, float, -16)
+DEF_KNOB(ocp_perc_pos_weight_delta, ocp_perc_pos_weight_delta, float, float, 1)
+DEF_KNOB(ocp_perc_neg_weight_delta, ocp_perc_neg_weight_delta, float, float, 1)
+DEF_KNOB(ocp_perc_pos_train_thresh, ocp_perc_pos_train_thresh, float, float, 15)
+DEF_KNOB(ocp_perc_neg_train_thresh, ocp_perc_neg_train_thresh, float, float, -16)
+DEF_KNOB(ocp_perc_page_buf_sets, ocp_perc_page_buf_sets, uint32_t, uint32, 1)
+DEF_KNOB(ocp_perc_page_buf_assoc, ocp_perc_page_buf_assoc, uint32_t, uint32, 64)
+DEF_KNOB(ocp_perc_last_n_load_pcs, ocp_perc_last_n_load_pcs, uint32_t, uint32, 4)
+DEF_KNOB(ocp_perc_last_n_pcs, ocp_perc_last_n_pcs, uint32_t, uint32, 4)
+DEF_KNOB(ocp_perc_enable_dynamic_act_thresh, ocp_perc_enable_dynamic_act_thresh, bool, bool, false)
+DEF_KNOB(ocp_perc_update_act_thresh_epoch, ocp_perc_update_act_thresh_epoch, uint32_t, uint32, 2048)
+DEF_KNOB(ocp_perc_high_critical_dram_bw_level, ocp_perc_high_critical_dram_bw_level, uint32_t, uint32, 3)
+DEF_KNOB(ocp_perc_low_critical_dram_bw_level, ocp_perc_low_critical_dram_bw_level, uint32_t, uint32, 0)
+DEF_KNOB(ocp_perc_poor_precision_thresh, ocp_perc_poor_precision_thresh, float, float, 0.97)
+DEF_KNOB(ocp_perc_act_thresh_update_gradient, ocp_perc_act_thresh_update_gradient, float, float, 1.0)
+DEF_KNOB(ocp_perc_max_activation_threshold, ocp_perc_max_activation_threshold, float, float, -1)
+DEF_KNOB(ocp_perc_min_activation_threshold, ocp_perc_min_activation_threshold, float, float, -1)
+DEF_KNOB(ocp_perc_activated_features, ocp_perc_activated_features, vector<int32_t>, int32v, {})
+DEF_KNOB(ocp_perc_weight_array_sizes, ocp_perc_weight_array_sizes, vector<int32_t>, int32v, {})
+DEF_KNOB(ocp_perc_feature_hash_types, ocp_perc_feature_hash_types, vector<int32_t>, int32v, {})
+
+// ==========================================================================
+// Off-chip predictor — HMP
+// ==========================================================================
+DEF_KNOB(ocp_hmp_local_history_length, ocp_hmp_local_history_length, uint32_t, uint32, 8)
+DEF_KNOB(ocp_hmp_local_lhr_size, ocp_hmp_local_lhr_size, uint32_t, uint32, 2038)
+DEF_KNOB(ocp_hmp_local_lhr_index_hash_type, ocp_hmp_local_lhr_index_hash_type, uint32_t, uint32, 2)
+DEF_KNOB(ocp_hmp_gshare_history_length, ocp_hmp_gshare_history_length, uint32_t, uint32, 16)
+DEF_KNOB(ocp_hmp_gshare_pc_hash_type, ocp_hmp_gshare_pc_hash_type, uint32_t, uint32, 2)
+DEF_KNOB(ocp_hmp_gskew_history_length, ocp_hmp_gskew_history_length, uint32_t, uint32, 20)
+DEF_KNOB(ocp_hmp_gskew_num_hashes, ocp_hmp_gskew_num_hashes, uint32_t, uint32, 5)
+DEF_KNOB(ocp_hmp_gskew_pht_size, ocp_hmp_gskew_pht_size, uint32_t, uint32, 1024)
+DEF_KNOB(ocp_hmp_gskew_hash_types, ocp_hmp_gskew_hash_types, vector<int32_t>, int32v, {})
+
+// ==========================================================================
+// Off-chip predictor — TTP
+// ==========================================================================
+DEF_KNOB(ocp_ttp_partial_tag_size, ocp_ttp_partial_tag_size, uint32_t, uint32, 16)
+DEF_KNOB(ocp_ttp_catalog_cache_sets, ocp_ttp_catalog_cache_sets, uint32_t, uint32, 1024)
+DEF_KNOB(ocp_ttp_catalog_cache_assoc, ocp_ttp_catalog_cache_assoc, uint32_t, uint32, 24)
+DEF_KNOB(ocp_ttp_hash_type, ocp_ttp_hash_type, uint32_t, uint32, 5)
+DEF_KNOB(ocp_ttp_enable_track_llc_eviction, ocp_ttp_enable_track_llc_eviction, bool, bool, true)
+
+// ==========================================================================
+// Off-chip predictor — Random
+// ==========================================================================
+DEF_KNOB(ocp_random_pos_rate, ocp_random_pos_rate, float, float, 0.1)
+
+// ==========================================================================
+// Replacement — Hawkeye
+// ==========================================================================
+DEF_KNOB(hawkeye_pred_counter_width, hawkeye_pred_counter_width, uint32_t, uint32, 0)
+DEF_KNOB(hawkeye_max_rrip, hawkeye_max_rrip, uint32_t, uint32, 0)
+DEF_KNOB(hawkeye_pred_size, hawkeye_pred_size, uint32_t, uint32, 0)
+DEF_KNOB(hawkeye_pred_hash_type, hawkeye_pred_hash_type, uint32_t, uint32, 0)
+DEF_KNOB(hawkeye_optgen_hist_len_factor, hawkeye_optgen_hist_len_factor, uint32_t, uint32, 0)

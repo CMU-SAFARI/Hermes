@@ -1,6 +1,7 @@
 #include <iostream>
 #include "offchip_pred_hmp_local.h"
 #include "util.h"
+#include "knobs.h"
 
 #if 0
 #define MYLOG(cond, ...)                                    \
@@ -15,13 +16,6 @@
   {                      \
   }
 #endif
-
-namespace knob
-{
-extern uint32_t ocp_hmp_local_history_length;
-extern uint32_t ocp_hmp_local_lhr_size;
-extern uint32_t ocp_hmp_local_lhr_index_hash_type;
-}  // namespace knob
 
 void OffchipPredHMPLocal::print_config()
 {

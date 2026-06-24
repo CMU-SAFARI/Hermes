@@ -12,6 +12,7 @@
 #include <memory>
 #include <unordered_map>
 #include <vector>
+#include "knobs.h"
 
 #ifdef CRC2_COMPILE
 #define STAT_PRINTING_PERIOD 1000000
@@ -23,11 +24,6 @@
 using namespace std;
 
 extern uint32_t SCHEDULING_LATENCY, EXEC_LATENCY, DECODE_LATENCY;
-
-namespace knob
-{
-extern uint32_t num_rob_partitions;
-}
 
 class load_per_ip_info_t
 {

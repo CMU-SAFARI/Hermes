@@ -3,6 +3,7 @@
 #include "offchip_pred_perc.h"
 #include "util.h"
 #include "ooo_cpu.h"
+#include "knobs.h"
 
 #if 0
 #define MYLOG(cond, ...)                                    \
@@ -17,32 +18,6 @@
   {                      \
   }
 #endif
-
-namespace knob
-{
-extern vector<int32_t> ocp_perc_activated_features;
-extern vector<int32_t> ocp_perc_weight_array_sizes;
-extern vector<int32_t> ocp_perc_feature_hash_types;
-extern float           ocp_perc_activation_threshold;
-extern float           ocp_perc_max_weight;
-extern float           ocp_perc_min_weight;
-extern float           ocp_perc_pos_weight_delta;
-extern float           ocp_perc_neg_weight_delta;
-extern float           ocp_perc_pos_train_thresh;
-extern float           ocp_perc_neg_train_thresh;
-extern uint32_t        ocp_perc_page_buf_sets;
-extern uint32_t        ocp_perc_page_buf_assoc;
-extern uint32_t        ocp_perc_last_n_load_pcs;
-extern uint32_t        ocp_perc_last_n_pcs;
-extern bool            ocp_perc_enable_dynamic_act_thresh;
-extern uint32_t        ocp_perc_update_act_thresh_epoch;
-extern uint32_t        ocp_perc_high_critical_dram_bw_level;
-extern uint32_t        ocp_perc_low_critical_dram_bw_level;
-extern float           ocp_perc_poor_precision_thresh;
-extern float           ocp_perc_act_thresh_update_gradient;
-extern float           ocp_perc_min_activation_threshold;
-extern float           ocp_perc_max_activation_threshold;
-}  // namespace knob
 
 void OffchipPredPerc::print_config()
 {

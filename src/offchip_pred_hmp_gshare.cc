@@ -1,6 +1,7 @@
 #include <iostream>
 #include "offchip_pred_hmp_gshare.h"
 #include "util.h"
+#include "knobs.h"
 
 #if 0
 #define MYLOG(cond, ...)                                    \
@@ -15,12 +16,6 @@
   {                      \
   }
 #endif
-
-namespace knob
-{
-extern uint32_t ocp_hmp_gshare_history_length;
-extern uint32_t ocp_hmp_gshare_pc_hash_type;
-}  // namespace knob
 
 void OffchipPredHMPGshare::print_config()
 {

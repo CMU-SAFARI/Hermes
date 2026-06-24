@@ -1,19 +1,7 @@
 #include <iostream>
 #include "bop.h"
 #include "champsim.h"
-
-namespace knob
-{
-extern vector<int32_t> bop_candidates;
-extern uint32_t        bop_max_rounds;
-extern uint32_t        bop_max_score;
-extern uint32_t        bop_top_n;
-extern bool            bop_enable_pref_buffer;
-extern uint32_t        bop_pref_buffer_size;
-extern uint32_t        bop_pref_degree;
-extern uint32_t        bop_rr_size;
-
-}  // namespace knob
+#include "knobs.h"
 
 void BOPrefetcher::init_knobs() {}
 

@@ -6,17 +6,7 @@
 #include <cmath>
 #include "sandbox.h"
 #include "champsim.h"
-
-namespace knob
-{
-extern uint32_t sandbox_pref_degree;
-extern bool     sandbox_enable_stream_detect;
-extern uint32_t sandbox_stream_detect_length;
-extern uint32_t sandbox_num_access_in_phase;
-extern uint32_t sandbox_num_cycle_offsets;
-extern uint32_t sandbox_bloom_filter_size;
-extern uint32_t sandbox_seed;
-}  // namespace knob
+#include "knobs.h"
 
 void SandboxPrefetcher::init_knobs()
 {

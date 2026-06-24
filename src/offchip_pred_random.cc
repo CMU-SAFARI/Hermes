@@ -1,10 +1,6 @@
 #include <iostream>
 #include "offchip_pred_random.h"
-
-namespace knob
-{
-extern float ocp_random_pos_rate;
-}
+#include "knobs.h"
 
 void OffchipPredRandom::print_config()
 {
