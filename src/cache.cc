@@ -832,17 +832,6 @@ void CACHE::handle_read()
       uint32_t set = get_set(rq_entry.address);
       int      way = check_hit(&rq_entry);
 
-      // Uncore (beside-LLC) off-chip predictor: train on the resolved hit/miss
-      // outcome (LLC miss => off-chip). The prediction is made earlier —
-      // predict() sets rq_entry.went_offchip_pred + ocp_feature before we reach
-      // here.
-      if (cache_type == IS_LLC && offchip_pred &&
-          !knob::offchip_pred_location.compare("uncore") && rq_entry.is_data &&
-          rq_entry.type == LOAD) {
-        rq_entry.went_offchip = (way < 0) ? 1 : 0;  // LLC miss => went off-chip
-        offchip_pred_stats_and_train(&rq_entry);
-      }
-
       if (way >= 0)  // read hit
       {
         rq_entry.hit_where = assign_hit_where(cache_type, 0);  // read hit
@@ -968,6 +957,17 @@ void CACHE::handle_read()
 
         HIT[rq_entry.type]++;
         ACCESS[rq_entry.type]++;
+
+        // Uncore (beside-LLC) off-chip predictor: train exactly once, here at
+        // RQ release (LLC hit => not off-chip). Doing it at release rather than
+        // on every handle_read pass means a retried entry trains only once.
+        // predict() set went_offchip_pred + the feature state at the L2 miss.
+        if (cache_type == IS_LLC && offchip_pred &&
+            !knob::offchip_pred_location.compare("uncore") &&
+            rq_entry.is_data && rq_entry.type == LOAD) {
+          rq_entry.went_offchip = (way < 0) ? 1 : 0;
+          offchip_pred_stats_and_train(&rq_entry);
+        }
 
         // remove this entry from RQ
         uint64_t deque_cycle =
@@ -1216,6 +1216,16 @@ void CACHE::handle_read()
 
           MISS[rq_entry.type]++;
           ACCESS[rq_entry.type]++;
+
+          // Uncore (beside-LLC) off-chip predictor: train exactly once, here at
+          // RQ release (LLC miss => off-chip). This release is under
+          // if (miss_handled), so a retried entry is not trained here.
+          if (cache_type == IS_LLC && offchip_pred &&
+              !knob::offchip_pred_location.compare("uncore") &&
+              rq_entry.is_data && rq_entry.type == LOAD) {
+            rq_entry.went_offchip = (way < 0) ? 1 : 0;
+            offchip_pred_stats_and_train(&rq_entry);
+          }
 
           // remove this entry from RQ
           uint64_t deque_cycle = cache_type == IS_LLC

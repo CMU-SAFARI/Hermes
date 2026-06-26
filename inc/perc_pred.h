@@ -39,13 +39,13 @@ struct state_info_t {
   uint64_t last_n_load_pc_sig;
   uint64_t last_n_pc_sig;
   uint32_t data_index;
-  uint64_t vaddr;
-  uint64_t vpage;
-  uint64_t voffset;
+  uint64_t addr;
+  uint64_t page;
+  uint64_t offset;
   bool     first_access;
-  uint32_t v_cl_offset;
-  uint32_t v_cl_word_offset;
-  uint32_t v_cl_dword_offset;
+  uint32_t cl_offset;
+  uint32_t cl_word_offset;
+  uint32_t cl_dword_offset;
 
   state_info_t()
   {
@@ -53,13 +53,13 @@ struct state_info_t {
     last_n_load_pc_sig = 0;
     last_n_pc_sig      = 0;
     data_index         = 0;
-    vaddr              = 0;
-    vpage              = 0;
-    voffset            = 0;
+    addr               = 0;
+    page               = 0;
+    offset             = 0;
     first_access       = false;
-    v_cl_offset        = 0;
-    v_cl_word_offset   = 0;
-    v_cl_dword_offset  = 0;
+    cl_offset          = 0;
+    cl_word_offset     = 0;
+    cl_dword_offset    = 0;
   }
 
   string to_string();

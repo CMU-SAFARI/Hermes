@@ -33,7 +33,8 @@ static OffchipPredBase *create_offchip_predictor(uint32_t cpu, string type,
   // "xpt". Relax this further as perc/etc. gain their uncore implementations.
   if (!knob::offchip_pred_location.compare("uncore")) {
     assert(
-        (!type.compare("none") || !type.compare("xpt")) &&
+        (!type.compare("none") || !type.compare("xpt") ||
+         !type.compare("perc")) &&
         "LLC-side offchip predictor currently supports only 'none' and 'xpt'");
   }
 

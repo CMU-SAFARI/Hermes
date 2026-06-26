@@ -1734,6 +1734,7 @@ void O3_CPU::operate_lsq()
               SQ.entry[sq_index].virtual_address >> LOG2_PAGE_SIZE;
         }
         data_packet.full_addr         = SQ.entry[sq_index].virtual_address;
+        data_packet.full_virt_addr    = SQ.entry[sq_index].virtual_address;
         data_packet.instr_id          = SQ.entry[sq_index].instr_id;
         data_packet.rob_index         = SQ.entry[sq_index].rob_index;
         data_packet.rob_position      = SQ.entry[sq_index].rob_position;
@@ -1834,6 +1835,7 @@ void O3_CPU::operate_lsq()
               LQ.entry[lq_index].virtual_address >> LOG2_PAGE_SIZE;
         }
         data_packet.full_addr         = LQ.entry[lq_index].virtual_address;
+        data_packet.full_virt_addr    = LQ.entry[lq_index].virtual_address;
         data_packet.instr_id          = LQ.entry[lq_index].instr_id;
         data_packet.rob_index         = LQ.entry[lq_index].rob_index;
         data_packet.rob_position      = LQ.entry[lq_index].rob_position;
@@ -2026,6 +2028,7 @@ int O3_CPU::execute_load(uint32_t rob_index, uint32_t lq_index,
   data_packet.lq_index   = lq_index;
   data_packet.address = LQ.entry[lq_index].physical_address >> LOG2_BLOCK_SIZE;
   data_packet.full_addr         = LQ.entry[lq_index].physical_address;
+  data_packet.full_virt_addr    = LQ.entry[lq_index].virtual_address;
   data_packet.instr_id          = LQ.entry[lq_index].instr_id;
   data_packet.rob_index         = LQ.entry[lq_index].rob_index;
   data_packet.rob_position      = LQ.entry[lq_index].rob_position;
@@ -2588,10 +2591,11 @@ void O3_CPU::retire_rob()
             data_packet.sq_index   = sq_index;
             data_packet.address =
                 SQ.entry[sq_index].physical_address >> LOG2_BLOCK_SIZE;
-            data_packet.full_addr    = SQ.entry[sq_index].physical_address;
-            data_packet.instr_id     = SQ.entry[sq_index].instr_id;
-            data_packet.rob_index    = SQ.entry[sq_index].rob_index;
-            data_packet.rob_position = SQ.entry[sq_index].rob_position;
+            data_packet.full_addr      = SQ.entry[sq_index].physical_address;
+            data_packet.full_virt_addr = SQ.entry[sq_index].virtual_address;
+            data_packet.instr_id       = SQ.entry[sq_index].instr_id;
+            data_packet.rob_index      = SQ.entry[sq_index].rob_index;
+            data_packet.rob_position   = SQ.entry[sq_index].rob_position;
             data_packet.went_offchip_pred =
                 SQ.entry[sq_index].went_offchip_pred;
             data_packet.rob_part_type = SQ.entry[sq_index].rob_part_type;

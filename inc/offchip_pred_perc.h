@@ -87,14 +87,23 @@ private:
 
   } stats;
 
+  // shared core/uncore logic, parameterized by the already-extracted features
+  bool predict_helper(state_info_t *info, ocp_perc_feature_t *&feature);
+  void train_helper(ocp_perc_feature_t *feature, bool went_offchip_pred,
+                    bool went_offchip);
+
+  // Feature extraction differs only by placement: core reads the LSQ_ENTRY,
+  // uncore reads the PACKET (the virtual address rides on full_virt_addr).
   state_info_t *get_state(ooo_model_instr *arch_instr, uint32_t data_index,
                           LSQ_ENTRY *lq_entry);
-  void          lookup_address(uint64_t vaddr, uint64_t vpage, uint32_t voffset,
-                               bool &first_access);
-  uint32_t      get_set(uint64_t vpage);
-  void          get_control_flow_signatures(LSQ_ENTRY *lq_entry,
-                                            uint64_t  &last_n_load_pc_sig,
-                                            uint64_t  &last_n_pc_sig);
+  state_info_t *get_state(PACKET *packet);
+
+  void     lookup_address(uint64_t addr, uint64_t page, uint32_t offset,
+                          bool &first_access);
+  uint32_t get_set(uint64_t page);
+  void     get_control_flow_signatures(uint64_t curr_pc, int rob_index,
+                                       uint64_t &last_n_load_pc_sig,
+                                       uint64_t &last_n_pc_sig);
 
   string print_activated_features(vector<int32_t> activated_features);
   void   check_and_update_act_thresh();
@@ -110,6 +119,11 @@ public:
              LSQ_ENTRY *lq_entry);
   bool predict(ooo_model_instr *arch_instr, uint32_t data_index,
                LSQ_ENTRY *lq_entry);
+
+  // Uncore (beside-LLC) path: operate on the PACKET (the physical address and
+  // the virtual address via full_virt_addr are both available).
+  void train(PACKET *packet);
+  bool predict(PACKET *packet);
 };
 
 #endif /* OFFCHIP_PRED_PERC_H */

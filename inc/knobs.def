@@ -397,6 +397,7 @@ DEF_KNOB(ocp_xpt_use_physical_address, ocp_xpt_use_physical_address, bool, bool,
 // ==========================================================================
 // Off-chip predictor — Perceptron (POPET)
 // ==========================================================================
+DEF_KNOB(ocp_perc_use_physical_address, ocp_perc_use_physical_address, bool, bool, false)
 DEF_KNOB(ocp_perc_activation_threshold, ocp_perc_activation_threshold, float, float, -1)
 DEF_KNOB(ocp_perc_max_weight, ocp_perc_max_weight, float, float, 15)
 DEF_KNOB(ocp_perc_min_weight, ocp_perc_min_weight, float, float, -16)

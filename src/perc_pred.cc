@@ -45,11 +45,11 @@ string state_info_t::to_string()
   stringstream ss;
 
   ss << "PC: " << setw(8) << hex << pc << dec << " data_id: " << setw(2)
-     << data_index << " vaddr: " << setw(12) << hex << vaddr << dec
-     << " vpage: " << setw(12) << hex << vpage << dec << " voffset: " << setw(2)
-     << voffset << " fa: " << setw(1) << first_access << " vclo: " << setw(2)
-     << v_cl_offset << " vclwo: " << setw(2) << v_cl_word_offset
-     << " vcldwo: " << setw(2) << v_cl_dword_offset;
+     << data_index << " addr: " << setw(12) << hex << addr << dec
+     << " page: " << setw(12) << hex << page << dec << " offset: " << setw(2)
+     << offset << " fa: " << setw(1) << first_access << " clo: " << setw(2)
+     << cl_offset << " clwo: " << setw(2) << cl_word_offset
+     << " cldwo: " << setw(2) << cl_dword_offset;
 
   return ss.str();
 }

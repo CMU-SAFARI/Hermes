@@ -117,41 +117,72 @@ typedef enum {
 class PACKET
 {
 public:
-  uint64_t        id;  // just a packet id
-  static uint64_t next_id;
+  uint64_t        id;       // just a packet id
+  static uint64_t next_id;  // next id to hand out
 
-  uint8_t instruction, is_data, fill_l1i, fill_l1d, tlb_access, scheduled,
-      translated, fetched, prefetched, drc_tag_read;
+  uint8_t instruction;   // is an instruction fetch
+  uint8_t is_data;       // is a data access
+  uint8_t fill_l1i;      // fill into L1I on return
+  uint8_t fill_l1d;      // fill into L1D on return
+  uint8_t tlb_access;    // is a TLB access
+  uint8_t scheduled;     // has been scheduled
+  uint8_t translated;    // address has been translated
+  uint8_t fetched;       // has been fetched
+  uint8_t prefetched;    // issued by a prefetcher
+  uint8_t drc_tag_read;  // DRAM-cache tag read
 
-  int fill_level, pf_origin_level, rob_signal, rob_index, rob_position,
-      producer, delta, depth, signature, confidence;
+  int fill_level;       // cache level to fill on return
+  int pf_origin_level;  // prefetch origin level
+  int rob_signal;       // ROB signal
+  int rob_index;        // index into the ROB
+  int rob_position;     // position within the ROB
+  int producer;         // producer instruction index
+  int delta;            // prefetcher delta
+  int depth;            // prefetcher depth
+  int signature;        // prefetcher signature
+  int confidence;       // prefetcher confidence
 
-  int8_t rob_part_type;
+  int8_t rob_part_type;  // ROB partition type (frontal/dorsal)
 
-  hit_where_t hit_where;
+  hit_where_t hit_where;  // where the access was satisfied
 
-  uint32_t pf_metadata;
+  uint32_t pf_metadata;  // prefetcher metadata
 
-  uint8_t is_producer,
-      // rob_index_depend_on_me[ROB_SIZE],
-      // lq_index_depend_on_me[ROB_SIZE],
-      // sq_index_depend_on_me[ROB_SIZE],
-      instr_merged, load_merged, store_merged, returned, asid[2], type;
+  uint8_t is_producer;   // produces a value a load depends on
+  uint8_t instr_merged;  // merged into an instruction request
+  uint8_t load_merged;   // merged into a load request
+  uint8_t store_merged;  // merged into a store request
+  uint8_t returned;      // request has returned
+  uint8_t asid[2];       // address-space ids
+  uint8_t type;          // access type (LOAD/RFO/...)
 
-  fastset rob_index_depend_on_me, lq_index_depend_on_me, sq_index_depend_on_me;
+  fastset rob_index_depend_on_me;  // ROB entries depending on me
+  fastset lq_index_depend_on_me;   // LQ entries depending on me
+  fastset sq_index_depend_on_me;   // SQ entries depending on me
 
-  uint32_t cpu, data_index, lq_index, sq_index;
+  uint32_t cpu;         // owning core id
+  uint32_t data_index;  // data index
+  uint32_t lq_index;    // source load-queue index
+  uint32_t sq_index;    // source store-queue index
 
-  uint64_t address, full_addr, instruction_pa, data_pa, data, instr_id, ip,
-      event_cycle, cycle_enqueued,
-      enque_cycle[NUM_MODULE_TYPES][NUM_QUEUE_TYPES],
-      deque_cycle[NUM_MODULE_TYPES][NUM_QUEUE_TYPES];
+  uint64_t address;         // block-aligned address
+  uint64_t full_addr;       // full (byte) address
+  uint64_t full_virt_addr;  // full (byte) virtual address
+  uint64_t instruction_pa;  // instruction physical address
+  uint64_t data_pa;         // data physical address
+  uint64_t data;            // data payload
+  uint64_t instr_id;        // owning instruction id
+  uint64_t ip;              // instruction pointer (PC)
+  uint64_t event_cycle;     // cycle the packet is ready
+  uint64_t cycle_enqueued;  // cycle first enqueued
 
-  uint8_t went_offchip_pred;  // populated from corresponding LQ entry
-  uint8_t went_offchip;       // uncore offchip-predictor path: LLC-miss outcome
-                              // label for training
-  ocp_base_feature_t *ocp_feature;  // uncore offchip-predictor path: feature
-                                    // state carried predict->train
+  uint64_t enque_cycle[NUM_MODULE_TYPES][NUM_QUEUE_TYPES];  // enqueue cycle
+  uint64_t deque_cycle[NUM_MODULE_TYPES][NUM_QUEUE_TYPES];  // dequeue cycle
+
+  uint8_t went_offchip_pred;  // predicted off-chip (set from LQ entry)
+  uint8_t went_offchip;       // actual off-chip (LLC-miss) training label
+
+  ocp_base_feature_t *ocp_feature;  // feature state carried predict -> train
 
   PACKET()
   {
@@ -206,6 +237,7 @@ public:
 
     address        = 0;
     full_addr      = 0;
+    full_virt_addr = 0;
     instruction_pa = 0;
     data           = 0;
     instr_id       = 0;

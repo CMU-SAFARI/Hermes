@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <cassert>
 #include "offchip_pred_perc.h"
 #include "util.h"
 #include "ooo_cpu.h"
@@ -19,9 +20,15 @@
   }
 #endif
 
+//=============================================================================
+// Common: config, stats, construction, and shared helpers (both placements)
+//=============================================================================
+
 void OffchipPredPerc::print_config()
 {
-  cout << "ocp_perc_activated_features "
+  cout << "ocp_perc_use_physical_address "
+       << knob::ocp_perc_use_physical_address << endl
+       << "ocp_perc_activated_features "
        << print_activated_features(knob::ocp_perc_activated_features) << endl
        << "ocp_perc_weight_array_sizes "
        << array_to_string(knob::ocp_perc_weight_array_sizes) << endl
@@ -103,6 +110,22 @@ void OffchipPredPerc::reset_stats()
 OffchipPredPerc::OffchipPredPerc(uint32_t _cpu, string _type, uint64_t _seed)
     : OffchipPredBase(_cpu, _type, _seed)
 {
+  // The perceptron OCP can index by the physical address only at the uncore,
+  // where it runs beside the LLC with the physical address available. At the
+  // core, predict() runs at add_load_queue() before translation, so the
+  // physical address is still 0 there — forbid it (mirror XPT).
+  if (knob::ocp_perc_use_physical_address &&
+      !knob::offchip_pred_location.compare("core")) {
+    cerr << "[PERC] ERROR: ocp_perc_use_physical_address=true, but the "
+            "perceptron OCP is placed inside the core, where the physical "
+            "address is not available at prediction time (add_load_queue)."
+         << endl
+         << "[PERC] Set ocp_perc_use_physical_address=false, or move it beside "
+            "the LLC (offchip_pred_location=uncore)."
+         << endl;
+    assert(false && "perc core-side cannot use physical address");
+  }
+
   perc_pred = new perceptron_pred_t(
       knob::ocp_perc_activated_features, knob::ocp_perc_weight_array_sizes,
       knob::ocp_perc_feature_hash_types, knob::ocp_perc_activation_threshold,
@@ -128,22 +151,25 @@ OffchipPredPerc::OffchipPredPerc(uint32_t _cpu, string _type, uint64_t _seed)
 
 OffchipPredPerc::~OffchipPredPerc() {}
 
-bool OffchipPredPerc::predict(ooo_model_instr *arch_instr, uint32_t data_index,
-                              LSQ_ENTRY *lq_entry)
+// Shared prediction logic. `info` carries the already-extracted features (built
+// core- or uncore-side); everything below is placement-agnostic. The allocated
+// feature state (info + perceptron weight sum) is handed back via `feature` so
+// the caller can stash it where training will later find it (LSQ_ENTRY core-
+// side, PACKET uncore-side).
+bool OffchipPredPerc::predict_helper(state_info_t        *info,
+                                     ocp_perc_feature_t *&feature)
 {
-  state_info_t *info            = get_state(arch_instr, data_index, lq_entry);
-  float         perc_weight_sum = 0.0;
-  bool          prediction      = false;
+  float perc_weight_sum = 0.0;
+  bool  prediction      = false;
 
   // get prediction
   perc_pred->predict(info, prediction, perc_weight_sum);
 
   // save all necessary data that would
-  // later be required for training in LQ entry
-  ocp_perc_feature_t *feature = new ocp_perc_feature_t();
-  feature->info               = info;
-  feature->perc_weight_sum    = perc_weight_sum;
-  lq_entry->ocp_feature       = feature;
+  // later be required for training
+  feature                  = new ocp_perc_feature_t();
+  feature->info            = info;
+  feature->perc_weight_sum = perc_weight_sum;
 
   stats.predict.called++;
   stats.predict.outcome[prediction]++;
@@ -151,19 +177,22 @@ bool OffchipPredPerc::predict(ooo_model_instr *arch_instr, uint32_t data_index,
   return prediction;
 }
 
-void OffchipPredPerc::train(ooo_model_instr *arch_instr, uint32_t data_index,
-                            LSQ_ENTRY *lq_entry)
+// Shared training logic. The prediction (`went_offchip_pred`), the resolved
+// outcome (`went_offchip`), and the feature state saved at predict time are
+// supplied by the caller; the source (LSQ_ENTRY vs PACKET) is irrelevant here.
+void OffchipPredPerc::train_helper(ocp_perc_feature_t *feature,
+                                   bool went_offchip_pred, bool went_offchip)
 {
   train_count++;
 
   // keep track of true/false positives/negatives
-  if (lq_entry->went_offchip_pred && lq_entry->went_offchip) {
+  if (went_offchip_pred && went_offchip) {
     true_pos++;
-  } else if (lq_entry->went_offchip_pred && !lq_entry->went_offchip) {
+  } else if (went_offchip_pred && !went_offchip) {
     false_pos++;
-  } else if (!lq_entry->went_offchip_pred && lq_entry->went_offchip) {
+  } else if (!went_offchip_pred && went_offchip) {
     false_neg++;
-  } else if (!lq_entry->went_offchip_pred && !lq_entry->went_offchip) {
+  } else if (!went_offchip_pred && !went_offchip) {
     true_neg++;
   }
 
@@ -173,77 +202,40 @@ void OffchipPredPerc::train(ooo_model_instr *arch_instr, uint32_t data_index,
     check_and_update_act_thresh();
   }
 
-  // retreive all necessary data from LQ entry
-  // that were used before for prediction making
-  ocp_perc_feature_t *feature = (ocp_perc_feature_t *)lq_entry->ocp_feature;
-  state_info_t       *info    = feature->info;
-  float               perc_weight_sum = feature->perc_weight_sum;
+  // retreive all necessary data that were
+  // used before for prediction making
+  state_info_t *info            = feature->info;
+  float         perc_weight_sum = feature->perc_weight_sum;
 
   // train perceptron
-  perc_pred->train(info, perc_weight_sum, lq_entry->went_offchip_pred,
-                   lq_entry->went_offchip);
+  perc_pred->train(info, perc_weight_sum, went_offchip_pred, went_offchip);
 
   stats.train.called++;
 }
 
-state_info_t *OffchipPredPerc::get_state(ooo_model_instr *arch_instr,
-                                         uint32_t         data_index,
-                                         LSQ_ENTRY       *lq_entry)
+uint32_t OffchipPredPerc::get_set(uint64_t page)
 {
-  uint64_t load_pc = arch_instr->ip;
-  uint64_t vaddr   = lq_entry->virtual_address;
-  uint64_t vpage   = vaddr >> LOG2_PAGE_SIZE;
-  uint32_t voffset = (vaddr >> LOG2_BLOCK_SIZE) &
-                     ((1ull << (LOG2_PAGE_SIZE - LOG2_BLOCK_SIZE)) - 1);
-  uint32_t v_cl_offset       = vaddr & ((1ull << LOG2_BLOCK_SIZE) - 1);
-  uint32_t v_cl_word_offset  = v_cl_offset >> 2;
-  uint32_t v_cl_dword_offset = v_cl_offset >> 4;
-
-  state_info_t *info = new state_info_t();
-
-  // get control-flow features
-  uint64_t last_n_load_pc_sig = 0, last_n_pc_sig = 0;
-  get_control_flow_signatures(lq_entry, last_n_load_pc_sig, last_n_pc_sig);
-
-  // get data-flow features
-  bool first_access = false;
-  lookup_address(vaddr, vpage, voffset, first_access);
-
-  // populate features
-  info->pc                 = load_pc;
-  info->last_n_load_pc_sig = last_n_load_pc_sig;
-  info->last_n_pc_sig      = last_n_pc_sig;
-  info->data_index         = data_index;
-  info->vaddr              = vaddr;
-  info->vpage              = vpage;
-  info->voffset            = voffset;
-  info->first_access       = first_access;
-  info->v_cl_offset        = v_cl_offset;
-  info->v_cl_word_offset   = v_cl_word_offset;
-  info->v_cl_dword_offset  = v_cl_dword_offset;
-
-  return info;
-  // return NULL;
+  uint32_t hash = HashZoo::fnv1a64(page);
+  return hash % knob::ocp_perc_page_buf_sets;
 }
 
-void OffchipPredPerc::lookup_address(uint64_t vaddr, uint64_t vpage,
-                                     uint32_t voffset, bool &first_access)
+void OffchipPredPerc::lookup_address(uint64_t addr, uint64_t page,
+                                     uint32_t offset, bool &first_access)
 {
   stats.page_buf.called++;
-  unique_pages.insert(vpage);
+  unique_pages.insert(page);
 
   ocp_perc_page_buf_entry_t *entry = NULL;
-  uint32_t                   set   = get_set(vpage);
-  auto it = find_if(m_page_buffer[set].begin(), m_page_buffer[set].end(),
-                    [vpage](ocp_perc_page_buf_entry_t *entry) {
-                      return entry->page == vpage;
-                    });
+  uint32_t                   set   = get_set(page);
+  auto                       it    = find_if(
+      m_page_buffer[set].begin(), m_page_buffer[set].end(),
+      [page](ocp_perc_page_buf_entry_t *entry) { return entry->page == page; });
 
   if (it != m_page_buffer[set].end())  // page hit
   {
     entry        = (*it);
-    first_access = !entry->bmp_access.test(voffset);
-    entry->bmp_access.set(voffset);
+    first_access = !entry->bmp_access.test(offset);
+    entry->bmp_access.set(offset);
     entry->age = 0;
     m_page_buffer[set].erase(it);
     m_page_buffer[set].push_back(entry);
@@ -257,8 +249,8 @@ void OffchipPredPerc::lookup_address(uint64_t vaddr, uint64_t vpage,
     }
 
     entry       = new ocp_perc_page_buf_entry_t();
-    entry->page = vpage;
-    entry->bmp_access.set(voffset);
+    entry->page = page;
+    entry->bmp_access.set(offset);
     entry->age = 0;
     m_page_buffer[set].push_back(entry);
     first_access = true;
@@ -266,18 +258,12 @@ void OffchipPredPerc::lookup_address(uint64_t vaddr, uint64_t vpage,
   }
 }
 
-uint32_t OffchipPredPerc::get_set(uint64_t page)
-{
-  uint32_t hash = HashZoo::fnv1a64(page);
-  return hash % knob::ocp_perc_page_buf_sets;
-}
-
-void OffchipPredPerc::get_control_flow_signatures(LSQ_ENTRY *lq_entry,
-                                                  uint64_t  &last_n_load_pc_sig,
-                                                  uint64_t  &last_n_pc_sig)
+void OffchipPredPerc::get_control_flow_signatures(uint64_t  curr_pc,
+                                                  int       rob_index,
+                                                  uint64_t &last_n_load_pc_sig,
+                                                  uint64_t &last_n_pc_sig)
 {
   // signature from last N load PCs
-  uint64_t curr_pc = lq_entry->ip;
   if (last_n_load_pcs.size() >= knob::ocp_perc_last_n_load_pcs) {
     last_n_load_pcs.pop_front();
   }
@@ -291,7 +277,7 @@ void OffchipPredPerc::get_control_flow_signatures(LSQ_ENTRY *lq_entry,
 
   // signature from last N instruction PCs
   deque<uint64_t> last_n_pcs;
-  int             prior = lq_entry->rob_index;
+  int             prior = rob_index;
   for (int i = 0; i < (int)knob::ocp_perc_last_n_pcs - 1; ++i) {
     last_n_pcs.push_front(ooo_cpu[cpu].ROB.entry[prior].ip);
     prior--;
@@ -380,4 +366,150 @@ void OffchipPredPerc::check_and_update_act_thresh()
           +dram_bw, true_pos, false_pos, false_neg, true_neg, precision,
           recall);
   }
+}
+
+//=============================================================================
+// Core-side placement (offchip_pred_location == core): LSQ_ENTRY interface
+//=============================================================================
+
+bool OffchipPredPerc::predict(ooo_model_instr *arch_instr, uint32_t data_index,
+                              LSQ_ENTRY *lq_entry)
+{
+  state_info_t       *info       = get_state(arch_instr, data_index, lq_entry);
+  ocp_perc_feature_t *feature    = NULL;
+  bool                prediction = predict_helper(info, feature);
+
+  // save the feature state in the LQ entry for training at LQ release
+  lq_entry->ocp_feature = feature;
+
+  return prediction;
+}
+
+void OffchipPredPerc::train(ooo_model_instr *arch_instr, uint32_t data_index,
+                            LSQ_ENTRY *lq_entry)
+{
+  // retreive the feature state saved in the LQ entry at predict time
+  train_helper((ocp_perc_feature_t *)lq_entry->ocp_feature,
+               lq_entry->went_offchip_pred, lq_entry->went_offchip);
+}
+
+state_info_t *OffchipPredPerc::get_state(ooo_model_instr *arch_instr,
+                                         uint32_t         data_index,
+                                         LSQ_ENTRY       *lq_entry)
+{
+  uint64_t load_pc = arch_instr->ip;
+  // address source per the knob; physical@core is asserted out in the
+  // constructor, so this resolves to the virtual address at the core.
+  uint64_t addr   = knob::ocp_perc_use_physical_address
+                        ? lq_entry->physical_address
+                        : lq_entry->virtual_address;
+  uint64_t page   = addr >> LOG2_PAGE_SIZE;
+  uint32_t offset = (addr >> LOG2_BLOCK_SIZE) &
+                    ((1ull << (LOG2_PAGE_SIZE - LOG2_BLOCK_SIZE)) - 1);
+  uint32_t cl_offset       = addr & ((1ull << LOG2_BLOCK_SIZE) - 1);
+  uint32_t cl_word_offset  = cl_offset >> 2;
+  uint32_t cl_dword_offset = cl_offset >> 4;
+
+  state_info_t *info = new state_info_t();
+
+  // get control-flow features
+  uint64_t last_n_load_pc_sig = 0, last_n_pc_sig = 0;
+  get_control_flow_signatures(lq_entry->ip, lq_entry->rob_index,
+                              last_n_load_pc_sig, last_n_pc_sig);
+
+  // get data-flow features
+  bool first_access = false;
+  lookup_address(addr, page, offset, first_access);
+
+  // populate features
+  info->pc                 = load_pc;
+  info->last_n_load_pc_sig = last_n_load_pc_sig;
+  info->last_n_pc_sig      = last_n_pc_sig;
+  info->data_index         = data_index;
+  info->addr               = addr;
+  info->page               = page;
+  info->offset             = offset;
+  info->first_access       = first_access;
+  info->cl_offset          = cl_offset;
+  info->cl_word_offset     = cl_word_offset;
+  info->cl_dword_offset    = cl_dword_offset;
+
+  return info;
+  // return NULL;
+}
+
+//=============================================================================
+// Uncore-side placement (LLC; offchip_pred_location == uncore): PACKET
+// interface
+//=============================================================================
+
+bool OffchipPredPerc::predict(PACKET *packet)
+{
+  state_info_t       *info       = get_state(packet);
+  ocp_perc_feature_t *feature    = NULL;
+  bool                prediction = predict_helper(info, feature);
+
+  // the feature state rides on the PACKET into the LLC RQ; the LLC trains on it
+  // after the tag lookup resolves, then frees it.
+  packet->ocp_feature = feature;
+
+  return prediction;
+}
+
+void OffchipPredPerc::train(PACKET *packet)
+{
+  // Train fires exactly once, at RQ release, so every trained load must have
+  // been predicted at the L2 miss => its feature is non-NULL. Assert rather
+  // than silently skip: a NULL here means a load reached train without a paired
+  // predict, and we want that to fail loudly instead of running wrongly.
+  assert(packet->ocp_feature != NULL &&
+         "uncore perc train: ocp_feature is NULL (unpaired predict/train)");
+  // retreive the feature state carried on the PACKET from predict time
+  train_helper((ocp_perc_feature_t *)packet->ocp_feature,
+               packet->went_offchip_pred, packet->went_offchip);
+}
+
+// Uncore feature extraction: same feature set as the core get_state(), but
+// sourced from the PACKET. The virtual address rides on packet->full_virt_addr
+// (added so the uncore indexes the same virtual-address features); the PC,
+// rob_index, and data_index ride on the packet too.
+state_info_t *OffchipPredPerc::get_state(PACKET *packet)
+{
+  uint64_t load_pc = packet->ip;
+  // address source per the knob: physical (packet->full_addr) at the uncore,
+  // else the virtual address carried via packet->full_virt_addr.
+  uint64_t addr   = knob::ocp_perc_use_physical_address ? packet->full_addr
+                                                        : packet->full_virt_addr;
+  uint64_t page   = addr >> LOG2_PAGE_SIZE;
+  uint32_t offset = (addr >> LOG2_BLOCK_SIZE) &
+                    ((1ull << (LOG2_PAGE_SIZE - LOG2_BLOCK_SIZE)) - 1);
+  uint32_t cl_offset       = addr & ((1ull << LOG2_BLOCK_SIZE) - 1);
+  uint32_t cl_word_offset  = cl_offset >> 2;
+  uint32_t cl_dword_offset = cl_offset >> 4;
+
+  state_info_t *info = new state_info_t();
+
+  // get control-flow features
+  uint64_t last_n_load_pc_sig = 0, last_n_pc_sig = 0;
+  get_control_flow_signatures(packet->ip, packet->rob_index, last_n_load_pc_sig,
+                              last_n_pc_sig);
+
+  // get data-flow features
+  bool first_access = false;
+  lookup_address(addr, page, offset, first_access);
+
+  // populate features
+  info->pc                 = load_pc;
+  info->last_n_load_pc_sig = last_n_load_pc_sig;
+  info->last_n_pc_sig      = last_n_pc_sig;
+  info->data_index         = packet->data_index;
+  info->addr               = addr;
+  info->page               = page;
+  info->offset             = offset;
+  info->first_access       = first_access;
+  info->cl_offset          = cl_offset;
+  info->cl_word_offset     = cl_word_offset;
+  info->cl_dword_offset    = cl_dword_offset;
+
+  return info;
 }

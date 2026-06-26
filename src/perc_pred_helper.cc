@@ -15,7 +15,7 @@ uint32_t process_PC(state_info_t *state, uint64_t metadata, int32_t hash_type,
 uint32_t process_Offset(state_info_t *state, uint64_t metadata,
                         int32_t hash_type, uint32_t weight_array_size)
 {
-  uint32_t raw = state->voffset;
+  uint32_t raw = state->offset;
   raw          = HashZoo::getHash(hash_type, raw);
   return (raw % weight_array_size);
 }
@@ -23,7 +23,7 @@ uint32_t process_Offset(state_info_t *state, uint64_t metadata,
 uint32_t process_Page(state_info_t *state, uint64_t metadata, int32_t hash_type,
                       uint32_t weight_array_size)
 {
-  uint64_t raw = state->vpage;
+  uint64_t raw = state->page;
   uint32_t val = folded_xor(raw, 2);
   val          = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
@@ -32,7 +32,7 @@ uint32_t process_Page(state_info_t *state, uint64_t metadata, int32_t hash_type,
 uint32_t process_Addr(state_info_t *state, uint64_t metadata, int32_t hash_type,
                       uint32_t weight_array_size)
 {
-  uint64_t raw = state->vaddr;
+  uint64_t raw = state->addr;
   uint32_t val = folded_xor(raw, 2);
   val          = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
@@ -51,7 +51,7 @@ uint32_t process_PC_Offset(state_info_t *state, uint64_t metadata,
   uint64_t raw = state->pc;
   uint32_t val = folded_xor(raw, 2);
   val          = val << 6;
-  val += state->voffset;
+  val += state->offset;
   val = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
 }
@@ -61,7 +61,7 @@ uint32_t process_PC_Page(state_info_t *state, uint64_t metadata,
 {
   uint64_t raw = state->pc;
   raw          = raw << 12;
-  raw          = raw ^ state->vpage;
+  raw          = raw ^ state->page;
   uint32_t val = folded_xor(raw, 2);
   val          = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
@@ -72,7 +72,7 @@ uint32_t process_PC_Addr(state_info_t *state, uint64_t metadata,
 {
   uint64_t raw = state->pc;
   raw          = raw << 15;
-  raw          = raw ^ state->vaddr;
+  raw          = raw ^ state->addr;
   uint32_t val = folded_xor(raw, 2);
   val          = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
@@ -95,7 +95,7 @@ uint32_t process_Offset_FirstAccess(state_info_t *state, uint64_t metadata,
                                     int32_t  hash_type,
                                     uint32_t weight_array_size)
 {
-  uint32_t val = state->voffset;
+  uint32_t val = state->offset;
   val          = val & ((1u << 6) - 1);
   if (state->first_access) {
     val = val | (1u << 6);
@@ -107,7 +107,7 @@ uint32_t process_Offset_FirstAccess(state_info_t *state, uint64_t metadata,
 uint32_t process_CLOffset(state_info_t *state, uint64_t metadata,
                           int32_t hash_type, uint32_t weight_array_size)
 {
-  uint32_t raw = state->v_cl_offset;
+  uint32_t raw = state->cl_offset;
   return (raw % weight_array_size);
 }
 
@@ -117,7 +117,7 @@ uint32_t process_PC_CLOffset(state_info_t *state, uint64_t metadata,
   uint64_t raw = state->pc;
   uint32_t val = folded_xor(raw, 2);
   val          = val << 6;
-  val += state->v_cl_offset;
+  val += state->cl_offset;
   val = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
 }
@@ -125,7 +125,7 @@ uint32_t process_PC_CLOffset(state_info_t *state, uint64_t metadata,
 uint32_t process_CLWordOffset(state_info_t *state, uint64_t metadata,
                               int32_t hash_type, uint32_t weight_array_size)
 {
-  uint32_t raw = state->v_cl_word_offset;
+  uint32_t raw = state->cl_word_offset;
   return (raw % weight_array_size);
 }
 
@@ -135,7 +135,7 @@ uint32_t process_PC_CLWordOffset(state_info_t *state, uint64_t metadata,
   uint64_t raw = state->pc;
   uint32_t val = folded_xor(raw, 2);
   val          = val << 4;
-  val += state->v_cl_word_offset;
+  val += state->cl_word_offset;
   val = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
 }
@@ -143,7 +143,7 @@ uint32_t process_PC_CLWordOffset(state_info_t *state, uint64_t metadata,
 uint32_t process_CLDWordOffset(state_info_t *state, uint64_t metadata,
                                int32_t hash_type, uint32_t weight_array_size)
 {
-  uint32_t raw = state->v_cl_dword_offset;
+  uint32_t raw = state->cl_dword_offset;
   return (raw % weight_array_size);
 }
 
@@ -153,7 +153,7 @@ uint32_t process_PC_CLDWordOffset(state_info_t *state, uint64_t metadata,
   uint64_t raw = state->pc;
   uint32_t val = folded_xor(raw, 2);
   val          = val << 3;
-  val += state->v_cl_dword_offset;
+  val += state->cl_dword_offset;
   val = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
 }
