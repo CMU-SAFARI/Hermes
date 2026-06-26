@@ -45,7 +45,7 @@ $(binDir)/$(app): buildrepo $(objects)
 	@echo "Linking $@..."
 	@$(CC) $(objects) $(LDFlags) -o $@
 
-$(objDir)/%.o: %.$(srcExt)
+$(objDir)/%.o: %.$(srcExt) | buildrepo
 	@echo "Generating dependencies for $<..."
 	@$(call make-depend,$<,$@,$(subst .o,.d,$@))
 	@echo "Compiling $<..."

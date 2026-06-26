@@ -110,11 +110,12 @@ cp prefetcher/${L2C_PREFETCHER}.l2c_pref prefetcher/l2c_prefetcher.cc
 cp prefetcher/${LLC_PREFETCHER}.llc_pref prefetcher/llc_prefetcher.cc
 cp replacement/${LLC_REPLACEMENT}.llc_repl replacement/llc_replacement.cc
 
-# Build
+# Build (parallel: -j across all hardware threads; the Makefile makes obj-dir
+# creation an order-only prereq so this is race-free)
 mkdir -p bin
 rm -f bin/champsim
 make clean
-make
+make -j"$(nproc)"
 
 # Sanity check
 echo ""
