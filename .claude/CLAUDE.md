@@ -2,6 +2,36 @@
 
 Please follow the repository AI rules below when working in Hermes.
 
+## Project Overview
+
+Hermes is a ChampSim-based out-of-order CPU simulator for **off-chip load
+prediction** research. The original Hermes mechanism (Bera et al., MICRO 2022)
+predicts which loads will miss every on-chip cache using a lightweight
+perceptron-based predictor (POPET) and speculatively fetches their data straight
+from DRAM in parallel with the cache lookups, removing on-chip cache latency from
+the critical path. See [README.md](../README.md) for the upstream description and
+the build / trace / experiment workflow.
+
+This fork extends that baseline to study **which** off-chip predictor to use and
+**where** it should live:
+
+- **Predictor comparison** — POPET (perceptron) vs. Intel's XPT physical-page
+  tracker (`offchip_pred_type`).
+- **Core vs. uncore placement** — the predictor can run inside the core
+  (pre-translation, virtual address) or beside the LLC at the uncore
+  (post-translation, physical address), selected by `offchip_pred_location`. XPT
+  is only useful at the uncore with the physical address; with the physical
+  address it refuses to run in the core.
+- **DDRP action** — a speculative direct-DRAM-prefetch path driven by the
+  prediction (`enable_ddrp`), studied at both placements.
+- Reads ChampSim v1 and v2 traces; all knobs go through the X-macro framework in
+  [inc/knobs.def](../inc/knobs.def).
+
+Design entrypoints live in [docs/](../docs) — e.g.
+[uncore-offchip-predictor-design.md](../docs/uncore-offchip-predictor-design.md),
+[pcless-offchip-features.md](../docs/pcless-offchip-features.md),
+[knob-framework-integration-design.md](../docs/knob-framework-integration-design.md).
+
 ## Project Rules
 
 ## Skills
