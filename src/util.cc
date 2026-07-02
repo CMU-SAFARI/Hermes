@@ -38,6 +38,28 @@ uint32_t folded_xor(uint64_t value, uint32_t num_folds)
   return folded_value;
 }
 
+/* MurmurHash3's 64-bit finalizer (fmix64), truncated to 32 bits. Full
+ * avalanche: every input bit flips ~half the output bits. The non-linear
+ * alternative to folded_xor, which is XOR-linear -- with folded_xor, two
+ * values differing only in bits i and i+32 collide deterministically. */
+uint32_t fmix64(uint64_t value)
+{
+  value ^= value >> 33;
+  value *= 0xff51afd7ed558ccdull;
+  value ^= value >> 33;
+  value *= 0xc4ceb9fe1a85ec53ull;
+  value ^= value >> 33;
+  return (uint32_t)value;
+}
+
+/* Knuth/Fibonacci multiplicative 64->32 reduction: one multiply by the golden
+ * ratio (2^64/phi), keeping the HIGH half -- that is where the mixing lands;
+ * the low product bits stay weak. Cheaper than fmix64, weaker avalanche. */
+uint32_t knuth64(uint64_t value)
+{
+  return (uint32_t)((value * 0x9E3779B97F4A7C15ull) >> 32);
+}
+
 /**********************************************
  *********** 32-bit hash functions ************
  **********************************************/
