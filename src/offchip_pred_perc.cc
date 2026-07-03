@@ -54,6 +54,7 @@ void OffchipPredPerc::print_config()
        << endl
        << "ocp_perc_page_offset_region_log2 "
        << knob::ocp_perc_page_offset_region_log2 << endl
+       << "ocp_perc_embed_cpu_id " << knob::ocp_perc_embed_cpu_id << endl
        << "ocp_perc_enable_dynamic_act_thresh "
        << knob::ocp_perc_enable_dynamic_act_thresh << endl
        << "ocp_perc_update_act_thresh_epoch "
@@ -165,12 +166,14 @@ OffchipPredPerc::OffchipPredPerc(uint32_t _cpu, string _type, uint64_t _seed)
     d.clear();
     m_page_buffer.push_back(d);
   }
-  true_pos          = 0;
-  false_pos         = 0;
-  false_neg         = 0;
-  true_neg          = 0;
-  train_count       = 0;
-  last_n_deltas_sig = 0;
+  true_pos    = 0;
+  false_pos   = 0;
+  false_neg   = 0;
+  true_neg    = 0;
+  train_count = 0;
+  for (uint32_t index = 0; index < NUM_CPUS; ++index) {
+    last_n_deltas_sig[index] = 0;
+  }
 
   reset_stats();
 }
@@ -250,7 +253,7 @@ uint32_t OffchipPredPerc::get_set(uint64_t page)
 }
 
 void OffchipPredPerc::get_data_flow_signatures(state_info_t *info,
-                                               uint64_t      addr)
+                                               uint64_t addr, uint32_t req_cpu)
 {
   // address decompositions
   info->addr   = addr;
@@ -292,11 +295,12 @@ void OffchipPredPerc::get_data_flow_signatures(state_info_t *info,
     info->page_offchip_count = entry->offchip_count;
     info->page_trained_count = entry->trained_count;
     // intra-page delta (never across a page boundary): push the current
-    // access's 7-bit signed delta [-63,+63] into the global 28-bit register
+    // access's 7-bit signed delta [-63,+63] into the core's 28-bit register
     int32_t delta      = (int32_t)offset - (int32_t)entry->last_offset;
     entry->last_offset = offset;
-    last_n_deltas_sig =
-        ((last_n_deltas_sig << 7) | ((uint32_t)delta & 0x7F)) & 0x0FFFFFFF;
+    last_n_deltas_sig[req_cpu] =
+        ((last_n_deltas_sig[req_cpu] << 7) | ((uint32_t)delta & 0x7F)) &
+        0x0FFFFFFF;
     m_page_buffer[set].erase(it);
     m_page_buffer[set].push_back(entry);
     stats.page_buf.hit++;
@@ -327,7 +331,7 @@ void OffchipPredPerc::get_data_flow_signatures(state_info_t *info,
   }
 
   // delta history INCLUDING the current access's delta (when one exists)
-  info->last_n_deltas_sig = last_n_deltas_sig;
+  info->last_n_deltas_sig = last_n_deltas_sig[req_cpu];
 }
 
 // Train-side page-buffer update for PageOffchipCount / PageMissRatio: the
@@ -351,30 +355,33 @@ void OffchipPredPerc::record_page_outcome(uint64_t page, bool went_offchip)
 
 void OffchipPredPerc::get_control_flow_signatures(state_info_t *info,
                                                   uint64_t      curr_pc,
-                                                  int           rob_index)
+                                                  int           rob_index,
+                                                  uint32_t      req_cpu)
 {
   info->pc = curr_pc;
 
-  // signature from last N load PCs
-  if (last_n_load_pcs.size() >= knob::ocp_perc_last_n_load_pcs) {
-    last_n_load_pcs.pop_front();
+  // signature from last N load PCs (per-core history)
+  deque<uint64_t> &load_pcs = last_n_load_pcs[req_cpu];
+  if (load_pcs.size() >= knob::ocp_perc_last_n_load_pcs) {
+    load_pcs.pop_front();
   }
-  last_n_load_pcs.push_back(curr_pc);
+  load_pcs.push_back(curr_pc);
 
   info->last_n_load_pc_sig = 0;
-  for (uint32_t index = 0; index < last_n_load_pcs.size(); ++index) {
+  for (uint32_t index = 0; index < load_pcs.size(); ++index) {
     info->last_n_load_pc_sig <<= 1;
-    info->last_n_load_pc_sig ^= last_n_load_pcs[index];
+    info->last_n_load_pc_sig ^= load_pcs[index];
   }
 
-  // signature from last N instruction PCs
+  // signature from last N instruction PCs (walk the REQUESTING core's ROB --
+  // this->cpu is meaningless at the shared uncore instance)
   deque<uint64_t> last_n_pcs;
   int             prior = rob_index;
   for (int i = 0; i < (int)knob::ocp_perc_last_n_pcs - 1; ++i) {
-    last_n_pcs.push_front(ooo_cpu[cpu].ROB.entry[prior].ip);
+    last_n_pcs.push_front(ooo_cpu[req_cpu].ROB.entry[prior].ip);
     prior--;
     if (prior < 0) {
-      prior = ooo_cpu[cpu].ROB.SIZE - 1;
+      prior = ooo_cpu[req_cpu].ROB.SIZE - 1;
     }
   }
 
@@ -495,10 +502,15 @@ state_info_t *OffchipPredPerc::get_state(ooo_model_instr *arch_instr,
                       ? lq_entry->physical_address
                       : lq_entry->virtual_address;
 
+  // at the core the predictor instance is per-core, so the member cpu IS the
+  // requesting cpu
+  uint32_t req_cpu = cpu;
+
   state_info_t *info = new state_info_t();
   info->data_index   = data_index;
-  get_control_flow_signatures(info, lq_entry->ip, lq_entry->rob_index);
-  get_data_flow_signatures(info, addr);
+  info->cpu          = knob::ocp_perc_embed_cpu_id ? (int32_t)req_cpu : -1;
+  get_control_flow_signatures(info, lq_entry->ip, lq_entry->rob_index, req_cpu);
+  get_data_flow_signatures(info, addr, req_cpu);
 
   return info;
 }
@@ -545,10 +557,14 @@ state_info_t *OffchipPredPerc::get_state(PACKET *packet)
   uint64_t addr = knob::ocp_perc_use_physical_address ? packet->full_addr
                                                       : packet->full_virt_addr;
 
+  // at the shared uncore instance the requesting cpu rides on the packet
+  uint32_t req_cpu = packet->cpu;
+
   state_info_t *info = new state_info_t();
   info->data_index   = packet->data_index;
-  get_control_flow_signatures(info, packet->ip, packet->rob_index);
-  get_data_flow_signatures(info, addr);
+  info->cpu          = knob::ocp_perc_embed_cpu_id ? (int32_t)req_cpu : -1;
+  get_control_flow_signatures(info, packet->ip, packet->rob_index, req_cpu);
+  get_data_flow_signatures(info, addr, req_cpu);
 
   return info;
 }

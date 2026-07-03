@@ -411,6 +411,7 @@ DEF_KNOB(ocp_perc_last_n_load_pcs, ocp_perc_last_n_load_pcs, uint32_t, uint32, 4
 DEF_KNOB(ocp_perc_last_n_pcs, ocp_perc_last_n_pcs, uint32_t, uint32, 4)
 DEF_KNOB(ocp_perc_region_size_log2, ocp_perc_region_size_log2, uint32_t, uint32, 21)
 DEF_KNOB(ocp_perc_page_offset_region_log2, ocp_perc_page_offset_region_log2, uint32_t, uint32, 3)
+DEF_KNOB(ocp_perc_embed_cpu_id, ocp_perc_embed_cpu_id, bool, bool, false)
 DEF_KNOB(ocp_perc_enable_dynamic_act_thresh, ocp_perc_enable_dynamic_act_thresh, bool, bool, false)
 DEF_KNOB(ocp_perc_update_act_thresh_epoch, ocp_perc_update_act_thresh_epoch, uint32_t, uint32, 2048)
 DEF_KNOB(ocp_perc_high_critical_dram_bw_level, ocp_perc_high_critical_dram_bw_level, uint32_t, uint32, 3)

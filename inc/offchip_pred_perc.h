@@ -59,10 +59,14 @@ class OffchipPredPerc : public OffchipPredBase
 private:
   perceptron_pred_t                         *perc_pred;
   vector<deque<ocp_perc_page_buf_entry_t *>> m_page_buffer;
-  deque<uint64_t>                            last_n_load_pcs;
+  // History registers are PER-CORE: at the shared uncore instance the request
+  // stream interleaves cores, and a global register would shred each core's
+  // pattern before hashing. (The page buffer stays shared -- LLC residency is
+  // a shared-machine property.)
+  deque<uint64_t> last_n_load_pcs[NUM_CPUS];
   // last 4 intra-page deltas of the request stream, 7-bit signed each,
   // packed as a 28-bit shift register (LastNDeltas)
-  uint32_t last_n_deltas_sig;
+  uint32_t last_n_deltas_sig[NUM_CPUS];
 
   // counters to measure true/false positives/negatives
   uint64_t true_pos, false_pos, false_neg, true_neg;
@@ -115,9 +119,12 @@ private:
   // - data-flow: everything address-derived (addr, page, offset, cl_*) plus
   //   the page-buffer state (first_access, page_reuse_count,
   //   page_offchip_count, page_spatial_footprint, page_trained_count)
+  // req_cpu selects the per-core history registers (and the ROB to walk);
+  // it is the request's cpu, independent of the knob-gated info->cpu embed.
   void     get_control_flow_signatures(state_info_t *info, uint64_t curr_pc,
-                                       int rob_index);
-  void     get_data_flow_signatures(state_info_t *info, uint64_t addr);
+                                       int rob_index, uint32_t req_cpu);
+  void     get_data_flow_signatures(state_info_t *info, uint64_t addr,
+                                    uint32_t req_cpu);
   uint32_t get_set(uint64_t page);
   void     record_page_outcome(uint64_t page, bool went_offchip);
 

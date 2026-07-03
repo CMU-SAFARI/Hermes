@@ -4,10 +4,24 @@
 
 using namespace perc;
 
+/* Cross-core weight-table isolation at the shared uncore predictor: when the
+ * requesting cpu rides in the state (cpu >= 0), concatenate it with the raw
+ * feature value and re-mix, so the same value from different cores lands in
+ * different weight buckets. cpu < 0 (the default) leaves every feature
+ * pipeline byte-exactly untouched. */
+static inline uint32_t embed_cpu_id(state_info_t *state, uint32_t raw)
+{
+  if (state->cpu < 0) {
+    return raw;
+  }
+  return fmix64(((uint64_t)(state->cpu + 1) << 32) | raw);
+}
+
 uint32_t process_PC(state_info_t *state, uint64_t metadata, int32_t hash_type,
                     uint32_t weight_array_size)
 {
   uint32_t folded_pc  = folded_xor(state->pc, 2);
+  folded_pc           = embed_cpu_id(state, folded_pc);
   uint32_t hashed_val = HashZoo::getHash((uint32_t)hash_type, folded_pc);
   return (hashed_val % weight_array_size);
 }
@@ -16,6 +30,7 @@ uint32_t process_Offset(state_info_t *state, uint64_t metadata,
                         int32_t hash_type, uint32_t weight_array_size)
 {
   uint32_t raw = state->offset;
+  raw          = embed_cpu_id(state, raw);
   raw          = HashZoo::getHash(hash_type, raw);
   return (raw % weight_array_size);
 }
@@ -25,6 +40,7 @@ uint32_t process_Page(state_info_t *state, uint64_t metadata, int32_t hash_type,
 {
   uint64_t raw = state->page;
   uint32_t val = folded_xor(raw, 2);
+  val          = embed_cpu_id(state, val);
   val          = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
 }
@@ -34,6 +50,7 @@ uint32_t process_Addr(state_info_t *state, uint64_t metadata, int32_t hash_type,
 {
   uint64_t raw = state->addr;
   uint32_t val = folded_xor(raw, 2);
+  val          = embed_cpu_id(state, val);
   val          = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
 }
@@ -42,6 +59,7 @@ uint32_t process_FirstAccess(state_info_t *state, uint64_t metadata,
                              int32_t hash_type, uint32_t weight_array_size)
 {
   uint32_t raw = state->first_access ? 1 : 0;
+  raw          = embed_cpu_id(state, raw);
   return (raw % weight_array_size);
 }
 
@@ -52,6 +70,7 @@ uint32_t process_PC_Offset(state_info_t *state, uint64_t metadata,
   uint32_t val = folded_xor(raw, 2);
   val          = val << 6;
   val += state->offset;
+  val = embed_cpu_id(state, val);
   val = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
 }
@@ -63,6 +82,7 @@ uint32_t process_PC_Page(state_info_t *state, uint64_t metadata,
   raw          = raw << 12;
   raw          = raw ^ state->page;
   uint32_t val = folded_xor(raw, 2);
+  val          = embed_cpu_id(state, val);
   val          = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
 }
@@ -74,6 +94,7 @@ uint32_t process_PC_Addr(state_info_t *state, uint64_t metadata,
   raw          = raw << 15;
   raw          = raw ^ state->addr;
   uint32_t val = folded_xor(raw, 2);
+  val          = embed_cpu_id(state, val);
   val          = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
 }
@@ -87,6 +108,7 @@ uint32_t process_PC_FirstAccess(state_info_t *state, uint64_t metadata,
   if (state->first_access) {
     val = val | (1u << 31);  // set MSB only if first_access
   }
+  val = embed_cpu_id(state, val);
   val = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
 }
@@ -100,6 +122,7 @@ uint32_t process_Offset_FirstAccess(state_info_t *state, uint64_t metadata,
   if (state->first_access) {
     val = val | (1u << 6);
   }
+  val = embed_cpu_id(state, val);
   val = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
 }
@@ -108,6 +131,7 @@ uint32_t process_CLOffset(state_info_t *state, uint64_t metadata,
                           int32_t hash_type, uint32_t weight_array_size)
 {
   uint32_t raw = state->cl_offset;
+  raw          = embed_cpu_id(state, raw);
   return (raw % weight_array_size);
 }
 
@@ -118,6 +142,7 @@ uint32_t process_PC_CLOffset(state_info_t *state, uint64_t metadata,
   uint32_t val = folded_xor(raw, 2);
   val          = val << 6;
   val += state->cl_offset;
+  val = embed_cpu_id(state, val);
   val = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
 }
@@ -126,6 +151,7 @@ uint32_t process_CLWordOffset(state_info_t *state, uint64_t metadata,
                               int32_t hash_type, uint32_t weight_array_size)
 {
   uint32_t raw = state->cl_word_offset;
+  raw          = embed_cpu_id(state, raw);
   return (raw % weight_array_size);
 }
 
@@ -136,6 +162,7 @@ uint32_t process_PC_CLWordOffset(state_info_t *state, uint64_t metadata,
   uint32_t val = folded_xor(raw, 2);
   val          = val << 4;
   val += state->cl_word_offset;
+  val = embed_cpu_id(state, val);
   val = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
 }
@@ -144,6 +171,7 @@ uint32_t process_CLDWordOffset(state_info_t *state, uint64_t metadata,
                                int32_t hash_type, uint32_t weight_array_size)
 {
   uint32_t raw = state->cl_dword_offset;
+  raw          = embed_cpu_id(state, raw);
   return (raw % weight_array_size);
 }
 
@@ -154,6 +182,7 @@ uint32_t process_PC_CLDWordOffset(state_info_t *state, uint64_t metadata,
   uint32_t val = folded_xor(raw, 2);
   val          = val << 3;
   val += state->cl_dword_offset;
+  val = embed_cpu_id(state, val);
   val = HashZoo::getHash(hash_type, val);
   return (val % weight_array_size);
 }
@@ -162,6 +191,7 @@ uint32_t process_LastNLoadPCs(state_info_t *state, uint64_t metadata,
                               int32_t hash_type, uint32_t weight_array_size)
 {
   uint32_t folded_pc  = folded_xor(state->last_n_load_pc_sig, 2);
+  folded_pc           = embed_cpu_id(state, folded_pc);
   uint32_t hashed_val = HashZoo::getHash((uint32_t)hash_type, folded_pc);
   return (hashed_val % weight_array_size);
 }
@@ -170,6 +200,7 @@ uint32_t process_LastNPCs(state_info_t *state, uint64_t metadata,
                           int32_t hash_type, uint32_t weight_array_size)
 {
   uint32_t folded_pc  = folded_xor(state->last_n_pc_sig, 2);
+  folded_pc           = embed_cpu_id(state, folded_pc);
   uint32_t hashed_val = HashZoo::getHash((uint32_t)hash_type, folded_pc);
   return (hashed_val % weight_array_size);
 }
@@ -178,6 +209,7 @@ uint32_t process_PageReuseCount(state_info_t *state, uint64_t metadata,
                                 int32_t hash_type, uint32_t weight_array_size)
 {
   uint32_t raw = state->page_reuse_count;
+  raw          = embed_cpu_id(state, raw);
   raw          = HashZoo::getHash(hash_type, raw);
   return (raw % weight_array_size);
 }
@@ -186,6 +218,7 @@ uint32_t process_PageOffchipCount(state_info_t *state, uint64_t metadata,
                                   int32_t hash_type, uint32_t weight_array_size)
 {
   uint32_t raw = state->page_offchip_count;
+  raw          = embed_cpu_id(state, raw);
   raw          = HashZoo::getHash(hash_type, raw);
   return (raw % weight_array_size);
 }
@@ -197,6 +230,7 @@ uint32_t process_PageSpatialFootprint(state_info_t *state, uint64_t metadata,
   // the full 64-bit line-access bitmap of the page, mixed down non-linearly
   // (fmix64) so distinct spatial patterns land in distinct buckets
   uint32_t raw = fmix64(state->page_spatial_footprint);
+  raw          = embed_cpu_id(state, raw);
   raw          = HashZoo::getHash(hash_type, raw);
   return (raw % weight_array_size);
 }
@@ -206,6 +240,7 @@ uint32_t process_LastNDeltas(state_info_t *state, uint64_t metadata,
 {
   // last 4 intra-page deltas, 7-bit signed each, packed into 28 bits
   uint32_t raw = state->last_n_deltas_sig;
+  raw          = embed_cpu_id(state, raw);
   raw          = HashZoo::getHash(hash_type, raw);
   return (raw % weight_array_size);
 }
@@ -216,6 +251,7 @@ uint32_t process_PageOffsetRegion(state_info_t *state, uint64_t metadata,
   // coarse bucket of the in-page line offset (which 2^log2-line slice of the
   // page the request falls in)
   uint32_t raw = state->page_offset_region;
+  raw          = embed_cpu_id(state, raw);
   raw          = HashZoo::getHash(hash_type, raw);
   return (raw % weight_array_size);
 }
@@ -226,6 +262,7 @@ uint32_t process_RegionID(state_info_t *state, uint64_t metadata,
   // coarse memory-region bucket (addr >> region_size_log2): does this whole
   // region tend to go off-chip? Mixed down non-linearly (fmix64).
   uint32_t raw = fmix64(state->region_id);
+  raw          = embed_cpu_id(state, raw);
   raw          = HashZoo::getHash(hash_type, raw);
   return (raw % weight_array_size);
 }
@@ -242,6 +279,7 @@ uint32_t process_PageMissRatio(state_info_t *state, uint64_t metadata,
   offchip          = (offchip > 31) ? 31 : offchip;
   trained          = (trained > 31) ? 31 : trained;
   uint32_t raw     = (offchip << 5) | trained;
+  raw              = embed_cpu_id(state, raw);
   raw              = HashZoo::getHash(hash_type, raw);
   return (raw % weight_array_size);
 }

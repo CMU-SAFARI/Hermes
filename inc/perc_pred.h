@@ -48,6 +48,9 @@ struct state_info_t {
   uint64_t last_n_load_pc_sig;
   uint64_t last_n_pc_sig;
   uint32_t data_index;
+  // requesting cpu, embedded into every feature index for cross-core weight
+  // isolation at the shared uncore predictor; -1 (default) = do not embed
+  int32_t  cpu;
   uint64_t addr;
   uint64_t page;
   uint64_t offset;
@@ -69,6 +72,7 @@ struct state_info_t {
     last_n_load_pc_sig     = 0;
     last_n_pc_sig          = 0;
     data_index             = 0;
+    cpu                    = -1;
     addr                   = 0;
     page                   = 0;
     offset                 = 0;

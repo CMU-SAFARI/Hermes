@@ -52,16 +52,17 @@ string state_info_t::to_string()
   stringstream ss;
 
   ss << "PC: " << setw(8) << hex << pc << dec << " data_id: " << setw(2)
-     << data_index << " addr: " << setw(12) << hex << addr << dec
-     << " page: " << setw(12) << hex << page << dec << " offset: " << setw(2)
-     << offset << " fa: " << setw(1) << first_access << " clo: " << setw(2)
-     << cl_offset << " clwo: " << setw(2) << cl_word_offset
-     << " cldwo: " << setw(2) << cl_dword_offset << " prc: " << setw(4)
-     << page_reuse_count << " poc: " << setw(4) << page_offchip_count
-     << " psf: " << setw(16) << hex << page_spatial_footprint << dec
-     << " ptc: " << setw(4) << page_trained_count << " lnd: " << setw(7) << hex
-     << last_n_deltas_sig << dec << " rid: " << setw(12) << hex << region_id
-     << dec << " por: " << setw(2) << page_offset_region;
+     << data_index << " cpu: " << setw(2) << cpu << " addr: " << setw(12) << hex
+     << addr << dec << " page: " << setw(12) << hex << page << dec
+     << " offset: " << setw(2) << offset << " fa: " << setw(1) << first_access
+     << " clo: " << setw(2) << cl_offset << " clwo: " << setw(2)
+     << cl_word_offset << " cldwo: " << setw(2) << cl_dword_offset
+     << " prc: " << setw(4) << page_reuse_count << " poc: " << setw(4)
+     << page_offchip_count << " psf: " << setw(16) << hex
+     << page_spatial_footprint << dec << " ptc: " << setw(4)
+     << page_trained_count << " lnd: " << setw(7) << hex << last_n_deltas_sig
+     << dec << " rid: " << setw(12) << hex << region_id << dec
+     << " por: " << setw(2) << page_offset_region;
 
   return ss.str();
 }
