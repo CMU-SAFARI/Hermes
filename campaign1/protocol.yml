@@ -1,0 +1,123 @@
+# =============================================================================
+# Campaign 1: beam search over PC-less off-chip-predictor features (uncore)
+# FROZEN PROTOCOL — agreed with Rahul on 2026-07-03, before his travel.
+# No field here changes mid-campaign. New ideas go to the round reports'
+# "proposals" section, not into the search.
+# =============================================================================
+
+campaign:
+  name: campaign1-pcless-uncore-beam
+  created: 2026-07-03
+  owner: Rahul Bera (traveling; Claude runs the loop autonomously)
+  goal: >
+    Find the best PC-less feature set + thresholds for the perceptron off-chip
+    predictor placed at the uncore (beside LLC), selected by end-to-end IPC.
+
+# --- code freeze ------------------------------------------------------------
+code:
+  repo: /home/rahbera/thesis/Hermes
+  head_commit: b18be0c994928677230dc142b4b887df9c94b470   # pushed to origin/rbdev
+  binary_sha256_16: f8b82ecad7ec8214   # bin/glc-perceptron-no-multi-multi-multi-multi-1core-1ch
+  rule: >
+    NO code changes, NO rebuilds during the campaign. Before every submit:
+    `git status` must be clean (docs/ untracked is OK) and HEAD must equal
+    head_commit. The cluster rebuilds per batch from the synced source, so
+    source identity == binary identity.
+
+# --- system under test -------------------------------------------------------
+system:
+  placement: uncore                    # --offchip_pred_location=uncore
+  prefetcher: pythia                   # $(PYTHIA) macro, always on
+  ddrp: on                             # hermes_base.ini, --ddrp_req_latency=1
+  address_space: physical              # adds --ocp_perc_use_physical_address=true
+  address_space_confirmed: true        # CONFIRMED by owner 2026-07-03: "it needs
+                                       # to use physical address — we are designing
+                                       # for uncore"
+  window_tuning:  {warmup: 50000000,  sim: 200000000}
+  window_full:    {warmup: 100000000, sim: 500000000}   # round-1 fidelity check only
+  tlist: /home/rahbera/thesis/runs/tuning/spec26.testsuite50.yml   # 50 traces, no known deadlockers
+  mfile: /home/rahbera/thesis/runs/tuning/campaign1/mfile.yml      # ipc, precision, recall
+
+# --- candidate pool: 56 = 14 non-region + 7 region-family x 6 sizes ----------
+candidates:
+  non_region_features: [1, 2, 3, 4, 9, 10, 12, 14, 18, 19, 20, 21, 22, 24]
+  region_features: [23, 25, 26, 27, 28, 29, 30]
+  region_size_log2s: [11, 12, 14, 17, 20, 21]   # 2KB 4KB 16KB 128KB 1MB 2MB
+  token_format: "fN (non-region) | fN@S (region feature N at size log2 S)"
+  rules:
+    - a set may contain the same region feature at DIFFERENT sizes (multi-scale)
+    - exact duplicate tokens are forbidden
+    - non-region slots in ocp_perc_feature_region_size_log2s carry 21 (ignored)
+
+# --- fixed perceptron knobs (not tuned in this campaign) ---------------------
+fixed_knobs:
+  weight_array_size_per_feature: 65536   # large => hashing off the critical path
+  feature_hash_type: 2
+  page_offset_region_log2: 3
+  everything_else: ocp_hermes.ini defaults (page buffer, weight min/max, deltas)
+
+# --- threshold scaling rule (act, pos_train, neg_train) by feature count -----
+thresholds_by_n:
+  1: [-2,  10, -10]
+  2: [-7,  16, -14]
+  3: [-10, 24, -21]
+  4: [-14, 32, -28]
+  5: [-17, 40, -35]
+  6: [-20, 48, -42]
+  7: [-24, 56, -49]
+  8: [-27, 64, -56]
+
+# --- search ------------------------------------------------------------------
+search:
+  algorithm: beam
+  beam_width: 5                        # top-5 DISTINCT canonical sets per round
+  round1: all 56 singletons (+ both baselines, + full-window twins for fidelity)
+  extension: each beam member x each candidate not already in the set
+  memoization: canonical set key -> score; a set never runs twice
+  sibling_note: >
+    if a round's beam collapses to one lineage, judgment may cap children per
+    parent at 3; record the call in decision.md.
+
+# --- objective & selection ---------------------------------------------------
+objective:
+  primary: geometric mean over the 50 traces of IPC(config)/IPC(nopf baseline)
+  note: baseline choice cannot change ranking (constant per trace); report
+        speedup vs nopf AND vs pythia-alone.
+  diagnostics: mean/median precision, recall (LLC_offchip_pred_*), per-trace tables
+  guardrails:
+    - flag any config whose worst-trace IPC ratio vs pythia-alone < 0.98
+    - every round table includes the pythia-alone reference row
+    - flagged configs are NOT auto-dropped; the flag + reasoning go in decision.md
+
+# --- convergence & budgets (owner-approved 2026-07-03) ------------------------
+stop:
+  epsilon: 0.002        # stop when best geomean improves < 0.2% (relative) in a round
+  max_features: 8
+  total_job_budget: 120000
+  per_launch_cap: 15000  # explicit owner authorization
+  also_stop_if: every extension in a round regresses vs. its parent beam
+
+# --- failure & escalation policy ----------------------------------------------
+failures:
+  retry: failed (trace,config) jobs are retried once
+  filtering: >
+    scoring uses only stats.csv rows with Filter==1; a trace missing a valid
+    row for ANY config of the round (incl. baselines) is dropped from that
+    round's common trace set; the drop is logged in the round report.
+escalation:  # pause campaign, write HOLD-report, push + notify, wait
+  - cluster unreachable > 6 hours
+  - "> 5% of a round's jobs failed after one retry"
+  - structurally suspect results (e.g., baseline IPC shifted vs previous rounds)
+  - anything that would require touching simulator code
+  - total job budget or per-launch cap would be exceeded
+
+# --- reporting -----------------------------------------------------------------
+reporting:
+  per_round: rounds/roundNN/{exp.yml, manifest.json, rollup.csv, report.md, decision.md}
+  publish: >
+    mirror runs/tuning/campaign1 into the dedicated worktree
+    /home/rahbera/thesis/Hermes-tuning (branch `tuning` of the Hermes GitHub
+    origin, based on head_commit; owner-authorized, deletable later) and push
+    after every round. The main Hermes checkout (rbdev) stays frozen at
+    head_commit; never commit there during the campaign.
+  notify: proactive file-send of report.md after every round transition

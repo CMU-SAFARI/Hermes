@@ -1,0 +1,13 @@
+{
+  "campaign": "campaign1-pcless-uncore-beam",
+  "status": "awaiting-green-signal",
+  "round": 0,
+  "beam": [],
+  "best_geomean_by_round": {},
+  "memo": {},
+  "batches": {},
+  "jobs_total": 0,
+  "log": [
+    {"utc": "2026-07-03", "event": "campaign directory created; code checkpointed at b18be0c and pushed; awaiting owner green signal + address-space confirmation"}
+  ]
+}

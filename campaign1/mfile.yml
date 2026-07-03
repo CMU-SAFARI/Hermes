@@ -1,0 +1,10 @@
+---
+# Metrics rolled up by rollup.py. Each entry is `name: "<expr>"` where the
+# expression references raw ChampSim stat names as $(STAT_NAME).
+#
+# NOTE: all active experiments here run the off-chip predictor at the *uncore*
+# (--offchip_pred_location=uncore), so precision/recall are reported under the
+# LLC_ keys, not Core_0_ (which is the core-placement key).
+- ipc: "$(Core_0_cumulative_IPC)"
+- precision: "$(LLC_offchip_pred_precision)"
+- recall: "$(LLC_offchip_pred_recall)"
