@@ -1,13 +1,30 @@
 {
-  "campaign": "campaign1-pcless-uncore-beam",
-  "status": "awaiting-green-signal",
-  "round": 0,
-  "beam": [],
-  "best_geomean_by_round": {},
-  "memo": {},
-  "batches": {},
-  "jobs_total": 0,
-  "log": [
-    {"utc": "2026-07-03", "event": "campaign directory created; code checkpointed at b18be0c and pushed; awaiting owner green signal + address-space confirmation"}
-  ]
+ "campaign": "campaign1-pcless-uncore-beam",
+ "status": "running",
+ "round": 0,
+ "beam": [],
+ "best_geomean_by_round": {},
+ "memo": {},
+ "batches": {
+  "1": "20260703T211325Z_campaign1_r01"
+ },
+ "jobs_total": 5800,
+ "log": [
+  {
+   "utc": "2026-07-03",
+   "event": "campaign directory created; code checkpointed at b18be0c and pushed; awaiting owner green signal + address-space confirmation"
+  },
+  {
+   "utc": "2026-07-03",
+   "event": "physical address confirmed by owner; publish channel = Hermes origin branch 'tuning' via worktree, verified with harness push; round 1 (5800 jobs) generated and staged \u2014 awaiting green signal to launch"
+  },
+  {
+   "utc": "2026-07-03",
+   "event": "GREEN SIGNAL received from owner; code freeze verified (HEAD b18be0c, clean); submitting round 1 (116 experiments x 50 traces = 5800 jobs) as campaign1_r01"
+  },
+  {
+   "utc": "2026-07-03",
+   "event": "round 1 submitted: batch 20260703T211325Z_campaign1_r01, 5800 jobs, smoke passed; watch loop engaged (hourly squeue polls)"
+  }
+ ]
 }

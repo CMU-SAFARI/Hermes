@@ -19,7 +19,13 @@ convergence rules: see `protocol.yml` (FROZEN — do not edit except the
   `head_commit`; never commit or switch branches there during the campaign.
   (Do NOT use the thesis repo's ETH GitLab remote — owner ruled it out.)
 
-## The loop (one iteration ≈ one wake-up, every 30–60 min)
+## The loop (one iteration ≈ one wake-up; self-paced, no owner tuning needed)
+
+Wake-up cadence policy: 60 min while a batch has many jobs queued/running
+(rounds are day-scale; hourly checks cost <5% added latency); tighten to
+20–30 min once the batch is nearly drained so the round transition starts
+promptly; no sleeping during a transition (rollup -> decision -> launch is
+one continuous wake-up); hourly heartbeat on hold/converged.
 
 ```bash
 C=/home/rahbera/thesis/runs/tuning/campaign1
@@ -29,7 +35,11 @@ REPO=/home/rahbera/thesis/Hermes
 
 1. Read `state.json`. If `status` is `awaiting-green-signal` or `hold`: do nothing.
 2. If a batch is in flight (`batches[round]` set, round not yet collected):
-   `ssh kratos2 "squeue -u rahbera -h | wc -l"` — if jobs remain, sleep again.
+   `ssh kratos2 "squeue -u rahbera -h -o %j" | grep -c "_r<NN>_"` — if jobs
+   remain, sleep again. **squeue ONLY — never sacct** (owner directive: sacct
+   hits the accounting DB and is far heavier; squeue is the cheap poll).
+   Filter by the round's `_rNN_` exp-name pattern: unrelated batches (owner's
+   or pre-campaign ones) may share the queue, so a bare user-wide count lies.
 3. When the round's jobs are done:
    a. `python3.12 $ORCH rollup --repo $REPO --batch <batch_id>` → fetches
       `.cluster-run/runs/<batch>/stats.csv`.
@@ -62,9 +72,11 @@ REPO=/home/rahbera/thesis/Hermes
        git -C /home/rahbera/thesis/Hermes-tuning commit -m "campaign1: round NN" &&
        git -C /home/rahbera/thesis/Hermes-tuning push origin tuning`
       Then notify the owner: SendUserFile of report.md with status=proactive.
-4. Failed jobs (`sacct` state FAILED/TIMEOUT): retry once by resubmitting a
-   pruned exp/tlist for just those pairs; if still failing, note in
-   decision.md — collect.py's common-trace filter keeps scoring fair.
+4. Failed jobs: detect from the rollup OUTPUTS, not Slurm accounting — the
+   infra rollup's `--report-json` / stats.csv Filter column marks every
+   (trace,exp) whose .out is bad. Retry once by resubmitting a pruned
+   exp/tlist for just those pairs; if still failing, note in decision.md —
+   collect.py's common-trace filter keeps scoring fair.
 
 ## Escalation → HOLD
 

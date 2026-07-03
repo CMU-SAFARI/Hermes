@@ -1,0 +1,922 @@
+{
+ "r01_c000": {
+  "key": "f1",
+  "tokens": [
+   "f1"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c000_wf": {
+  "key": "f1",
+  "tokens": [
+   "f1"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c001": {
+  "key": "f2",
+  "tokens": [
+   "f2"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c001_wf": {
+  "key": "f2",
+  "tokens": [
+   "f2"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c002": {
+  "key": "f3",
+  "tokens": [
+   "f3"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c002_wf": {
+  "key": "f3",
+  "tokens": [
+   "f3"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c003": {
+  "key": "f4",
+  "tokens": [
+   "f4"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c003_wf": {
+  "key": "f4",
+  "tokens": [
+   "f4"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c004": {
+  "key": "f9",
+  "tokens": [
+   "f9"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c004_wf": {
+  "key": "f9",
+  "tokens": [
+   "f9"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c005": {
+  "key": "f10",
+  "tokens": [
+   "f10"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c005_wf": {
+  "key": "f10",
+  "tokens": [
+   "f10"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c006": {
+  "key": "f12",
+  "tokens": [
+   "f12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c006_wf": {
+  "key": "f12",
+  "tokens": [
+   "f12"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c007": {
+  "key": "f14",
+  "tokens": [
+   "f14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c007_wf": {
+  "key": "f14",
+  "tokens": [
+   "f14"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c008": {
+  "key": "f18",
+  "tokens": [
+   "f18"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c008_wf": {
+  "key": "f18",
+  "tokens": [
+   "f18"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c009": {
+  "key": "f19",
+  "tokens": [
+   "f19"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c009_wf": {
+  "key": "f19",
+  "tokens": [
+   "f19"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c010": {
+  "key": "f20",
+  "tokens": [
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c010_wf": {
+  "key": "f20",
+  "tokens": [
+   "f20"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c011": {
+  "key": "f21",
+  "tokens": [
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c011_wf": {
+  "key": "f21",
+  "tokens": [
+   "f21"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c012": {
+  "key": "f22",
+  "tokens": [
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c012_wf": {
+  "key": "f22",
+  "tokens": [
+   "f22"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c013": {
+  "key": "f24",
+  "tokens": [
+   "f24"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c013_wf": {
+  "key": "f24",
+  "tokens": [
+   "f24"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c014": {
+  "key": "f23@11",
+  "tokens": [
+   "f23@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c014_wf": {
+  "key": "f23@11",
+  "tokens": [
+   "f23@11"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c015": {
+  "key": "f23@12",
+  "tokens": [
+   "f23@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c015_wf": {
+  "key": "f23@12",
+  "tokens": [
+   "f23@12"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c016": {
+  "key": "f23@14",
+  "tokens": [
+   "f23@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c016_wf": {
+  "key": "f23@14",
+  "tokens": [
+   "f23@14"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c017": {
+  "key": "f23@17",
+  "tokens": [
+   "f23@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c017_wf": {
+  "key": "f23@17",
+  "tokens": [
+   "f23@17"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c018": {
+  "key": "f23@20",
+  "tokens": [
+   "f23@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c018_wf": {
+  "key": "f23@20",
+  "tokens": [
+   "f23@20"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c019": {
+  "key": "f23@21",
+  "tokens": [
+   "f23@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c019_wf": {
+  "key": "f23@21",
+  "tokens": [
+   "f23@21"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c020": {
+  "key": "f25@11",
+  "tokens": [
+   "f25@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c020_wf": {
+  "key": "f25@11",
+  "tokens": [
+   "f25@11"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c021": {
+  "key": "f25@12",
+  "tokens": [
+   "f25@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c021_wf": {
+  "key": "f25@12",
+  "tokens": [
+   "f25@12"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c022": {
+  "key": "f25@14",
+  "tokens": [
+   "f25@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c022_wf": {
+  "key": "f25@14",
+  "tokens": [
+   "f25@14"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c023": {
+  "key": "f25@17",
+  "tokens": [
+   "f25@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c023_wf": {
+  "key": "f25@17",
+  "tokens": [
+   "f25@17"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c024": {
+  "key": "f25@20",
+  "tokens": [
+   "f25@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c024_wf": {
+  "key": "f25@20",
+  "tokens": [
+   "f25@20"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c025": {
+  "key": "f25@21",
+  "tokens": [
+   "f25@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c025_wf": {
+  "key": "f25@21",
+  "tokens": [
+   "f25@21"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c026": {
+  "key": "f26@11",
+  "tokens": [
+   "f26@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c026_wf": {
+  "key": "f26@11",
+  "tokens": [
+   "f26@11"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c027": {
+  "key": "f26@12",
+  "tokens": [
+   "f26@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c027_wf": {
+  "key": "f26@12",
+  "tokens": [
+   "f26@12"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c028": {
+  "key": "f26@14",
+  "tokens": [
+   "f26@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c028_wf": {
+  "key": "f26@14",
+  "tokens": [
+   "f26@14"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c029": {
+  "key": "f26@17",
+  "tokens": [
+   "f26@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c029_wf": {
+  "key": "f26@17",
+  "tokens": [
+   "f26@17"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c030": {
+  "key": "f26@20",
+  "tokens": [
+   "f26@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c030_wf": {
+  "key": "f26@20",
+  "tokens": [
+   "f26@20"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c031": {
+  "key": "f26@21",
+  "tokens": [
+   "f26@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c031_wf": {
+  "key": "f26@21",
+  "tokens": [
+   "f26@21"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c032": {
+  "key": "f27@11",
+  "tokens": [
+   "f27@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c032_wf": {
+  "key": "f27@11",
+  "tokens": [
+   "f27@11"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c033": {
+  "key": "f27@12",
+  "tokens": [
+   "f27@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c033_wf": {
+  "key": "f27@12",
+  "tokens": [
+   "f27@12"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c034": {
+  "key": "f27@14",
+  "tokens": [
+   "f27@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c034_wf": {
+  "key": "f27@14",
+  "tokens": [
+   "f27@14"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c035": {
+  "key": "f27@17",
+  "tokens": [
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c035_wf": {
+  "key": "f27@17",
+  "tokens": [
+   "f27@17"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c036": {
+  "key": "f27@20",
+  "tokens": [
+   "f27@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c036_wf": {
+  "key": "f27@20",
+  "tokens": [
+   "f27@20"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c037": {
+  "key": "f27@21",
+  "tokens": [
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c037_wf": {
+  "key": "f27@21",
+  "tokens": [
+   "f27@21"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c038": {
+  "key": "f28@11",
+  "tokens": [
+   "f28@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c038_wf": {
+  "key": "f28@11",
+  "tokens": [
+   "f28@11"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c039": {
+  "key": "f28@12",
+  "tokens": [
+   "f28@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c039_wf": {
+  "key": "f28@12",
+  "tokens": [
+   "f28@12"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c040": {
+  "key": "f28@14",
+  "tokens": [
+   "f28@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c040_wf": {
+  "key": "f28@14",
+  "tokens": [
+   "f28@14"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c041": {
+  "key": "f28@17",
+  "tokens": [
+   "f28@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c041_wf": {
+  "key": "f28@17",
+  "tokens": [
+   "f28@17"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c042": {
+  "key": "f28@20",
+  "tokens": [
+   "f28@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c042_wf": {
+  "key": "f28@20",
+  "tokens": [
+   "f28@20"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c043": {
+  "key": "f28@21",
+  "tokens": [
+   "f28@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c043_wf": {
+  "key": "f28@21",
+  "tokens": [
+   "f28@21"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c044": {
+  "key": "f29@11",
+  "tokens": [
+   "f29@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c044_wf": {
+  "key": "f29@11",
+  "tokens": [
+   "f29@11"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c045": {
+  "key": "f29@12",
+  "tokens": [
+   "f29@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c045_wf": {
+  "key": "f29@12",
+  "tokens": [
+   "f29@12"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c046": {
+  "key": "f29@14",
+  "tokens": [
+   "f29@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c046_wf": {
+  "key": "f29@14",
+  "tokens": [
+   "f29@14"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c047": {
+  "key": "f29@17",
+  "tokens": [
+   "f29@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c047_wf": {
+  "key": "f29@17",
+  "tokens": [
+   "f29@17"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c048": {
+  "key": "f29@20",
+  "tokens": [
+   "f29@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c048_wf": {
+  "key": "f29@20",
+  "tokens": [
+   "f29@20"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c049": {
+  "key": "f29@21",
+  "tokens": [
+   "f29@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c049_wf": {
+  "key": "f29@21",
+  "tokens": [
+   "f29@21"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c050": {
+  "key": "f30@11",
+  "tokens": [
+   "f30@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c050_wf": {
+  "key": "f30@11",
+  "tokens": [
+   "f30@11"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c051": {
+  "key": "f30@12",
+  "tokens": [
+   "f30@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c051_wf": {
+  "key": "f30@12",
+  "tokens": [
+   "f30@12"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c052": {
+  "key": "f30@14",
+  "tokens": [
+   "f30@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c052_wf": {
+  "key": "f30@14",
+  "tokens": [
+   "f30@14"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c053": {
+  "key": "f30@17",
+  "tokens": [
+   "f30@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c053_wf": {
+  "key": "f30@17",
+  "tokens": [
+   "f30@17"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c054": {
+  "key": "f30@20",
+  "tokens": [
+   "f30@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c054_wf": {
+  "key": "f30@20",
+  "tokens": [
+   "f30@20"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_c055": {
+  "key": "f30@21",
+  "tokens": [
+   "f30@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r01_c055_wf": {
+  "key": "f30@21",
+  "tokens": [
+   "f30@21"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "r01_nopf": {
+  "key": "baseline_nopf",
+  "tokens": [],
+  "window": "tuning",
+  "role": "baseline_nopf"
+ },
+ "r01_nopf_wf": {
+  "key": "baseline_nopf",
+  "tokens": [],
+  "window": "full",
+  "role": "baseline_nopf"
+ },
+ "r01_pythia": {
+  "key": "baseline_pythia",
+  "tokens": [],
+  "window": "tuning",
+  "role": "baseline_pythia"
+ },
+ "r01_pythia_wf": {
+  "key": "baseline_pythia",
+  "tokens": [],
+  "window": "full",
+  "role": "baseline_pythia"
+ }
+}
