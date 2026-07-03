@@ -201,6 +201,35 @@ uint32_t process_PageSpatialFootprint(state_info_t *state, uint64_t metadata,
   return (raw % weight_array_size);
 }
 
+uint32_t process_LastNDeltas(state_info_t *state, uint64_t metadata,
+                             int32_t hash_type, uint32_t weight_array_size)
+{
+  // last 4 intra-page deltas, 7-bit signed each, packed into 28 bits
+  uint32_t raw = state->last_n_deltas_sig;
+  raw          = HashZoo::getHash(hash_type, raw);
+  return (raw % weight_array_size);
+}
+
+uint32_t process_PageOffsetRegion(state_info_t *state, uint64_t metadata,
+                                  int32_t hash_type, uint32_t weight_array_size)
+{
+  // coarse bucket of the in-page line offset (which 2^log2-line slice of the
+  // page the request falls in)
+  uint32_t raw = state->page_offset_region;
+  raw          = HashZoo::getHash(hash_type, raw);
+  return (raw % weight_array_size);
+}
+
+uint32_t process_RegionID(state_info_t *state, uint64_t metadata,
+                          int32_t hash_type, uint32_t weight_array_size)
+{
+  // coarse memory-region bucket (addr >> region_size_log2): does this whole
+  // region tend to go off-chip? Mixed down non-linearly (fmix64).
+  uint32_t raw = fmix64(state->region_id);
+  raw          = HashZoo::getHash(hash_type, raw);
+  return (raw % weight_array_size);
+}
+
 uint32_t process_PageMissRatio(state_info_t *state, uint64_t metadata,
                                int32_t hash_type, uint32_t weight_array_size)
 {
@@ -277,6 +306,13 @@ uint32_t perceptron_pred_t::generate_index_from_feature(
                                         weight_array_size);
   case feature_type_t::PageMissRatio:
     return process_PageMissRatio(state, metadata, hash_type, weight_array_size);
+  case feature_type_t::LastNDeltas:
+    return process_LastNDeltas(state, metadata, hash_type, weight_array_size);
+  case feature_type_t::RegionID:
+    return process_RegionID(state, metadata, hash_type, weight_array_size);
+  case feature_type_t::PageOffsetRegion:
+    return process_PageOffsetRegion(state, metadata, hash_type,
+                                    weight_array_size);
   default:
     assert(false);
   }

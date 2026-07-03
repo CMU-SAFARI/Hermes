@@ -39,6 +39,7 @@ public:
   uint32_t reuse_count;    // accesses to this page while resident
   uint32_t offchip_count;  // trained off-chip outcomes while resident
   uint32_t trained_count;  // trained outcomes (either way) while resident
+  uint32_t last_offset;    // line offset of the last access (intra-page delta)
 
 public:
   ocp_perc_page_buf_entry_t()
@@ -49,6 +50,7 @@ public:
     reuse_count   = 0;
     offchip_count = 0;
     trained_count = 0;
+    last_offset   = 0;
   }
 };
 
@@ -58,6 +60,9 @@ private:
   perceptron_pred_t                         *perc_pred;
   vector<deque<ocp_perc_page_buf_entry_t *>> m_page_buffer;
   deque<uint64_t>                            last_n_load_pcs;
+  // last 4 intra-page deltas of the request stream, 7-bit signed each,
+  // packed as a 28-bit shift register (LastNDeltas)
+  uint32_t last_n_deltas_sig;
 
   // counters to measure true/false positives/negatives
   uint64_t true_pos, false_pos, false_neg, true_neg;

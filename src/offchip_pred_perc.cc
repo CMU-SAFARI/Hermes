@@ -50,6 +50,10 @@ void OffchipPredPerc::print_config()
        << "ocp_perc_page_buf_assoc " << knob::ocp_perc_page_buf_assoc << endl
        << "ocp_perc_last_n_load_pcs " << knob::ocp_perc_last_n_load_pcs << endl
        << "ocp_perc_last_n_pcs " << knob::ocp_perc_last_n_pcs << endl
+       << "ocp_perc_region_size_log2 " << knob::ocp_perc_region_size_log2
+       << endl
+       << "ocp_perc_page_offset_region_log2 "
+       << knob::ocp_perc_page_offset_region_log2 << endl
        << "ocp_perc_enable_dynamic_act_thresh "
        << knob::ocp_perc_enable_dynamic_act_thresh << endl
        << "ocp_perc_update_act_thresh_epoch "
@@ -126,6 +130,27 @@ OffchipPredPerc::OffchipPredPerc(uint32_t _cpu, string _type, uint64_t _seed)
     assert(false && "perc core-side cannot use physical address");
   }
 
+  // A region (RegionID) can be bigger or smaller than a page, but it must be
+  // coarser than a cache block -- at block granularity the feature degenerates
+  // into the block address.
+  if (knob::ocp_perc_region_size_log2 <= LOG2_BLOCK_SIZE) {
+    cerr << "[PERC] ERROR: ocp_perc_region_size_log2 ("
+         << knob::ocp_perc_region_size_log2 << ") must be > LOG2_BLOCK_SIZE ("
+         << LOG2_BLOCK_SIZE << ")." << endl;
+    assert(false && "perc region size must be coarser than a cache block");
+  }
+
+  // PageOffsetRegion buckets the in-page line offset (0..63): log2 = 0
+  // degenerates into the Offset feature, log2 >= 6 into a constant.
+  if (knob::ocp_perc_page_offset_region_log2 < 1 ||
+      knob::ocp_perc_page_offset_region_log2 >=
+          (LOG2_PAGE_SIZE - LOG2_BLOCK_SIZE)) {
+    cerr << "[PERC] ERROR: ocp_perc_page_offset_region_log2 ("
+         << knob::ocp_perc_page_offset_region_log2 << ") must be in [1, "
+         << (LOG2_PAGE_SIZE - LOG2_BLOCK_SIZE - 1) << "]." << endl;
+    assert(false && "perc page-offset region log2 out of range");
+  }
+
   perc_pred = new perceptron_pred_t(
       knob::ocp_perc_activated_features, knob::ocp_perc_weight_array_sizes,
       knob::ocp_perc_feature_hash_types, knob::ocp_perc_activation_threshold,
@@ -140,11 +165,12 @@ OffchipPredPerc::OffchipPredPerc(uint32_t _cpu, string _type, uint64_t _seed)
     d.clear();
     m_page_buffer.push_back(d);
   }
-  true_pos    = 0;
-  false_pos   = 0;
-  false_neg   = 0;
-  true_neg    = 0;
-  train_count = 0;
+  true_pos          = 0;
+  false_pos         = 0;
+  false_neg         = 0;
+  true_neg          = 0;
+  train_count       = 0;
+  last_n_deltas_sig = 0;
 
   reset_stats();
 }
@@ -234,6 +260,9 @@ void OffchipPredPerc::get_data_flow_signatures(state_info_t *info,
   info->cl_offset       = addr & ((1ull << LOG2_BLOCK_SIZE) - 1);
   info->cl_word_offset  = info->cl_offset >> 2;
   info->cl_dword_offset = info->cl_offset >> 4;
+  info->region_id       = addr >> knob::ocp_perc_region_size_log2;
+  info->page_offset_region =
+      (uint32_t)(info->offset >> knob::ocp_perc_page_offset_region_log2);
 
   // page-buffer state
   uint64_t page   = info->page;
@@ -262,6 +291,12 @@ void OffchipPredPerc::get_data_flow_signatures(state_info_t *info,
     // outcomes observed so far (incremented at train, read here)
     info->page_offchip_count = entry->offchip_count;
     info->page_trained_count = entry->trained_count;
+    // intra-page delta (never across a page boundary): push the current
+    // access's 7-bit signed delta [-63,+63] into the global 28-bit register
+    int32_t delta      = (int32_t)offset - (int32_t)entry->last_offset;
+    entry->last_offset = offset;
+    last_n_deltas_sig =
+        ((last_n_deltas_sig << 7) | ((uint32_t)delta & 0x7F)) & 0x0FFFFFFF;
     m_page_buffer[set].erase(it);
     m_page_buffer[set].push_back(entry);
     stats.page_buf.hit++;
@@ -278,16 +313,21 @@ void OffchipPredPerc::get_data_flow_signatures(state_info_t *info,
     entry->bmp_access.set(offset);
     entry->age = 0;
     // first touch while resident: zero prior accesses, zero outcomes;
-    // the footprint holds just the current access
+    // the footprint holds just the current access. No prior offset in this
+    // page => no delta defined; the delta register is left untouched.
     info->page_reuse_count       = 0;
     entry->reuse_count           = 1;
     info->page_offchip_count     = 0;
     info->page_trained_count     = 0;
     info->page_spatial_footprint = BitmapHelper::value(entry->bmp_access);
+    entry->last_offset           = offset;
     m_page_buffer[set].push_back(entry);
     info->first_access = true;
     stats.page_buf.insertion++;
   }
+
+  // delta history INCLUDING the current access's delta (when one exists)
+  info->last_n_deltas_sig = last_n_deltas_sig;
 }
 
 // Train-side page-buffer update for PageOffchipCount / PageMissRatio: the

@@ -42,7 +42,10 @@ string feature_names[] = {"PC",
                           "PageReuseCount",
                           "PageOffchipCount",
                           "PageSpatialFootprint",
-                          "PageMissRatio"};
+                          "PageMissRatio",
+                          "LastNDeltas",
+                          "RegionID",
+                          "PageOffsetRegion"};
 
 string state_info_t::to_string()
 {
@@ -56,7 +59,9 @@ string state_info_t::to_string()
      << " cldwo: " << setw(2) << cl_dword_offset << " prc: " << setw(4)
      << page_reuse_count << " poc: " << setw(4) << page_offchip_count
      << " psf: " << setw(16) << hex << page_spatial_footprint << dec
-     << " ptc: " << setw(4) << page_trained_count;
+     << " ptc: " << setw(4) << page_trained_count << " lnd: " << setw(7) << hex
+     << last_n_deltas_sig << dec << " rid: " << setw(12) << hex << region_id
+     << dec << " por: " << setw(2) << page_offset_region;
 
   return ss.str();
 }

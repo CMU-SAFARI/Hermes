@@ -10,28 +10,33 @@ namespace perc
 {
 
 typedef enum {
-  PC = 0,                // 0
-  Offset,                // 1
-  Page,                  // 2
-  Addr,                  // 3
-  FirstAccess,           // 4
-  PC_Offset,             // 5
-  PC_Page,               // 6
-  PC_Addr,               // 7
-  PC_FirstAccess,        // 8
-  Offset_FirstAccess,    // 9
-  CLOffset,              // 10
-  PC_CLOffset,           // 11
-  CLWordOffset,          // 12
-  PC_CLWordOffset,       // 13
-  CLDWordOffset,         // 14
-  PC_CLDWordOffset,      // 15
-  LastNLoadPCs,          // 16
-  LastNPCs,              // 17
+  PC = 0,              // 0
+  Offset,              // 1
+  Page,                // 2
+  Addr,                // 3
+  FirstAccess,         // 4
+  PC_Offset,           // 5
+  PC_Page,             // 6
+  PC_Addr,             // 7
+  PC_FirstAccess,      // 8
+  Offset_FirstAccess,  // 9
+  CLOffset,            // 10
+  PC_CLOffset,         // 11
+  CLWordOffset,        // 12
+  PC_CLWordOffset,     // 13
+  CLDWordOffset,       // 14
+  PC_CLDWordOffset,    // 15
+  LastNLoadPCs,        // 16
+  LastNPCs,            // 17
+
+  /* new features */
   PageReuseCount,        // 18
   PageOffchipCount,      // 19
   PageSpatialFootprint,  // 20
   PageMissRatio,         // 21
+  LastNDeltas,           // 22
+  RegionID,              // 23
+  PageOffsetRegion,      // 24
 
   num_feature_types
 } feature_type_t;
@@ -54,6 +59,9 @@ struct state_info_t {
   uint32_t page_offchip_count;
   uint64_t page_spatial_footprint;
   uint32_t page_trained_count;
+  uint32_t last_n_deltas_sig;
+  uint64_t region_id;
+  uint32_t page_offset_region;
 
   state_info_t()
   {
@@ -72,6 +80,9 @@ struct state_info_t {
     page_offchip_count     = 0;
     page_spatial_footprint = 0;
     page_trained_count     = 0;
+    last_n_deltas_sig      = 0;
+    region_id              = 0;
+    page_offset_region     = 0;
   }
 
   string to_string();
