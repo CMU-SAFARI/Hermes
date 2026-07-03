@@ -52,6 +52,8 @@ void OffchipPredPerc::print_config()
        << "ocp_perc_last_n_pcs " << knob::ocp_perc_last_n_pcs << endl
        << "ocp_perc_region_size_log2 " << knob::ocp_perc_region_size_log2
        << endl
+       << "ocp_perc_feature_region_size_log2s "
+       << array_to_string(knob::ocp_perc_feature_region_size_log2s) << endl
        << "ocp_perc_page_offset_region_log2 "
        << knob::ocp_perc_page_offset_region_log2 << endl
        << "ocp_perc_embed_cpu_id " << knob::ocp_perc_embed_cpu_id << endl
@@ -152,12 +154,43 @@ OffchipPredPerc::OffchipPredPerc(uint32_t _cpu, string _type, uint64_t _seed)
     assert(false && "perc page-offset region log2 out of range");
   }
 
+  // Per-feature region sizes: each region-family feature instance gets its
+  // own granularity (so one config can mix, e.g., RegionID@4KB with
+  // RegionID_LastNDeltas@1MB). Empty = every entry inherits the global knob.
+  vector<int32_t> region_size_log2s = knob::ocp_perc_feature_region_size_log2s;
+  if (region_size_log2s.empty()) {
+    region_size_log2s.assign(knob::ocp_perc_activated_features.size(),
+                             (int32_t)knob::ocp_perc_region_size_log2);
+  } else if (region_size_log2s.size() !=
+             knob::ocp_perc_activated_features.size()) {
+    cerr << "[PERC] ERROR: ocp_perc_feature_region_size_log2s has "
+         << region_size_log2s.size() << " entries but "
+         << "ocp_perc_activated_features has "
+         << knob::ocp_perc_activated_features.size()
+         << "; the two vectors must be parallel." << endl;
+    assert(false && "perc per-feature region sizes must match feature count");
+  }
+  for (uint32_t index = 0; index < region_size_log2s.size(); ++index) {
+    int32_t feature = knob::ocp_perc_activated_features[index];
+    bool    region_family =
+        (feature == RegionID) || (feature >= RegionID_PageOffchipCount &&
+                                  feature <= RegionID_LastNDeltas);
+    if (region_family && region_size_log2s[index] <= (int32_t)LOG2_BLOCK_SIZE) {
+      cerr << "[PERC] ERROR: ocp_perc_feature_region_size_log2s[" << index
+           << "] = " << region_size_log2s[index]
+           << " for region-family feature " << feature
+           << " must be > LOG2_BLOCK_SIZE (" << LOG2_BLOCK_SIZE << ")." << endl;
+      assert(false && "perc per-feature region size coarser than a block");
+    }
+  }
+
   perc_pred = new perceptron_pred_t(
       knob::ocp_perc_activated_features, knob::ocp_perc_weight_array_sizes,
-      knob::ocp_perc_feature_hash_types, knob::ocp_perc_activation_threshold,
-      knob::ocp_perc_max_weight, knob::ocp_perc_min_weight,
-      knob::ocp_perc_pos_weight_delta, knob::ocp_perc_neg_weight_delta,
-      knob::ocp_perc_pos_train_thresh, knob::ocp_perc_neg_train_thresh);
+      knob::ocp_perc_feature_hash_types, region_size_log2s,
+      knob::ocp_perc_activation_threshold, knob::ocp_perc_max_weight,
+      knob::ocp_perc_min_weight, knob::ocp_perc_pos_weight_delta,
+      knob::ocp_perc_neg_weight_delta, knob::ocp_perc_pos_train_thresh,
+      knob::ocp_perc_neg_train_thresh);
   perc_pred->set_cpu(cpu);
 
   // init page buffer
@@ -263,7 +296,6 @@ void OffchipPredPerc::get_data_flow_signatures(state_info_t *info,
   info->cl_offset       = addr & ((1ull << LOG2_BLOCK_SIZE) - 1);
   info->cl_word_offset  = info->cl_offset >> 2;
   info->cl_dword_offset = info->cl_offset >> 4;
-  info->region_id       = addr >> knob::ocp_perc_region_size_log2;
   info->page_offset_region =
       (uint32_t)(info->offset >> knob::ocp_perc_page_offset_region_log2);
 

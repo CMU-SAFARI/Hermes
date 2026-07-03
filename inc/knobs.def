@@ -423,6 +423,10 @@ DEF_KNOB(ocp_perc_min_activation_threshold, ocp_perc_min_activation_threshold, f
 DEF_KNOB(ocp_perc_activated_features, ocp_perc_activated_features, vector<int32_t>, int32v, {})
 DEF_KNOB(ocp_perc_weight_array_sizes, ocp_perc_weight_array_sizes, vector<int32_t>, int32v, {})
 DEF_KNOB(ocp_perc_feature_hash_types, ocp_perc_feature_hash_types, vector<int32_t>, int32v, {})
+// per-feature region size (log2), parallel to ocp_perc_activated_features;
+// empty = every feature uses ocp_perc_region_size_log2. Only region-family
+// features (RegionID and its composites) consume their entry.
+DEF_KNOB(ocp_perc_feature_region_size_log2s, ocp_perc_feature_region_size_log2s, vector<int32_t>, int32v, {})
 
 // ==========================================================================
 // Off-chip predictor — HMP

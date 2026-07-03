@@ -72,7 +72,6 @@ struct state_info_t {
   uint64_t page_spatial_footprint;
   uint32_t page_trained_count;
   uint32_t last_n_deltas_sig;
-  uint64_t region_id;
   uint32_t page_offset_region;
 
   state_info_t()
@@ -94,7 +93,6 @@ struct state_info_t {
     page_spatial_footprint = 0;
     page_trained_count     = 0;
     last_n_deltas_sig      = 0;
-    region_id              = 0;
     page_offset_region     = 0;
   }
 
@@ -130,6 +128,10 @@ private:
   vector<int32_t>        activated_features;
   vector<weight_array_t> weights;
   vector<int32_t>        feature_hash_types;
+  // per-feature region size (log2), parallel to activated_features; passed to
+  // the process functions via the metadata argument so region-family features
+  // can run at different granularities within one predictor
+  vector<int32_t> feature_region_size_log2s;
 
   // optional
   int cpu;
@@ -172,7 +174,8 @@ private:
 public:
   perceptron_pred_t(vector<int32_t> _activated_features,
                     vector<int32_t> weight_array_sizes,
-                    vector<int32_t> feature_hash_types, float threshold,
+                    vector<int32_t> feature_hash_types,
+                    vector<int32_t> region_size_log2s, float threshold,
                     float max_w, float min_w, float pos_delta, float neg_delta,
                     float pos_thresh, float neg_thresh);
   ~perceptron_pred_t();

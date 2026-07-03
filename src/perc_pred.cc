@@ -67,8 +67,7 @@ string state_info_t::to_string()
      << page_offchip_count << " psf: " << setw(16) << hex
      << page_spatial_footprint << dec << " ptc: " << setw(4)
      << page_trained_count << " lnd: " << setw(7) << hex << last_n_deltas_sig
-     << dec << " rid: " << setw(12) << hex << region_id << dec
-     << " por: " << setw(2) << page_offset_region;
+     << dec << " por: " << setw(2) << page_offset_region;
 
   return ss.str();
 }
@@ -76,6 +75,7 @@ string state_info_t::to_string()
 perceptron_pred_t::perceptron_pred_t(vector<int32_t> _activated_features,
                                      vector<int32_t> weight_array_sizes,
                                      vector<int32_t> hash_types,
+                                     vector<int32_t> region_size_log2s,
                                      float threshold, float max_w, float min_w,
                                      float pos_delta, float neg_delta,
                                      float pos_thresh, float neg_thresh)
@@ -85,13 +85,15 @@ perceptron_pred_t::perceptron_pred_t(vector<int32_t> _activated_features,
 {
   assert(_activated_features.size() == weight_array_sizes.size());
   assert(_activated_features.size() == hash_types.size());
+  assert(_activated_features.size() == region_size_log2s.size());
 
   num_features       = _activated_features.size();
   activated_features = _activated_features;
   for (uint32_t index = 0; index < weight_array_sizes.size(); ++index) {
     weights.push_back(weight_array_t(weight_array_sizes[index]));
   }
-  feature_hash_types = hash_types;
+  feature_hash_types        = hash_types;
+  feature_region_size_log2s = region_size_log2s;
 
   cpu = 0;
 }
@@ -275,8 +277,9 @@ perceptron_pred_t::generate_indices_from_state(state_info_t *state)
   vector<uint32_t> indices;
   for (uint32_t index = 0; index < num_features; ++index) {
     indices.push_back(generate_index_from_feature(
-        (feature_type_t)activated_features[index], state, 0xdeadbeef,
-        feature_hash_types[index], weights[index].size));
+        (feature_type_t)activated_features[index], state,
+        (uint64_t)feature_region_size_log2s[index], feature_hash_types[index],
+        weights[index].size));
   }
   return indices;
 }
