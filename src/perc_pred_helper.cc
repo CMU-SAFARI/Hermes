@@ -174,6 +174,49 @@ uint32_t process_LastNPCs(state_info_t *state, uint64_t metadata,
   return (hashed_val % weight_array_size);
 }
 
+uint32_t process_PageReuseCount(state_info_t *state, uint64_t metadata,
+                                int32_t hash_type, uint32_t weight_array_size)
+{
+  uint32_t raw = state->page_reuse_count;
+  raw          = HashZoo::getHash(hash_type, raw);
+  return (raw % weight_array_size);
+}
+
+uint32_t process_PageOffchipCount(state_info_t *state, uint64_t metadata,
+                                  int32_t hash_type, uint32_t weight_array_size)
+{
+  uint32_t raw = state->page_offchip_count;
+  raw          = HashZoo::getHash(hash_type, raw);
+  return (raw % weight_array_size);
+}
+
+uint32_t process_PageSpatialFootprint(state_info_t *state, uint64_t metadata,
+                                      int32_t  hash_type,
+                                      uint32_t weight_array_size)
+{
+  // the full 64-bit line-access bitmap of the page, mixed down non-linearly
+  // (fmix64) so distinct spatial patterns land in distinct buckets
+  uint32_t raw = fmix64(state->page_spatial_footprint);
+  raw          = HashZoo::getHash(hash_type, raw);
+  return (raw % weight_array_size);
+}
+
+uint32_t process_PageMissRatio(state_info_t *state, uint64_t metadata,
+                               int32_t hash_type, uint32_t weight_array_size)
+{
+  // division-free miss ratio: the (offchip, trained) outcome pair as one
+  // index, both counts saturated to 5 bits. Each (numerator, denominator)
+  // cell learns its own weight, so the model itself learns how much to
+  // trust small-sample pages.
+  uint32_t offchip = state->page_offchip_count;
+  uint32_t trained = state->page_trained_count;
+  offchip          = (offchip > 31) ? 31 : offchip;
+  trained          = (trained > 31) ? 31 : trained;
+  uint32_t raw     = (offchip << 5) | trained;
+  raw              = HashZoo::getHash(hash_type, raw);
+  return (raw % weight_array_size);
+}
+
 uint32_t perceptron_pred_t::generate_index_from_feature(
     feature_type_t feature, state_info_t *state, uint64_t metadata,
     int32_t hash_type, uint32_t weight_array_size)
@@ -223,6 +266,17 @@ uint32_t perceptron_pred_t::generate_index_from_feature(
     return process_LastNLoadPCs(state, metadata, hash_type, weight_array_size);
   case feature_type_t::LastNPCs:
     return process_LastNPCs(state, metadata, hash_type, weight_array_size);
+  case feature_type_t::PageReuseCount:
+    return process_PageReuseCount(state, metadata, hash_type,
+                                  weight_array_size);
+  case feature_type_t::PageOffchipCount:
+    return process_PageOffchipCount(state, metadata, hash_type,
+                                    weight_array_size);
+  case feature_type_t::PageSpatialFootprint:
+    return process_PageSpatialFootprint(state, metadata, hash_type,
+                                        weight_array_size);
+  case feature_type_t::PageMissRatio:
+    return process_PageMissRatio(state, metadata, hash_type, weight_array_size);
   default:
     assert(false);
   }

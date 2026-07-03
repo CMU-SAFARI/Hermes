@@ -207,6 +207,10 @@ void OffchipPredPerc::train_helper(ocp_perc_feature_t *feature,
   state_info_t *info            = feature->info;
   float         perc_weight_sum = feature->perc_weight_sum;
 
+  // record the resolved outcome in the page buffer
+  // (PageOffchipCount / PageMissRatio)
+  record_page_outcome(info->page, went_offchip);
+
   // train perceptron
   perc_pred->train(info, perc_weight_sum, went_offchip_pred, went_offchip);
 
@@ -219,9 +223,22 @@ uint32_t OffchipPredPerc::get_set(uint64_t page)
   return hash % knob::ocp_perc_page_buf_sets;
 }
 
-void OffchipPredPerc::lookup_address(uint64_t addr, uint64_t page,
-                                     uint32_t offset, bool &first_access)
+void OffchipPredPerc::get_data_flow_signatures(state_info_t *info,
+                                               uint64_t      addr)
 {
+  // address decompositions
+  info->addr   = addr;
+  info->page   = addr >> LOG2_PAGE_SIZE;
+  info->offset = (addr >> LOG2_BLOCK_SIZE) &
+                 ((1ull << (LOG2_PAGE_SIZE - LOG2_BLOCK_SIZE)) - 1);
+  info->cl_offset       = addr & ((1ull << LOG2_BLOCK_SIZE) - 1);
+  info->cl_word_offset  = info->cl_offset >> 2;
+  info->cl_dword_offset = info->cl_offset >> 4;
+
+  // page-buffer state
+  uint64_t page   = info->page;
+  uint32_t offset = (uint32_t)info->offset;
+
   stats.page_buf.called++;
   unique_pages.insert(page);
 
@@ -233,10 +250,18 @@ void OffchipPredPerc::lookup_address(uint64_t addr, uint64_t page,
 
   if (it != m_page_buffer[set].end())  // page hit
   {
-    entry        = (*it);
-    first_access = !entry->bmp_access.test(offset);
+    entry              = (*it);
+    info->first_access = !entry->bmp_access.test(offset);
     entry->bmp_access.set(offset);
-    entry->age = 0;
+    // spatial pattern INCLUDING the current access
+    info->page_spatial_footprint = BitmapHelper::value(entry->bmp_access);
+    entry->age                   = 0;
+    // the feature reads the count of PRIOR accesses to this page
+    info->page_reuse_count = entry->reuse_count;
+    entry->reuse_count++;
+    // outcomes observed so far (incremented at train, read here)
+    info->page_offchip_count = entry->offchip_count;
+    info->page_trained_count = entry->trained_count;
     m_page_buffer[set].erase(it);
     m_page_buffer[set].push_back(entry);
     stats.page_buf.hit++;
@@ -252,27 +277,54 @@ void OffchipPredPerc::lookup_address(uint64_t addr, uint64_t page,
     entry->page = page;
     entry->bmp_access.set(offset);
     entry->age = 0;
+    // first touch while resident: zero prior accesses, zero outcomes;
+    // the footprint holds just the current access
+    info->page_reuse_count       = 0;
+    entry->reuse_count           = 1;
+    info->page_offchip_count     = 0;
+    info->page_trained_count     = 0;
+    info->page_spatial_footprint = BitmapHelper::value(entry->bmp_access);
     m_page_buffer[set].push_back(entry);
-    first_access = true;
+    info->first_access = true;
     stats.page_buf.insertion++;
   }
 }
 
-void OffchipPredPerc::get_control_flow_signatures(uint64_t  curr_pc,
-                                                  int       rob_index,
-                                                  uint64_t &last_n_load_pc_sig,
-                                                  uint64_t &last_n_pc_sig)
+// Train-side page-buffer update for PageOffchipCount / PageMissRatio: the
+// outcome is known only at train time. Deliberately no LRU promotion and no
+// insertion on miss (the page may have been evicted since predict) -- the
+// train path must not perturb the predict-path state (eviction order drives
+// first_access).
+void OffchipPredPerc::record_page_outcome(uint64_t page, bool went_offchip)
 {
+  uint32_t set = get_set(page);
+  auto     it  = find_if(
+      m_page_buffer[set].begin(), m_page_buffer[set].end(),
+      [page](ocp_perc_page_buf_entry_t *entry) { return entry->page == page; });
+  if (it != m_page_buffer[set].end()) {
+    (*it)->trained_count++;
+    if (went_offchip) {
+      (*it)->offchip_count++;
+    }
+  }
+}
+
+void OffchipPredPerc::get_control_flow_signatures(state_info_t *info,
+                                                  uint64_t      curr_pc,
+                                                  int           rob_index)
+{
+  info->pc = curr_pc;
+
   // signature from last N load PCs
   if (last_n_load_pcs.size() >= knob::ocp_perc_last_n_load_pcs) {
     last_n_load_pcs.pop_front();
   }
   last_n_load_pcs.push_back(curr_pc);
 
-  last_n_load_pc_sig = 0;
+  info->last_n_load_pc_sig = 0;
   for (uint32_t index = 0; index < last_n_load_pcs.size(); ++index) {
-    last_n_load_pc_sig <<= 1;
-    last_n_load_pc_sig ^= last_n_load_pcs[index];
+    info->last_n_load_pc_sig <<= 1;
+    info->last_n_load_pc_sig ^= last_n_load_pcs[index];
   }
 
   // signature from last N instruction PCs
@@ -286,10 +338,10 @@ void OffchipPredPerc::get_control_flow_signatures(uint64_t  curr_pc,
     }
   }
 
-  last_n_pc_sig = 0;
+  info->last_n_pc_sig = 0;
   for (uint32_t index = 0; index < last_n_pcs.size(); ++index) {
-    last_n_pc_sig <<= 1;
-    last_n_pc_sig ^= last_n_pcs[index];
+    info->last_n_pc_sig <<= 1;
+    info->last_n_pc_sig ^= last_n_pcs[index];
   }
 }
 
@@ -397,45 +449,18 @@ state_info_t *OffchipPredPerc::get_state(ooo_model_instr *arch_instr,
                                          uint32_t         data_index,
                                          LSQ_ENTRY       *lq_entry)
 {
-  uint64_t load_pc = arch_instr->ip;
   // address source per the knob; physical@core is asserted out in the
   // constructor, so this resolves to the virtual address at the core.
-  uint64_t addr   = knob::ocp_perc_use_physical_address
-                        ? lq_entry->physical_address
-                        : lq_entry->virtual_address;
-  uint64_t page   = addr >> LOG2_PAGE_SIZE;
-  uint32_t offset = (addr >> LOG2_BLOCK_SIZE) &
-                    ((1ull << (LOG2_PAGE_SIZE - LOG2_BLOCK_SIZE)) - 1);
-  uint32_t cl_offset       = addr & ((1ull << LOG2_BLOCK_SIZE) - 1);
-  uint32_t cl_word_offset  = cl_offset >> 2;
-  uint32_t cl_dword_offset = cl_offset >> 4;
+  uint64_t addr = knob::ocp_perc_use_physical_address
+                      ? lq_entry->physical_address
+                      : lq_entry->virtual_address;
 
   state_info_t *info = new state_info_t();
-
-  // get control-flow features
-  uint64_t last_n_load_pc_sig = 0, last_n_pc_sig = 0;
-  get_control_flow_signatures(lq_entry->ip, lq_entry->rob_index,
-                              last_n_load_pc_sig, last_n_pc_sig);
-
-  // get data-flow features
-  bool first_access = false;
-  lookup_address(addr, page, offset, first_access);
-
-  // populate features
-  info->pc                 = load_pc;
-  info->last_n_load_pc_sig = last_n_load_pc_sig;
-  info->last_n_pc_sig      = last_n_pc_sig;
-  info->data_index         = data_index;
-  info->addr               = addr;
-  info->page               = page;
-  info->offset             = offset;
-  info->first_access       = first_access;
-  info->cl_offset          = cl_offset;
-  info->cl_word_offset     = cl_word_offset;
-  info->cl_dword_offset    = cl_dword_offset;
+  info->data_index   = data_index;
+  get_control_flow_signatures(info, lq_entry->ip, lq_entry->rob_index);
+  get_data_flow_signatures(info, addr);
 
   return info;
-  // return NULL;
 }
 
 //=============================================================================
@@ -475,41 +500,15 @@ void OffchipPredPerc::train(PACKET *packet)
 // rob_index, and data_index ride on the packet too.
 state_info_t *OffchipPredPerc::get_state(PACKET *packet)
 {
-  uint64_t load_pc = packet->ip;
   // address source per the knob: physical (packet->full_addr) at the uncore,
   // else the virtual address carried via packet->full_virt_addr.
-  uint64_t addr   = knob::ocp_perc_use_physical_address ? packet->full_addr
-                                                        : packet->full_virt_addr;
-  uint64_t page   = addr >> LOG2_PAGE_SIZE;
-  uint32_t offset = (addr >> LOG2_BLOCK_SIZE) &
-                    ((1ull << (LOG2_PAGE_SIZE - LOG2_BLOCK_SIZE)) - 1);
-  uint32_t cl_offset       = addr & ((1ull << LOG2_BLOCK_SIZE) - 1);
-  uint32_t cl_word_offset  = cl_offset >> 2;
-  uint32_t cl_dword_offset = cl_offset >> 4;
+  uint64_t addr = knob::ocp_perc_use_physical_address ? packet->full_addr
+                                                      : packet->full_virt_addr;
 
   state_info_t *info = new state_info_t();
-
-  // get control-flow features
-  uint64_t last_n_load_pc_sig = 0, last_n_pc_sig = 0;
-  get_control_flow_signatures(packet->ip, packet->rob_index, last_n_load_pc_sig,
-                              last_n_pc_sig);
-
-  // get data-flow features
-  bool first_access = false;
-  lookup_address(addr, page, offset, first_access);
-
-  // populate features
-  info->pc                 = load_pc;
-  info->last_n_load_pc_sig = last_n_load_pc_sig;
-  info->last_n_pc_sig      = last_n_pc_sig;
-  info->data_index         = packet->data_index;
-  info->addr               = addr;
-  info->page               = page;
-  info->offset             = offset;
-  info->first_access       = first_access;
-  info->cl_offset          = cl_offset;
-  info->cl_word_offset     = cl_word_offset;
-  info->cl_dword_offset    = cl_dword_offset;
+  info->data_index   = packet->data_index;
+  get_control_flow_signatures(info, packet->ip, packet->rob_index);
+  get_data_flow_signatures(info, addr);
 
   return info;
 }

@@ -38,7 +38,11 @@ string feature_names[] = {"PC",
                           "CLDWordOffset",
                           "PC_CLDWordOffset",
                           "LastNLoadPCs",
-                          "LastNPCs"};
+                          "LastNPCs",
+                          "PageReuseCount",
+                          "PageOffchipCount",
+                          "PageSpatialFootprint",
+                          "PageMissRatio"};
 
 string state_info_t::to_string()
 {
@@ -49,7 +53,10 @@ string state_info_t::to_string()
      << " page: " << setw(12) << hex << page << dec << " offset: " << setw(2)
      << offset << " fa: " << setw(1) << first_access << " clo: " << setw(2)
      << cl_offset << " clwo: " << setw(2) << cl_word_offset
-     << " cldwo: " << setw(2) << cl_dword_offset;
+     << " cldwo: " << setw(2) << cl_dword_offset << " prc: " << setw(4)
+     << page_reuse_count << " poc: " << setw(4) << page_offchip_count
+     << " psf: " << setw(16) << hex << page_spatial_footprint << dec
+     << " ptc: " << setw(4) << page_trained_count;
 
   return ss.str();
 }

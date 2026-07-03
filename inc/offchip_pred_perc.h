@@ -36,13 +36,19 @@ public:
   uint64_t page;
   Bitmap   bmp_access;
   uint32_t age;
+  uint32_t reuse_count;    // accesses to this page while resident
+  uint32_t offchip_count;  // trained off-chip outcomes while resident
+  uint32_t trained_count;  // trained outcomes (either way) while resident
 
 public:
   ocp_perc_page_buf_entry_t()
   {
     page = 0;
     bmp_access.reset();
-    age = 0;
+    age           = 0;
+    reuse_count   = 0;
+    offchip_count = 0;
+    trained_count = 0;
   }
 };
 
@@ -98,12 +104,17 @@ private:
                           LSQ_ENTRY *lq_entry);
   state_info_t *get_state(PACKET *packet);
 
-  void     lookup_address(uint64_t addr, uint64_t page, uint32_t offset,
-                          bool &first_access);
+  // Feature population is split by family, mirroring each other:
+  // - control-flow: everything PC-derived (pc, last_n_load_pc_sig,
+  //   last_n_pc_sig), from the current PC + ROB walk
+  // - data-flow: everything address-derived (addr, page, offset, cl_*) plus
+  //   the page-buffer state (first_access, page_reuse_count,
+  //   page_offchip_count, page_spatial_footprint, page_trained_count)
+  void     get_control_flow_signatures(state_info_t *info, uint64_t curr_pc,
+                                       int rob_index);
+  void     get_data_flow_signatures(state_info_t *info, uint64_t addr);
   uint32_t get_set(uint64_t page);
-  void     get_control_flow_signatures(uint64_t curr_pc, int rob_index,
-                                       uint64_t &last_n_load_pc_sig,
-                                       uint64_t &last_n_pc_sig);
+  void     record_page_outcome(uint64_t page, bool went_offchip);
 
   string print_activated_features(vector<int32_t> activated_features);
   void   check_and_update_act_thresh();

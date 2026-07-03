@@ -10,24 +10,28 @@ namespace perc
 {
 
 typedef enum {
-  PC = 0,              // 0
-  Offset,              // 1
-  Page,                // 2
-  Addr,                // 3
-  FirstAccess,         // 4
-  PC_Offset,           // 5
-  PC_Page,             // 6
-  PC_Addr,             // 7
-  PC_FirstAccess,      // 8
-  Offset_FirstAccess,  // 9
-  CLOffset,            // 10
-  PC_CLOffset,         // 11
-  CLWordOffset,        // 12
-  PC_CLWordOffset,     // 13
-  CLDWordOffset,       // 14
-  PC_CLDWordOffset,    // 15
-  LastNLoadPCs,        // 16
-  LastNPCs,            // 17
+  PC = 0,                // 0
+  Offset,                // 1
+  Page,                  // 2
+  Addr,                  // 3
+  FirstAccess,           // 4
+  PC_Offset,             // 5
+  PC_Page,               // 6
+  PC_Addr,               // 7
+  PC_FirstAccess,        // 8
+  Offset_FirstAccess,    // 9
+  CLOffset,              // 10
+  PC_CLOffset,           // 11
+  CLWordOffset,          // 12
+  PC_CLWordOffset,       // 13
+  CLDWordOffset,         // 14
+  PC_CLDWordOffset,      // 15
+  LastNLoadPCs,          // 16
+  LastNPCs,              // 17
+  PageReuseCount,        // 18
+  PageOffchipCount,      // 19
+  PageSpatialFootprint,  // 20
+  PageMissRatio,         // 21
 
   num_feature_types
 } feature_type_t;
@@ -46,20 +50,28 @@ struct state_info_t {
   uint32_t cl_offset;
   uint32_t cl_word_offset;
   uint32_t cl_dword_offset;
+  uint32_t page_reuse_count;
+  uint32_t page_offchip_count;
+  uint64_t page_spatial_footprint;
+  uint32_t page_trained_count;
 
   state_info_t()
   {
-    pc                 = 0;
-    last_n_load_pc_sig = 0;
-    last_n_pc_sig      = 0;
-    data_index         = 0;
-    addr               = 0;
-    page               = 0;
-    offset             = 0;
-    first_access       = false;
-    cl_offset          = 0;
-    cl_word_offset     = 0;
-    cl_dword_offset    = 0;
+    pc                     = 0;
+    last_n_load_pc_sig     = 0;
+    last_n_pc_sig          = 0;
+    data_index             = 0;
+    addr                   = 0;
+    page                   = 0;
+    offset                 = 0;
+    first_access           = false;
+    cl_offset              = 0;
+    cl_word_offset         = 0;
+    cl_dword_offset        = 0;
+    page_reuse_count       = 0;
+    page_offchip_count     = 0;
+    page_spatial_footprint = 0;
+    page_trained_count     = 0;
   }
 
   string to_string();
