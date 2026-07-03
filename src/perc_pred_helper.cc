@@ -284,6 +284,105 @@ uint32_t process_PageMissRatio(state_info_t *state, uint64_t metadata,
   return (raw % weight_array_size);
 }
 
+uint32_t process_RegionID_PageOffchipCount(state_info_t *state,
+                                           uint64_t metadata, int32_t hash_type,
+                                           uint32_t weight_array_size)
+{
+  // composite: region in the high bits, the page's off-chip outcome count
+  // (8-bit saturated) in the low 8 -- learns "this region is off-chip-prone
+  // GIVEN its pages' miss history", which neither marginal can express
+  uint32_t offchip = state->page_offchip_count;
+  offchip          = (offchip > 255) ? 255 : offchip;
+  uint64_t joint   = (state->region_id << 8) | offchip;
+  uint32_t raw     = fmix64(joint);
+  raw              = embed_cpu_id(state, raw);
+  raw              = HashZoo::getHash(hash_type, raw);
+  return (raw % weight_array_size);
+}
+
+uint32_t process_RegionID_PageReuseCount(state_info_t *state, uint64_t metadata,
+                                         int32_t  hash_type,
+                                         uint32_t weight_array_size)
+{
+  // composite: region in the high bits, the page's prior-access count (8-bit
+  // saturated) in the low 8 -- learns "this region is off-chip-prone GIVEN
+  // how warmed-up its pages are"
+  uint32_t reuse = state->page_reuse_count;
+  reuse          = (reuse > 255) ? 255 : reuse;
+  uint64_t joint = (state->region_id << 8) | reuse;
+  uint32_t raw   = fmix64(joint);
+  raw            = embed_cpu_id(state, raw);
+  raw            = HashZoo::getHash(hash_type, raw);
+  return (raw % weight_array_size);
+}
+
+uint32_t process_RegionID_PageMissRatio(state_info_t *state, uint64_t metadata,
+                                        int32_t  hash_type,
+                                        uint32_t weight_array_size)
+{
+  // composite: region in the high bits, the PageMissRatio pair -- 5-bit
+  // saturated (offchip, trained) counts, 10 bits total -- in the low bits.
+  // Learns the per-region conditional miss-ratio correlation.
+  uint32_t offchip = state->page_offchip_count;
+  uint32_t trained = state->page_trained_count;
+  offchip          = (offchip > 31) ? 31 : offchip;
+  trained          = (trained > 31) ? 31 : trained;
+  uint32_t pair    = (offchip << 5) | trained;
+  uint64_t joint   = (state->region_id << 10) | pair;
+  uint32_t raw     = fmix64(joint);
+  raw              = embed_cpu_id(state, raw);
+  raw              = HashZoo::getHash(hash_type, raw);
+  return (raw % weight_array_size);
+}
+
+uint32_t process_RegionID_PageOffsetRegion(state_info_t *state,
+                                           uint64_t metadata, int32_t hash_type,
+                                           uint32_t weight_array_size)
+{
+  // composite: region in the high bits, the in-page offset region in the low
+  // 5 -- 5 (not the default 3) so the field holds the value at ANY legal
+  // ocp_perc_page_offset_region_log2 in [1,5] (log2=1 gives 5-bit values);
+  // unused high bits of the field are zero, harmless after fmix64.
+  // Learns "this slice of a page, in this region, tends off-chip".
+  uint64_t joint = (state->region_id << 5) | state->page_offset_region;
+  uint32_t raw   = fmix64(joint);
+  raw            = embed_cpu_id(state, raw);
+  raw            = HashZoo::getHash(hash_type, raw);
+  return (raw % weight_array_size);
+}
+
+uint32_t process_RegionID_PageSpatialFootprint(state_info_t *state,
+                                               uint64_t      metadata,
+                                               int32_t       hash_type,
+                                               uint32_t      weight_array_size)
+{
+  // composite of two WIDE fields (region id + 64-bit footprint bitmap): no
+  // lossless 64-bit concat exists, so digest each to 32 bits (fmix64),
+  // concatenate the digests, and mix the pair. Learns "this spatial access
+  // pattern, in this region, tends off-chip".
+  uint32_t region_dig    = fmix64(state->region_id);
+  uint32_t footprint_dig = fmix64(state->page_spatial_footprint);
+  uint64_t joint         = ((uint64_t)region_dig << 32) | footprint_dig;
+  uint32_t raw           = fmix64(joint);
+  raw                    = embed_cpu_id(state, raw);
+  raw                    = HashZoo::getHash(hash_type, raw);
+  return (raw % weight_array_size);
+}
+
+uint32_t process_RegionID_LastNDeltas(state_info_t *state, uint64_t metadata,
+                                      int32_t  hash_type,
+                                      uint32_t weight_array_size)
+{
+  // composite: region in the high bits, the 28-bit delta-history signature
+  // (exact width by construction) in the low bits -- learns "this stride
+  // pattern, in this region, tends off-chip"
+  uint64_t joint = (state->region_id << 28) | state->last_n_deltas_sig;
+  uint32_t raw   = fmix64(joint);
+  raw            = embed_cpu_id(state, raw);
+  raw            = HashZoo::getHash(hash_type, raw);
+  return (raw % weight_array_size);
+}
+
 uint32_t perceptron_pred_t::generate_index_from_feature(
     feature_type_t feature, state_info_t *state, uint64_t metadata,
     int32_t hash_type, uint32_t weight_array_size)
@@ -351,6 +450,24 @@ uint32_t perceptron_pred_t::generate_index_from_feature(
   case feature_type_t::PageOffsetRegion:
     return process_PageOffsetRegion(state, metadata, hash_type,
                                     weight_array_size);
+  case feature_type_t::RegionID_PageOffchipCount:
+    return process_RegionID_PageOffchipCount(state, metadata, hash_type,
+                                             weight_array_size);
+  case feature_type_t::RegionID_PageReuseCount:
+    return process_RegionID_PageReuseCount(state, metadata, hash_type,
+                                           weight_array_size);
+  case feature_type_t::RegionID_PageMissRatio:
+    return process_RegionID_PageMissRatio(state, metadata, hash_type,
+                                          weight_array_size);
+  case feature_type_t::RegionID_PageOffsetRegion:
+    return process_RegionID_PageOffsetRegion(state, metadata, hash_type,
+                                             weight_array_size);
+  case feature_type_t::RegionID_PageSpatialFootprint:
+    return process_RegionID_PageSpatialFootprint(state, metadata, hash_type,
+                                                 weight_array_size);
+  case feature_type_t::RegionID_LastNDeltas:
+    return process_RegionID_LastNDeltas(state, metadata, hash_type,
+                                        weight_array_size);
   default:
     assert(false);
   }

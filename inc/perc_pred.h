@@ -38,6 +38,15 @@ typedef enum {
   RegionID,              // 23
   PageOffsetRegion,      // 24
 
+  // Composite features: joint indices over two prime features, so the
+  // perceptron learns conditional correlations the marginals cannot express
+  RegionID_PageOffchipCount,      // 25
+  RegionID_PageReuseCount,        // 26
+  RegionID_PageMissRatio,         // 27
+  RegionID_PageOffsetRegion,      // 28
+  RegionID_PageSpatialFootprint,  // 29
+  RegionID_LastNDeltas,           // 30
+
   num_feature_types
 } feature_type_t;
 

@@ -45,7 +45,13 @@ string feature_names[] = {"PC",
                           "PageMissRatio",
                           "LastNDeltas",
                           "RegionID",
-                          "PageOffsetRegion"};
+                          "PageOffsetRegion",
+                          "RegionID_PageOffchipCount",
+                          "RegionID_PageReuseCount",
+                          "RegionID_PageMissRatio",
+                          "RegionID_PageOffsetRegion",
+                          "RegionID_PageSpatialFootprint",
+                          "RegionID_LastNDeltas"};
 
 string state_info_t::to_string()
 {
