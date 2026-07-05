@@ -320,9 +320,10 @@
   }
  },
  "batches": {
-  "1": "20260703T211325Z_campaign1_r01"
+  "1": "20260703T211325Z_campaign1_r01",
+  "2": "20260705T005116Z_campaign1_r02"
  },
- "jobs_total": 5956,
+ "jobs_total": 19206,
  "log": [
   {
    "utc": "2026-07-03",
@@ -359,6 +360,10 @@
   {
    "utc": "2026-07-05",
    "event": "round 1 scored on 50/50 traces (retries merged): best f21 geo_nopf=1.1611; beam=[f21, f27@21, f20, f27@17, f18]; all-56 flag on fotonik3d is universal DDRP cost; launching round 2"
+  },
+  {
+   "utc": "2026-07-05",
+   "event": "round 2 submitted: batch 20260705T005116Z_campaign1_r02, 13250 jobs (265 pairs), smoke passed, walltime 4h floor applied. jobs_total=19206/120000. r01 _wf twins (~1997) still draining behind nice."
   }
  ]
 }
