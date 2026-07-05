@@ -1,0 +1,202 @@
+{
+ "708.sqlite_r-cte_size2000-233B": {
+  "nopf": 0.95839,
+  "pythia": 1.86953
+ },
+ "708.sqlite_r-fp_size1000-424B": {
+  "nopf": 0.45603,
+  "pythia": 0.53831
+ },
+ "708.sqlite_r-main_size2000-556B": {
+  "nopf": 1.06729,
+  "pythia": 1.08804
+ },
+ "709.cactus_r-shifted_gauge_wave-19B": {
+  "nopf": 0.91034,
+  "pythia": 0.9208
+ },
+ "721.gcc_r-gcc_pp_O2_fpic-309B": {
+  "nopf": 0.57848,
+  "pythia": 0.73834
+ },
+ "721.gcc_r-ref32_O3_inline12000-113B": {
+  "nopf": 0.30461,
+  "pythia": 0.37307
+ },
+ "722.palm_r-atmos-334B": {
+  "nopf": 0.66355,
+  "pythia": 0.9045
+ },
+ "723.llvm_r-codegen-388B": {
+  "nopf": 0.21971,
+  "pythia": 0.22101
+ },
+ "727.cppcheck_r-738_diamond-63B": {
+  "nopf": 1.43722,
+  "pythia": 1.53566
+ },
+ "727.cppcheck_r-747_dealii-218B": {
+  "nopf": 1.11749,
+  "pythia": 1.26243
+ },
+ "727.cppcheck_r-770_7z-57B": {
+  "nopf": 1.56308,
+  "pythia": 1.71562
+ },
+ "729.abc_r-des_system90-103B": {
+  "nopf": 0.46174,
+  "pythia": 0.47564
+ },
+ "729.abc_r-mcml-19B": {
+  "nopf": 0.6341,
+  "pythia": 0.68126
+ },
+ "734.vpr_r-jpeg_place-76B": {
+  "nopf": 0.91941,
+  "pythia": 1.10001
+ },
+ "734.vpr_r-jpeg_route-49B": {
+  "nopf": 0.99039,
+  "pythia": 1.31162
+ },
+ "734.vpr_r-smithwaterman_place-213B": {
+  "nopf": 0.59332,
+  "pythia": 0.64315
+ },
+ "736.ocio_r-heavy_transform-65B": {
+  "nopf": 0.81855,
+  "pythia": 0.85756
+ },
+ "736.ocio_r-lut1d_halfdom-43B": {
+  "nopf": 1.41608,
+  "pythia": 1.58085
+ },
+ "736.ocio_r-mntr_srgb_8k-35B": {
+  "nopf": 1.09423,
+  "pythia": 1.10181
+ },
+ "737.gmsh_r-mediterranean-149B": {
+  "nopf": 2.15829,
+  "pythia": 2.24213
+ },
+ "737.gmsh_r-p19-70B": {
+  "nopf": 0.86692,
+  "pythia": 0.89247
+ },
+ "737.gmsh_r-spec_hxt-62B": {
+  "nopf": 1.71299,
+  "pythia": 1.95758
+ },
+ "749.fotonik3d_r-default-599B": {
+  "nopf": 0.27888,
+  "pythia": 0.2942
+ },
+ "765.roms_r-benchmark2-900B": {
+  "nopf": 0.57066,
+  "pythia": 0.76627
+ },
+ "800.pot3d_s-pot3d_n1-1519B": {
+  "nopf": 0.19671,
+  "pythia": 0.23174
+ },
+ "809.cactus_s-shifted_gauge_wave-1690B": {
+  "nopf": 0.73389,
+  "pythia": 0.73463
+ },
+ "811.tealeaf_s-default-35333B": {
+  "nopf": 1.0152,
+  "pythia": 1.95333
+ },
+ "820.cloverleaf_s-default-11785B": {
+  "nopf": 1.26456,
+  "pythia": 2.0734
+ },
+ "821.gcc_s-lz4hc_0007-10B": {
+  "nopf": 0.86094,
+  "pythia": 0.96352
+ },
+ "821.gcc_s-lz4hc_0010-23B": {
+  "nopf": 0.98293,
+  "pythia": 1.03625
+ },
+ "821.gcc_s-unicodeobject_0015-26B": {
+  "nopf": 0.59959,
+  "pythia": 0.67795
+ },
+ "822.palm_s-atmos-35579B": {
+  "nopf": 1.48093,
+  "pythia": 1.78145
+ },
+ "823.llvm_s-grid_tools_dof_handlers_0009-11B": {
+  "nopf": 1.08113,
+  "pythia": 1.17933
+ },
+ "823.llvm_s-matrix_free_0013-7B": {
+  "nopf": 0.91816,
+  "pythia": 0.96383
+ },
+ "823.llvm_s-particle_handler_0015-5B": {
+  "nopf": 1.29537,
+  "pythia": 1.31032
+ },
+ "823.llvm_s-selectiondagbuilder_0007-4B": {
+  "nopf": 0.59861,
+  "pythia": 0.6561
+ },
+ "829.abc_s-bitcoin-645B": {
+  "nopf": 0.98977,
+  "pythia": 1.01454
+ },
+ "829.abc_s-ethernet_fraig-186B": {
+  "nopf": 1.19767,
+  "pythia": 1.20159
+ },
+ "834.vpr_s-sparct1_place-411B": {
+  "nopf": 0.50484,
+  "pythia": 0.5435
+ },
+ "834.vpr_s-wb_conmax_place-461B": {
+  "nopf": 0.96535,
+  "pythia": 1.43475
+ },
+ "834.vpr_s-wb_conmax_route-461B": {
+  "nopf": 0.96483,
+  "pythia": 1.43959
+ },
+ "846.minizinc_s-yumi_dynamic-40B": {
+  "nopf": 0.5611,
+  "pythia": 0.54064
+ },
+ "849.fotonik3d_s-default-1927B": {
+  "nopf": 0.58642,
+  "pythia": 0.58992
+ },
+ "853.ns3_s-tcp_validation-187B": {
+  "nopf": 0.11169,
+  "pythia": 0.11135
+ },
+ "854.graph500_s-bfs-3313B": {
+  "nopf": 0.54043,
+  "pythia": 0.54121
+ },
+ "854.graph500_s-bfs-1217B": {
+  "nopf": 0.08106,
+  "pythia": 0.08083
+ },
+ "865.roms_s-benchmark3-3753B": {
+  "nopf": 1.12846,
+  "pythia": 1.39632
+ },
+ "867.nest_s-microcircuit-2574B": {
+  "nopf": 0.14177,
+  "pythia": 0.15445
+ },
+ "881.neutron_s-rsbench_history-421B": {
+  "nopf": 0.97847,
+  "pythia": 0.9747
+ },
+ "881.neutron_s-xsbench_event_unionized-1137B": {
+  "nopf": 2.11556,
+  "pythia": 2.17781
+ }
+}

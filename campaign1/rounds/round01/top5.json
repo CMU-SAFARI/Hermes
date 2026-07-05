@@ -1,0 +1,62 @@
+[
+ {
+  "exp": "r01_c011",
+  "key": "f21",
+  "n_traces": 50,
+  "geo_nopf": 1.1611382355588267,
+  "geo_pythia": 1.0201013540858572,
+  "worst_vs_pythia": 0.9619306594153636,
+  "worst_trace": "749.fotonik3d_r-default-599B",
+  "mean_prec": 79.46560000000001,
+  "mean_recall": 75.8348,
+  "flag": true
+ },
+ {
+  "exp": "r01_c037",
+  "key": "f27@21",
+  "n_traces": 50,
+  "geo_nopf": 1.1609748372788915,
+  "geo_pythia": 1.019957802869032,
+  "worst_vs_pythia": 0.9562202583276682,
+  "worst_trace": "749.fotonik3d_r-default-599B",
+  "mean_prec": 68.3034,
+  "mean_recall": 77.9404,
+  "flag": true
+ },
+ {
+  "exp": "r01_c010",
+  "key": "f20",
+  "n_traces": 50,
+  "geo_nopf": 1.1600931806634418,
+  "geo_pythia": 1.019183236086442,
+  "worst_vs_pythia": 0.9631566305131096,
+  "worst_trace": "854.graph500_s-bfs-3313B",
+  "mean_prec": 71.4854,
+  "mean_recall": 75.92699999999999,
+  "flag": true
+ },
+ {
+  "exp": "r01_c035",
+  "key": "f27@17",
+  "n_traces": 50,
+  "geo_nopf": 1.1597863468881047,
+  "geo_pythia": 1.0189136716710128,
+  "worst_vs_pythia": 0.9463630183548606,
+  "worst_trace": "749.fotonik3d_r-default-599B",
+  "mean_prec": 61.317,
+  "mean_recall": 76.2334,
+  "flag": true
+ },
+ {
+  "exp": "r01_c008",
+  "key": "f18",
+  "n_traces": 50,
+  "geo_nopf": 1.1595409130975955,
+  "geo_pythia": 1.0186980493321995,
+  "worst_vs_pythia": 0.958565601631543,
+  "worst_trace": "749.fotonik3d_r-default-599B",
+  "mean_prec": 76.77420000000001,
+  "mean_recall": 68.62559999999999,
+  "flag": true
+ }
+]

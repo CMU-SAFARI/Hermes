@@ -1,0 +1,2387 @@
+{
+ "r02_c000": {
+  "key": "f1+f21",
+  "tokens": [
+   "f1",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c001": {
+  "key": "f2+f21",
+  "tokens": [
+   "f2",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c002": {
+  "key": "f3+f21",
+  "tokens": [
+   "f3",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c003": {
+  "key": "f4+f21",
+  "tokens": [
+   "f4",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c004": {
+  "key": "f9+f21",
+  "tokens": [
+   "f9",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c005": {
+  "key": "f10+f21",
+  "tokens": [
+   "f10",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c006": {
+  "key": "f12+f21",
+  "tokens": [
+   "f12",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c007": {
+  "key": "f14+f21",
+  "tokens": [
+   "f14",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c008": {
+  "key": "f18+f21",
+  "tokens": [
+   "f18",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c009": {
+  "key": "f19+f21",
+  "tokens": [
+   "f19",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c010": {
+  "key": "f20+f21",
+  "tokens": [
+   "f20",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c011": {
+  "key": "f21+f22",
+  "tokens": [
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c012": {
+  "key": "f21+f24",
+  "tokens": [
+   "f21",
+   "f24"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c013": {
+  "key": "f21+f23@11",
+  "tokens": [
+   "f21",
+   "f23@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c014": {
+  "key": "f21+f23@12",
+  "tokens": [
+   "f21",
+   "f23@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c015": {
+  "key": "f21+f23@14",
+  "tokens": [
+   "f21",
+   "f23@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c016": {
+  "key": "f21+f23@17",
+  "tokens": [
+   "f21",
+   "f23@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c017": {
+  "key": "f21+f23@20",
+  "tokens": [
+   "f21",
+   "f23@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c018": {
+  "key": "f21+f23@21",
+  "tokens": [
+   "f21",
+   "f23@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c019": {
+  "key": "f21+f25@11",
+  "tokens": [
+   "f21",
+   "f25@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c020": {
+  "key": "f21+f25@12",
+  "tokens": [
+   "f21",
+   "f25@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c021": {
+  "key": "f21+f25@14",
+  "tokens": [
+   "f21",
+   "f25@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c022": {
+  "key": "f21+f25@17",
+  "tokens": [
+   "f21",
+   "f25@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c023": {
+  "key": "f21+f25@20",
+  "tokens": [
+   "f21",
+   "f25@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c024": {
+  "key": "f21+f25@21",
+  "tokens": [
+   "f21",
+   "f25@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c025": {
+  "key": "f21+f26@11",
+  "tokens": [
+   "f21",
+   "f26@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c026": {
+  "key": "f21+f26@12",
+  "tokens": [
+   "f21",
+   "f26@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c027": {
+  "key": "f21+f26@14",
+  "tokens": [
+   "f21",
+   "f26@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c028": {
+  "key": "f21+f26@17",
+  "tokens": [
+   "f21",
+   "f26@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c029": {
+  "key": "f21+f26@20",
+  "tokens": [
+   "f21",
+   "f26@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c030": {
+  "key": "f21+f26@21",
+  "tokens": [
+   "f21",
+   "f26@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c031": {
+  "key": "f21+f27@11",
+  "tokens": [
+   "f21",
+   "f27@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c032": {
+  "key": "f21+f27@12",
+  "tokens": [
+   "f21",
+   "f27@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c033": {
+  "key": "f21+f27@14",
+  "tokens": [
+   "f21",
+   "f27@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c034": {
+  "key": "f21+f27@17",
+  "tokens": [
+   "f21",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c035": {
+  "key": "f21+f27@20",
+  "tokens": [
+   "f21",
+   "f27@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c036": {
+  "key": "f21+f27@21",
+  "tokens": [
+   "f21",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c037": {
+  "key": "f21+f28@11",
+  "tokens": [
+   "f21",
+   "f28@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c038": {
+  "key": "f21+f28@12",
+  "tokens": [
+   "f21",
+   "f28@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c039": {
+  "key": "f21+f28@14",
+  "tokens": [
+   "f21",
+   "f28@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c040": {
+  "key": "f21+f28@17",
+  "tokens": [
+   "f21",
+   "f28@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c041": {
+  "key": "f21+f28@20",
+  "tokens": [
+   "f21",
+   "f28@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c042": {
+  "key": "f21+f28@21",
+  "tokens": [
+   "f21",
+   "f28@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c043": {
+  "key": "f21+f29@11",
+  "tokens": [
+   "f21",
+   "f29@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c044": {
+  "key": "f21+f29@12",
+  "tokens": [
+   "f21",
+   "f29@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c045": {
+  "key": "f21+f29@14",
+  "tokens": [
+   "f21",
+   "f29@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c046": {
+  "key": "f21+f29@17",
+  "tokens": [
+   "f21",
+   "f29@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c047": {
+  "key": "f21+f29@20",
+  "tokens": [
+   "f21",
+   "f29@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c048": {
+  "key": "f21+f29@21",
+  "tokens": [
+   "f21",
+   "f29@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c049": {
+  "key": "f21+f30@11",
+  "tokens": [
+   "f21",
+   "f30@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c050": {
+  "key": "f21+f30@12",
+  "tokens": [
+   "f21",
+   "f30@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c051": {
+  "key": "f21+f30@14",
+  "tokens": [
+   "f21",
+   "f30@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c052": {
+  "key": "f21+f30@17",
+  "tokens": [
+   "f21",
+   "f30@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c053": {
+  "key": "f21+f30@20",
+  "tokens": [
+   "f21",
+   "f30@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c054": {
+  "key": "f21+f30@21",
+  "tokens": [
+   "f21",
+   "f30@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c055": {
+  "key": "f1+f27@21",
+  "tokens": [
+   "f1",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c056": {
+  "key": "f2+f27@21",
+  "tokens": [
+   "f2",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c057": {
+  "key": "f3+f27@21",
+  "tokens": [
+   "f3",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c058": {
+  "key": "f4+f27@21",
+  "tokens": [
+   "f4",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c059": {
+  "key": "f9+f27@21",
+  "tokens": [
+   "f9",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c060": {
+  "key": "f10+f27@21",
+  "tokens": [
+   "f10",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c061": {
+  "key": "f12+f27@21",
+  "tokens": [
+   "f12",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c062": {
+  "key": "f14+f27@21",
+  "tokens": [
+   "f14",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c063": {
+  "key": "f18+f27@21",
+  "tokens": [
+   "f18",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c064": {
+  "key": "f19+f27@21",
+  "tokens": [
+   "f19",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c065": {
+  "key": "f20+f27@21",
+  "tokens": [
+   "f20",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c066": {
+  "key": "f22+f27@21",
+  "tokens": [
+   "f22",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c067": {
+  "key": "f24+f27@21",
+  "tokens": [
+   "f24",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c068": {
+  "key": "f23@11+f27@21",
+  "tokens": [
+   "f23@11",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c069": {
+  "key": "f23@12+f27@21",
+  "tokens": [
+   "f23@12",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c070": {
+  "key": "f23@14+f27@21",
+  "tokens": [
+   "f23@14",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c071": {
+  "key": "f23@17+f27@21",
+  "tokens": [
+   "f23@17",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c072": {
+  "key": "f23@20+f27@21",
+  "tokens": [
+   "f23@20",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c073": {
+  "key": "f23@21+f27@21",
+  "tokens": [
+   "f23@21",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c074": {
+  "key": "f25@11+f27@21",
+  "tokens": [
+   "f25@11",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c075": {
+  "key": "f25@12+f27@21",
+  "tokens": [
+   "f25@12",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c076": {
+  "key": "f25@14+f27@21",
+  "tokens": [
+   "f25@14",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c077": {
+  "key": "f25@17+f27@21",
+  "tokens": [
+   "f25@17",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c078": {
+  "key": "f25@20+f27@21",
+  "tokens": [
+   "f25@20",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c079": {
+  "key": "f25@21+f27@21",
+  "tokens": [
+   "f25@21",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c080": {
+  "key": "f26@11+f27@21",
+  "tokens": [
+   "f26@11",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c081": {
+  "key": "f26@12+f27@21",
+  "tokens": [
+   "f26@12",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c082": {
+  "key": "f26@14+f27@21",
+  "tokens": [
+   "f26@14",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c083": {
+  "key": "f26@17+f27@21",
+  "tokens": [
+   "f26@17",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c084": {
+  "key": "f26@20+f27@21",
+  "tokens": [
+   "f26@20",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c085": {
+  "key": "f26@21+f27@21",
+  "tokens": [
+   "f26@21",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c086": {
+  "key": "f27@11+f27@21",
+  "tokens": [
+   "f27@11",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c087": {
+  "key": "f27@12+f27@21",
+  "tokens": [
+   "f27@12",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c088": {
+  "key": "f27@14+f27@21",
+  "tokens": [
+   "f27@14",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c089": {
+  "key": "f27@17+f27@21",
+  "tokens": [
+   "f27@17",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c090": {
+  "key": "f27@20+f27@21",
+  "tokens": [
+   "f27@20",
+   "f27@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c091": {
+  "key": "f27@21+f28@11",
+  "tokens": [
+   "f27@21",
+   "f28@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c092": {
+  "key": "f27@21+f28@12",
+  "tokens": [
+   "f27@21",
+   "f28@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c093": {
+  "key": "f27@21+f28@14",
+  "tokens": [
+   "f27@21",
+   "f28@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c094": {
+  "key": "f27@21+f28@17",
+  "tokens": [
+   "f27@21",
+   "f28@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c095": {
+  "key": "f27@21+f28@20",
+  "tokens": [
+   "f27@21",
+   "f28@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c096": {
+  "key": "f27@21+f28@21",
+  "tokens": [
+   "f27@21",
+   "f28@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c097": {
+  "key": "f27@21+f29@11",
+  "tokens": [
+   "f27@21",
+   "f29@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c098": {
+  "key": "f27@21+f29@12",
+  "tokens": [
+   "f27@21",
+   "f29@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c099": {
+  "key": "f27@21+f29@14",
+  "tokens": [
+   "f27@21",
+   "f29@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c100": {
+  "key": "f27@21+f29@17",
+  "tokens": [
+   "f27@21",
+   "f29@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c101": {
+  "key": "f27@21+f29@20",
+  "tokens": [
+   "f27@21",
+   "f29@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c102": {
+  "key": "f27@21+f29@21",
+  "tokens": [
+   "f27@21",
+   "f29@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c103": {
+  "key": "f27@21+f30@11",
+  "tokens": [
+   "f27@21",
+   "f30@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c104": {
+  "key": "f27@21+f30@12",
+  "tokens": [
+   "f27@21",
+   "f30@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c105": {
+  "key": "f27@21+f30@14",
+  "tokens": [
+   "f27@21",
+   "f30@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c106": {
+  "key": "f27@21+f30@17",
+  "tokens": [
+   "f27@21",
+   "f30@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c107": {
+  "key": "f27@21+f30@20",
+  "tokens": [
+   "f27@21",
+   "f30@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c108": {
+  "key": "f27@21+f30@21",
+  "tokens": [
+   "f27@21",
+   "f30@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c109": {
+  "key": "f1+f20",
+  "tokens": [
+   "f1",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c110": {
+  "key": "f2+f20",
+  "tokens": [
+   "f2",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c111": {
+  "key": "f3+f20",
+  "tokens": [
+   "f3",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c112": {
+  "key": "f4+f20",
+  "tokens": [
+   "f4",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c113": {
+  "key": "f9+f20",
+  "tokens": [
+   "f9",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c114": {
+  "key": "f10+f20",
+  "tokens": [
+   "f10",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c115": {
+  "key": "f12+f20",
+  "tokens": [
+   "f12",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c116": {
+  "key": "f14+f20",
+  "tokens": [
+   "f14",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c117": {
+  "key": "f18+f20",
+  "tokens": [
+   "f18",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c118": {
+  "key": "f19+f20",
+  "tokens": [
+   "f19",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c119": {
+  "key": "f20+f22",
+  "tokens": [
+   "f20",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c120": {
+  "key": "f20+f24",
+  "tokens": [
+   "f20",
+   "f24"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c121": {
+  "key": "f20+f23@11",
+  "tokens": [
+   "f20",
+   "f23@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c122": {
+  "key": "f20+f23@12",
+  "tokens": [
+   "f20",
+   "f23@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c123": {
+  "key": "f20+f23@14",
+  "tokens": [
+   "f20",
+   "f23@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c124": {
+  "key": "f20+f23@17",
+  "tokens": [
+   "f20",
+   "f23@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c125": {
+  "key": "f20+f23@20",
+  "tokens": [
+   "f20",
+   "f23@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c126": {
+  "key": "f20+f23@21",
+  "tokens": [
+   "f20",
+   "f23@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c127": {
+  "key": "f20+f25@11",
+  "tokens": [
+   "f20",
+   "f25@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c128": {
+  "key": "f20+f25@12",
+  "tokens": [
+   "f20",
+   "f25@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c129": {
+  "key": "f20+f25@14",
+  "tokens": [
+   "f20",
+   "f25@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c130": {
+  "key": "f20+f25@17",
+  "tokens": [
+   "f20",
+   "f25@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c131": {
+  "key": "f20+f25@20",
+  "tokens": [
+   "f20",
+   "f25@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c132": {
+  "key": "f20+f25@21",
+  "tokens": [
+   "f20",
+   "f25@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c133": {
+  "key": "f20+f26@11",
+  "tokens": [
+   "f20",
+   "f26@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c134": {
+  "key": "f20+f26@12",
+  "tokens": [
+   "f20",
+   "f26@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c135": {
+  "key": "f20+f26@14",
+  "tokens": [
+   "f20",
+   "f26@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c136": {
+  "key": "f20+f26@17",
+  "tokens": [
+   "f20",
+   "f26@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c137": {
+  "key": "f20+f26@20",
+  "tokens": [
+   "f20",
+   "f26@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c138": {
+  "key": "f20+f26@21",
+  "tokens": [
+   "f20",
+   "f26@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c139": {
+  "key": "f20+f27@11",
+  "tokens": [
+   "f20",
+   "f27@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c140": {
+  "key": "f20+f27@12",
+  "tokens": [
+   "f20",
+   "f27@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c141": {
+  "key": "f20+f27@14",
+  "tokens": [
+   "f20",
+   "f27@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c142": {
+  "key": "f20+f27@17",
+  "tokens": [
+   "f20",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c143": {
+  "key": "f20+f27@20",
+  "tokens": [
+   "f20",
+   "f27@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c144": {
+  "key": "f20+f28@11",
+  "tokens": [
+   "f20",
+   "f28@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c145": {
+  "key": "f20+f28@12",
+  "tokens": [
+   "f20",
+   "f28@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c146": {
+  "key": "f20+f28@14",
+  "tokens": [
+   "f20",
+   "f28@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c147": {
+  "key": "f20+f28@17",
+  "tokens": [
+   "f20",
+   "f28@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c148": {
+  "key": "f20+f28@20",
+  "tokens": [
+   "f20",
+   "f28@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c149": {
+  "key": "f20+f28@21",
+  "tokens": [
+   "f20",
+   "f28@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c150": {
+  "key": "f20+f29@11",
+  "tokens": [
+   "f20",
+   "f29@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c151": {
+  "key": "f20+f29@12",
+  "tokens": [
+   "f20",
+   "f29@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c152": {
+  "key": "f20+f29@14",
+  "tokens": [
+   "f20",
+   "f29@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c153": {
+  "key": "f20+f29@17",
+  "tokens": [
+   "f20",
+   "f29@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c154": {
+  "key": "f20+f29@20",
+  "tokens": [
+   "f20",
+   "f29@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c155": {
+  "key": "f20+f29@21",
+  "tokens": [
+   "f20",
+   "f29@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c156": {
+  "key": "f20+f30@11",
+  "tokens": [
+   "f20",
+   "f30@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c157": {
+  "key": "f20+f30@12",
+  "tokens": [
+   "f20",
+   "f30@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c158": {
+  "key": "f20+f30@14",
+  "tokens": [
+   "f20",
+   "f30@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c159": {
+  "key": "f20+f30@17",
+  "tokens": [
+   "f20",
+   "f30@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c160": {
+  "key": "f20+f30@20",
+  "tokens": [
+   "f20",
+   "f30@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c161": {
+  "key": "f20+f30@21",
+  "tokens": [
+   "f20",
+   "f30@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c162": {
+  "key": "f1+f27@17",
+  "tokens": [
+   "f1",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c163": {
+  "key": "f2+f27@17",
+  "tokens": [
+   "f2",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c164": {
+  "key": "f3+f27@17",
+  "tokens": [
+   "f3",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c165": {
+  "key": "f4+f27@17",
+  "tokens": [
+   "f4",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c166": {
+  "key": "f9+f27@17",
+  "tokens": [
+   "f9",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c167": {
+  "key": "f10+f27@17",
+  "tokens": [
+   "f10",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c168": {
+  "key": "f12+f27@17",
+  "tokens": [
+   "f12",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c169": {
+  "key": "f14+f27@17",
+  "tokens": [
+   "f14",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c170": {
+  "key": "f18+f27@17",
+  "tokens": [
+   "f18",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c171": {
+  "key": "f19+f27@17",
+  "tokens": [
+   "f19",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c172": {
+  "key": "f22+f27@17",
+  "tokens": [
+   "f22",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c173": {
+  "key": "f24+f27@17",
+  "tokens": [
+   "f24",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c174": {
+  "key": "f23@11+f27@17",
+  "tokens": [
+   "f23@11",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c175": {
+  "key": "f23@12+f27@17",
+  "tokens": [
+   "f23@12",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c176": {
+  "key": "f23@14+f27@17",
+  "tokens": [
+   "f23@14",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c177": {
+  "key": "f23@17+f27@17",
+  "tokens": [
+   "f23@17",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c178": {
+  "key": "f23@20+f27@17",
+  "tokens": [
+   "f23@20",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c179": {
+  "key": "f23@21+f27@17",
+  "tokens": [
+   "f23@21",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c180": {
+  "key": "f25@11+f27@17",
+  "tokens": [
+   "f25@11",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c181": {
+  "key": "f25@12+f27@17",
+  "tokens": [
+   "f25@12",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c182": {
+  "key": "f25@14+f27@17",
+  "tokens": [
+   "f25@14",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c183": {
+  "key": "f25@17+f27@17",
+  "tokens": [
+   "f25@17",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c184": {
+  "key": "f25@20+f27@17",
+  "tokens": [
+   "f25@20",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c185": {
+  "key": "f25@21+f27@17",
+  "tokens": [
+   "f25@21",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c186": {
+  "key": "f26@11+f27@17",
+  "tokens": [
+   "f26@11",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c187": {
+  "key": "f26@12+f27@17",
+  "tokens": [
+   "f26@12",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c188": {
+  "key": "f26@14+f27@17",
+  "tokens": [
+   "f26@14",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c189": {
+  "key": "f26@17+f27@17",
+  "tokens": [
+   "f26@17",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c190": {
+  "key": "f26@20+f27@17",
+  "tokens": [
+   "f26@20",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c191": {
+  "key": "f26@21+f27@17",
+  "tokens": [
+   "f26@21",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c192": {
+  "key": "f27@11+f27@17",
+  "tokens": [
+   "f27@11",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c193": {
+  "key": "f27@12+f27@17",
+  "tokens": [
+   "f27@12",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c194": {
+  "key": "f27@14+f27@17",
+  "tokens": [
+   "f27@14",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c195": {
+  "key": "f27@17+f27@20",
+  "tokens": [
+   "f27@17",
+   "f27@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c196": {
+  "key": "f27@17+f28@11",
+  "tokens": [
+   "f27@17",
+   "f28@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c197": {
+  "key": "f27@17+f28@12",
+  "tokens": [
+   "f27@17",
+   "f28@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c198": {
+  "key": "f27@17+f28@14",
+  "tokens": [
+   "f27@17",
+   "f28@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c199": {
+  "key": "f27@17+f28@17",
+  "tokens": [
+   "f27@17",
+   "f28@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c200": {
+  "key": "f27@17+f28@20",
+  "tokens": [
+   "f27@17",
+   "f28@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c201": {
+  "key": "f27@17+f28@21",
+  "tokens": [
+   "f27@17",
+   "f28@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c202": {
+  "key": "f27@17+f29@11",
+  "tokens": [
+   "f27@17",
+   "f29@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c203": {
+  "key": "f27@17+f29@12",
+  "tokens": [
+   "f27@17",
+   "f29@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c204": {
+  "key": "f27@17+f29@14",
+  "tokens": [
+   "f27@17",
+   "f29@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c205": {
+  "key": "f27@17+f29@17",
+  "tokens": [
+   "f27@17",
+   "f29@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c206": {
+  "key": "f27@17+f29@20",
+  "tokens": [
+   "f27@17",
+   "f29@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c207": {
+  "key": "f27@17+f29@21",
+  "tokens": [
+   "f27@17",
+   "f29@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c208": {
+  "key": "f27@17+f30@11",
+  "tokens": [
+   "f27@17",
+   "f30@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c209": {
+  "key": "f27@17+f30@12",
+  "tokens": [
+   "f27@17",
+   "f30@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c210": {
+  "key": "f27@17+f30@14",
+  "tokens": [
+   "f27@17",
+   "f30@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c211": {
+  "key": "f27@17+f30@17",
+  "tokens": [
+   "f27@17",
+   "f30@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c212": {
+  "key": "f27@17+f30@20",
+  "tokens": [
+   "f27@17",
+   "f30@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c213": {
+  "key": "f27@17+f30@21",
+  "tokens": [
+   "f27@17",
+   "f30@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c214": {
+  "key": "f1+f18",
+  "tokens": [
+   "f1",
+   "f18"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c215": {
+  "key": "f2+f18",
+  "tokens": [
+   "f2",
+   "f18"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c216": {
+  "key": "f3+f18",
+  "tokens": [
+   "f3",
+   "f18"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c217": {
+  "key": "f4+f18",
+  "tokens": [
+   "f4",
+   "f18"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c218": {
+  "key": "f9+f18",
+  "tokens": [
+   "f9",
+   "f18"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c219": {
+  "key": "f10+f18",
+  "tokens": [
+   "f10",
+   "f18"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c220": {
+  "key": "f12+f18",
+  "tokens": [
+   "f12",
+   "f18"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c221": {
+  "key": "f14+f18",
+  "tokens": [
+   "f14",
+   "f18"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c222": {
+  "key": "f18+f19",
+  "tokens": [
+   "f18",
+   "f19"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c223": {
+  "key": "f18+f22",
+  "tokens": [
+   "f18",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c224": {
+  "key": "f18+f24",
+  "tokens": [
+   "f18",
+   "f24"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c225": {
+  "key": "f18+f23@11",
+  "tokens": [
+   "f18",
+   "f23@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c226": {
+  "key": "f18+f23@12",
+  "tokens": [
+   "f18",
+   "f23@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c227": {
+  "key": "f18+f23@14",
+  "tokens": [
+   "f18",
+   "f23@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c228": {
+  "key": "f18+f23@17",
+  "tokens": [
+   "f18",
+   "f23@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c229": {
+  "key": "f18+f23@20",
+  "tokens": [
+   "f18",
+   "f23@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c230": {
+  "key": "f18+f23@21",
+  "tokens": [
+   "f18",
+   "f23@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c231": {
+  "key": "f18+f25@11",
+  "tokens": [
+   "f18",
+   "f25@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c232": {
+  "key": "f18+f25@12",
+  "tokens": [
+   "f18",
+   "f25@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c233": {
+  "key": "f18+f25@14",
+  "tokens": [
+   "f18",
+   "f25@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c234": {
+  "key": "f18+f25@17",
+  "tokens": [
+   "f18",
+   "f25@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c235": {
+  "key": "f18+f25@20",
+  "tokens": [
+   "f18",
+   "f25@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c236": {
+  "key": "f18+f25@21",
+  "tokens": [
+   "f18",
+   "f25@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c237": {
+  "key": "f18+f26@11",
+  "tokens": [
+   "f18",
+   "f26@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c238": {
+  "key": "f18+f26@12",
+  "tokens": [
+   "f18",
+   "f26@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c239": {
+  "key": "f18+f26@14",
+  "tokens": [
+   "f18",
+   "f26@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c240": {
+  "key": "f18+f26@17",
+  "tokens": [
+   "f18",
+   "f26@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c241": {
+  "key": "f18+f26@20",
+  "tokens": [
+   "f18",
+   "f26@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c242": {
+  "key": "f18+f26@21",
+  "tokens": [
+   "f18",
+   "f26@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c243": {
+  "key": "f18+f27@11",
+  "tokens": [
+   "f18",
+   "f27@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c244": {
+  "key": "f18+f27@12",
+  "tokens": [
+   "f18",
+   "f27@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c245": {
+  "key": "f18+f27@14",
+  "tokens": [
+   "f18",
+   "f27@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c246": {
+  "key": "f18+f27@20",
+  "tokens": [
+   "f18",
+   "f27@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c247": {
+  "key": "f18+f28@11",
+  "tokens": [
+   "f18",
+   "f28@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c248": {
+  "key": "f18+f28@12",
+  "tokens": [
+   "f18",
+   "f28@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c249": {
+  "key": "f18+f28@14",
+  "tokens": [
+   "f18",
+   "f28@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c250": {
+  "key": "f18+f28@17",
+  "tokens": [
+   "f18",
+   "f28@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c251": {
+  "key": "f18+f28@20",
+  "tokens": [
+   "f18",
+   "f28@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c252": {
+  "key": "f18+f28@21",
+  "tokens": [
+   "f18",
+   "f28@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c253": {
+  "key": "f18+f29@11",
+  "tokens": [
+   "f18",
+   "f29@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c254": {
+  "key": "f18+f29@12",
+  "tokens": [
+   "f18",
+   "f29@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c255": {
+  "key": "f18+f29@14",
+  "tokens": [
+   "f18",
+   "f29@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c256": {
+  "key": "f18+f29@17",
+  "tokens": [
+   "f18",
+   "f29@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c257": {
+  "key": "f18+f29@20",
+  "tokens": [
+   "f18",
+   "f29@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c258": {
+  "key": "f18+f29@21",
+  "tokens": [
+   "f18",
+   "f29@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c259": {
+  "key": "f18+f30@11",
+  "tokens": [
+   "f18",
+   "f30@11"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c260": {
+  "key": "f18+f30@12",
+  "tokens": [
+   "f18",
+   "f30@12"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c261": {
+  "key": "f18+f30@14",
+  "tokens": [
+   "f18",
+   "f30@14"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c262": {
+  "key": "f18+f30@17",
+  "tokens": [
+   "f18",
+   "f30@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c263": {
+  "key": "f18+f30@20",
+  "tokens": [
+   "f18",
+   "f30@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "r02_c264": {
+  "key": "f18+f30@21",
+  "tokens": [
+   "f18",
+   "f30@21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ }
+}

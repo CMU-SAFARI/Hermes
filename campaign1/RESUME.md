@@ -66,6 +66,16 @@ REPO=/home/rahbera/thesis/Hermes
          --exp $C/rounds/roundNN/exp.yml --mfile $C/mfile.yml \
          --label campaign1_rNN`
       Record batch_id in state.json.
+      **Then right-size walltime immediately** (learned r01: the submit tool's
+      24h default blocks backfill behind higher-priority users — 8h starvation
+      with 620 CPUs idle; scontrol TimeLimit -> 4:00:00 unblocked it in
+      seconds). One ssh, server-side:
+      `squeue -u rahbera -h -o "%i %j" | awk '$2 ~ /_rNN_/ {print $1}' |
+       while read i; do scontrol update jobid=$i TimeLimit=4:00:00; done`
+      **4h is the FLOOR — never trim below it.** Measured r01: the slowest
+      suite trace (853.ns3 tcp_validation, IPC 0.11) needs ~3h05m for
+      50M+200M; a 3h trim killed 71 jobs minutes before completion (retried
+      at 5h). Only round 1 had 12h _wf twins.
    g. Publish (worktree, never the main checkout):
       `rsync -a --delete $C/ /home/rahbera/thesis/Hermes-tuning/campaign1/ &&
        git -C /home/rahbera/thesis/Hermes-tuning add campaign1 &&

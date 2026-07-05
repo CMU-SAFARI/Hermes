@@ -1,0 +1,34 @@
+spec26:
+- 823.llvm_s-particle_handler_0015-5B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-particle_handler_0015-5B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.466667
+    category: particle_handler_0015
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-selectiondagbuilder_0007-4B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-selectiondagbuilder_0007-4B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.647059
+    category: selectiondagbuilder_0007
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 853.ns3_s-tcp_validation-187B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/853.ns3_s-tcp_validation-187B.champsim2.zst
+    version: 2
+    workload: 853.ns3_s
+    weight: 0.420168
+    category: tcp_validation
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
