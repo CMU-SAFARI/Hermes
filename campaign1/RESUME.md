@@ -123,9 +123,21 @@ Mechanics (all reusable autonomously):
   on the precision floor). If yes: the dominating third feature earns a
   follow-up sweep. Report per-trace fotonik3d/graph500-3313B columns too —
   they are the bandwidth-sensitive canaries.
-- sweep01 (27 configs, 1350 jobs): f21+f22 act {-13..+9 step 2} (12 pts);
-  probe triples +f20/+f18/+f27@17/+f30@20 at act {-10,-4,+2}; f20+f21 at
-  {-7,-1,+5}. AWAITING OWNER GO — do not submit until the owner says go.
+- sweep01 (30 configs, 1500 jobs; revised per owner 2026-07-06): f21+f22 act
+  {-15..+7 step 2} (12 pts — owner dropped +9, added -15); probe triples
+  +f20/+f18/+f27@17/+f30@20 at act {-10,-4,+2}; f20+f21 at {-13,-9,-5,-1,+3,+7}
+  (6 pts — owner expanded). AWAITING OWNER GO — do not submit until the owner
+  says go.
+
+Queued follow-up sweeps (owner-declared 2026-07-06, run AFTER the feature set
+is closed via sweep01, each as its own sweepNN with owner vet of the spec):
+1. **pos/neg train-threshold sweep** on the chosen set at its chosen
+   activation point (the train thresholds set weight saturation/adaptivity;
+   only act was swept so far).
+2. **weight-table-size sweep** on the chosen set (owner expects low
+   sensitivity for f21 — its natural index space is 2^10 so 65536 is
+   oversized — but f22's 28-bit signature may care; this sweep sizes the
+   actual hardware budget).
 
 ## Open decisions log
 

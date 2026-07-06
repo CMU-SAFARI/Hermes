@@ -1707,6 +1707,10 @@
   {
    "utc": "2026-07-06",
    "event": "OWNER AMENDMENT: selection criterion is now precision-first with justifiable recall trade-off, judged on threshold-swept P-R curves (evidence: precision<->IPC corr +0.975/+0.954 on fotonik3d/graph500-3313B vs +0.36 suite-wide; 0/265 pairs beat f21's singleton precision at fixed thresholds \u2014 features buy recall, thresholds buy precision). Phase-2 sweep01 prepared: 27 configs/1350 jobs (f21+f22 12-pt act curve; 4 probe triples x3; f20+f21 x3). Documented in RESUME.md. Awaiting owner GO."
+  },
+  {
+   "utc": "2026-07-06",
+   "event": "sweep01 revised per owner: f21+f22 act {-15..+7} (dropped +9, added -15); f20+f21 expanded to 6 pts {-13,-9,-5,-1,+3,+7}; now 30 configs/1500 jobs. Queued future sweeps documented: pos/neg train thresholds, then weight-table sizes (after feature set closes). Still awaiting owner GO."
   }
  ]
 }
