@@ -101,9 +101,14 @@ def score_window(manifest, rows, window, baselines):
 
 def main():
     cdir = os.path.abspath(sys.argv[1])
-    rnd = int(sys.argv[2])
+    try:
+        rnd = int(sys.argv[2])
+        rname = f"round{rnd:02d}"
+    except ValueError:
+        rnd = sys.argv[2]          # sweep rounds are named, e.g. "sweep01"
+        rname = sys.argv[2]
     stats_csv = sys.argv[3]
-    rdir = os.path.join(cdir, "rounds", f"round{rnd:02d}")
+    rdir = os.path.join(cdir, "rounds", rname)
     manifest = json.load(open(os.path.join(rdir, "manifest.json")))
     rows = load_rows(stats_csv)
 
