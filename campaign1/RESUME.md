@@ -100,6 +100,33 @@ improvise around the protocol.
 1. ~~Confirm address space~~ RESOLVED: physical (owner, 2026-07-03).
 2. Say "go": status -> `running`, generate + launch round 1, start the loop.
 
+## Phase 2: precision sweeps (owner-approved 2026-07-06, post-convergence)
+
+The beam search converged at round 2 (f21+f22, +0.171% < eps). The owner then
+amended the goal based on the bandwidth analysis (per-trace precision<->IPC
+correlation +0.95 on fotonik3d/graph500-3313B while suite-wide only +0.36 —
+ample DRAM bandwidth masks precision in the geomean): **the selection
+criterion for the final config is now precision-first with a justifiable
+recall trade-off**, evaluated on precision-recall CURVES (threshold-swept),
+not fixed-threshold points.
+
+Mechanics (all reusable autonomously):
+- `scripts/gen_sweep.py <campaign> <sweepNN>` reads `rounds/<sweepNN>/spec.json`
+  (entries = token-set + list of activation thresholds; pos/neg train stay at
+  the N-rule) and writes exp.yml + manifest.json. Keys are `<set>|act=<A>`.
+- Launch/collect/publish exactly like a beam round (same orchestrator, same
+  collect.py, baselines from baselines.json). Walltime right-size: **6h**
+  (sweep contains triples; r02 lesson).
+- Judgment for sweeps: overlay P-R curves per token-set; decision rule =
+  does any probe triple's curve dominate f21+f22's curve at precision >= ~82%?
+  If no: feature set CLOSED at f21+f22, pick the operating point (owner call
+  on the precision floor). If yes: the dominating third feature earns a
+  follow-up sweep. Report per-trace fotonik3d/graph500-3313B columns too —
+  they are the bandwidth-sensitive canaries.
+- sweep01 (27 configs, 1350 jobs): f21+f22 act {-13..+9 step 2} (12 pts);
+  probe triples +f20/+f18/+f27@17/+f30@20 at act {-10,-4,+2}; f20+f21 at
+  {-7,-1,+5}. AWAITING OWNER GO — do not submit until the owner says go.
+
 ## Open decisions log
 
 - 2026-07-03: address_space — RESOLVED by owner: **physical**

@@ -1,0 +1,67 @@
+spec26:
+- 737.gmsh_r-mediterranean-149B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-mediterranean-149B.champsim2.zst
+    version: 2
+    workload: 737.gmsh_r
+    weight: 0.388235
+    category: mediterranean
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 749.fotonik3d_r-default-599B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-599B.champsim2.zst
+    version: 2
+    workload: 749.fotonik3d_r
+    weight: 0.252664
+    category: default
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 765.roms_r-benchmark2-900B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/765.roms_r-benchmark2-900B.champsim2.zst
+    version: 2
+    workload: 765.roms_r
+    weight: 0.269438
+    category: benchmark2
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 800.pot3d_s-pot3d_n1-1519B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/800.pot3d_s-pot3d_n1-1519B.champsim2.zst
+    version: 2
+    workload: 800.pot3d_s
+    weight: 0.324117
+    category: pot3d_n1
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 809.cactus_s-shifted_gauge_wave-1690B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/809.cactus_s-shifted_gauge_wave-1690B.champsim2.zst
+    version: 2
+    workload: 809.cactus_s
+    weight: 0.472211
+    category: shifted_gauge_wave
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 821.gcc_s-lz4hc_0007-10B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0007-10B.champsim2.zst
+    version: 2
+    workload: 821.gcc_s
+    weight: 0.653846
+    category: lz4hc_0007
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
