@@ -1,0 +1,9 @@
+{
+  "owner_approved": "autonomous follow-up per Phase-2 rule (sweep01 verdict: f20+f21+f22 dominates); owner reviews in the morning",
+  "purpose": "densify the dominant triple's curve around act=+2; extend both comparison pairs past 84% precision",
+  "entries": [
+    { "tokens": ["f21","f22","f20"], "act": [-2,0,4,6,8,10] },
+    { "tokens": ["f21","f22"],       "act": [9,11] },
+    { "tokens": ["f20","f21"],       "act": [11] }
+  ]
+}

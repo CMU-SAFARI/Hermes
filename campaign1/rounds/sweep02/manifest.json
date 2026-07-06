@@ -1,0 +1,89 @@
+{
+ "sweep02_c000": {
+  "key": "f20+f21+f22|act=-2",
+  "tokens": [
+   "f21",
+   "f22",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep02_c001": {
+  "key": "f20+f21+f22|act=0",
+  "tokens": [
+   "f21",
+   "f22",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep02_c002": {
+  "key": "f20+f21+f22|act=4",
+  "tokens": [
+   "f21",
+   "f22",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep02_c003": {
+  "key": "f20+f21+f22|act=6",
+  "tokens": [
+   "f21",
+   "f22",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep02_c004": {
+  "key": "f20+f21+f22|act=8",
+  "tokens": [
+   "f21",
+   "f22",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep02_c005": {
+  "key": "f20+f21+f22|act=10",
+  "tokens": [
+   "f21",
+   "f22",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep02_c006": {
+  "key": "f21+f22|act=9",
+  "tokens": [
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep02_c007": {
+  "key": "f21+f22|act=11",
+  "tokens": [
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep02_c008": {
+  "key": "f20+f21|act=11",
+  "tokens": [
+   "f20",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ }
+}

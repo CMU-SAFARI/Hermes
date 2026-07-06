@@ -1,6 +1,6 @@
 {
  "campaign": "campaign1-pcless-uncore-beam",
- "status": "sweep01-running",
+ "status": "sweep01-scored",
  "round": 2,
  "beam": [
   {
@@ -1648,15 +1648,226 @@
    "round": 2,
    "geo_nopf": 1.1567418119761024,
    "geo_pythia": 1.0162389391618378
+  },
+  "f20+f21+f22|act=2": {
+   "round": "sweep01",
+   "geo_nopf": 1.1636397326167573,
+   "geo_pythia": 1.022299008471779,
+   "prec": 84.0002,
+   "recall": 76.4538
+  },
+  "f21+f22|act=-5": {
+   "round": "sweep01",
+   "geo_nopf": 1.1631810039401167,
+   "geo_pythia": 1.0218959989679415,
+   "prec": 79.836,
+   "recall": 80.1352
+  },
+  "f21+f22|act=-7": {
+   "round": "sweep01",
+   "geo_nopf": 1.1631234768062249,
+   "geo_pythia": 1.0218454593290054,
+   "prec": 78.7622,
+   "recall": 81.3122
+  },
+  "f20+f21+f22|act=-10": {
+   "round": "sweep01",
+   "geo_nopf": 1.1630153967527104,
+   "geo_pythia": 1.0217505071471176,
+   "prec": 78.8,
+   "recall": 83.0236
+  },
+  "f21+f22+f27@17|act=-4": {
+   "round": "sweep01",
+   "geo_nopf": 1.162897869986902,
+   "geo_pythia": 1.021647255691545,
+   "prec": 80.6028,
+   "recall": 78.7152
+  },
+  "f18+f21+f22|act=-10": {
+   "round": "sweep01",
+   "geo_nopf": 1.1626425554719577,
+   "geo_pythia": 1.0214229527839012,
+   "prec": 78.3084,
+   "recall": 81.393
+  },
+  "f21+f22+f27@17|act=2": {
+   "round": "sweep01",
+   "geo_nopf": 1.1625028686427568,
+   "geo_pythia": 1.0213002329222585,
+   "prec": 82.9806,
+   "recall": 75.12
+  },
+  "f21+f22+f30@20|act=2": {
+   "round": "sweep01",
+   "geo_nopf": 1.1622204708378479,
+   "geo_pythia": 1.0210521363784049,
+   "prec": 82.633,
+   "recall": 74.8856
+  },
+  "f18+f21+f22|act=2": {
+   "round": "sweep01",
+   "geo_nopf": 1.161887477717167,
+   "geo_pythia": 1.0207595900450699,
+   "prec": 82.6766,
+   "recall": 75.0194
+  },
+  "f21+f22+f30@20|act=-10": {
+   "round": "sweep01",
+   "geo_nopf": 1.1617453285622301,
+   "geo_pythia": 1.0206347069424446,
+   "prec": 75.70479999999999,
+   "recall": 82.9742
+  },
+  "f20+f21+f22|act=-4": {
+   "round": "sweep01",
+   "geo_nopf": 1.1614845450848381,
+   "geo_pythia": 1.0204055993562295,
+   "prec": 81.58279999999999,
+   "recall": 79.6982
+  },
+  "f20+f21|act=-5": {
+   "round": "sweep01",
+   "geo_nopf": 1.161222206078488,
+   "geo_pythia": 1.020175125182344,
+   "prec": 80.0944,
+   "recall": 79.29560000000001
+  },
+  "f21+f22|act=3": {
+   "round": "sweep01",
+   "geo_nopf": 1.1609144417370583,
+   "geo_pythia": 1.0199047432314123,
+   "prec": 82.8364,
+   "recall": 74.566
+  },
+  "f20+f21|act=-9": {
+   "round": "sweep01",
+   "geo_nopf": 1.1608154435328593,
+   "geo_pythia": 1.019817769778069,
+   "prec": 77.9488,
+   "recall": 81.9384
+  },
+  "f21+f22|act=5": {
+   "round": "sweep01",
+   "geo_nopf": 1.1607670474491865,
+   "geo_pythia": 1.0197752520924266,
+   "prec": 83.455,
+   "recall": 73.17779999999999
+  },
+  "f20+f21|act=-1": {
+   "round": "sweep01",
+   "geo_nopf": 1.160532509432089,
+   "geo_pythia": 1.0195692020791733,
+   "prec": 81.7396,
+   "recall": 77.3576
+  },
+  "f21+f22|act=-1": {
+   "round": "sweep01",
+   "geo_nopf": 1.1604761944064184,
+   "geo_pythia": 1.0195197273205419,
+   "prec": 81.3712,
+   "recall": 77.7328
+  },
+  "f21+f22|act=-3": {
+   "round": "sweep01",
+   "geo_nopf": 1.1604021630902608,
+   "geo_pythia": 1.0194546881688333,
+   "prec": 80.51480000000001,
+   "recall": 78.8642
+  },
+  "f21+f22|act=-13": {
+   "round": "sweep01",
+   "geo_nopf": 1.1603391378949073,
+   "geo_pythia": 1.0193993182868049,
+   "prec": 69.91199999999999,
+   "recall": 87.985
+  },
+  "f20+f21|act=3": {
+   "round": "sweep01",
+   "geo_nopf": 1.1602576960038757,
+   "geo_pythia": 1.0193277686807576,
+   "prec": 83.05879999999999,
+   "recall": 74.929
+  },
+  "f21+f22|act=7": {
+   "round": "sweep01",
+   "geo_nopf": 1.1602083830914791,
+   "geo_pythia": 1.0192844455283807,
+   "prec": 84.0248,
+   "recall": 71.9684
+  },
+  "f20+f21|act=7": {
+   "round": "sweep01",
+   "geo_nopf": 1.1601434902881118,
+   "geo_pythia": 1.0192274348861006,
+   "prec": 84.07440000000001,
+   "recall": 72.743
+  },
+  "f18+f21+f22|act=-4": {
+   "round": "sweep01",
+   "geo_nopf": 1.1600709264632925,
+   "geo_pythia": 1.0191636849778734,
+   "prec": 80.6708,
+   "recall": 78.0542
+  },
+  "f21+f22|act=1": {
+   "round": "sweep01",
+   "geo_nopf": 1.159869494064305,
+   "geo_pythia": 1.018986719430903,
+   "prec": 82.1258,
+   "recall": 76.0016
+  },
+  "f21+f22|act=-9": {
+   "round": "sweep01",
+   "geo_nopf": 1.1597193195028226,
+   "geo_pythia": 1.0188547857223864,
+   "prec": 77.332,
+   "recall": 82.5932
+  },
+  "f21+f22+f30@20|act=-4": {
+   "round": "sweep01",
+   "geo_nopf": 1.159698623901712,
+   "geo_pythia": 1.018836603898664,
+   "prec": 79.844,
+   "recall": 79.1916
+  },
+  "f21+f22+f27@17|act=-10": {
+   "round": "sweep01",
+   "geo_nopf": 1.1592154205975957,
+   "geo_pythia": 1.0184120925616564,
+   "prec": 77.3692,
+   "recall": 81.9812
+  },
+  "f21+f22|act=-11": {
+   "round": "sweep01",
+   "geo_nopf": 1.1590314842883302,
+   "geo_pythia": 1.0182504979535374,
+   "prec": 75.1054,
+   "recall": 84.7992
+  },
+  "f20+f21|act=-13": {
+   "round": "sweep01",
+   "geo_nopf": 1.1590286693581453,
+   "geo_pythia": 1.01824802493697,
+   "prec": 71.5934,
+   "recall": 86.9252
+  },
+  "f21+f22|act=-15": {
+   "round": "sweep01",
+   "geo_nopf": 1.1580268110057184,
+   "geo_pythia": 1.0173678566412279,
+   "prec": 63.172,
+   "recall": 90.1142
   }
  },
  "batches": {
   "1": "20260703T211325Z_campaign1_r01",
   "2": "20260705T005116Z_campaign1_r02",
   "sweep01": "20260706T142403Z_campaign1_sweep01",
-  "val01": "20260706T151619Z_campaign1_val01"
+  "val01": "20260706T151619Z_campaign1_val01",
+  "sweep02": "20260706T200742Z_campaign1_sweep02"
  },
- "jobs_total": 25680,
+ "jobs_total": 26130,
  "log": [
   {
    "utc": "2026-07-03",
@@ -1733,6 +1944,10 @@
   {
    "utc": "2026-07-06",
    "event": "FIDELITY VERDICT: aggregate Spearman 0.784 tripped the 0.8 tripwire; diagnosis shows tie-shuffling artifact \u2014 f21 #1 in BOTH windows (IPC and precision), beam picks all in full-window top-8, precision fidelity Pearson 0.991. OPERATOR RULING: proceed with caution note (no HOLD), flagged prominently for owner review; recommended finalist full-window confirmation queued. FINAL_REPORT.md written."
+  },
+  {
+   "utc": "2026-07-06",
+   "event": "sweep01 scored (30/30 valid, 50/50 traces): VERDICT \u2014 f20+f21+f22 DOMINATES f21+f22 at >=82% precision (84.0p/76.5r/1.0223geo @ act+2 vs 84.0p/72.0r/1.0193 @ act+7); best geo of campaign. Follow-up sweep02 launched per Phase-2 mandate: 20260706T200742Z_campaign1_sweep02, 450 jobs (dense triple curve -2..+10, pairs extended +9/+11). jobs_total=26130."
   }
  ]
 }
