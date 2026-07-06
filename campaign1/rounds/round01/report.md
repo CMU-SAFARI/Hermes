@@ -3,6 +3,10 @@
 - traces scored: 50 / dropped: 0
 - configs scored: 56
 
+## Window fidelity (50M+200M vs 100M+500M)
+- Spearman rank correlation over 56 configs: **0.784**
+- top-10 overlap: 7/10
+
 ## Ranking (tuning window, geomean IPC speedup)
 
 | # | key | vs nopf | vs pythia | worst vs pythia (trace) | prec | recall | flag |

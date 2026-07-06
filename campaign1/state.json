@@ -1729,6 +1729,10 @@
   {
    "utc": "2026-07-06",
    "event": "val01 submitted: batch 20260706T151619Z_campaign1_val01, 4704 jobs, smoke passed, 6h walltime. jobs_total=25680/120000. Queue: sweep01 ~500 done, twins at 2."
+  },
+  {
+   "utc": "2026-07-06",
+   "event": "FIDELITY VERDICT: aggregate Spearman 0.784 tripped the 0.8 tripwire; diagnosis shows tie-shuffling artifact \u2014 f21 #1 in BOTH windows (IPC and precision), beam picks all in full-window top-8, precision fidelity Pearson 0.991. OPERATOR RULING: proceed with caution note (no HOLD), flagged prominently for owner review; recommended finalist full-window confirmation queued. FINAL_REPORT.md written."
   }
  ]
 }
