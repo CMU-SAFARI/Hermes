@@ -70,15 +70,30 @@ def main():
     manifest = {}
     idx = 0
     for entry in spec["entries"]:
-        toks = sorted((tok_parse(t) for t in entry["tokens"]),
-                      key=lambda t: (t[0], -1 if t[1] is None else t[1]))
+        n = len(entry["tokens"])
+        # optional per-entry overrides (default: campaign fixed knobs / N-rule);
+        # weight_sizes are written in the ENTRY's token order and sorted along
+        # with the tokens into canonical order
+        in_sizes = entry.get("weight_sizes",
+                             [fixed["weight_array_size_per_feature"]] * n)
+        assert len(in_sizes) == n, f"weight_sizes must have {n} entries"
+        pairs = sorted(zip((tok_parse(t) for t in entry["tokens"]), in_sizes),
+                       key=lambda p: (p[0][0], -1 if p[0][1] is None else p[0][1]))
+        toks = [p[0] for p in pairs]
+        sizes = [p[1] for p in pairs]
         key_set = "+".join(f"f{f}" if z is None else f"f{f}@{z}" for f, z in toks)
-        n = len(toks)
         thr = proto["thresholds_by_n"][n]
         feats = ",".join(str(f) for f, _ in toks)
-        wts = ",".join(str(fixed["weight_array_size_per_feature"]) for _ in toks)
+        wts = ",".join(str(s) for s in sizes)
+        pos = entry.get("pos_train", thr[1])
+        neg = entry.get("neg_train", thr[2])
         hsh = ",".join(str(fixed["feature_hash_type"]) for _ in toks)
         rsz = ",".join(str(NONREGION_SIZE_FILL if z is None else z) for _, z in toks)
+        keyx = ""
+        if "weight_sizes" in entry:
+            keyx += "|w=" + "x".join(str(s) for s in sizes)
+        if "pos_train" in entry or "neg_train" in entry:
+            keyx += f"|tr={pos}/{neg}"
         for act in entry["act"]:
             en = f"{name}_c{idx:03d}"
             idx += 1
@@ -88,11 +103,12 @@ def main():
                     f"--ocp_perc_feature_hash_types={hsh} "
                     f"--ocp_perc_feature_region_size_log2s={rsz} "
                     f"--ocp_perc_activation_threshold={act} "
-                    f"--ocp_perc_pos_train_thresh={thr[1]} "
-                    f"--ocp_perc_neg_train_thresh={thr[2]} "
+                    f"--ocp_perc_pos_train_thresh={pos} "
+                    f"--ocp_perc_neg_train_thresh={neg} "
                     f"$(HERMES)")
             lines.append(f"  - {en} : {args}")
-            manifest[en] = {"key": f"{key_set}|act={act}", "tokens": entry["tokens"],
+            manifest[en] = {"key": f"{key_set}|act={act}{keyx}",
+                            "tokens": entry["tokens"],
                             "window": "tuning", "role": "config"}
     with open(os.path.join(rdir, "exp.yml"), "w") as f:
         f.write("\n".join(lines) + "\n")

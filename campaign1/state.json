@@ -1948,6 +1948,10 @@
   {
    "utc": "2026-07-06",
    "event": "sweep01 scored (30/30 valid, 50/50 traces): VERDICT \u2014 f20+f21+f22 DOMINATES f21+f22 at >=82% precision (84.0p/76.5r/1.0223geo @ act+2 vs 84.0p/72.0r/1.0193 @ act+7); best geo of campaign. Follow-up sweep02 launched per Phase-2 mandate: 20260706T200742Z_campaign1_sweep02, 450 jobs (dense triple curve -2..+10, pairs extended +9/+11). jobs_total=26130."
+  },
+  {
+   "utc": "2026-07-06",
+   "event": "OWNER AUTHORIZATION (overnight): free to launch further exploration sweeps at operator judgment while owner offline \u2014 'make full use of the free cluster'. Planned ladder: (1) val02 = sweep02 configs x 147 traces after sweep02 scores; (2) train-threshold sweep (sweep03) on the triple at the 2 best act points; (3) table-size sweep (sweep04) on the triple; (4) full-window finalist confirmation (val03) on the leading operating points. Est. ~4k jobs, budget headroom ~94k."
   }
  ]
 }

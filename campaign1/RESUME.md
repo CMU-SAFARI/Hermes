@@ -129,8 +129,21 @@ Mechanics (all reusable autonomously):
   (6 pts — owner expanded). AWAITING OWNER GO — do not submit until the owner
   says go.
 
+**OVERNIGHT AUTHORIZATION (owner, 2026-07-06 evening):** while the owner is
+offline (back in the morning), the operator MAY launch further exploration
+sweeps at own judgment to use the free cluster — each gated on the evidence
+before it, within all standing caps. Planned ladder: (1) val02 = sweep02
+configs x 147 traces once sweep02 scores; (2) sweep03 = pos/neg
+train-threshold grid on the leading triple at its 2 best act points;
+(3) sweep04 = weight-table-size sweep on the triple; (4) val03 = full-window
+(100M+500M) confirmation of the leading operating points on 147 traces.
+gen_sweep.py now supports per-entry `pos_train`/`neg_train`/`weight_sizes`
+overrides (sizes written in entry token order, sorted canonically with the
+tokens; keys gain |tr=… / |w=… suffixes).
+
 Queued follow-up sweeps (owner-declared 2026-07-06, run AFTER the feature set
-is closed via sweep01, each as its own sweepNN with owner vet of the spec):
+is closed via sweep01, each as its own sweepNN with owner vet of the spec —
+SUPERSEDED for tonight by the overnight authorization above):
 1. **pos/neg train-threshold sweep** on the chosen set at its chosen
    activation point (the train thresholds set weight saturation/adaptivity;
    only act was swept so far).
