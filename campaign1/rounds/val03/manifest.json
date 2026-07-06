@@ -1,0 +1,53 @@
+{
+ "val03_c000": {
+  "key": "f20+f21+f22|act=2",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val03_c001": {
+  "key": "f20+f21+f22|act=6",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val03_c002": {
+  "key": "f20+f21+f22|act=8",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val03_c003": {
+  "key": "f21+f22|act=7",
+  "tokens": [
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val03_nopf": {
+  "key": "baseline_nopf",
+  "tokens": [],
+  "window": "tuning",
+  "role": "baseline_nopf"
+ },
+ "val03_pythia": {
+  "key": "baseline_pythia",
+  "tokens": [],
+  "window": "tuning",
+  "role": "baseline_pythia"
+ }
+}

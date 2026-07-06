@@ -1865,9 +1865,13 @@
   "2": "20260705T005116Z_campaign1_r02",
   "sweep01": "20260706T142403Z_campaign1_sweep01",
   "val01": "20260706T151619Z_campaign1_val01",
-  "sweep02": "20260706T200742Z_campaign1_sweep02"
+  "sweep02": "20260706T200742Z_campaign1_sweep02",
+  "val02": "20260706T233420Z_campaign1_val02",
+  "sweep03": "20260706T233506Z_campaign1_sweep03",
+  "sweep04": "20260706T233559Z_campaign1_sweep04",
+  "val03": "20260706T233635Z_campaign1_val03"
  },
- "jobs_total": 26130,
+ "jobs_total": 30435,
  "log": [
   {
    "utc": "2026-07-03",
@@ -1952,6 +1956,10 @@
   {
    "utc": "2026-07-06",
    "event": "OWNER AUTHORIZATION (overnight): free to launch further exploration sweeps at operator judgment while owner offline \u2014 'make full use of the free cluster'. Planned ladder: (1) val02 = sweep02 configs x 147 traces after sweep02 scores; (2) train-threshold sweep (sweep03) on the triple at the 2 best act points; (3) table-size sweep (sweep04) on the triple; (4) full-window finalist confirmation (val03) on the leading operating points. Est. ~4k jobs, budget headroom ~94k."
+  },
+  {
+   "utc": "2026-07-07",
+   "event": "overnight launches complete: val02/sweep03/sweep04/val03 = 4305 jobs. jobs_total=30435/120000."
   }
  ]
 }

@@ -1,0 +1,122 @@
+{
+ "sweep04_c000": {
+  "key": "f20+f21+f22|act=2|w=1024x1024x1024",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep04_c001": {
+  "key": "f20+f21+f22|act=2|w=4096x4096x4096",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep04_c002": {
+  "key": "f20+f21+f22|act=2|w=16384x16384x16384",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep04_c003": {
+  "key": "f20+f21+f22|act=2|w=1024x65536x65536",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep04_c004": {
+  "key": "f20+f21+f22|act=2|w=4096x65536x65536",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep04_c005": {
+  "key": "f20+f21+f22|act=2|w=16384x65536x65536",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep04_c006": {
+  "key": "f20+f21+f22|act=2|w=65536x1024x65536",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep04_c007": {
+  "key": "f20+f21+f22|act=2|w=65536x4096x65536",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep04_c008": {
+  "key": "f20+f21+f22|act=2|w=65536x16384x65536",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep04_c009": {
+  "key": "f20+f21+f22|act=2|w=65536x65536x1024",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep04_c010": {
+  "key": "f20+f21+f22|act=2|w=65536x65536x4096",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "sweep04_c011": {
+  "key": "f20+f21+f22|act=2|w=65536x65536x16384",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ }
+}

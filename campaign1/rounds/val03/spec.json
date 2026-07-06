@@ -1,0 +1,26 @@
+{
+ "purpose": "full-window (100M+500M) confirmation of finalists on 147 traces",
+ "entries": [
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2,
+    6,
+    8
+   ]
+  },
+  {
+   "tokens": [
+    "f21",
+    "f22"
+   ],
+   "act": [
+    7
+   ]
+  }
+ ]
+}
