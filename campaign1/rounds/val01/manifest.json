@@ -1,0 +1,296 @@
+{
+ "val01_c000": {
+  "key": "f21+f22|act=-15",
+  "tokens": [
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c001": {
+  "key": "f21+f22|act=-13",
+  "tokens": [
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c002": {
+  "key": "f21+f22|act=-11",
+  "tokens": [
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c003": {
+  "key": "f21+f22|act=-9",
+  "tokens": [
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c004": {
+  "key": "f21+f22|act=-7",
+  "tokens": [
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c005": {
+  "key": "f21+f22|act=-5",
+  "tokens": [
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c006": {
+  "key": "f21+f22|act=-3",
+  "tokens": [
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c007": {
+  "key": "f21+f22|act=-1",
+  "tokens": [
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c008": {
+  "key": "f21+f22|act=1",
+  "tokens": [
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c009": {
+  "key": "f21+f22|act=3",
+  "tokens": [
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c010": {
+  "key": "f21+f22|act=5",
+  "tokens": [
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c011": {
+  "key": "f21+f22|act=7",
+  "tokens": [
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c012": {
+  "key": "f20+f21+f22|act=-10",
+  "tokens": [
+   "f21",
+   "f22",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c013": {
+  "key": "f20+f21+f22|act=-4",
+  "tokens": [
+   "f21",
+   "f22",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c014": {
+  "key": "f20+f21+f22|act=2",
+  "tokens": [
+   "f21",
+   "f22",
+   "f20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c015": {
+  "key": "f18+f21+f22|act=-10",
+  "tokens": [
+   "f21",
+   "f22",
+   "f18"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c016": {
+  "key": "f18+f21+f22|act=-4",
+  "tokens": [
+   "f21",
+   "f22",
+   "f18"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c017": {
+  "key": "f18+f21+f22|act=2",
+  "tokens": [
+   "f21",
+   "f22",
+   "f18"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c018": {
+  "key": "f21+f22+f27@17|act=-10",
+  "tokens": [
+   "f21",
+   "f22",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c019": {
+  "key": "f21+f22+f27@17|act=-4",
+  "tokens": [
+   "f21",
+   "f22",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c020": {
+  "key": "f21+f22+f27@17|act=2",
+  "tokens": [
+   "f21",
+   "f22",
+   "f27@17"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c021": {
+  "key": "f21+f22+f30@20|act=-10",
+  "tokens": [
+   "f21",
+   "f22",
+   "f30@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c022": {
+  "key": "f21+f22+f30@20|act=-4",
+  "tokens": [
+   "f21",
+   "f22",
+   "f30@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c023": {
+  "key": "f21+f22+f30@20|act=2",
+  "tokens": [
+   "f21",
+   "f22",
+   "f30@20"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c024": {
+  "key": "f20+f21|act=-13",
+  "tokens": [
+   "f20",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c025": {
+  "key": "f20+f21|act=-9",
+  "tokens": [
+   "f20",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c026": {
+  "key": "f20+f21|act=-5",
+  "tokens": [
+   "f20",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c027": {
+  "key": "f20+f21|act=-1",
+  "tokens": [
+   "f20",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c028": {
+  "key": "f20+f21|act=3",
+  "tokens": [
+   "f20",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_c029": {
+  "key": "f20+f21|act=7",
+  "tokens": [
+   "f20",
+   "f21"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "val01_nopf": {
+  "key": "baseline_nopf",
+  "tokens": [],
+  "window": "tuning",
+  "role": "baseline_nopf"
+ },
+ "val01_pythia": {
+  "key": "baseline_pythia",
+  "tokens": [],
+  "window": "tuning",
+  "role": "baseline_pythia"
+ }
+}

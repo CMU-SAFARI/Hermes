@@ -1653,9 +1653,10 @@
  "batches": {
   "1": "20260703T211325Z_campaign1_r01",
   "2": "20260705T005116Z_campaign1_r02",
-  "sweep01": "20260706T142403Z_campaign1_sweep01"
+  "sweep01": "20260706T142403Z_campaign1_sweep01",
+  "val01": "20260706T151619Z_campaign1_val01"
  },
- "jobs_total": 20976,
+ "jobs_total": 25680,
  "log": [
   {
    "utc": "2026-07-03",
@@ -1720,6 +1721,14 @@
   {
    "utc": "2026-07-06",
    "event": "sweep01 submitted: batch 20260706T142403Z_campaign1_sweep01, 1500 jobs, smoke passed, 1227 running immediately (6h limit on stragglers). jobs_total=20976/120000. Twins at 18 \u2014 fidelity pass imminent."
+  },
+  {
+   "utc": "2026-07-06",
+   "event": "OWNER: repeat sweep01 on the full tlist (idle cluster). val01 built: 30 sweep configs + 2 baselines x 147 traces (3 known deadlockers excluded) = 4704 jobs. Submitting as campaign1_val01."
+  },
+  {
+   "utc": "2026-07-06",
+   "event": "val01 submitted: batch 20260706T151619Z_campaign1_val01, 4704 jobs, smoke passed, 6h walltime. jobs_total=25680/120000. Queue: sweep01 ~500 done, twins at 2."
   }
  ]
 }
