@@ -1,6 +1,6 @@
 {
  "campaign": "campaign1-pcless-uncore-beam",
- "status": "overnight-batches-running",
+ "status": "all-scored-awaiting-owner",
  "round": 2,
  "beam": [
   {
@@ -2339,6 +2339,10 @@
   {
    "utc": "2026-07-07",
    "event": "val02 finalized (147/147): dense curve parallel; 85%/86% crossings land at act +8/+10 on 147 traces; act+2 remains geo peak. Only val03 (full-window) remains."
+  },
+  {
+   "utc": "2026-07-07",
+   "event": "val03 scored (146/147, ns3-202B dropped, 3 walltime kills): FULL-WINDOW PASS \u2014 precision \u00b10.3pp, geo +0.2-0.3pp HIGHER, rankings unchanged. FIDELITY CAUTION RETIRED. ALL CAMPAIGN RESULTS IN. Status: awaiting owner (operating point, optional size confirmation, close-out)."
   }
  ]
 }

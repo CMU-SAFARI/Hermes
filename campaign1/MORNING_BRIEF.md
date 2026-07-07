@@ -33,7 +33,7 @@ narrative + fidelity ruling) → sweep01 decision (how the triple won).
 | sweep03 | **pos_train is the better precision lever** — operating-point menu A–F in rounds/sweep03/decision.md (up to ~90% precision; e.g. C: 86.5p/72.2r/1.0210) |
 | sweep04 | **f21 size-insensitive confirmed** (1k entries = −0.2pp); 16k-uniform within 0.2pp of 64k at 1/4 budget |
 | val02 | **curve generalizes to 147 traces** (parallel, −1pp; 85%/86% crossings at act +8/+10; act+2 still geo peak 1.0164) |
-| val03 | full-window finalist check — still running, lands ~afternoon |
+| val03 | **FULL-WINDOW PASS — fidelity caution RETIRED** (precision ±0.3pp, geo +0.2-0.3pp higher, rankings unchanged; 146/147 traces) |
 
 All decisions in rounds/*/decision.md; node-loss incidents (sqlite, llvm blocks) fully recovered by retries.
 
