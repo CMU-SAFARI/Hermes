@@ -1,0 +1,67 @@
+spec26:
+- 823.llvm_s-etf_inst3_0011-10B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0011-10B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.315789
+    category: etf_inst3_0011
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-etf_inst3_0011-14B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0011-14B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.052632
+    category: etf_inst3_0011
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-etf_inst3_0011-8B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0011-8B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.105263
+    category: etf_inst3_0011
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-generic_cpu_exec_6_0012-25B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-generic_cpu_exec_6_0012-25B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.171429
+    category: generic_cpu_exec_6_0012
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-grid_tools_0008-19B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-grid_tools_0008-19B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.155556
+    category: grid_tools_0008
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-grid_tools_dof_handlers_0009-11B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-grid_tools_dof_handlers_0009-11B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.380952
+    category: grid_tools_dof_handlers_0009
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null

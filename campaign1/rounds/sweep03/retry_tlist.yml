@@ -1,0 +1,23 @@
+spec26:
+- 708.sqlite_r-cte_size2000-233B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-cte_size2000-233B.champsim2.zst
+    version: 2
+    workload: 708.sqlite_r
+    weight: 0.311419
+    category: cte_size2000
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 708.sqlite_r-fp_size1000-424B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-fp_size1000-424B.champsim2.zst
+    version: 2
+    workload: 708.sqlite_r
+    weight: 0.274583
+    category: fp_size1000
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null

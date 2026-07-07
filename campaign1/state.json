@@ -1858,6 +1858,90 @@
    "geo_pythia": 1.0173678566412279,
    "prec": 63.172,
    "recall": 90.1142
+  },
+  "f20+f21+f22|act=2|w=65536x16384x65536": {
+   "round": "sweep04",
+   "geo_nopf": 1.1633414724183353,
+   "geo_pythia": 1.0220369762494623,
+   "prec": 83.9436,
+   "recall": 76.34020000000001
+  },
+  "f20+f21+f22|act=2|w=65536x65536x1024": {
+   "round": "sweep04",
+   "geo_nopf": 1.1628992226914574,
+   "geo_pythia": 1.0216484440907438,
+   "prec": 83.26700000000001,
+   "recall": 76.0464
+  },
+  "f20+f21+f22|act=2|w=1024x65536x65536": {
+   "round": "sweep04",
+   "geo_nopf": 1.1627649522725139,
+   "geo_pythia": 1.0215304827386984,
+   "prec": 83.3616,
+   "recall": 75.8854
+  },
+  "f20+f21+f22|act=2|w=16384x16384x16384": {
+   "round": "sweep04",
+   "geo_nopf": 1.1620998571568724,
+   "geo_pythia": 1.0209461729577571,
+   "prec": 83.7888,
+   "recall": 76.1532
+  },
+  "f20+f21+f22|act=2|w=1024x1024x1024": {
+   "round": "sweep04",
+   "geo_nopf": 1.1618692958490031,
+   "geo_pythia": 1.0207436166253978,
+   "prec": 82.47579999999999,
+   "recall": 74.8284
+  },
+  "f20+f21+f22|act=2|w=65536x4096x65536": {
+   "round": "sweep04",
+   "geo_nopf": 1.161853597574989,
+   "geo_pythia": 1.0207298251317685,
+   "prec": 83.8936,
+   "recall": 76.2206
+  },
+  "f20+f21+f22|act=2|w=65536x65536x16384": {
+   "round": "sweep04",
+   "geo_nopf": 1.1614976195173883,
+   "geo_pythia": 1.0204170857115489,
+   "prec": 83.88459999999999,
+   "recall": 76.2058
+  },
+  "f20+f21+f22|act=2|w=4096x65536x65536": {
+   "round": "sweep04",
+   "geo_nopf": 1.1613652378443482,
+   "geo_pythia": 1.0203007836901454,
+   "prec": 83.5932,
+   "recall": 75.9918
+  },
+  "f20+f21+f22|act=2|w=4096x4096x4096": {
+   "round": "sweep04",
+   "geo_nopf": 1.1610755501995589,
+   "geo_pythia": 1.0200462827619512,
+   "prec": 83.29960000000001,
+   "recall": 75.6292
+  },
+  "f20+f21+f22|act=2|w=65536x65536x4096": {
+   "round": "sweep04",
+   "geo_nopf": 1.160920797018586,
+   "geo_pythia": 1.0199103265729075,
+   "prec": 83.604,
+   "recall": 76.0584
+  },
+  "f20+f21+f22|act=2|w=16384x65536x65536": {
+   "round": "sweep04",
+   "geo_nopf": 1.1608853756376145,
+   "geo_pythia": 1.0198792076263548,
+   "prec": 83.68180000000001,
+   "recall": 75.9206
+  },
+  "f20+f21+f22|act=2|w=65536x1024x65536": {
+   "round": "sweep04",
+   "geo_nopf": 1.160758505211057,
+   "geo_pythia": 1.019767747431555,
+   "prec": 83.7886,
+   "recall": 75.4776
   }
  },
  "batches": {
@@ -1869,9 +1953,11 @@
   "val02": "20260706T233420Z_campaign1_val02",
   "sweep03": "20260706T233506Z_campaign1_sweep03",
   "sweep04": "20260706T233559Z_campaign1_sweep04",
-  "val03": "20260706T233635Z_campaign1_val03"
+  "val03": "20260706T233635Z_campaign1_val03",
+  "sweep03_retry": "20260707T043711Z_campaign1_sweep03_retry",
+  "val02_retry": "20260707T051035Z_campaign1_val02_retry"
  },
- "jobs_total": 30435,
+ "jobs_total": 30549,
  "log": [
   {
    "utc": "2026-07-03",
@@ -1964,6 +2050,14 @@
   {
    "utc": "2026-07-07",
    "event": "val01 scored: 4704/4704 valid, 147/147 traces. CROSS-SCALE CONFIRMED \u2014 triple@+2 best on 147 traces by BOTH geo (1.0164) and precision (83.2%); domination at matched precision holds (+5pp recall vs pairs). MORNING_BRIEF published. Remaining: sweep03/sweep04/val02 (~06-09 UTC), val03 (afternoon)."
+  },
+  {
+   "utc": "2026-07-07",
+   "event": "sweep03: 48 rows RU_MISSING_OUT (both sqlite traces \u2014 jobs died at startup, likely node loss on a contiguous ID block; NOT timeouts). Retry 20260707T043711Z_campaign1_sweep03_retry = 60 jobs running. sweep03 scoring completes after merge. jobs_total=30495."
+  },
+  {
+   "utc": "2026-07-07",
+   "event": "sweep04 scored (600/600): f21 SIZE-INSENSITIVE confirmed (1k entries = -0.2pp); 16k-uniform within 0.2pp of 64k at 1/4 budget; f20/f22 want >=16k. val02 retry 20260707T051035Z_campaign1_val02_retry (54 jobs, 6 llvm traces, node-loss again). jobs_total=30549."
   }
  ]
 }
