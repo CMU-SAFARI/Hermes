@@ -1,0 +1,221 @@
+{
+ "purpose": "E1: train grid at FULL window x 146 traces (owner-signed)",
+ "entries": [
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -7
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -14
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -28
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 16,
+   "neg_train": -7
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 16,
+   "neg_train": -14
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 16,
+   "neg_train": -21
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 16,
+   "neg_train": -28
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 24,
+   "neg_train": -7
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 24,
+   "neg_train": -14
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 24,
+   "neg_train": -28
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 32,
+   "neg_train": -7
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 32,
+   "neg_train": -14
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 32,
+   "neg_train": -21
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 32,
+   "neg_train": -28
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    8
+   ],
+   "pos_train": 8,
+   "neg_train": -7
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    8
+   ],
+   "pos_train": 8,
+   "neg_train": -21
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    8
+   ],
+   "pos_train": 16,
+   "neg_train": -21
+  }
+ ]
+}

@@ -1,0 +1,311 @@
+{
+ "purpose": "E2: hardware-grade sizing at act+2 tr8/-21 (owner caps: f21/f22<=1k, f20<=4k)",
+ "entries": [
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    1024,
+    256,
+    512
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    1024,
+    256,
+    1024
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    1024,
+    512,
+    512
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    1024,
+    512,
+    1024
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    1024,
+    1024,
+    512
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    1024,
+    1024,
+    1024
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    2048,
+    256,
+    512
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    2048,
+    256,
+    1024
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    2048,
+    512,
+    512
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    2048,
+    512,
+    1024
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    2048,
+    1024,
+    512
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    2048,
+    1024,
+    1024
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    4096,
+    256,
+    512
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    4096,
+    256,
+    1024
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    4096,
+    512,
+    512
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    4096,
+    512,
+    1024
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    4096,
+    1024,
+    512
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    4096,
+    1024,
+    1024
+   ]
+  }
+ ]
+}

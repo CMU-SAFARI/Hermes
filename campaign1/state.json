@@ -1,6 +1,6 @@
 {
  "campaign": "campaign1-pcless-uncore-beam",
- "status": "all-scored-awaiting-owner",
+ "status": "e1e2-running",
  "round": 2,
  "beam": [
   {
@@ -2228,9 +2228,11 @@
   "sweep04": "20260706T233559Z_campaign1_sweep04",
   "val03": "20260706T233635Z_campaign1_val03",
   "sweep03_retry": "20260707T043711Z_campaign1_sweep03_retry",
-  "val02_retry": "20260707T051035Z_campaign1_val02_retry"
+  "val02_retry": "20260707T051035Z_campaign1_val02_retry",
+  "e1": "20260707T174458Z_campaign1_e1",
+  "e2": "20260707T174604Z_campaign1_e2"
  },
- "jobs_total": 30549,
+ "jobs_total": 34077,
  "log": [
   {
    "utc": "2026-07-03",
@@ -2343,6 +2345,10 @@
   {
    "utc": "2026-07-07",
    "event": "val03 scored (146/147, ns3-202B dropped, 3 walltime kills): FULL-WINDOW PASS \u2014 precision \u00b10.3pp, geo +0.2-0.3pp HIGHER, rankings unchanged. FIDELITY CAUTION RETIRED. ALL CAMPAIGN RESULTS IN. Status: awaiting owner (operating point, optional size confirmation, close-out)."
+  },
+  {
+   "utc": "2026-07-07",
+   "event": "FINAL SET (owner-signed): E1+E2 submitted (3528 jobs). E3 auto-launches when both land; then CLOSEOUT. jobs_total=34077/120000."
   }
  ]
 }

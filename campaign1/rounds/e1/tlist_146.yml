@@ -1,0 +1,1607 @@
+spec26:
+- 708.sqlite_r-cte_size2000-233B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-cte_size2000-233B.champsim2.zst
+    version: 2
+    workload: 708.sqlite_r
+    weight: 0.311419
+    category: cte_size2000
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 708.sqlite_r-fp_size1000-424B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-fp_size1000-424B.champsim2.zst
+    version: 2
+    workload: 708.sqlite_r
+    weight: 0.274583
+    category: fp_size1000
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 708.sqlite_r-main_size2000-136B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-main_size2000-136B.champsim2.zst
+    version: 2
+    workload: 708.sqlite_r
+    weight: 0.252014
+    category: main_size2000
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 708.sqlite_r-main_size2000-499B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-main_size2000-499B.champsim2.zst
+    version: 2
+    workload: 708.sqlite_r
+    weight: 0.241657
+    category: main_size2000
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 708.sqlite_r-main_size2000-556B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-main_size2000-556B.champsim2.zst
+    version: 2
+    workload: 708.sqlite_r
+    weight: 0.364787
+    category: main_size2000
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 709.cactus_r-shifted_gauge_wave-19B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-19B.champsim2.zst
+    version: 2
+    workload: 709.cactus_r
+    weight: 0.47546
+    category: shifted_gauge_wave
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 709.cactus_r-shifted_gauge_wave-26B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-26B.champsim2.zst
+    version: 2
+    workload: 709.cactus_r
+    weight: 0.076687
+    category: shifted_gauge_wave
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 709.cactus_r-shifted_gauge_wave-27B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-27B.champsim2.zst
+    version: 2
+    workload: 709.cactus_r
+    weight: 0.06135
+    category: shifted_gauge_wave
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 709.cactus_r-shifted_gauge_wave-824B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-824B.champsim2.zst
+    version: 2
+    workload: 709.cactus_r
+    weight: 0.312883
+    category: shifted_gauge_wave
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 709.cactus_r-shifted_gauge_wave-8B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-8B.champsim2.zst
+    version: 2
+    workload: 709.cactus_r
+    weight: 0.07362
+    category: shifted_gauge_wave
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 721.gcc_r-gcc_pp_O2_fpic-309B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/721.gcc_r-gcc_pp_O2_fpic-309B.champsim2.zst
+    version: 2
+    workload: 721.gcc_r
+    weight: 0.760776
+    category: gcc_pp_O2_fpic
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 721.gcc_r-ref32_O3_inline12000-113B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/721.gcc_r-ref32_O3_inline12000-113B.champsim2.zst
+    version: 2
+    workload: 721.gcc_r
+    weight: 0.102041
+    category: ref32_O3_inline12000
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 721.gcc_r-ref32_O3_inline12000-390B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/721.gcc_r-ref32_O3_inline12000-390B.champsim2.zst
+    version: 2
+    workload: 721.gcc_r
+    weight: 0.071429
+    category: ref32_O3_inline12000
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 721.gcc_r-ref32_O3_inline12000-41B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/721.gcc_r-ref32_O3_inline12000-41B.champsim2.zst
+    version: 2
+    workload: 721.gcc_r
+    weight: 0.058674
+    category: ref32_O3_inline12000
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 722.palm_r-atmos-1670B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/722.palm_r-atmos-1670B.champsim2.zst
+    version: 2
+    workload: 722.palm_r
+    weight: 0.190916
+    category: atmos
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 722.palm_r-atmos-334B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/722.palm_r-atmos-334B.champsim2.zst
+    version: 2
+    workload: 722.palm_r
+    weight: 0.743569
+    category: atmos
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 723.llvm_r-codegen-388B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/723.llvm_r-codegen-388B.champsim2.zst
+    version: 2
+    workload: 723.llvm_r
+    weight: 0.085
+    category: codegen
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 727.cppcheck_r-738_diamond-320B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-738_diamond-320B.champsim2.zst
+    version: 2
+    workload: 727.cppcheck_r
+    weight: 0.16622
+    category: 738_diamond
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 727.cppcheck_r-738_diamond-4B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-738_diamond-4B.champsim2.zst
+    version: 2
+    workload: 727.cppcheck_r
+    weight: 0.104558
+    category: 738_diamond
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 727.cppcheck_r-738_diamond-63B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-738_diamond-63B.champsim2.zst
+    version: 2
+    workload: 727.cppcheck_r
+    weight: 0.729223
+    category: 738_diamond
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 727.cppcheck_r-747_dealii-218B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-747_dealii-218B.champsim2.zst
+    version: 2
+    workload: 727.cppcheck_r
+    weight: 0.267361
+    category: 747_dealii
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 727.cppcheck_r-747_dealii-21B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-747_dealii-21B.champsim2.zst
+    version: 2
+    workload: 727.cppcheck_r
+    weight: 0.083333
+    category: 747_dealii
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 727.cppcheck_r-747_dealii-3B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-747_dealii-3B.champsim2.zst
+    version: 2
+    workload: 727.cppcheck_r
+    weight: 0.083333
+    category: 747_dealii
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 727.cppcheck_r-770_7z-38B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-770_7z-38B.champsim2.zst
+    version: 2
+    workload: 727.cppcheck_r
+    weight: 0.147826
+    category: 770_7z
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 727.cppcheck_r-770_7z-404B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-770_7z-404B.champsim2.zst
+    version: 2
+    workload: 727.cppcheck_r
+    weight: 0.195652
+    category: 770_7z
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 727.cppcheck_r-770_7z-57B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-770_7z-57B.champsim2.zst
+    version: 2
+    workload: 727.cppcheck_r
+    weight: 0.354348
+    category: 770_7z
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 729.abc_r-des_system90-103B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-des_system90-103B.champsim2.zst
+    version: 2
+    workload: 729.abc_r
+    weight: 0.302817
+    category: des_system90
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 729.abc_r-des_system90-32B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-des_system90-32B.champsim2.zst
+    version: 2
+    workload: 729.abc_r
+    weight: 0.190141
+    category: des_system90
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 729.abc_r-des_system90-75B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-des_system90-75B.champsim2.zst
+    version: 2
+    workload: 729.abc_r
+    weight: 0.267606
+    category: des_system90
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 729.abc_r-des_system90-77B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-des_system90-77B.champsim2.zst
+    version: 2
+    workload: 729.abc_r
+    weight: 0.105634
+    category: des_system90
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 729.abc_r-des_system90-88B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-des_system90-88B.champsim2.zst
+    version: 2
+    workload: 729.abc_r
+    weight: 0.133803
+    category: des_system90
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 729.abc_r-mcml-19B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-mcml-19B.champsim2.zst
+    version: 2
+    workload: 729.abc_r
+    weight: 0.603175
+    category: mcml
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 734.vpr_r-jpeg_place-76B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/734.vpr_r-jpeg_place-76B.champsim2.zst
+    version: 2
+    workload: 734.vpr_r
+    weight: 0.466667
+    category: jpeg_place
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 734.vpr_r-jpeg_route-49B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/734.vpr_r-jpeg_route-49B.champsim2.zst
+    version: 2
+    workload: 734.vpr_r
+    weight: 0.316953
+    category: jpeg_route
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 734.vpr_r-smithwaterman_place-213B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/734.vpr_r-smithwaterman_place-213B.champsim2.zst
+    version: 2
+    workload: 734.vpr_r
+    weight: 0.344398
+    category: smithwaterman_place
+    subcategory: null
+    tags:
+    - specrate
+    - specint
+    checksum: null
+- 736.ocio_r-heavy_transform-65B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/736.ocio_r-heavy_transform-65B.champsim2.zst
+    version: 2
+    workload: 736.ocio_r
+    weight: 0.342894
+    category: heavy_transform
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 736.ocio_r-lut1d_halfdom-43B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/736.ocio_r-lut1d_halfdom-43B.champsim2.zst
+    version: 2
+    workload: 736.ocio_r
+    weight: 0.535714
+    category: lut1d_halfdom
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 736.ocio_r-lut1d_halfdom-6B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/736.ocio_r-lut1d_halfdom-6B.champsim2.zst
+    version: 2
+    workload: 736.ocio_r
+    weight: 0.440476
+    category: lut1d_halfdom
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 736.ocio_r-mntr_srgb_8k-35B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/736.ocio_r-mntr_srgb_8k-35B.champsim2.zst
+    version: 2
+    workload: 736.ocio_r
+    weight: 0.97973
+    category: mntr_srgb_8k
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 737.gmsh_r-choi-225B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-choi-225B.champsim2.zst
+    version: 2
+    workload: 737.gmsh_r
+    weight: 0.1875
+    category: choi
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 737.gmsh_r-gasdis-121B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-gasdis-121B.champsim2.zst
+    version: 2
+    workload: 737.gmsh_r
+    weight: 0.25974
+    category: gasdis
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 737.gmsh_r-gasdis-149B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-gasdis-149B.champsim2.zst
+    version: 2
+    workload: 737.gmsh_r
+    weight: 0.084416
+    category: gasdis
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 737.gmsh_r-mediterranean-149B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-mediterranean-149B.champsim2.zst
+    version: 2
+    workload: 737.gmsh_r
+    weight: 0.388235
+    category: mediterranean
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 737.gmsh_r-mediterranean-160B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-mediterranean-160B.champsim2.zst
+    version: 2
+    workload: 737.gmsh_r
+    weight: 0.088235
+    category: mediterranean
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 737.gmsh_r-p19-70B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-p19-70B.champsim2.zst
+    version: 2
+    workload: 737.gmsh_r
+    weight: 0.37234
+    category: p19
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 737.gmsh_r-projection-6B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-projection-6B.champsim2.zst
+    version: 2
+    workload: 737.gmsh_r
+    weight: 0.153846
+    category: projection
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 737.gmsh_r-spec_hxt-26B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-spec_hxt-26B.champsim2.zst
+    version: 2
+    workload: 737.gmsh_r
+    weight: 0.181818
+    category: spec_hxt
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 737.gmsh_r-spec_hxt-62B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-spec_hxt-62B.champsim2.zst
+    version: 2
+    workload: 737.gmsh_r
+    weight: 0.363636
+    category: spec_hxt
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 737.gmsh_r-torus-33B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-torus-33B.champsim2.zst
+    version: 2
+    workload: 737.gmsh_r
+    weight: 0.223684
+    category: torus
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 737.gmsh_r-torus-74B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-torus-74B.champsim2.zst
+    version: 2
+    workload: 737.gmsh_r
+    weight: 0.144737
+    category: torus
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 749.fotonik3d_r-default-128B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-128B.champsim2.zst
+    version: 2
+    workload: 749.fotonik3d_r
+    weight: 0.136986
+    category: default
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 749.fotonik3d_r-default-130B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-130B.champsim2.zst
+    version: 2
+    workload: 749.fotonik3d_r
+    weight: 0.17656
+    category: default
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 749.fotonik3d_r-default-45B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-45B.champsim2.zst
+    version: 2
+    workload: 749.fotonik3d_r
+    weight: 0.188737
+    category: default
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 749.fotonik3d_r-default-599B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-599B.champsim2.zst
+    version: 2
+    workload: 749.fotonik3d_r
+    weight: 0.252664
+    category: default
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 749.fotonik3d_r-default-651B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-651B.champsim2.zst
+    version: 2
+    workload: 749.fotonik3d_r
+    weight: 0.245053
+    category: default
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 765.roms_r-benchmark2-871B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/765.roms_r-benchmark2-871B.champsim2.zst
+    version: 2
+    workload: 765.roms_r
+    weight: 0.214011
+    category: benchmark2
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 765.roms_r-benchmark2-900B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/765.roms_r-benchmark2-900B.champsim2.zst
+    version: 2
+    workload: 765.roms_r
+    weight: 0.269438
+    category: benchmark2
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 765.roms_r-benchmark2-985B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/765.roms_r-benchmark2-985B.champsim2.zst
+    version: 2
+    workload: 765.roms_r
+    weight: 0.134719
+    category: benchmark2
+    subcategory: null
+    tags:
+    - specrate
+    - specfp
+    checksum: null
+- 800.pot3d_s-pot3d_n1-1067B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/800.pot3d_s-pot3d_n1-1067B.champsim2.zst
+    version: 2
+    workload: 800.pot3d_s
+    weight: 0.188541
+    category: pot3d_n1
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 800.pot3d_s-pot3d_n1-1519B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/800.pot3d_s-pot3d_n1-1519B.champsim2.zst
+    version: 2
+    workload: 800.pot3d_s
+    weight: 0.324117
+    category: pot3d_n1
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 800.pot3d_s-pot3d_n1-2026B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/800.pot3d_s-pot3d_n1-2026B.champsim2.zst
+    version: 2
+    workload: 800.pot3d_s
+    weight: 0.197202
+    category: pot3d_n1
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 800.pot3d_s-pot3d_n1-2544B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/800.pot3d_s-pot3d_n1-2544B.champsim2.zst
+    version: 2
+    workload: 800.pot3d_s
+    weight: 0.29014
+    category: pot3d_n1
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 809.cactus_s-shifted_gauge_wave-1690B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/809.cactus_s-shifted_gauge_wave-1690B.champsim2.zst
+    version: 2
+    workload: 809.cactus_s
+    weight: 0.472211
+    category: shifted_gauge_wave
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 809.cactus_s-shifted_gauge_wave-202B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/809.cactus_s-shifted_gauge_wave-202B.champsim2.zst
+    version: 2
+    workload: 809.cactus_s
+    weight: 0.395919
+    category: shifted_gauge_wave
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 809.cactus_s-shifted_gauge_wave-6972B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/809.cactus_s-shifted_gauge_wave-6972B.champsim2.zst
+    version: 2
+    workload: 809.cactus_s
+    weight: 0.072934
+    category: shifted_gauge_wave
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 811.tealeaf_s-default-15369B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/811.tealeaf_s-default-15369B.champsim2.zst
+    version: 2
+    workload: 811.tealeaf_s
+    weight: 0.172861
+    category: default
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 811.tealeaf_s-default-16461B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/811.tealeaf_s-default-16461B.champsim2.zst
+    version: 2
+    workload: 811.tealeaf_s
+    weight: 0.181828
+    category: default
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 811.tealeaf_s-default-33315B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/811.tealeaf_s-default-33315B.champsim2.zst
+    version: 2
+    workload: 811.tealeaf_s
+    weight: 0.180474
+    category: default
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 811.tealeaf_s-default-34631B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/811.tealeaf_s-default-34631B.champsim2.zst
+    version: 2
+    workload: 811.tealeaf_s
+    weight: 0.153194
+    category: default
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 811.tealeaf_s-default-35333B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/811.tealeaf_s-default-35333B.champsim2.zst
+    version: 2
+    workload: 811.tealeaf_s
+    weight: 0.311643
+    category: default
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 820.cloverleaf_s-default-11714B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/820.cloverleaf_s-default-11714B.champsim2.zst
+    version: 2
+    workload: 820.cloverleaf_s
+    weight: 0.171602
+    category: default
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 820.cloverleaf_s-default-11785B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/820.cloverleaf_s-default-11785B.champsim2.zst
+    version: 2
+    workload: 820.cloverleaf_s
+    weight: 0.553926
+    category: default
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 820.cloverleaf_s-default-12184B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/820.cloverleaf_s-default-12184B.champsim2.zst
+    version: 2
+    workload: 820.cloverleaf_s
+    weight: 0.087806
+    category: default
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 820.cloverleaf_s-default-2345B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/820.cloverleaf_s-default-2345B.champsim2.zst
+    version: 2
+    workload: 820.cloverleaf_s
+    weight: 0.088779
+    category: default
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 821.gcc_s-lz4_0002-39B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4_0002-39B.champsim2.zst
+    version: 2
+    workload: 821.gcc_s
+    weight: 0.121951
+    category: lz4_0002
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 821.gcc_s-lz4hc_0007-10B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0007-10B.champsim2.zst
+    version: 2
+    workload: 821.gcc_s
+    weight: 0.653846
+    category: lz4hc_0007
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 821.gcc_s-lz4hc_0009-12B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0009-12B.champsim2.zst
+    version: 2
+    workload: 821.gcc_s
+    weight: 0.12
+    category: lz4hc_0009
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 821.gcc_s-lz4hc_0009-6B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0009-6B.champsim2.zst
+    version: 2
+    workload: 821.gcc_s
+    weight: 0.12
+    category: lz4hc_0009
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 821.gcc_s-lz4hc_0010-14B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0010-14B.champsim2.zst
+    version: 2
+    workload: 821.gcc_s
+    weight: 0.125
+    category: lz4hc_0010
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 821.gcc_s-lz4hc_0010-23B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0010-23B.champsim2.zst
+    version: 2
+    workload: 821.gcc_s
+    weight: 0.75
+    category: lz4hc_0010
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 821.gcc_s-lz4hc_0018-20B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0018-20B.champsim2.zst
+    version: 2
+    workload: 821.gcc_s
+    weight: 0.142857
+    category: lz4hc_0018
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 821.gcc_s-lz4hc_0018-31B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0018-31B.champsim2.zst
+    version: 2
+    workload: 821.gcc_s
+    weight: 0.095238
+    category: lz4hc_0018
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 821.gcc_s-unicodeobject_0006-1B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-unicodeobject_0006-1B.champsim2.zst
+    version: 2
+    workload: 821.gcc_s
+    weight: 0.051282
+    category: unicodeobject_0006
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 821.gcc_s-unicodeobject_0015-26B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-unicodeobject_0015-26B.champsim2.zst
+    version: 2
+    workload: 821.gcc_s
+    weight: 0.511111
+    category: unicodeobject_0015
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 822.palm_s-atmos-2602B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/822.palm_s-atmos-2602B.champsim2.zst
+    version: 2
+    workload: 822.palm_s
+    weight: 0.099111
+    category: atmos
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 822.palm_s-atmos-35579B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/822.palm_s-atmos-35579B.champsim2.zst
+    version: 2
+    workload: 822.palm_s
+    weight: 0.719045
+    category: atmos
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 822.palm_s-atmos-4359B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/822.palm_s-atmos-4359B.champsim2.zst
+    version: 2
+    workload: 822.palm_s
+    weight: 0.05595
+    category: atmos
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 822.palm_s-atmos-6227B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/822.palm_s-atmos-6227B.champsim2.zst
+    version: 2
+    workload: 822.palm_s
+    weight: 0.116807
+    category: atmos
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 823.llvm_s-dagcombiner_0002-14B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-dagcombiner_0002-14B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.133333
+    category: dagcombiner_0002
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-dagcombiner_0002-4B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-dagcombiner_0002-4B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.066667
+    category: dagcombiner_0002
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-dagcombiner_0006-4B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-dagcombiner_0006-4B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.066667
+    category: dagcombiner_0006
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-etf_inst3_0005-11B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0005-11B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.3
+    category: etf_inst3_0005
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-etf_inst3_0005-17B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0005-17B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.25
+    category: etf_inst3_0005
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-etf_inst3_0011-10B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0011-10B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.315789
+    category: etf_inst3_0011
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-etf_inst3_0011-14B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0011-14B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.052632
+    category: etf_inst3_0011
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-etf_inst3_0011-8B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0011-8B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.105263
+    category: etf_inst3_0011
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-generic_cpu_exec_6_0012-25B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-generic_cpu_exec_6_0012-25B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.171429
+    category: generic_cpu_exec_6_0012
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-grid_tools_0008-19B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-grid_tools_0008-19B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.155556
+    category: grid_tools_0008
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-grid_tools_dof_handlers_0009-11B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-grid_tools_dof_handlers_0009-11B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.380952
+    category: grid_tools_dof_handlers_0009
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-insn_recog_0005-10B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-insn_recog_0005-10B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.178571
+    category: insn_recog_0005
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-insn_recog_0005-14B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-insn_recog_0005-14B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.107143
+    category: insn_recog_0005
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-insn_recog_0005-15B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-insn_recog_0005-15B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.178571
+    category: insn_recog_0005
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-insn_recog_0005-26B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-insn_recog_0005-26B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.214286
+    category: insn_recog_0005
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-inst_constrs_3_0017-27B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-inst_constrs_3_0017-27B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.064516
+    category: inst_constrs_3_0017
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-inst_constrs_3_0017-35B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-inst_constrs_3_0017-35B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.241935
+    category: inst_constrs_3_0017
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-matrix_free_0013-7B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-matrix_free_0013-7B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.375
+    category: matrix_free_0013
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-matrix_free_0019-11B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-matrix_free_0019-11B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.125
+    category: matrix_free_0019
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-matrix_free_0019-7B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-matrix_free_0019-7B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.3125
+    category: matrix_free_0019
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-modelsmodule_0004-24B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-modelsmodule_0004-24B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.340909
+    category: modelsmodule_0004
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-modelsmodule_0010-23B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-modelsmodule_0010-23B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.25
+    category: modelsmodule_0010
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-particle_handler_0015-13B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-particle_handler_0015-13B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.266667
+    category: particle_handler_0015
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-particle_handler_0015-5B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-particle_handler_0015-5B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.466667
+    category: particle_handler_0015
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-particle_handler_0018-13B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-particle_handler_0018-13B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.266667
+    category: particle_handler_0018
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-particle_handler_0018-5B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-particle_handler_0018-5B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.133333
+    category: particle_handler_0018
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-particle_handler_0018-8B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-particle_handler_0018-8B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.266667
+    category: particle_handler_0018
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-passbuilderpipelines_0003-2B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-passbuilderpipelines_0003-2B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.076923
+    category: passbuilderpipelines_0003
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-selectiondagbuilder_0007-4B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-selectiondagbuilder_0007-4B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.647059
+    category: selectiondagbuilder_0007
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 823.llvm_s-standardinstrumentations_0014-2B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-standardinstrumentations_0014-2B.champsim2.zst
+    version: 2
+    workload: 823.llvm_s
+    weight: 0.166667
+    category: standardinstrumentations_0014
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 829.abc_s-bitcoin-289B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-bitcoin-289B.champsim2.zst
+    version: 2
+    workload: 829.abc_s
+    weight: 0.067715
+    category: bitcoin
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 829.abc_s-bitcoin-359B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-bitcoin-359B.champsim2.zst
+    version: 2
+    workload: 829.abc_s
+    weight: 0.096735
+    category: bitcoin
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 829.abc_s-bitcoin-645B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-bitcoin-645B.champsim2.zst
+    version: 2
+    workload: 829.abc_s
+    weight: 0.487304
+    category: bitcoin
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 829.abc_s-bitcoin-750B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-bitcoin-750B.champsim2.zst
+    version: 2
+    workload: 829.abc_s
+    weight: 0.29867
+    category: bitcoin
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 829.abc_s-ethernet_fraig-12B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-ethernet_fraig-12B.champsim2.zst
+    version: 2
+    workload: 829.abc_s
+    weight: 0.055215
+    category: ethernet_fraig
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 829.abc_s-ethernet_fraig-186B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-ethernet_fraig-186B.champsim2.zst
+    version: 2
+    workload: 829.abc_s
+    weight: 0.251534
+    category: ethernet_fraig
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 834.vpr_s-sparct1_place-411B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/834.vpr_s-sparct1_place-411B.champsim2.zst
+    version: 2
+    workload: 834.vpr_s
+    weight: 0.576446
+    category: sparct1_place
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 834.vpr_s-wb_conmax_place-461B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/834.vpr_s-wb_conmax_place-461B.champsim2.zst
+    version: 2
+    workload: 834.vpr_s
+    weight: 0.106918
+    category: wb_conmax_place
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 834.vpr_s-wb_conmax_route-461B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/834.vpr_s-wb_conmax_route-461B.champsim2.zst
+    version: 2
+    workload: 834.vpr_s
+    weight: 0.162393
+    category: wb_conmax_route
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 846.minizinc_s-yumi_dynamic-118B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/846.minizinc_s-yumi_dynamic-118B.champsim2.zst
+    version: 2
+    workload: 846.minizinc_s
+    weight: 0.240741
+    category: yumi_dynamic
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 846.minizinc_s-yumi_dynamic-119B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/846.minizinc_s-yumi_dynamic-119B.champsim2.zst
+    version: 2
+    workload: 846.minizinc_s
+    weight: 0.311111
+    category: yumi_dynamic
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 846.minizinc_s-yumi_dynamic-256B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/846.minizinc_s-yumi_dynamic-256B.champsim2.zst
+    version: 2
+    workload: 846.minizinc_s
+    weight: 0.114815
+    category: yumi_dynamic
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 846.minizinc_s-yumi_dynamic-40B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/846.minizinc_s-yumi_dynamic-40B.champsim2.zst
+    version: 2
+    workload: 846.minizinc_s
+    weight: 0.333333
+    category: yumi_dynamic
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 849.fotonik3d_s-default-11846B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/849.fotonik3d_s-default-11846B.champsim2.zst
+    version: 2
+    workload: 849.fotonik3d_s
+    weight: 0.06438
+    category: default
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 849.fotonik3d_s-default-1927B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/849.fotonik3d_s-default-1927B.champsim2.zst
+    version: 2
+    workload: 849.fotonik3d_s
+    weight: 0.263635
+    category: default
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 849.fotonik3d_s-default-2571B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/849.fotonik3d_s-default-2571B.champsim2.zst
+    version: 2
+    workload: 849.fotonik3d_s
+    weight: 0.137265
+    category: default
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 849.fotonik3d_s-default-7623B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/849.fotonik3d_s-default-7623B.champsim2.zst
+    version: 2
+    workload: 849.fotonik3d_s
+    weight: 0.156241
+    category: default
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 853.ns3_s-tcp_validation-187B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/853.ns3_s-tcp_validation-187B.champsim2.zst
+    version: 2
+    workload: 853.ns3_s
+    weight: 0.420168
+    category: tcp_validation
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 854.graph500_s-bfs-1217B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/854.graph500_s-bfs-1217B.champsim2.zst
+    version: 2
+    workload: 854.graph500_s
+    weight: 0.073796
+    category: bfs
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 854.graph500_s-bfs-3313B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/854.graph500_s-bfs-3313B.champsim2.zst
+    version: 2
+    workload: 854.graph500_s
+    weight: 0.665274
+    category: bfs
+    subcategory: null
+    tags:
+    - specspeed
+    - specint
+    checksum: null
+- 865.roms_s-benchmark3-2365B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/865.roms_s-benchmark3-2365B.champsim2.zst
+    version: 2
+    workload: 865.roms_s
+    weight: 0.07812
+    category: benchmark3
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 865.roms_s-benchmark3-2540B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/865.roms_s-benchmark3-2540B.champsim2.zst
+    version: 2
+    workload: 865.roms_s
+    weight: 0.26274
+    category: benchmark3
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 865.roms_s-benchmark3-3753B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/865.roms_s-benchmark3-3753B.champsim2.zst
+    version: 2
+    workload: 865.roms_s
+    weight: 0.388084
+    category: benchmark3
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 865.roms_s-benchmark3-7363B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/865.roms_s-benchmark3-7363B.champsim2.zst
+    version: 2
+    workload: 865.roms_s
+    weight: 0.221086
+    category: benchmark3
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 867.nest_s-microcircuit-2574B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/867.nest_s-microcircuit-2574B.champsim2.zst
+    version: 2
+    workload: 867.nest_s
+    weight: 0.468966
+    category: microcircuit
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 867.nest_s-microcircuit-9846B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/867.nest_s-microcircuit-9846B.champsim2.zst
+    version: 2
+    workload: 867.nest_s
+    weight: 0.41105
+    category: microcircuit
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 881.neutron_s-rsbench_history-421B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/881.neutron_s-rsbench_history-421B.champsim2.zst
+    version: 2
+    workload: 881.neutron_s
+    weight: 0.997321
+    category: rsbench_history
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
+- 881.neutron_s-xsbench_event_unionized-1137B:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/881.neutron_s-xsbench_event_unionized-1137B.champsim2.zst
+    version: 2
+    workload: 881.neutron_s
+    weight: 0.114612
+    category: xsbench_event_unionized
+    subcategory: null
+    tags:
+    - specspeed
+    - specfp
+    checksum: null
