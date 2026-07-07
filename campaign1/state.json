@@ -2335,6 +2335,10 @@
   {
    "utc": "2026-07-07",
    "event": "sweep03 finalized (50/50 after retry): VERDICT \u2014 pos_train is the superior precision lever (act+2 tr8/-21: 86.5p/72.2r/1.0210 dominates act+10 rule); frontier extended to ~90% precision; operating-point menu A-F written."
+  },
+  {
+   "utc": "2026-07-07",
+   "event": "val02 finalized (147/147): dense curve parallel; 85%/86% crossings land at act +8/+10 on 147 traces; act+2 remains geo peak. Only val03 (full-window) remains."
   }
  ]
 }

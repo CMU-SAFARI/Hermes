@@ -28,14 +28,14 @@ narrative + fidelity ruling) → sweep01 decision (how the triple won).
 
 ## Overnight batches (launched under your authorization; ~4.3k jobs)
 
-| batch | question | size | ETA (UTC) |
-|-------|----------|------|-----------|
-| sweep03 | do pos/neg train thresholds beat the rule 24/−21 at act +2/+8? | 1,500 | ~06–09 |
-| sweep04 | table sizes: is f21 insensitive? smallest config within 0.2pp of 64k? | 600 | ~05–07 |
-| val02 | dense triple curve on 147 traces (act −2..+10) | 1,323 | ~06–09 |
-| val03 | **full-window** (100M+500M) finalist check, 147 traces — retires the fidelity caution | 882 | afternoon |
+| batch | verdict |
+|-------|---------|
+| sweep03 | **pos_train is the better precision lever** — operating-point menu A–F in rounds/sweep03/decision.md (up to ~90% precision; e.g. C: 86.5p/72.2r/1.0210) |
+| sweep04 | **f21 size-insensitive confirmed** (1k entries = −0.2pp); 16k-uniform within 0.2pp of 64k at 1/4 budget |
+| val02 | **curve generalizes to 147 traces** (parallel, −1pp; 85%/86% crossings at act +8/+10; act+2 still geo peak 1.0164) |
+| val03 | full-window finalist check — still running, lands ~afternoon |
 
-Each gets scored + published as it drains; I'll update this brief in place.
+All decisions in rounds/*/decision.md; node-loss incidents (sqlite, llvm blocks) fully recovered by retries.
 
 ## Flags for your review
 
