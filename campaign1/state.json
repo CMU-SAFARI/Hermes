@@ -1,6 +1,6 @@
 {
  "campaign": "campaign1-pcless-uncore-beam",
- "status": "sweep01-scored",
+ "status": "overnight-batches-running",
  "round": 2,
  "beam": [
   {
@@ -1960,6 +1960,10 @@
   {
    "utc": "2026-07-07",
    "event": "overnight launches complete: val02/sweep03/sweep04/val03 = 4305 jobs. jobs_total=30435/120000."
+  },
+  {
+   "utc": "2026-07-07",
+   "event": "val01 scored: 4704/4704 valid, 147/147 traces. CROSS-SCALE CONFIRMED \u2014 triple@+2 best on 147 traces by BOTH geo (1.0164) and precision (83.2%); domination at matched precision holds (+5pp recall vs pairs). MORNING_BRIEF published. Remaining: sweep03/sweep04/val02 (~06-09 UTC), val03 (afternoon)."
   }
  ]
 }

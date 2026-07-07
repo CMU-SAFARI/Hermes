@@ -1,0 +1,62 @@
+[
+ {
+  "exp": "val01_c014",
+  "key": "f20+f21+f22|act=2",
+  "n_traces": 147,
+  "geo_nopf": 1.161722608109456,
+  "geo_pythia": 1.016433280992516,
+  "worst_vs_pythia": 0.9536109646810753,
+  "worst_trace": "865.roms_s-benchmark3-2540B",
+  "mean_prec": 83.1573469387755,
+  "mean_recall": 76.15768707482994,
+  "flag": true
+ },
+ {
+  "exp": "val01_c013",
+  "key": "f20+f21+f22|act=-4",
+  "n_traces": 147,
+  "geo_nopf": 1.1612495404926588,
+  "geo_pythia": 1.0160193769619703,
+  "worst_vs_pythia": 0.9500527148128624,
+  "worst_trace": "865.roms_s-benchmark3-2540B",
+  "mean_prec": 80.48897959183672,
+  "mean_recall": 80.09530612244897,
+  "flag": true
+ },
+ {
+  "exp": "val01_c017",
+  "key": "f18+f21+f22|act=2",
+  "n_traces": 147,
+  "geo_nopf": 1.1607567510899284,
+  "geo_pythia": 1.0155882176250002,
+  "worst_vs_pythia": 0.959409594095941,
+  "worst_trace": "865.roms_s-benchmark3-2540B",
+  "mean_prec": 81.75238095238096,
+  "mean_recall": 75.00646258503401,
+  "flag": true
+ },
+ {
+  "exp": "val01_c028",
+  "key": "f20+f21|act=3",
+  "n_traces": 147,
+  "geo_nopf": 1.1606344917838036,
+  "geo_pythia": 1.015481248519993,
+  "worst_vs_pythia": 0.9625285538569671,
+  "worst_trace": "865.roms_s-benchmark3-2540B",
+  "mean_prec": 82.2834693877551,
+  "mean_recall": 74.4156462585034,
+  "flag": true
+ },
+ {
+  "exp": "val01_c012",
+  "key": "f20+f21+f22|act=-10",
+  "n_traces": 147,
+  "geo_nopf": 1.1604161070362755,
+  "geo_pythia": 1.0152901757768964,
+  "worst_vs_pythia": 0.9402087135036497,
+  "worst_trace": "800.pot3d_s-pot3d_n1-1067B",
+  "mean_prec": 77.27639455782312,
+  "mean_recall": 83.6238775510204,
+  "flag": true
+ }
+]
