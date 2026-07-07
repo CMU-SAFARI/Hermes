@@ -1942,6 +1942,279 @@
    "geo_pythia": 1.019767747431555,
    "prec": 83.7886,
    "recall": 75.4776
+  },
+  "f20+f21+f22|act=8": {
+   "round": "sweep02",
+   "geo_nopf": 1.1625496699643696,
+   "geo_pythia": 1.0213413495525512,
+   "prec": 85.82639999999999,
+   "recall": 72.028
+  },
+  "f20+f21+f22|act=0": {
+   "round": "sweep02",
+   "geo_nopf": 1.161875819522477,
+   "geo_pythia": 1.0207493479052234,
+   "prec": 83.2882,
+   "recall": 77.60300000000001
+  },
+  "f20+f21+f22|act=4": {
+   "round": "sweep02",
+   "geo_nopf": 1.1612620113092205,
+   "geo_pythia": 1.02021009549727,
+   "prec": 84.5134,
+   "recall": 74.8962
+  },
+  "f20+f21+f22|act=-2": {
+   "round": "sweep02",
+   "geo_nopf": 1.1606068328142134,
+   "geo_pythia": 1.0196344978212508,
+   "prec": 82.3956,
+   "recall": 78.5864
+  },
+  "f20+f21+f22|act=6": {
+   "round": "sweep02",
+   "geo_nopf": 1.1606031347048178,
+   "geo_pythia": 1.0196312489002468,
+   "prec": 85.1116,
+   "recall": 73.3804
+  },
+  "f20+f21|act=11": {
+   "round": "sweep02",
+   "geo_nopf": 1.1598151628103501,
+   "geo_pythia": 1.0189389874864787,
+   "prec": 85.5206,
+   "recall": 69.7552
+  },
+  "f21+f22|act=9": {
+   "round": "sweep02",
+   "geo_nopf": 1.159676454541301,
+   "geo_pythia": 1.0188171273248317,
+   "prec": 84.7332,
+   "recall": 70.1578
+  },
+  "f20+f21+f22|act=10": {
+   "round": "sweep02",
+   "geo_nopf": 1.1594569268942014,
+   "geo_pythia": 1.018624264456994,
+   "prec": 86.3882,
+   "recall": 69.7186
+  },
+  "f21+f22|act=11": {
+   "round": "sweep02",
+   "geo_nopf": 1.159446196806907,
+   "geo_pythia": 1.0186148376925976,
+   "prec": 85.4006,
+   "recall": 67.913
+  },
+  "f20+f21+f22|act=8|tr=32/-7": {
+   "round": "sweep03",
+   "geo_nopf": 1.1632875117101564,
+   "geo_pythia": 1.0219895698427184,
+   "prec": 82.95379999999999,
+   "recall": 77.969
+  },
+  "f20+f21+f22|act=2|tr=32/-7": {
+   "round": "sweep03",
+   "geo_nopf": 1.163040091386256,
+   "geo_pythia": 1.0217722022634672,
+   "prec": 80.1458,
+   "recall": 81.8664
+  },
+  "f20+f21+f22|act=2|tr=32/-28": {
+   "round": "sweep03",
+   "geo_nopf": 1.1625007694942202,
+   "geo_pythia": 1.021298388745399,
+   "prec": 84.04459999999999,
+   "recall": 74.5732
+  },
+  "f20+f21+f22|act=2|tr=24/-7": {
+   "round": "sweep03",
+   "geo_nopf": 1.16216233204984,
+   "geo_pythia": 1.0210010593795122,
+   "prec": 81.0844,
+   "recall": 81.193
+  },
+  "f20+f21+f22|act=2|tr=8/-21": {
+   "round": "sweep03",
+   "geo_nopf": 1.162134784907007,
+   "geo_pythia": 1.0209768582320133,
+   "prec": 86.53659999999999,
+   "recall": 72.1764
+  },
+  "f20+f21+f22|act=8|tr=24/-14": {
+   "round": "sweep03",
+   "geo_nopf": 1.1620862682502227,
+   "geo_pythia": 1.020934234618592,
+   "prec": 84.74680000000001,
+   "recall": 74.90220000000001
+  },
+  "f20+f21+f22|act=2|tr=32/-14": {
+   "round": "sweep03",
+   "geo_nopf": 1.1619131956482633,
+   "geo_pythia": 1.0207821841648157,
+   "prec": 81.89359999999999,
+   "recall": 79.175
+  },
+  "f20+f21+f22|act=2|tr=16/-7": {
+   "round": "sweep03",
+   "geo_nopf": 1.161902333793681,
+   "geo_pythia": 1.0207726416381566,
+   "prec": 82.29260000000001,
+   "recall": 80.1556
+  },
+  "f20+f21+f22|act=2|tr=24/-14": {
+   "round": "sweep03",
+   "geo_nopf": 1.1618973278592002,
+   "geo_pythia": 1.0207682437461696,
+   "prec": 82.7574,
+   "recall": 78.2996
+  },
+  "f20+f21+f22|act=8|tr=24/-28": {
+   "round": "sweep03",
+   "geo_nopf": 1.1618497997038142,
+   "geo_pythia": 1.020726488566483,
+   "prec": 86.46340000000001,
+   "recall": 68.601
+  },
+  "f20+f21+f22|act=2|tr=8/-14": {
+   "round": "sweep03",
+   "geo_nopf": 1.1617374363714146,
+   "geo_pythia": 1.0206277733713234,
+   "prec": 85.64920000000001,
+   "recall": 74.4558
+  },
+  "f20+f21+f22|act=8|tr=24/-7": {
+   "round": "sweep03",
+   "geo_nopf": 1.1616645654212268,
+   "geo_pythia": 1.020563753642506,
+   "prec": 83.7244,
+   "recall": 77.2584
+  },
+  "f20+f21+f22|act=8|tr=16/-7": {
+   "round": "sweep03",
+   "geo_nopf": 1.1616222788263746,
+   "geo_pythia": 1.0205266033606986,
+   "prec": 84.94239999999999,
+   "recall": 75.352
+  },
+  "f20+f21+f22|act=2|tr=16/-14": {
+   "round": "sweep03",
+   "geo_nopf": 1.1614547680144842,
+   "geo_pythia": 1.0203794391378693,
+   "prec": 83.6432,
+   "recall": 77.351
+  },
+  "f20+f21+f22|act=2|tr=16/-21": {
+   "round": "sweep03",
+   "geo_nopf": 1.1613699037686813,
+   "geo_pythia": 1.0203048828710908,
+   "prec": 84.88,
+   "recall": 75.184
+  },
+  "f20+f21+f22|act=2|tr=8/-7": {
+   "round": "sweep03",
+   "geo_nopf": 1.1609491244419747,
+   "geo_pythia": 1.0199352132247044,
+   "prec": 84.036,
+   "recall": 77.16199999999999
+  },
+  "f20+f21+f22|act=8|tr=32/-14": {
+   "round": "sweep03",
+   "geo_nopf": 1.1608434157872338,
+   "geo_pythia": 1.0198423444012195,
+   "prec": 83.9604,
+   "recall": 75.5254
+  },
+  "f20+f21+f22|act=2|tr=32/-21": {
+   "round": "sweep03",
+   "geo_nopf": 1.1606617760395408,
+   "geo_pythia": 1.0196827674043527,
+   "prec": 83.04379999999999,
+   "recall": 77.025
+  },
+  "f20+f21+f22|act=2|tr=16/-28": {
+   "round": "sweep03",
+   "geo_nopf": 1.1606264401835864,
+   "geo_pythia": 1.0196517235945781,
+   "prec": 85.6116,
+   "recall": 72.165
+  },
+  "f20+f21+f22|act=2|tr=24/-28": {
+   "round": "sweep03",
+   "geo_nopf": 1.1605976484259912,
+   "geo_pythia": 1.0196264290086192,
+   "prec": 84.7602,
+   "recall": 73.373
+  },
+  "f20+f21+f22|act=8|tr=32/-21": {
+   "round": "sweep03",
+   "geo_nopf": 1.1605771637087465,
+   "geo_pythia": 1.0196084324538945,
+   "prec": 85.12899999999999,
+   "recall": 72.7346
+  },
+  "f20+f21+f22|act=8|tr=16/-21": {
+   "round": "sweep03",
+   "geo_nopf": 1.1602066871820291,
+   "geo_pythia": 1.0192829556114413,
+   "prec": 86.83239999999999,
+   "recall": 69.8792
+  },
+  "f20+f21+f22|act=8|tr=16/-14": {
+   "round": "sweep03",
+   "geo_nopf": 1.1601600728822254,
+   "geo_pythia": 1.0192420032864782,
+   "prec": 85.79299999999999,
+   "recall": 73.1554
+  },
+  "f20+f21+f22|act=2|tr=8/-28": {
+   "round": "sweep03",
+   "geo_nopf": 1.1601194953566136,
+   "geo_pythia": 1.0192063544829557,
+   "prec": 87.0518,
+   "recall": 68.7954
+  },
+  "f20+f21+f22|act=8|tr=8/-7": {
+   "round": "sweep03",
+   "geo_nopf": 1.1599823083032086,
+   "geo_pythia": 1.019085830763509,
+   "prec": 88.5174,
+   "recall": 65.89659999999999
+  },
+  "f20+f21+f22|act=8|tr=32/-28": {
+   "round": "sweep03",
+   "geo_nopf": 1.1598557728349768,
+   "geo_pythia": 1.0189746648415452,
+   "prec": 85.7274,
+   "recall": 69.53659999999999
+  },
+  "f20+f21+f22|act=8|tr=8/-14": {
+   "round": "sweep03",
+   "geo_nopf": 1.159150783061339,
+   "geo_pythia": 1.0183553061806372,
+   "prec": 88.8984,
+   "recall": 63.727799999999995
+  },
+  "f20+f21+f22|act=8|tr=16/-28": {
+   "round": "sweep03",
+   "geo_nopf": 1.1591294328548054,
+   "geo_pythia": 1.0183365492627028,
+   "prec": 87.2592,
+   "recall": 66.319
+  },
+  "f20+f21+f22|act=8|tr=8/-21": {
+   "round": "sweep03",
+   "geo_nopf": 1.1579221503289987,
+   "geo_pythia": 1.0172759085038126,
+   "prec": 89.3342,
+   "recall": 61.2688
+  },
+  "f20+f21+f22|act=8|tr=8/-28": {
+   "round": "sweep03",
+   "geo_nopf": 1.157279348331136,
+   "geo_pythia": 1.0167111840219654,
+   "prec": 89.8034,
+   "recall": 58.34439999999999
   }
  },
  "batches": {
@@ -2058,6 +2331,10 @@
   {
    "utc": "2026-07-07",
    "event": "sweep04 scored (600/600): f21 SIZE-INSENSITIVE confirmed (1k entries = -0.2pp); 16k-uniform within 0.2pp of 64k at 1/4 budget; f20/f22 want >=16k. val02 retry 20260707T051035Z_campaign1_val02_retry (54 jobs, 6 llvm traces, node-loss again). jobs_total=30549."
+  },
+  {
+   "utc": "2026-07-07",
+   "event": "sweep03 finalized (50/50 after retry): VERDICT \u2014 pos_train is the superior precision lever (act+2 tr8/-21: 86.5p/72.2r/1.0210 dominates act+10 rule); frontier extended to ~90% precision; operating-point menu A-F written."
   }
  ]
 }
