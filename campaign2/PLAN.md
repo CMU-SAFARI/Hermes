@@ -1,0 +1,44 @@
+# Campaign 2 — quad-core validation of Hermes-Big/Normal/Lite (STAGING)
+
+Successor to campaign1 (single-core tuning). Goal: with embed_cpu_id=true,
+per-workload precision/recall IN-MIX (shared uncore predictor, 4 cores) must
+match SOLO runs; embedding off/on A-B quantifies isolation; Big-vs-Lite gap
+under contention is the headline (owner prediction: Big wins multi-core).
+
+## Deliverable 1 — quad-core binary: DONE, PINNED
+- Worktree: /home/rahbera/thesis/Hermes-c2 (branch campaign2 @ b18be0c) —
+  fully isolated from campaign1's frozen checkout.
+- Build: ./build_champsim.sh glc multi multi multi multi 4 1 0
+- Binary: bin/glc-perceptron-no-multi-multi-multi-multi-4core-1ch
+- sha256[:16]: 52357d378d1a036f — FIXED for all of campaign 2.
+- libbf dependency copied from the main tree (git-ignored vendored lib).
+- Smokes passed: (a) 4-core baseline w/ real args; (b) shared uncore
+  predictor, Hermes-Normal config, embed_cpu_id=true — 113k predictions,
+  per-core IPCs sane.
+- KNOWN PAPERCUT (pre-existing, not fixed — observed at 4-core default
+  config): running WITHOUT --llc_replacement_type=ship segfaults in
+  llc_replacement_print_config(). All experiments must pass ship (they
+  always have).
+
+## Deliverable 2 — experiment file (PENDING owner input)
+Smaller per-core warmup/sim windows (owner). Open: exact window sizes.
+
+## Deliverable 3 — mixed-trace tlist (PENDING owner input)
+Open: mix construction (homogeneous vs heterogeneous, how many mixes, which
+traces — presumably sampled from the 146-trace list), solo-reference runs
+(each trace alone on the 4-core binary? or reuse campaign1 single-core data
+— NOTE: solo references must come from the SAME binary/config for a clean
+in-mix-vs-solo comparison; propose 4-core binary with 3 idle cores? No —
+standard practice: solo = the workload on core 0 of the quad-core system
+with other cores idle is not supported by ChampSim traces; typical method:
+solo = single-core-equivalent run; DISCUSS with owner).
+
+## Open decisions for the owner
+1. DRAM channels: built with 1 channel (max contention — matches the
+   precision-under-pressure story). Say the word for a 2-channel variant
+   BEFORE the campaign pins its protocol (rebuild is 2 minutes; both
+   binaries could even coexist, names differ).
+2. Mix design + count; per-core window sizes; embed on/off A-B matrix.
+3. Campaign-2 cluster setup: needs its own remote_sim_path + bootstrap so
+   cluster builds use the 4-core build command (campaign1's .cluster-run
+   config builds 1-core — MUST NOT be reused).
