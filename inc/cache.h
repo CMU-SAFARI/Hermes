@@ -144,6 +144,27 @@ public:
   uint32_t pref_acc;
   uint64_t total_acc_epochs, acc_epoch_hist[CACHE_ACC_LEVELS];
 
+  // shadow for the multi-core stat checkpoint (core_stats_checkpoint.h):
+  // print_roi_stats() reads these LIVE, unlike roi_access/roi_hit/roi_miss
+  // (which record_roi_stats already freezes at the same simulation-complete
+  // point) -- prefetch counters, RQ/WQ/PQ queue counters, eviction stats,
+  // and the accuracy-epoch histogram. Registered only for the private
+  // per-core caches (L1D/L1I/L2C); the LLC's copies are shared across cores
+  // (see the audit in the checkpoint-integration commit).
+  struct {
+    uint64_t pf_requested, pf_issued, pf_useful, pf_useless, pf_dropped,
+        pf_filled, pf_late;
+    uint64_t total_miss_latency;
+    uint64_t rq_access, rq_forward, rq_merged, rq_to_cache, rq_full;
+    uint64_t wq_access, wq_forward, wq_merged, wq_to_cache, wq_full;
+    uint64_t pq_access, pq_forward, pq_merged, pq_to_cache, pq_full;
+    uint64_t eviction_total, eviction_atleast_one_reuse;
+    uint64_t eviction_atleast_one_reuse_cat[NUM_TYPES];
+    uint64_t eviction_all_reuse_total, eviction_all_reuse_max,
+        eviction_all_reuse_min;
+    uint64_t total_acc_epochs, acc_epoch_hist[CACHE_ACC_LEVELS];
+  } live_ckpt;
+
   CacheTracer tracer;
 
   CacheReplBase *llc_repl;

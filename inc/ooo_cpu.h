@@ -166,6 +166,14 @@ public:
       frontal_load_per_ip_stats;
   load_per_rob_part_info_t load_per_rob_part_stats[NUM_PARTITION_TYPES];
 
+  // shadow copies for the multi-core stat checkpoint (see
+  // core_stats_checkpoint.h); written only by the registry closures
+  vector<uint64_t> bubble_max_ckpt, bubble_min_ckpt, bubble_tot_ckpt,
+      bubble_cnt_ckpt;
+  unordered_map<uint64_t, load_per_ip_info_t> load_per_ip_stats_ckpt,
+      frontal_load_per_ip_stats_ckpt;
+  load_per_rob_part_info_t load_per_rob_part_stats_ckpt[NUM_PARTITION_TYPES];
+
   // off-chip predictor
   OffchipPredBase *offchip_pred;
 

@@ -6,6 +6,7 @@
 #include "uncore.h"
 #include "knobs.h"
 #include "util.h"
+#include "core_stats_checkpoint.h"
 #include <fstream>
 #include <sstream>
 #include <algorithm>
@@ -34,6 +35,12 @@ uint8_t warmup_complete[NUM_CPUS], simulation_complete[NUM_CPUS],
     all_warmup_complete = 0, all_simulation_complete = 0,
     MAX_INSTR_DESTINATIONS = NUM_INSTR_DESTINATIONS;
 uint64_t champsim_seed;
+
+// Multi-core fixed windows: registry for per-core stat checkpoint/restore
+// (see inc/core_stats_checkpoint.h). Registered at the composition root in
+// main(), checkpointed at each core's own simulation-complete point, restored
+// once before the final dump.
+CoreStatsCheckpoint core_stats_ckpt;
 
 time_t start_time;
 
@@ -1581,6 +1588,175 @@ int main(int argc, char **argv)
            (uncore.LLC.offchip_pred != NULL));  // exactly one side owns it
   }
 
+  // Multi-core fixed windows: register every core-level statistic for
+  // checkpoint at that core's own [W, W+S] end (registration lives here at
+  // the composition root, NOT in constructors, so shared structures are
+  // never mis-scoped; LLC per-cpu slices register under their cpu).
+  for (uint32_t i = 0; i < NUM_CPUS; i++) {
+    O3_CPU *c = &ooo_cpu[i];
+#define REG_CS(field) core_stats_ckpt.reg(i, #field, &c->field)
+    REG_CS(stats.bubble.called);
+    REG_CS(stats.bubble.rob_non_head);
+    REG_CS(stats.bubble.rob_head);
+    REG_CS(stats.bubble.went_offchip);
+    REG_CS(stats.bubble.went_offchip_rob_head);
+    REG_CS(stats.bubble.went_offchip_rob_non_head);
+    REG_CS(stats.offchip_pred.pred_called);
+    REG_CS(stats.offchip_pred.true_pos);
+    REG_CS(stats.offchip_pred.false_pos);
+    REG_CS(stats.offchip_pred.false_neg);
+    REG_CS(stats.ddrp.total);
+    REG_CS(stats.ddrp.issued[0]);
+    REG_CS(stats.ddrp.issued[1]);
+    REG_CS(stats.ddrp.dram_rq_full);
+    REG_CS(stats.ddrp.dram_mshr_full);
+    REG_CS(num_branch);
+    REG_CS(branch_mispredictions);
+    REG_CS(total_rob_occupancy_at_branch_mispredict);
+    for (uint32_t b = 0; b < 8; b++) {
+      core_stats_ckpt.reg(i, "total_branch_types", &c->total_branch_types[b]);
+    }
+#undef REG_CS
+    // address-translation fault counters (print_addr_translation_stats):
+    // globals indexed by cpu, not O3_CPU members (audit finding: live,
+    // printed unconditionally, not covered by any of the families above).
+    core_stats_ckpt.reg(i, "major_fault", &major_fault[i]);
+    core_stats_ckpt.reg(i, "minor_fault", &minor_fault[i]);
+    // bubble per-partition vectors + per-partition load stats + per-IP maps
+    core_stats_ckpt.reg_custom(
+        i, "bubble_vectors",
+        [c]() {
+          c->bubble_max_ckpt = c->bubble_max;
+          c->bubble_min_ckpt = c->bubble_min;
+          c->bubble_tot_ckpt = c->bubble_tot;
+          c->bubble_cnt_ckpt = c->bubble_cnt;
+        },
+        [c]() {
+          c->bubble_max = c->bubble_max_ckpt;
+          c->bubble_min = c->bubble_min_ckpt;
+          c->bubble_tot = c->bubble_tot_ckpt;
+          c->bubble_cnt = c->bubble_cnt_ckpt;
+        });
+    core_stats_ckpt.reg_custom(
+        i, "load_per_ip_maps",
+        [c]() {
+          c->load_per_ip_stats_ckpt         = c->load_per_ip_stats;
+          c->frontal_load_per_ip_stats_ckpt = c->frontal_load_per_ip_stats;
+        },
+        [c]() {
+          c->load_per_ip_stats         = c->load_per_ip_stats_ckpt;
+          c->frontal_load_per_ip_stats = c->frontal_load_per_ip_stats_ckpt;
+        });
+    core_stats_ckpt.reg_custom(
+        i, "load_per_rob_part",
+        [c]() {
+          memcpy(c->load_per_rob_part_stats_ckpt, c->load_per_rob_part_stats,
+                 sizeof(c->load_per_rob_part_stats));
+        },
+        [c]() {
+          memcpy(c->load_per_rob_part_stats, c->load_per_rob_part_stats_ckpt,
+                 sizeof(c->load_per_rob_part_stats));
+        });
+    // LIVE per-core cache counters that print_roi_stats() reads directly --
+    // prefetch counters, RQ/WQ/PQ queue counters, eviction stats, and the
+    // accuracy-epoch histogram -- contaminated by overrun exactly like the
+    // stats above (audit finding: record_roi_stats only freezes
+    // roi_access/roi_hit/roi_miss, not these). Private caches only
+    // (L1D/L1I/L2C); the LLC's copies are shared across cores (exempt, see
+    // the audit).
+    {
+      CACHE *caches[] = {&c->L1D, &c->L1I, &c->L2C};
+      for (CACHE *ch : caches) {
+        core_stats_ckpt.reg_custom(
+            i, "cache_live_slice",
+            [ch]() {
+              ch->live_ckpt.pf_requested       = ch->pf_requested;
+              ch->live_ckpt.pf_issued          = ch->pf_issued;
+              ch->live_ckpt.pf_useful          = ch->pf_useful;
+              ch->live_ckpt.pf_useless         = ch->pf_useless;
+              ch->live_ckpt.pf_dropped         = ch->pf_dropped;
+              ch->live_ckpt.pf_filled          = ch->pf_filled;
+              ch->live_ckpt.pf_late            = ch->pf_late;
+              ch->live_ckpt.total_miss_latency = ch->total_miss_latency;
+              ch->live_ckpt.rq_access          = ch->RQ->ACCESS;
+              ch->live_ckpt.rq_forward         = ch->RQ->FORWARD;
+              ch->live_ckpt.rq_merged          = ch->RQ->MERGED;
+              ch->live_ckpt.rq_to_cache        = ch->RQ->TO_CACHE;
+              ch->live_ckpt.rq_full            = ch->RQ->FULL;
+              ch->live_ckpt.wq_access          = ch->WQ.ACCESS;
+              ch->live_ckpt.wq_forward         = ch->WQ.FORWARD;
+              ch->live_ckpt.wq_merged          = ch->WQ.MERGED;
+              ch->live_ckpt.wq_to_cache        = ch->WQ.TO_CACHE;
+              ch->live_ckpt.wq_full            = ch->WQ.FULL;
+              ch->live_ckpt.pq_access          = ch->PQ.ACCESS;
+              ch->live_ckpt.pq_forward         = ch->PQ.FORWARD;
+              ch->live_ckpt.pq_merged          = ch->PQ.MERGED;
+              ch->live_ckpt.pq_to_cache        = ch->PQ.TO_CACHE;
+              ch->live_ckpt.pq_full            = ch->PQ.FULL;
+              ch->live_ckpt.eviction_total     = ch->stats.eviction.total;
+              ch->live_ckpt.eviction_atleast_one_reuse =
+                  ch->stats.eviction.atleast_one_reuse;
+              for (uint32_t t = 0; t < NUM_TYPES; t++) {
+                ch->live_ckpt.eviction_atleast_one_reuse_cat[t] =
+                    ch->stats.eviction.atleast_one_reuse_cat[t];
+              }
+              ch->live_ckpt.eviction_all_reuse_total =
+                  ch->stats.eviction.all_reuse_total;
+              ch->live_ckpt.eviction_all_reuse_max =
+                  ch->stats.eviction.all_reuse_max;
+              ch->live_ckpt.eviction_all_reuse_min =
+                  ch->stats.eviction.all_reuse_min;
+              ch->live_ckpt.total_acc_epochs = ch->total_acc_epochs;
+              for (uint32_t l = 0; l < CACHE_ACC_LEVELS; l++) {
+                ch->live_ckpt.acc_epoch_hist[l] = ch->acc_epoch_hist[l];
+              }
+            },
+            [ch]() {
+              ch->pf_requested         = ch->live_ckpt.pf_requested;
+              ch->pf_issued            = ch->live_ckpt.pf_issued;
+              ch->pf_useful            = ch->live_ckpt.pf_useful;
+              ch->pf_useless           = ch->live_ckpt.pf_useless;
+              ch->pf_dropped           = ch->live_ckpt.pf_dropped;
+              ch->pf_filled            = ch->live_ckpt.pf_filled;
+              ch->pf_late              = ch->live_ckpt.pf_late;
+              ch->total_miss_latency   = ch->live_ckpt.total_miss_latency;
+              ch->RQ->ACCESS           = ch->live_ckpt.rq_access;
+              ch->RQ->FORWARD          = ch->live_ckpt.rq_forward;
+              ch->RQ->MERGED           = ch->live_ckpt.rq_merged;
+              ch->RQ->TO_CACHE         = ch->live_ckpt.rq_to_cache;
+              ch->RQ->FULL             = ch->live_ckpt.rq_full;
+              ch->WQ.ACCESS            = ch->live_ckpt.wq_access;
+              ch->WQ.FORWARD           = ch->live_ckpt.wq_forward;
+              ch->WQ.MERGED            = ch->live_ckpt.wq_merged;
+              ch->WQ.TO_CACHE          = ch->live_ckpt.wq_to_cache;
+              ch->WQ.FULL              = ch->live_ckpt.wq_full;
+              ch->PQ.ACCESS            = ch->live_ckpt.pq_access;
+              ch->PQ.FORWARD           = ch->live_ckpt.pq_forward;
+              ch->PQ.MERGED            = ch->live_ckpt.pq_merged;
+              ch->PQ.TO_CACHE          = ch->live_ckpt.pq_to_cache;
+              ch->PQ.FULL              = ch->live_ckpt.pq_full;
+              ch->stats.eviction.total = ch->live_ckpt.eviction_total;
+              ch->stats.eviction.atleast_one_reuse =
+                  ch->live_ckpt.eviction_atleast_one_reuse;
+              for (uint32_t t = 0; t < NUM_TYPES; t++) {
+                ch->stats.eviction.atleast_one_reuse_cat[t] =
+                    ch->live_ckpt.eviction_atleast_one_reuse_cat[t];
+              }
+              ch->stats.eviction.all_reuse_total =
+                  ch->live_ckpt.eviction_all_reuse_total;
+              ch->stats.eviction.all_reuse_max =
+                  ch->live_ckpt.eviction_all_reuse_max;
+              ch->stats.eviction.all_reuse_min =
+                  ch->live_ckpt.eviction_all_reuse_min;
+              ch->total_acc_epochs = ch->live_ckpt.total_acc_epochs;
+              for (uint32_t l = 0; l < CACHE_ACC_LEVELS; l++) {
+                ch->acc_epoch_hist[l] = ch->live_ckpt.acc_epoch_hist[l];
+              }
+            });
+      }
+    }
+  }
+
   print_knobs();
 
   // simulation entry point
@@ -1738,6 +1914,8 @@ int main(int argc, char **argv)
         record_roi_stats(i, &ooo_cpu[i].L2C);
         record_roi_stats(i, &uncore.LLC);
 
+        core_stats_ckpt.checkpoint(i);
+
         all_simulation_complete++;
       }
 
@@ -1786,6 +1964,10 @@ int main(int argc, char **argv)
     uncore.DRAM.operate();
     uncore.LLC.operate();
   }
+
+  // restore each core's checkpointed [W, W+S] stats so the (untouched)
+  // final dump prints window-correct values
+  core_stats_ckpt.restore_all();
 
   uint64_t elapsed_second = (uint64_t)(time(NULL) - start_time),
            elapsed_minute = elapsed_second / 60,
