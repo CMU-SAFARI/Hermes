@@ -65,6 +65,21 @@ static std::string knob_to_string(const std::vector<float> &v)
   return array_to_string(v);
 }
 
+#if NUM_CPUS > 1
+// Multi-core fixed windows: a core that has finished its own warmup parks
+// (no pipeline progress) until ALL cores are warm. Caches/DRAM keep
+// operating so in-flight transactions drain. Zero code at 1 core.
+static inline bool warmup_parked(int i)
+{
+  return warmup_complete[i] && (all_warmup_complete <= NUM_CPUS);
+}
+#else
+static inline bool warmup_parked(int)
+{
+  return false;
+}
+#endif
+
 void print_knobs()
 {
   /* all scalar + array knobs (auto-generated from knobs.def) */
@@ -1587,7 +1602,7 @@ int main(int argc, char **argv)
       // << stall_cycle[i] << " current: " << current_core_cycle[i] << endl;
 
       // core might be stalled due to page fault or branch misprediction
-      if (stall_cycle[i] <= current_core_cycle[i]) {
+      if (!warmup_parked(i) && (stall_cycle[i] <= current_core_cycle[i])) {
         // retire
         if ((ooo_cpu[i].ROB.entry[ooo_cpu[i].ROB.head].executed == COMPLETED) &&
             (ooo_cpu[i].ROB.entry[ooo_cpu[i].ROB.head].event_cycle <=
@@ -1663,7 +1678,7 @@ int main(int argc, char **argv)
       }
 
       // check for deadlock
-      if (ooo_cpu[i].ROB.entry[ooo_cpu[i].ROB.head].ip &&
+      if (!warmup_parked(i) && ooo_cpu[i].ROB.entry[ooo_cpu[i].ROB.head].ip &&
           (ooo_cpu[i].ROB.entry[ooo_cpu[i].ROB.head].event_cycle +
            DEADLOCK_CYCLE) <= current_core_cycle[i]) {
         print_deadlock(i);
@@ -1671,8 +1686,15 @@ int main(int argc, char **argv)
 
       // check for warmup
       // warmup complete
+#if NUM_CPUS > 1
+      // capped cores reach exactly W and must still flip (>=); the 1-core
+      // path keeps the legacy strict-> to preserve byte-identity
+      if ((warmup_complete[i] == 0) &&
+          (ooo_cpu[i].num_retired >= ooo_cpu[i].warmup_instructions)) {
+#else
       if ((warmup_complete[i] == 0) &&
           (ooo_cpu[i].num_retired > ooo_cpu[i].warmup_instructions)) {
+#endif
         warmup_complete[i] = 1;
         all_warmup_complete++;
       }

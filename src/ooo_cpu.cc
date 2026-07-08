@@ -2553,6 +2553,14 @@ void O3_CPU::release_load_queue(uint32_t lq_index)
 void O3_CPU::retire_rob()
 {
   for (uint32_t n = 0; n < RETIRE_WIDTH; n++) {
+#if NUM_CPUS > 1
+    // Multi-core fixed windows: park retirement at exactly the warmup
+    // target so every core's measured region starts at W (spec:
+    // docs/superpowers/specs/2026-07-09-multicore-window-fix-design.md).
+    if (!warmup_complete[cpu] && num_retired >= warmup_instructions) {
+      return;
+    }
+#endif
     if (ROB.entry[ROB.head].ip == 0) {
       return;
     }
