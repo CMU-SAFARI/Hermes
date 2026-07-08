@@ -2579,6 +2579,10 @@
   {
    "utc": "2026-07-08",
    "event": "OWNER AMENDMENT: three shipping versions Hermes-Big/Normal/Lite at 32/16/4KB total storage (shared-uncore amortization: Normal=parity with original per-core Hermes x4). E4 joint PBxweight sweep launched: 20260708T071920Z_campaign1_e4, 2550 jobs (9 PB variants incl. 32..2048 entries + geometry probes, 5-weight ladder to 25.6K, isolation row). E3' three-version headline replaces single-config closeout. Multi-core study = next campaign. jobs_total=37211."
+  },
+  {
+   "utc": "2026-07-08",
+   "event": "OWNER: multi-core successor campaign criterion recorded \u2014 with embed_cpu_id=true, per-workload precision/recall in-mix (shared uncore predictor) must match solo runs; embedding off/on A-B quantifies isolation value; shared PB contention = residual attribution + the Big-vs-Lite differentiator. Runs AFTER Big/Normal/Lite are nailed at full tlist + full window (E3'). Multi-core needs a NUM_CPUS>1 build = new campaign protocol (code freeze b18be0c applies to campaign1 only)."
   }
  ]
 }
