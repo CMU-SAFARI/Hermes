@@ -1,0 +1,512 @@
+{
+ "e4_c000": {
+  "key": "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=2x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c001": {
+  "key": "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=2x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c002": {
+  "key": "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=2x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c003": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=2x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c004": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=2x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c005": {
+  "key": "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=4x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c006": {
+  "key": "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=4x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c007": {
+  "key": "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=4x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c008": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=4x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c009": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=4x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c010": {
+  "key": "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=8x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c011": {
+  "key": "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=8x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c012": {
+  "key": "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=8x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c013": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=8x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c014": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=8x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c015": {
+  "key": "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=16x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c016": {
+  "key": "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=16x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c017": {
+  "key": "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=16x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c018": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=16x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c019": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=16x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c020": {
+  "key": "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=32x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c021": {
+  "key": "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=32x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c022": {
+  "key": "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=32x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c023": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=32x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c024": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=32x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c025": {
+  "key": "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=64x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c026": {
+  "key": "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=64x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c027": {
+  "key": "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=64x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c028": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=64x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c029": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=64x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c030": {
+  "key": "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=128x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c031": {
+  "key": "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=128x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c032": {
+  "key": "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=128x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c033": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=128x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c034": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=128x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c035": {
+  "key": "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=32x8",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c036": {
+  "key": "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=32x8",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c037": {
+  "key": "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=32x8",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c038": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=32x8",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c039": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=32x8",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c040": {
+  "key": "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=64x4",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c041": {
+  "key": "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=64x4",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c042": {
+  "key": "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=64x4",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c043": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=64x4",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c044": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=64x4",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c045": {
+  "key": "f20+f21+f22|act=2|w=65536x65536x65536|tr=8/-21|pb=2x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c046": {
+  "key": "f20+f21+f22|act=2|w=65536x65536x65536|tr=8/-21|pb=4x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c047": {
+  "key": "f20+f21+f22|act=2|w=65536x65536x65536|tr=8/-21|pb=8x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c048": {
+  "key": "f20+f21+f22|act=2|w=65536x65536x65536|tr=8/-21|pb=16x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c049": {
+  "key": "f20+f21+f22|act=2|w=65536x65536x65536|tr=8/-21|pb=32x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e4_c050": {
+  "key": "f20+f21+f22|act=2|w=65536x65536x65536|tr=8/-21|pb=128x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ }
+}

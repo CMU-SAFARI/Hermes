@@ -1,6 +1,6 @@
 {
  "campaign": "campaign1-pcless-uncore-beam",
- "status": "e3-running",
+ "status": "e3e4-running",
  "round": 2,
  "beam": [
   {
@@ -2447,9 +2447,10 @@
   "val02_retry": "20260707T051035Z_campaign1_val02_retry",
   "e1": "20260707T174458Z_campaign1_e1",
   "e2": "20260707T174604Z_campaign1_e2",
-  "e3": "20260708T043833Z_campaign1_e3"
+  "e3": "20260708T043833Z_campaign1_e3",
+  "e4": "20260708T071920Z_campaign1_e4"
  },
- "jobs_total": 34661,
+ "jobs_total": 37211,
  "log": [
   {
    "utc": "2026-07-03",
@@ -2574,6 +2575,10 @@
   {
    "utc": "2026-07-08",
    "event": "E3 submitted: 20260708T043833Z_campaign1_e3, 584 jobs (shipping 4096x1024x1024 + 64k twin, both windows, 146 traces). CLOSEOUT on drain. jobs_total=34661."
+  },
+  {
+   "utc": "2026-07-08",
+   "event": "OWNER AMENDMENT: three shipping versions Hermes-Big/Normal/Lite at 32/16/4KB total storage (shared-uncore amortization: Normal=parity with original per-core Hermes x4). E4 joint PBxweight sweep launched: 20260708T071920Z_campaign1_e4, 2550 jobs (9 PB variants incl. 32..2048 entries + geometry probes, 5-weight ladder to 25.6K, isolation row). E3' three-version headline replaces single-config closeout. Multi-core study = next campaign. jobs_total=37211."
   }
  ]
 }

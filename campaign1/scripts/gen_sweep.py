@@ -94,6 +94,14 @@ def main():
             keyx += "|w=" + "x".join(str(s) for s in sizes)
         if "pos_train" in entry or "neg_train" in entry:
             keyx += f"|tr={pos}/{neg}"
+        pbargs = ""
+        if "page_buf_sets" in entry or "page_buf_assoc" in entry:
+            pbs = entry.get("page_buf_sets", 64)
+            pba = entry.get("page_buf_assoc", 16)
+            assert pbs >= 1 and pba >= 1
+            pbargs = (f" --ocp_perc_page_buf_sets={pbs}"
+                      f" --ocp_perc_page_buf_assoc={pba}")
+            keyx += f"|pb={pbs}x{pba}"
         for act in entry["act"]:
             en = f"{name}_c{idx:03d}"
             idx += 1
@@ -104,7 +112,8 @@ def main():
                     f"--ocp_perc_feature_region_size_log2s={rsz} "
                     f"--ocp_perc_activation_threshold={act} "
                     f"--ocp_perc_pos_train_thresh={pos} "
-                    f"--ocp_perc_neg_train_thresh={neg} "
+                    f"--ocp_perc_neg_train_thresh={neg}"
+                    f"{pbargs} "
                     f"$(HERMES)")
             lines.append(f"  - {en} : {args}")
             manifest[en] = {"key": f"{key_set}|act={act}{keyx}",
