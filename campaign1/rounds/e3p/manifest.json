@@ -1,0 +1,82 @@
+{
+ "e3p_c000": {
+  "key": "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=8x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e3p_c001": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=32x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e3p_c002": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=64x16",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e3p_c000_fw": {
+  "key": "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=8x16|fw",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "e3p_c001_fw": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=32x16|fw",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "e3p_c002_fw": {
+  "key": "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=64x16|fw",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "e3p_c003_fw": {
+  "key": "f20+f21+f22|act=2|w=4096x1024x1024|tr=8/-21|fw",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "e3p_c004_fw": {
+  "key": "f20+f21+f22|act=2|w=65536x65536x65536|tr=8/-21|fw",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "full",
+  "role": "config"
+ }
+}

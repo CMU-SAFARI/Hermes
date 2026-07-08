@@ -1,6 +1,6 @@
 {
  "campaign": "campaign1-pcless-uncore-beam",
- "status": "e3e4-running",
+ "status": "e3p-running",
  "round": 2,
  "beam": [
   {
@@ -2431,6 +2431,312 @@
    "geo_pythia": 1.017948636287528,
    "prec": 85.20219999999999,
    "recall": 67.5908
+  },
+  "f20+f21+f22|act=2|w=65536x65536x65536|tr=8/-21|pb=2x16": {
+   "round": "e4",
+   "geo_pythia": 1.0203020661182305,
+   "prec": 85.29700000000001,
+   "recall": 70.0894
+  },
+  "f20+f21+f22|act=2|w=65536x65536x65536|tr=8/-21|pb=128x16": {
+   "round": "e4",
+   "geo_pythia": 1.0196428750303266,
+   "prec": 86.5308,
+   "recall": 71.1012
+  },
+  "f20+f21+f22|act=2|w=65536x65536x65536|tr=8/-21|pb=32x16": {
+   "round": "e4",
+   "geo_pythia": 1.0193648926577308,
+   "prec": 86.1162,
+   "recall": 72.1062
+  },
+  "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=64x16": {
+   "round": "e4",
+   "geo_pythia": 1.0193554502969542,
+   "prec": 86.2674,
+   "recall": 70.76180000000001
+  },
+  "f20+f21+f22|act=2|w=65536x65536x65536|tr=8/-21|pb=16x16": {
+   "round": "e4",
+   "geo_pythia": 1.0191755051953701,
+   "prec": 85.87180000000001,
+   "recall": 71.173
+  },
+  "f20+f21+f22|act=2|w=65536x65536x65536|tr=8/-21|pb=4x16": {
+   "round": "e4",
+   "geo_pythia": 1.0191209674945187,
+   "prec": 85.559,
+   "recall": 70.28359999999999
+  },
+  "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=32x16": {
+   "round": "e4",
+   "geo_pythia": 1.019120090571,
+   "prec": 85.48360000000001,
+   "recall": 70.35979999999999
+  },
+  "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=16x16": {
+   "round": "e4",
+   "geo_pythia": 1.0190302933628088,
+   "prec": 85.6032,
+   "recall": 70.0116
+  },
+  "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=16x16": {
+   "round": "e4",
+   "geo_pythia": 1.0189400125240031,
+   "prec": 85.1892,
+   "recall": 69.4674
+  },
+  "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=64x16": {
+   "round": "e4",
+   "geo_pythia": 1.0189165962988311,
+   "prec": 85.602,
+   "recall": 69.8604
+  },
+  "f20+f21+f22|act=2|w=65536x65536x65536|tr=8/-21|pb=8x16": {
+   "round": "e4",
+   "geo_pythia": 1.018873062621109,
+   "prec": 85.5892,
+   "recall": 70.1812
+  },
+  "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=64x4": {
+   "round": "e4",
+   "geo_pythia": 1.018823536828229,
+   "prec": 85.524,
+   "recall": 70.09020000000001
+  },
+  "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=64x16": {
+   "round": "e4",
+   "geo_pythia": 1.0188120337040465,
+   "prec": 85.7276,
+   "recall": 70.0612
+  },
+  "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=64x4": {
+   "round": "e4",
+   "geo_pythia": 1.018810412040579,
+   "prec": 85.10379999999999,
+   "recall": 69.5394
+  },
+  "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=32x8": {
+   "round": "e4",
+   "geo_pythia": 1.0187955836206346,
+   "prec": 85.58239999999999,
+   "recall": 69.9012
+  },
+  "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=128x16": {
+   "round": "e4",
+   "geo_pythia": 1.018747787700053,
+   "prec": 85.7834,
+   "recall": 69.09779999999999
+  },
+  "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=32x16": {
+   "round": "e4",
+   "geo_pythia": 1.0187166509228545,
+   "prec": 85.81459999999998,
+   "recall": 70.7128
+  },
+  "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=32x8": {
+   "round": "e4",
+   "geo_pythia": 1.018674918740268,
+   "prec": 85.35719999999999,
+   "recall": 69.848
+  },
+  "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=2x16": {
+   "round": "e4",
+   "geo_pythia": 1.0186330946617008,
+   "prec": 85.0592,
+   "recall": 68.9478
+  },
+  "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=64x16": {
+   "round": "e4",
+   "geo_pythia": 1.0186010025228767,
+   "prec": 85.947,
+   "recall": 70.52420000000001
+  },
+  "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=4x16": {
+   "round": "e4",
+   "geo_pythia": 1.0185882162913182,
+   "prec": 84.87100000000001,
+   "recall": 68.8326
+  },
+  "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=64x16": {
+   "round": "e4",
+   "geo_pythia": 1.0185071175617648,
+   "prec": 85.0522,
+   "recall": 68.51520000000001
+  },
+  "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=4x16": {
+   "round": "e4",
+   "geo_pythia": 1.0185030819690102,
+   "prec": 85.3884,
+   "recall": 69.2554
+  },
+  "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=128x16": {
+   "round": "e4",
+   "geo_pythia": 1.018495971162881,
+   "prec": 86.3484,
+   "recall": 69.7708
+  },
+  "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=4x16": {
+   "round": "e4",
+   "geo_pythia": 1.0184747314493388,
+   "prec": 85.0342,
+   "recall": 68.9804
+  },
+  "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=32x16": {
+   "round": "e4",
+   "geo_pythia": 1.0184743135630725,
+   "prec": 85.61540000000001,
+   "recall": 70.6106
+  },
+  "f20+f21+f22|act=2|w=8192x1024x16384|tr=8/-21|pb=8x16": {
+   "round": "e4",
+   "geo_pythia": 1.0184715766432468,
+   "prec": 85.37100000000001,
+   "recall": 69.05199999999999
+  },
+  "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=8x16": {
+   "round": "e4",
+   "geo_pythia": 1.0184568363814754,
+   "prec": 84.98299999999999,
+   "recall": 68.689
+  },
+  "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=8x16": {
+   "round": "e4",
+   "geo_pythia": 1.018449659843922,
+   "prec": 85.17540000000001,
+   "recall": 68.9546
+  },
+  "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=64x4": {
+   "round": "e4",
+   "geo_pythia": 1.018448120575813,
+   "prec": 84.9736,
+   "recall": 69.0782
+  },
+  "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=32x8": {
+   "round": "e4",
+   "geo_pythia": 1.0183833873227666,
+   "prec": 84.936,
+   "recall": 69.06739999999999
+  },
+  "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=32x16": {
+   "round": "e4",
+   "geo_pythia": 1.0183809233779326,
+   "prec": 84.81219999999999,
+   "recall": 68.8114
+  },
+  "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=32x8": {
+   "round": "e4",
+   "geo_pythia": 1.018333830351399,
+   "prec": 84.552,
+   "recall": 68.0332
+  },
+  "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=32x16": {
+   "round": "e4",
+   "geo_pythia": 1.018309071177395,
+   "prec": 85.14299999999999,
+   "recall": 69.893
+  },
+  "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=128x16": {
+   "round": "e4",
+   "geo_pythia": 1.0182996733203302,
+   "prec": 86.1638,
+   "recall": 69.4984
+  },
+  "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=64x4": {
+   "round": "e4",
+   "geo_pythia": 1.0182348644030748,
+   "prec": 84.43620000000001,
+   "recall": 67.9388
+  },
+  "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=128x16": {
+   "round": "e4",
+   "geo_pythia": 1.018226425501464,
+   "prec": 85.1434,
+   "recall": 67.6584
+  },
+  "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=16x16": {
+   "round": "e4",
+   "geo_pythia": 1.0182187469300543,
+   "prec": 85.3732,
+   "recall": 69.7206
+  },
+  "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=4x16": {
+   "round": "e4",
+   "geo_pythia": 1.0182134752152916,
+   "prec": 84.6164,
+   "recall": 68.28519999999999
+  },
+  "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=64x4": {
+   "round": "e4",
+   "geo_pythia": 1.0181251030359075,
+   "prec": 85.28,
+   "recall": 69.7976
+  },
+  "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=16x16": {
+   "round": "e4",
+   "geo_pythia": 1.0181129705851288,
+   "prec": 84.505,
+   "recall": 67.95479999999999
+  },
+  "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=32x8": {
+   "round": "e4",
+   "geo_pythia": 1.0180954609335884,
+   "prec": 85.0528,
+   "recall": 69.32220000000001
+  },
+  "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=2x16": {
+   "round": "e4",
+   "geo_pythia": 1.0180923812752176,
+   "prec": 84.1308,
+   "recall": 67.2712
+  },
+  "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=128x16": {
+   "round": "e4",
+   "geo_pythia": 1.0180625942593111,
+   "prec": 85.68440000000001,
+   "recall": 68.8896
+  },
+  "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=8x16": {
+   "round": "e4",
+   "geo_pythia": 1.0180420564395853,
+   "prec": 84.7726,
+   "recall": 68.296
+  },
+  "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=2x16": {
+   "round": "e4",
+   "geo_pythia": 1.0179653091204286,
+   "prec": 84.351,
+   "recall": 67.9144
+  },
+  "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=8x16": {
+   "round": "e4",
+   "geo_pythia": 1.0179240889797143,
+   "prec": 84.3964,
+   "recall": 67.199
+  },
+  "f20+f21+f22|act=2|w=8192x1024x4096|tr=8/-21|pb=2x16": {
+   "round": "e4",
+   "geo_pythia": 1.0179078815923117,
+   "prec": 84.88960000000002,
+   "recall": 68.7076
+  },
+  "f20+f21+f22|act=2|w=2048x1024x1024|tr=8/-21|pb=16x16": {
+   "round": "e4",
+   "geo_pythia": 1.0178459462953169,
+   "prec": 84.9504,
+   "recall": 68.9926
+  },
+  "f20+f21+f22|act=2|w=1024x512x512|tr=8/-21|pb=4x16": {
+   "round": "e4",
+   "geo_pythia": 1.0178186654720025,
+   "prec": 84.31299999999999,
+   "recall": 67.36439999999999
+  },
+  "f20+f21+f22|act=2|w=4096x1024x2048|tr=8/-21|pb=2x16": {
+   "round": "e4",
+   "geo_pythia": 1.0176963757522879,
+   "prec": 84.5456,
+   "recall": 68.432
   }
  },
  "batches": {
@@ -2448,9 +2754,10 @@
   "e1": "20260707T174458Z_campaign1_e1",
   "e2": "20260707T174604Z_campaign1_e2",
   "e3": "20260708T043833Z_campaign1_e3",
-  "e4": "20260708T071920Z_campaign1_e4"
+  "e4": "20260708T071920Z_campaign1_e4",
+  "e3p": "20260708T161301Z_campaign1_e3p"
  },
- "jobs_total": 37211,
+ "jobs_total": 38379,
  "log": [
   {
    "utc": "2026-07-03",
@@ -2591,6 +2898,10 @@
   {
    "utc": "2026-07-08",
    "event": "E3 scored (tuning half valid: 6K-sizes 85.1/69.0/1.0150 vs 64k 86.0/71.3/1.0160 @146). OPERATOR ERROR: e3 _fw twins re-ran the tuning window (sed missed the TBASE macro definition) \u2014 292 duplicate jobs, fw numbers discarded, val03 unaffected. Fix: WBASE-reference method + pre-submit assertion; fw reference rows folded into E3'."
+  },
+  {
+   "utc": "2026-07-08",
+   "event": "E4 scored (2550/2550, ZERO failures): PICKS \u2014 Lite 4.25KB (PB 8x16 + 4K W: 84.8/68.3/1.0180), Normal 15.1KB (PB 32x16 + 13.3K W: 85.6/70.6/1.0185), Big 29.6KB (PB 64x16 + 25.6K W: 86.3/70.8/1.0194, within 0.2pp of unconstrained). ISOLATION VERDICT: PB-dominance hypothesis NOT confirmed \u2014 PB degrades gracefully (2048->32e costs 1.2pp); weights are ~2x more byte-efficient for precision. Geometry-insensitive. E3' launched: 20260708T161301Z_campaign1_e3p, 1168 jobs (assertions passed, WBASE method). jobs_total=38379."
   }
  ]
 }

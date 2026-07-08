@@ -1,0 +1,96 @@
+{
+ "purpose": "E3': Big/Normal/Lite headline run (both windows) + fw-only refs",
+ "entries": [
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    2048,
+    1024,
+    1024
+   ],
+   "page_buf_sets": 8,
+   "page_buf_assoc": 16
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    8192,
+    1024,
+    4096
+   ],
+   "page_buf_sets": 32,
+   "page_buf_assoc": 16
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    8192,
+    1024,
+    16384
+   ],
+   "page_buf_sets": 64,
+   "page_buf_assoc": 16
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    4096,
+    1024,
+    1024
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    65536,
+    65536,
+    65536
+   ]
+  }
+ ]
+}
