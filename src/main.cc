@@ -1614,6 +1614,7 @@ int main(int argc, char **argv)
     REG_CS(num_branch);
     REG_CS(branch_mispredictions);
     REG_CS(total_rob_occupancy_at_branch_mispredict);
+    REG_CS(num_retired);
     for (uint32_t b = 0; b < 8; b++) {
       core_stats_ckpt.reg(i, "total_branch_types", &c->total_branch_types[b]);
     }
