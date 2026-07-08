@@ -1,0 +1,39 @@
+{
+ "purpose": "E3: shipping config (hardware sizes) + 64k twin, both windows x 146 traces \u2014 the CLOSEOUT headline run",
+ "entries": [
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    4096,
+    1024,
+    1024
+   ]
+  },
+  {
+   "tokens": [
+    "f20",
+    "f21",
+    "f22"
+   ],
+   "act": [
+    2
+   ],
+   "pos_train": 8,
+   "neg_train": -21,
+   "weight_sizes": [
+    65536,
+    65536,
+    65536
+   ]
+  }
+ ]
+}

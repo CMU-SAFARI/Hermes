@@ -1,0 +1,42 @@
+{
+ "e3_c000": {
+  "key": "f20+f21+f22|act=2|w=4096x1024x1024|tr=8/-21",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e3_c001": {
+  "key": "f20+f21+f22|act=2|w=65536x65536x65536|tr=8/-21",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "tuning",
+  "role": "config"
+ },
+ "e3_c000_fw": {
+  "key": "f20+f21+f22|act=2|w=4096x1024x1024|tr=8/-21|fw",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "full",
+  "role": "config"
+ },
+ "e3_c001_fw": {
+  "key": "f20+f21+f22|act=2|w=65536x65536x65536|tr=8/-21|fw",
+  "tokens": [
+   "f20",
+   "f21",
+   "f22"
+  ],
+  "window": "full",
+  "role": "config"
+ }
+}
