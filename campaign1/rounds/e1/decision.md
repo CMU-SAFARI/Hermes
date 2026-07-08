@@ -15,7 +15,8 @@
   (1.0189 vs 1.0190) — +3.5pp precision effectively free in IPC.
 - FW precision crossings, all at act+2: 85% @ tr8/-14, 86% @ tr8/-21,
   87% @ tr8/-28; beyond 88% requires act+8 (recall <66%).
-- Note: trace 765.roms_r-benchmark2-985B common-dropped (its last 3 jobs
+- UPDATE 2026-07-08: roms-985B re-merged — E1 now scored on 146/146 (shipping point 86.3p/71.4r/1.0186, verdict unchanged).
+- Original note: trace 765.roms_r-benchmark2-985B common-dropped (its last 3 jobs
   still running at scoring time; 145/146). Re-merge to 146 in CLOSEOUT if
   they land before E3 does — verdict is insensitive either way.
 

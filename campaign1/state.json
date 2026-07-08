@@ -2583,6 +2583,10 @@
   {
    "utc": "2026-07-08",
    "event": "OWNER: multi-core successor campaign criterion recorded \u2014 with embed_cpu_id=true, per-workload precision/recall in-mix (shared uncore predictor) must match solo runs; embedding off/on A-B quantifies isolation value; shared PB contention = residual attribution + the Big-vs-Lite differentiator. Runs AFTER Big/Normal/Lite are nailed at full tlist + full window (E3'). Multi-core needs a NUM_CPUS>1 build = new campaign protocol (code freeze b18be0c applies to campaign1 only)."
+  },
+  {
+   "utc": "2026-07-08",
+   "event": "E1 upgraded to 146/146 (roms-985B re-merged): shipping point 86.3p/71.4r/1.0186 \u2014 unchanged."
   }
  ]
 }
