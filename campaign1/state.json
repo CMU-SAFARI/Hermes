@@ -2587,6 +2587,10 @@
   {
    "utc": "2026-07-08",
    "event": "E1 upgraded to 146/146 (roms-985B re-merged): shipping point 86.3p/71.4r/1.0186 \u2014 unchanged."
+  },
+  {
+   "utc": "2026-07-08",
+   "event": "E3 scored (tuning half valid: 6K-sizes 85.1/69.0/1.0150 vs 64k 86.0/71.3/1.0160 @146). OPERATOR ERROR: e3 _fw twins re-ran the tuning window (sed missed the TBASE macro definition) \u2014 292 duplicate jobs, fw numbers discarded, val03 unaffected. Fix: WBASE-reference method + pre-submit assertion; fw reference rows folded into E3'."
   }
  ]
 }
