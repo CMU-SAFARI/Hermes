@@ -47,9 +47,12 @@ measures instructions [W, W+S] of every workload, mix-independent.
   calls (trace read / fetch / decode / schedule / execute / retire and any
   per-cycle core bookkeeping that advances architectural state), and the
   deadlock check for core i is muted (a parked ROB head is not a deadlock).
-- Core i's PRIVATE CACHES (and TLBs) continue to operate while stalled so
-  in-flight MSHR transactions drain; the shared LLC/DRAM obviously continue.
-  A stalled core simply stops injecting new work.
+- CORRECTION (found in Task-2 review): a parked core's private caches
+  FREEZE with it — operate_cache() ticks inside the gated pipeline block.
+  This matches the pre-existing stall_cycle freeze semantics and is safe:
+  LLC fills return to a parked core via direct MSHR marking, and the DRAM
+  warmup fast-path leaves almost nothing in flight during warmup. Only
+  the shared LLC/DRAM continue operating while a core is parked.
 - The global barrier `finish_warmup()` is UNCHANGED (latency swap, stat
   reset, `begin_sim_instr`/`begin_sim_cycle` capture). It now fires with
   every core parked at exactly W, so `begin_sim_instr == W` for all cores by

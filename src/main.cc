@@ -74,8 +74,9 @@ static std::string knob_to_string(const std::vector<float> &v)
 
 #if NUM_CPUS > 1
 // Multi-core fixed windows: a core that has finished its own warmup parks
-// (no pipeline progress) until ALL cores are warm. Caches/DRAM keep
-// operating so in-flight transactions drain. Zero code at 1 core.
+// (no pipeline progress) until ALL cores are warm. The parked core's
+// private caches freeze with it (same semantics as a stall_cycle stall);
+// only the uncore LLC/DRAM keep operating. Zero code at 1 core.
 static inline bool warmup_parked(int i)
 {
   return warmup_complete[i] && (all_warmup_complete <= NUM_CPUS);
