@@ -1,6 +1,6 @@
 {
  "campaign": "campaign1-pcless-uncore-beam",
- "status": "e3p-running",
+ "status": "campaign-closed",
  "round": 2,
  "beam": [
   {
@@ -2902,6 +2902,14 @@
   {
    "utc": "2026-07-08",
    "event": "E4 scored (2550/2550, ZERO failures): PICKS \u2014 Lite 4.25KB (PB 8x16 + 4K W: 84.8/68.3/1.0180), Normal 15.1KB (PB 32x16 + 13.3K W: 85.6/70.6/1.0185), Big 29.6KB (PB 64x16 + 25.6K W: 86.3/70.8/1.0194, within 0.2pp of unconstrained). ISOLATION VERDICT: PB-dominance hypothesis NOT confirmed \u2014 PB degrades gracefully (2048->32e costs 1.2pp); weights are ~2x more byte-efficient for precision. Geometry-insensitive. E3' launched: 20260708T161301Z_campaign1_e3p, 1168 jobs (assertions passed, WBASE method). jobs_total=38379."
+  },
+  {
+   "utc": "2026-07-08",
+   "event": "CAMPAIGN-2 STAGING (owner-directed, separate campaign): quad-core binary built in isolated worktree Hermes-c2 (branch campaign2 @ b18be0c), pinned sha 52357d37; smokes passed incl. shared uncore predictor with embed_cpu_id at 4 cores; known papercut documented (must pass llc_replacement_type). Campaign-1 checkout verified untouched. Deliverables 2 (exp windows) + 3 (mix tlist) await owner input."
+  },
+  {
+   "utc": "2026-07-09",
+   "event": "CAMPAIGN CLOSED. E3' scored (1167/1168 valid; 64k-ref ns3 12h-timeout noted). Headline @146 FW: Lite 84.4/67.8/1.0162, Normal 85.4/69.8/1.0176, Big 85.8/69.7/1.0180 vs pythia; 64k-unconstrained 86.4/71.5/1.0187 @145. Window-stable within 0.2pp. CLOSEOUT.md published. Totals: 38,379 jobs / 120k auth, zero unrecovered loss."
   }
  ]
 }
