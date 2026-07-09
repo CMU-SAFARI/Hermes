@@ -34,26 +34,31 @@ def main(inp, outp):
     for e in exps:
         if e == "c2_nopf":
             continue
-        ratios, precs, recs = [], [], []
+        rn, rp, precs, recs = [], [], [], []
         for m in mixes:
-            if (m, e) in healthy and (m, "c2_nopf") in healthy:
+            # common mix set: the experiment AND both baselines must be healthy,
+            # so vs-nopf and vs-pythia columns cover identical mixes
+            if ((m, e) in healthy and (m, "c2_nopf") in healthy
+                    and (m, "c2_pythia") in healthy):
                 mp, r = healthy[(m, e)]
-                base, _ = healthy[(m, "c2_nopf")]
-                ratios.append(mp / base)
+                rn.append(mp / healthy[(m, "c2_nopf")][0])
+                rp.append(mp / healthy[(m, "c2_pythia")][0])
                 try:
                     precs.append(float(r["precision"]))
                     recs.append(float(r["recall"]))
                 except ValueError:
                     pass
-        if not ratios:
+        if not rn:
             continue
-        sp = math.exp(sum(math.log(x) for x in ratios) / len(ratios))
+        gm = lambda v: math.exp(sum(math.log(x) for x in v) / len(v))
         out.append({
-            "exp": e, "n_mixes": len(ratios), "speedup": round(sp, 4),
+            "exp": e, "n_mixes": len(rn),
+            "speedup_vs_nopf": round(gm(rn), 4),
+            "speedup_vs_pythia": round(gm(rp), 4),
             "mean_precision": round(sum(precs) / len(precs), 1) if precs else "",
             "mean_recall": round(sum(recs) / len(recs), 1) if recs else "",
         })
-    out.sort(key=lambda x: -x["speedup"])
+    out.sort(key=lambda x: -x["speedup_vs_nopf"])
     with open(outp, "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(out[0].keys()))
         w.writeheader()
