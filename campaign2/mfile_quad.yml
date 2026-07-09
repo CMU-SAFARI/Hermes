@@ -1,0 +1,14 @@
+---
+# Campaign-2 quad-core metrics (rollup.py). Per-core IPCs are the primary
+# signal (owner metric 2026-07-09): mean_perf(exp,mix) = geomean(ipc0..ipc3);
+# speedup = mean_perf / mean_perf(c2_nopf, same mix); final = geomean over
+# mixes. Geomeans are computed in the scorer (collect_quad.py), NOT here —
+# raw per-core values stay in stats.csv for auditability.
+# Pooled predictor accuracy (shared uncore instance; full-phase semantics,
+# overrun-inclusive — diagnostics only, per owner amendment).
+- ipc0: "$(Core_0_cumulative_IPC)"
+- ipc1: "$(Core_1_cumulative_IPC)"
+- ipc2: "$(Core_2_cumulative_IPC)"
+- ipc3: "$(Core_3_cumulative_IPC)"
+- precision: "$(LLC_offchip_pred_precision)"
+- recall: "$(LLC_offchip_pred_recall)"
