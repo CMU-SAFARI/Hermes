@@ -1,0 +1,16 @@
+{
+ "campaign": "campaign2-quadcore",
+ "status": "run01-running",
+ "code_pin": "campaign2@8ad4b78 (binary semantics 6319cea, local pin ef3b36a3)",
+ "batches": {
+  "run01": "20260709T071314Z_campaign2_run01"
+ },
+ "jobs_total": 800,
+ "metric": "geomean-IPC per mix vs per-mix c2_nopf; final geomean over mixes; vs-pythia column on common mix set",
+ "log": [
+  {
+   "utc": "2026-07-09",
+   "event": "CAMPAIGN 2 LAUNCHED: 20260709T071314Z_campaign2_run01, 800 jobs (8 exps x 100 mixes, 25M+75M per core), 12h walltime, own remote path Hermes-c2 with 4-core build. Owner vetted mix100+exp_quad; metric locked; frozen version inis consumed via --config."
+  }
+ ]
+}
