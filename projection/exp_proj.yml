@@ -1,0 +1,24 @@
+---
+# Final single-core projection run (architect handover): full SPEC rate-int +
+# speed-int suites, full window, on the frozen Hermes-Uncore version configs.
+# 10 experiments x 404 traces (two batches: rate 144, speed 260).
+definitions:
+  - WBASE: "--warmup_instructions=100000000 --simulation_instructions=500000000 --llc_replacement_type=ship --config=$(SIM_HOME_IN_CLUSTER)/config/nopref.ini --num_rob_partitions=3 --rob_partition_size=64,128,320 --rob_frontal_partition_ids=0 --rob_dorsal_partition_ids=2"
+  - PYTHIA: "--l2c_prefetcher_types=scooby --config=$(SIM_HOME_IN_CLUSTER)/config/pythia.ini --scooby_enable_direct_pref_issue=true --scooby_pref_at_lower_level=true --scooby_dyn_degrees_type2=1,1,2,4"
+  - OCPBASE: "--config=$(SIM_HOME_IN_CLUSTER)/config/ocp_hermes.ini"
+  - LITE: "--config=$(SIM_HOME_IN_CLUSTER)/config/hermes_uncore_lite.ini"
+  - NORMAL: "--config=$(SIM_HOME_IN_CLUSTER)/config/hermes_uncore_normal.ini"
+  - BIG: "--config=$(SIM_HOME_IN_CLUSTER)/config/hermes_uncore_big.ini"
+  - XPT: "--config=$(SIM_HOME_IN_CLUSTER)/config/ocp_xpt.ini --offchip_pred_location=uncore --ocp_xpt_use_physical_address=true"
+  - HERMES: "--config=$(SIM_HOME_IN_CLUSTER)/config/hermes_base.ini --ddrp_req_latency=1"
+experiments:
+  - proj_nopf : $(WBASE)
+  - proj_pythia : $(WBASE) $(PYTHIA)
+  - proj_lite : $(WBASE) $(OCPBASE) $(LITE) $(HERMES)
+  - proj_normal : $(WBASE) $(OCPBASE) $(NORMAL) $(HERMES)
+  - proj_big : $(WBASE) $(OCPBASE) $(BIG) $(HERMES)
+  - proj_lite_pythia : $(WBASE) $(PYTHIA) $(OCPBASE) $(LITE) $(HERMES)
+  - proj_normal_pythia : $(WBASE) $(PYTHIA) $(OCPBASE) $(NORMAL) $(HERMES)
+  - proj_big_pythia : $(WBASE) $(PYTHIA) $(OCPBASE) $(BIG) $(HERMES)
+  - proj_xpt : $(WBASE) $(XPT) $(HERMES)
+  - proj_xpt_pythia : $(WBASE) $(PYTHIA) $(XPT) $(HERMES)
