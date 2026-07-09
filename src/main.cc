@@ -81,6 +81,12 @@ static inline bool warmup_parked(int i)
 {
   return warmup_complete[i] && (all_warmup_complete <= NUM_CPUS);
 }
+// A core unparks with in-flight instructions whose event_cycles are up to
+// the whole park duration in the past (real 25M-instruction warmups
+// diverge by millions of cycles across a mix); the deadlock heuristic must
+// not read that staleness as a hang. Set at the all-warm barrier; the
+// deadlock check stays disarmed until DEADLOCK_CYCLE fresh cycles pass.
+static uint64_t deadlock_rearm_cycle[NUM_CPUS];
 #else
 static inline bool warmup_parked(int)
 {
@@ -944,6 +950,10 @@ void finish_warmup()
 
     ooo_cpu[i].begin_sim_cycle = current_core_cycle[i];
     ooo_cpu[i].begin_sim_instr = ooo_cpu[i].num_retired;
+
+#if NUM_CPUS > 1
+    deadlock_rearm_cycle[i] = current_core_cycle[i] + DEADLOCK_CYCLE;
+#endif
 
     ooo_cpu[i].reset_stats();
 
@@ -1856,7 +1866,11 @@ int main(int argc, char **argv)
       }
 
       // check for deadlock
-      if (!warmup_parked(i) && ooo_cpu[i].ROB.entry[ooo_cpu[i].ROB.head].ip &&
+      if (!warmup_parked(i) &&
+#if NUM_CPUS > 1
+          (current_core_cycle[i] >= deadlock_rearm_cycle[i]) &&
+#endif
+          ooo_cpu[i].ROB.entry[ooo_cpu[i].ROB.head].ip &&
           (ooo_cpu[i].ROB.entry[ooo_cpu[i].ROB.head].event_cycle +
            DEADLOCK_CYCLE) <= current_core_cycle[i]) {
         print_deadlock(i);
