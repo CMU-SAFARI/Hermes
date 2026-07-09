@@ -1,0 +1,16 @@
+{
+ "campaign": "projection-handover",
+ "status": "running",
+ "code_pin": "rbdev@fc49264 (b18be0c semantics + frozen inis)",
+ "batches": {
+  "rate": "20260709T075351Z_projection_rate",
+  "speed": "20260709T075505Z_projection_speed"
+ },
+ "jobs_total": 4040,
+ "log": [
+  {
+   "utc": "2026-07-09",
+   "event": "PROJECTION LAUNCHED (owner GO): rate=20260709T075351Z_projection_rate (1440), speed=20260709T075505Z_projection_speed (2600); 10 exps x 404 traces, 100M+500M, 12h. Weighted per-workload rubric locked (scripts/collect_proj.py)."
+  }
+ ]
+}
