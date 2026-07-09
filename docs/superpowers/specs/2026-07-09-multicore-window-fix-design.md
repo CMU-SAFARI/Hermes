@@ -53,6 +53,11 @@ measures instructions [W, W+S] of every workload, mix-independent.
   LLC fills return to a parked core via direct MSHR marking, and the DRAM
   warmup fast-path leaves almost nothing in flight during warmup. Only
   the shared LLC/DRAM continue operating while a core is parked.
+- FINISH BOUNDARY (added during verification, commit 6319cea): retirement
+  also pauses at exactly begin_sim_instr + simulation_instructions until
+  the same-cycle completion check snapshots the core and sets
+  simulation_complete, which lifts the cap — the core then keeps running
+  for contention. Both window boundaries are exact per core.
 - The global barrier `finish_warmup()` is UNCHANGED (latency swap, stat
   reset, `begin_sim_instr`/`begin_sim_cycle` capture). It now fires with
   every core parked at exactly W, so `begin_sim_instr == W` for all cores by
@@ -96,7 +101,7 @@ recording its registration or its exemption + reason in the commit):
 | core stat struct (bubble, ROB-partition arrays, offchip_pred TP/FP/FN, DDRP-attributed, etc.) | `ooo_cpu[i].stats.*` | reg() per scalar / array loop |
 | branch stats | `num_branch`, `branch_mispredictions`, `total_branch_types[8]`, `total_rob_occupancy_at_branch_mispredict` | reg() |
 | per-IP maps | `load_per_ip_stats`, `frontal_load_per_ip_stats` | reg_custom deep copy |
-| TLB stats | `ITLB/DTLB/STLB` (CACHE objects) | extend existing `record_roi_stats` calls (3 additions) — one mechanism per stat family |
+| TLB stats | `ITLB/DTLB/STLB` | CORRECTION (final review): the dump never prints TLB stats — no action needed or taken; the audit instead covered the real gap (live per-cache fields read by print_roi_stats) |
 | private caches + LLC per-cpu slices | existing | UNCHANGED (`record_roi_stats`, already correct) |
 | window bounds / IPC | `finish_sim_instr/cycle` | UNCHANGED (already frozen at completion) |
 
