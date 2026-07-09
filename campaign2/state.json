@@ -1,16 +1,21 @@
 {
  "campaign": "campaign2-quadcore",
  "status": "run01-running",
- "code_pin": "campaign2@8ad4b78 (binary semantics 6319cea, local pin ef3b36a3)",
+ "code_pin": "campaign2@0c4a1fa (deadlock-rearm fix; binary a327a7cbb3504a59)",
  "batches": {
-  "run01": "20260709T071314Z_campaign2_run01"
+  "run01": "20260709T071314Z_campaign2_run01",
+  "run01b": "20260709T083337Z_campaign2_run01b"
  },
- "jobs_total": 800,
+ "jobs_total": 1440,
  "metric": "geomean-IPC per mix vs per-mix c2_nopf; final geomean over mixes; vs-pythia column on common mix set",
  "log": [
   {
    "utc": "2026-07-09",
    "event": "CAMPAIGN 2 LAUNCHED: 20260709T071314Z_campaign2_run01, 800 jobs (8 exps x 100 mixes, 25M+75M per core), 12h walltime, own remote path Hermes-c2 with 4-core build. Owner vetted mix100+exp_quad; metric locked; frozen version inis consumed via --config."
+  },
+  {
+   "utc": "2026-07-09",
+   "event": "INCIDENT + FIX: 606/800 run01 jobs aborted at the warmup barrier \u2014 the deadlock checker read parked cores' stale event_cycles (park ~3M cycles at real 25M warmups) as hangs; the Task-2 review's Minor finding, real at production scale. Fix 0c4a1fa: per-core rearm cycle disarms the checker for DEADLOCK_CYCLE after the barrier. A/B repro at lowered threshold (pre-fix fires with stale COMPLETED head at barrier; post-fix passes; post-fix real-threshold run clean end-to-end); 1-core byte gate empty. Fix touches only the heuristic -> surviving run01 rows remain valid/comparable. run01b=20260709T083337Z_campaign2_run01b resubmits all 80 affected mixes x 8 exps (640 jobs, fixed binary); scoring merge prefers run01b rows."
   }
  ]
 }

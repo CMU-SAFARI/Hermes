@@ -236,3 +236,16 @@ branch-type lines. Fix re-review: Approved (livelock/ordering/staleness/
 
 ## FINAL VERDICT: ALL FOUR CRITERIA PASS
 Code version: campaign2 @ 6319cea. Binaries: 1core 9bbe0d3b188434fb, 4core ef3b36a358ca948d.
+
+## INCIDENT ADDENDUM (2026-07-09, post-launch): warmup-barrier deadlock false-positive
+
+At production 25M-instruction warmups, real mixes diverge ~3M cycles (the
+short-window verification mixes diverged ~1 cycle — the triage's "parks
+are ~1 cycle" premise did not scale). A parked core's completed ROB head
+carried event_cycles stale by the park duration; the first post-unpark
+deadlock check aborted 606/800 run01 jobs. Fix 0c4a1fa (per-core
+deadlock_rearm_cycle set at the barrier): A/B-reproduced at a lowered
+threshold, verified clean at the real threshold, 1-core byte gate empty.
+Binary re-pinned a327a7cbb3504a59. Lesson recorded: boundary-hazard
+findings triaged on "unreachable at current scale" must be re-checked at
+production scale before launch.

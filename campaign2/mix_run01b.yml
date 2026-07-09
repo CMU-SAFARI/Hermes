@@ -1,0 +1,1201 @@
+spec26_mix4:
+- trace_mix_0:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-824B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-8B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-modelsmodule_0010-23B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/854.graph500_s-bfs-3313B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 709.cactus_r-shifted_gauge_wave-824B
+    - 709.cactus_r-shifted_gauge_wave-8B
+    - 823.llvm_s-modelsmodule_0010-23B
+    - 854.graph500_s-bfs-3313B
+- trace_mix_1:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-26B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/722.palm_r-atmos-334B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/811.tealeaf_s-default-33315B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0011-14B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 709.cactus_r-shifted_gauge_wave-26B
+    - 722.palm_r-atmos-334B
+    - 811.tealeaf_s-default-33315B
+    - 823.llvm_s-etf_inst3_0011-14B
+- trace_mix_5:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-770_7z-57B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-insn_recog_0005-10B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-bitcoin-750B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/834.vpr_s-wb_conmax_route-461B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 727.cppcheck_r-770_7z-57B
+    - 823.llvm_s-insn_recog_0005-10B
+    - 829.abc_s-bitcoin-750B
+    - 834.vpr_s-wb_conmax_route-461B
+- trace_mix_6:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/809.cactus_s-shifted_gauge_wave-6972B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0018-31B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/849.fotonik3d_s-default-7623B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/865.roms_s-benchmark3-3753B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 809.cactus_s-shifted_gauge_wave-6972B
+    - 821.gcc_s-lz4hc_0018-31B
+    - 849.fotonik3d_s-default-7623B
+    - 865.roms_s-benchmark3-3753B
+- trace_mix_8:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-des_system90-75B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-des_system90-88B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-inst_constrs_3_0017-35B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-passbuilderpipelines_0003-2B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 729.abc_r-des_system90-75B
+    - 729.abc_r-des_system90-88B
+    - 823.llvm_s-inst_constrs_3_0017-35B
+    - 823.llvm_s-passbuilderpipelines_0003-2B
+- trace_mix_16:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/811.tealeaf_s-default-34631B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0007-10B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-standardinstrumentations_0014-2B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-ethernet_fraig-12B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 811.tealeaf_s-default-34631B
+    - 821.gcc_s-lz4hc_0007-10B
+    - 823.llvm_s-standardinstrumentations_0014-2B
+    - 829.abc_s-ethernet_fraig-12B
+- trace_mix_18:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0005-11B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-ethernet_fraig-12B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-ethernet_fraig-186B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/854.graph500_s-bfs-1217B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 823.llvm_s-etf_inst3_0005-11B
+    - 829.abc_s-ethernet_fraig-12B
+    - 829.abc_s-ethernet_fraig-186B
+    - 854.graph500_s-bfs-1217B
+- trace_mix_26:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-747_dealii-3B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/800.pot3d_s-pot3d_n1-2026B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4_0002-39B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/849.fotonik3d_s-default-2571B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 727.cppcheck_r-747_dealii-3B
+    - 800.pot3d_s-pot3d_n1-2026B
+    - 821.gcc_s-lz4_0002-39B
+    - 849.fotonik3d_s-default-2571B
+- trace_mix_27:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/722.palm_r-atmos-1670B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-bitcoin-750B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/867.nest_s-microcircuit-2574B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/881.neutron_s-xsbench_event_unionized-1137B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 722.palm_r-atmos-1670B
+    - 829.abc_s-bitcoin-750B
+    - 867.nest_s-microcircuit-2574B
+    - 881.neutron_s-xsbench_event_unionized-1137B
+- trace_mix_28:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-main_size2000-556B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/765.roms_r-benchmark2-985B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/846.minizinc_s-yumi_dynamic-256B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/865.roms_s-benchmark3-7363B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 708.sqlite_r-main_size2000-556B
+    - 765.roms_r-benchmark2-985B
+    - 846.minizinc_s-yumi_dynamic-256B
+    - 865.roms_s-benchmark3-7363B
+- trace_mix_29:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-651B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/822.palm_s-atmos-4359B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/846.minizinc_s-yumi_dynamic-40B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/849.fotonik3d_s-default-1927B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 749.fotonik3d_r-default-651B
+    - 822.palm_s-atmos-4359B
+    - 846.minizinc_s-yumi_dynamic-40B
+    - 849.fotonik3d_s-default-1927B
+- trace_mix_30:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-des_system90-103B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-inst_constrs_3_0017-27B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-particle_handler_0015-5B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/865.roms_s-benchmark3-3753B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 729.abc_r-des_system90-103B
+    - 823.llvm_s-inst_constrs_3_0017-27B
+    - 823.llvm_s-particle_handler_0015-5B
+    - 865.roms_s-benchmark3-3753B
+- trace_mix_31:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-8B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-mcml-19B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/736.ocio_r-lut1d_halfdom-43B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-gasdis-149B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 709.cactus_r-shifted_gauge_wave-8B
+    - 729.abc_r-mcml-19B
+    - 736.ocio_r-lut1d_halfdom-43B
+    - 737.gmsh_r-gasdis-149B
+- trace_mix_32:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/809.cactus_s-shifted_gauge_wave-1690B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-insn_recog_0005-26B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-bitcoin-645B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/867.nest_s-microcircuit-2574B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 809.cactus_s-shifted_gauge_wave-1690B
+    - 823.llvm_s-insn_recog_0005-26B
+    - 829.abc_s-bitcoin-645B
+    - 867.nest_s-microcircuit-2574B
+- trace_mix_33:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/722.palm_r-atmos-334B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-45B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/822.palm_s-atmos-35579B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-ethernet_fraig-12B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 722.palm_r-atmos-334B
+    - 749.fotonik3d_r-default-45B
+    - 822.palm_s-atmos-35579B
+    - 829.abc_s-ethernet_fraig-12B
+- trace_mix_34:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-dagcombiner_0002-14B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-grid_tools_dof_handlers_0009-11B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-standardinstrumentations_0014-2B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/865.roms_s-benchmark3-2365B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 823.llvm_s-dagcombiner_0002-14B
+    - 823.llvm_s-grid_tools_dof_handlers_0009-11B
+    - 823.llvm_s-standardinstrumentations_0014-2B
+    - 865.roms_s-benchmark3-2365B
+- trace_mix_35:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-738_diamond-4B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/736.ocio_r-lut1d_halfdom-43B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-projection-6B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/820.cloverleaf_s-default-12184B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 727.cppcheck_r-738_diamond-4B
+    - 736.ocio_r-lut1d_halfdom-43B
+    - 737.gmsh_r-projection-6B
+    - 820.cloverleaf_s-default-12184B
+- trace_mix_36:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-main_size2000-556B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/734.vpr_r-jpeg_route-49B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-ethernet_fraig-12B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/834.vpr_s-wb_conmax_place-461B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 708.sqlite_r-main_size2000-556B
+    - 734.vpr_r-jpeg_route-49B
+    - 829.abc_s-ethernet_fraig-12B
+    - 834.vpr_s-wb_conmax_place-461B
+- trace_mix_37:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-27B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-738_diamond-320B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-unicodeobject_0015-26B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0005-11B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 709.cactus_r-shifted_gauge_wave-27B
+    - 727.cppcheck_r-738_diamond-320B
+    - 821.gcc_s-unicodeobject_0015-26B
+    - 823.llvm_s-etf_inst3_0005-11B
+- trace_mix_38:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-fp_size1000-424B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-main_size2000-136B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/811.tealeaf_s-default-35333B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0018-31B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 708.sqlite_r-fp_size1000-424B
+    - 708.sqlite_r-main_size2000-136B
+    - 811.tealeaf_s-default-35333B
+    - 821.gcc_s-lz4hc_0018-31B
+- trace_mix_39:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/721.gcc_r-gcc_pp_O2_fpic-309B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/854.graph500_s-bfs-3313B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/865.roms_s-benchmark3-2365B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/867.nest_s-microcircuit-2574B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 721.gcc_r-gcc_pp_O2_fpic-309B
+    - 854.graph500_s-bfs-3313B
+    - 865.roms_s-benchmark3-2365B
+    - 867.nest_s-microcircuit-2574B
+- trace_mix_40:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-599B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/765.roms_r-benchmark2-871B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4_0002-39B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0005-11B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 749.fotonik3d_r-default-599B
+    - 765.roms_r-benchmark2-871B
+    - 821.gcc_s-lz4_0002-39B
+    - 823.llvm_s-etf_inst3_0005-11B
+- trace_mix_41:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-19B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/736.ocio_r-lut1d_halfdom-6B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/809.cactus_s-shifted_gauge_wave-6972B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/865.roms_s-benchmark3-7363B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 709.cactus_r-shifted_gauge_wave-19B
+    - 736.ocio_r-lut1d_halfdom-6B
+    - 809.cactus_s-shifted_gauge_wave-6972B
+    - 865.roms_s-benchmark3-7363B
+- trace_mix_42:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-128B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-modelsmodule_0004-24B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-bitcoin-645B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/865.roms_s-benchmark3-2365B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 749.fotonik3d_r-default-128B
+    - 823.llvm_s-modelsmodule_0004-24B
+    - 829.abc_s-bitcoin-645B
+    - 865.roms_s-benchmark3-2365B
+- trace_mix_43:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-19B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-spec_hxt-26B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-dagcombiner_0006-4B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/865.roms_s-benchmark3-7363B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 709.cactus_r-shifted_gauge_wave-19B
+    - 737.gmsh_r-spec_hxt-26B
+    - 823.llvm_s-dagcombiner_0006-4B
+    - 865.roms_s-benchmark3-7363B
+- trace_mix_44:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/721.gcc_r-ref32_O3_inline12000-113B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/800.pot3d_s-pot3d_n1-2026B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0018-20B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-particle_handler_0018-13B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 721.gcc_r-ref32_O3_inline12000-113B
+    - 800.pot3d_s-pot3d_n1-2026B
+    - 821.gcc_s-lz4hc_0018-20B
+    - 823.llvm_s-particle_handler_0018-13B
+- trace_mix_45:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-cte_size2000-233B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/800.pot3d_s-pot3d_n1-1067B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0007-10B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-insn_recog_0005-14B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 708.sqlite_r-cte_size2000-233B
+    - 800.pot3d_s-pot3d_n1-1067B
+    - 821.gcc_s-lz4hc_0007-10B
+    - 823.llvm_s-insn_recog_0005-14B
+- trace_mix_46:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-main_size2000-499B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/722.palm_r-atmos-334B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/854.graph500_s-bfs-3313B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/867.nest_s-microcircuit-9846B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 708.sqlite_r-main_size2000-499B
+    - 722.palm_r-atmos-334B
+    - 854.graph500_s-bfs-3313B
+    - 867.nest_s-microcircuit-9846B
+- trace_mix_47:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-main_size2000-556B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/734.vpr_r-smithwaterman_place-213B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-130B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-ethernet_fraig-12B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 708.sqlite_r-main_size2000-556B
+    - 734.vpr_r-smithwaterman_place-213B
+    - 749.fotonik3d_r-default-130B
+    - 829.abc_s-ethernet_fraig-12B
+- trace_mix_48:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-8B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/721.gcc_r-gcc_pp_O2_fpic-309B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-bitcoin-750B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/881.neutron_s-xsbench_event_unionized-1137B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 709.cactus_r-shifted_gauge_wave-8B
+    - 721.gcc_r-gcc_pp_O2_fpic-309B
+    - 829.abc_s-bitcoin-750B
+    - 881.neutron_s-xsbench_event_unionized-1137B
+- trace_mix_49:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-des_system90-103B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/734.vpr_r-jpeg_place-76B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/800.pot3d_s-pot3d_n1-2544B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/822.palm_s-atmos-2602B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 729.abc_r-des_system90-103B
+    - 734.vpr_r-jpeg_place-76B
+    - 800.pot3d_s-pot3d_n1-2544B
+    - 822.palm_s-atmos-2602B
+- trace_mix_50:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/723.llvm_r-codegen-388B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-770_7z-38B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-651B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-modelsmodule_0004-24B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 723.llvm_r-codegen-388B
+    - 727.cppcheck_r-770_7z-38B
+    - 749.fotonik3d_r-default-651B
+    - 823.llvm_s-modelsmodule_0004-24B
+- trace_mix_51:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-mcml-19B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/809.cactus_s-shifted_gauge_wave-6972B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0009-6B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-insn_recog_0005-10B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 729.abc_r-mcml-19B
+    - 809.cactus_s-shifted_gauge_wave-6972B
+    - 821.gcc_s-lz4hc_0009-6B
+    - 823.llvm_s-insn_recog_0005-10B
+- trace_mix_52:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-19B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/722.palm_r-atmos-1670B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/820.cloverleaf_s-default-12184B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0010-23B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 709.cactus_r-shifted_gauge_wave-19B
+    - 722.palm_r-atmos-1670B
+    - 820.cloverleaf_s-default-12184B
+    - 821.gcc_s-lz4hc_0010-23B
+- trace_mix_53:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-747_dealii-218B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-128B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/811.tealeaf_s-default-34631B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0007-10B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 727.cppcheck_r-747_dealii-218B
+    - 749.fotonik3d_r-default-128B
+    - 811.tealeaf_s-default-34631B
+    - 821.gcc_s-lz4hc_0007-10B
+- trace_mix_54:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-spec_hxt-62B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-599B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-unicodeobject_0006-1B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/849.fotonik3d_s-default-11846B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 737.gmsh_r-spec_hxt-62B
+    - 749.fotonik3d_r-default-599B
+    - 821.gcc_s-unicodeobject_0006-1B
+    - 849.fotonik3d_s-default-11846B
+- trace_mix_55:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-fp_size1000-424B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/721.gcc_r-ref32_O3_inline12000-41B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-747_dealii-21B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/820.cloverleaf_s-default-12184B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 708.sqlite_r-fp_size1000-424B
+    - 721.gcc_r-ref32_O3_inline12000-41B
+    - 727.cppcheck_r-747_dealii-21B
+    - 820.cloverleaf_s-default-12184B
+- trace_mix_56:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-dagcombiner_0006-4B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0005-11B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-standardinstrumentations_0014-2B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/854.graph500_s-bfs-1217B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 823.llvm_s-dagcombiner_0006-4B
+    - 823.llvm_s-etf_inst3_0005-11B
+    - 823.llvm_s-standardinstrumentations_0014-2B
+    - 854.graph500_s-bfs-1217B
+- trace_mix_57:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-770_7z-57B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0011-8B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-grid_tools_0008-19B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/849.fotonik3d_s-default-2571B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 727.cppcheck_r-770_7z-57B
+    - 823.llvm_s-etf_inst3_0011-8B
+    - 823.llvm_s-grid_tools_0008-19B
+    - 849.fotonik3d_s-default-2571B
+- trace_mix_58:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-des_system90-32B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-130B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0010-23B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-particle_handler_0018-8B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 729.abc_r-des_system90-32B
+    - 749.fotonik3d_r-default-130B
+    - 821.gcc_s-lz4hc_0010-23B
+    - 823.llvm_s-particle_handler_0018-8B
+- trace_mix_59:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-26B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-747_dealii-218B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/736.ocio_r-lut1d_halfdom-43B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-standardinstrumentations_0014-2B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 709.cactus_r-shifted_gauge_wave-26B
+    - 727.cppcheck_r-747_dealii-218B
+    - 736.ocio_r-lut1d_halfdom-43B
+    - 823.llvm_s-standardinstrumentations_0014-2B
+- trace_mix_60:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-824B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-738_diamond-320B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-inst_constrs_3_0017-27B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-passbuilderpipelines_0003-2B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 709.cactus_r-shifted_gauge_wave-824B
+    - 727.cppcheck_r-738_diamond-320B
+    - 823.llvm_s-inst_constrs_3_0017-27B
+    - 823.llvm_s-passbuilderpipelines_0003-2B
+- trace_mix_61:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/721.gcc_r-ref32_O3_inline12000-390B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-des_system90-32B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-45B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-bitcoin-289B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 721.gcc_r-ref32_O3_inline12000-390B
+    - 729.abc_r-des_system90-32B
+    - 749.fotonik3d_r-default-45B
+    - 829.abc_s-bitcoin-289B
+- trace_mix_62:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-599B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/820.cloverleaf_s-default-11714B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/849.fotonik3d_s-default-11846B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/881.neutron_s-rsbench_history-421B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 749.fotonik3d_r-default-599B
+    - 820.cloverleaf_s-default-11714B
+    - 849.fotonik3d_s-default-11846B
+    - 881.neutron_s-rsbench_history-421B
+- trace_mix_63:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/734.vpr_r-jpeg_route-49B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-particle_handler_0018-13B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-ethernet_fraig-186B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/881.neutron_s-rsbench_history-421B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 734.vpr_r-jpeg_route-49B
+    - 823.llvm_s-particle_handler_0018-13B
+    - 829.abc_s-ethernet_fraig-186B
+    - 881.neutron_s-rsbench_history-421B
+- trace_mix_64:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-770_7z-38B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-45B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/811.tealeaf_s-default-35333B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/853.ns3_s-tcp_validation-187B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 727.cppcheck_r-770_7z-38B
+    - 749.fotonik3d_r-default-45B
+    - 811.tealeaf_s-default-35333B
+    - 853.ns3_s-tcp_validation-187B
+- trace_mix_65:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-matrix_free_0013-7B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-particle_handler_0015-13B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/846.minizinc_s-yumi_dynamic-256B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/846.minizinc_s-yumi_dynamic-40B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 823.llvm_s-matrix_free_0013-7B
+    - 823.llvm_s-particle_handler_0015-13B
+    - 846.minizinc_s-yumi_dynamic-256B
+    - 846.minizinc_s-yumi_dynamic-40B
+- trace_mix_66:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-824B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-770_7z-404B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0011-14B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-ethernet_fraig-186B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 709.cactus_r-shifted_gauge_wave-824B
+    - 727.cppcheck_r-770_7z-404B
+    - 823.llvm_s-etf_inst3_0011-14B
+    - 829.abc_s-ethernet_fraig-186B
+- trace_mix_67:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/811.tealeaf_s-default-15369B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-bitcoin-750B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-ethernet_fraig-12B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/834.vpr_s-sparct1_place-411B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 811.tealeaf_s-default-15369B
+    - 829.abc_s-bitcoin-750B
+    - 829.abc_s-ethernet_fraig-12B
+    - 834.vpr_s-sparct1_place-411B
+- trace_mix_68:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0007-10B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-unicodeobject_0006-1B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-bitcoin-645B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/846.minizinc_s-yumi_dynamic-118B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 821.gcc_s-lz4hc_0007-10B
+    - 821.gcc_s-unicodeobject_0006-1B
+    - 829.abc_s-bitcoin-645B
+    - 846.minizinc_s-yumi_dynamic-118B
+- trace_mix_69:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/765.roms_r-benchmark2-985B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/820.cloverleaf_s-default-11785B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/822.palm_s-atmos-35579B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0011-14B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 765.roms_r-benchmark2-985B
+    - 820.cloverleaf_s-default-11785B
+    - 822.palm_s-atmos-35579B
+    - 823.llvm_s-etf_inst3_0011-14B
+- trace_mix_70:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-27B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-738_diamond-63B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0007-10B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-particle_handler_0015-13B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 709.cactus_r-shifted_gauge_wave-27B
+    - 727.cppcheck_r-738_diamond-63B
+    - 821.gcc_s-lz4hc_0007-10B
+    - 823.llvm_s-particle_handler_0015-13B
+- trace_mix_71:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/811.tealeaf_s-default-16461B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-dagcombiner_0002-14B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-bitcoin-645B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/849.fotonik3d_s-default-11846B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 811.tealeaf_s-default-16461B
+    - 823.llvm_s-dagcombiner_0002-14B
+    - 829.abc_s-bitcoin-645B
+    - 849.fotonik3d_s-default-11846B
+- trace_mix_72:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-fp_size1000-424B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-27B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-8B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-130B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 708.sqlite_r-fp_size1000-424B
+    - 709.cactus_r-shifted_gauge_wave-27B
+    - 709.cactus_r-shifted_gauge_wave-8B
+    - 749.fotonik3d_r-default-130B
+- trace_mix_73:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-gasdis-121B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/811.tealeaf_s-default-15369B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-insn_recog_0005-10B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-insn_recog_0005-15B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 737.gmsh_r-gasdis-121B
+    - 811.tealeaf_s-default-15369B
+    - 823.llvm_s-insn_recog_0005-10B
+    - 823.llvm_s-insn_recog_0005-15B
+- trace_mix_74:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-738_diamond-4B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/820.cloverleaf_s-default-11785B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0005-11B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/834.vpr_s-sparct1_place-411B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 727.cppcheck_r-738_diamond-4B
+    - 820.cloverleaf_s-default-11785B
+    - 823.llvm_s-etf_inst3_0005-11B
+    - 834.vpr_s-sparct1_place-411B
+- trace_mix_75:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/721.gcc_r-gcc_pp_O2_fpic-309B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-747_dealii-218B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-selectiondagbuilder_0007-4B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/867.nest_s-microcircuit-9846B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 721.gcc_r-gcc_pp_O2_fpic-309B
+    - 727.cppcheck_r-747_dealii-218B
+    - 823.llvm_s-selectiondagbuilder_0007-4B
+    - 867.nest_s-microcircuit-9846B
+- trace_mix_76:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-45B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/811.tealeaf_s-default-34631B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-particle_handler_0018-8B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/846.minizinc_s-yumi_dynamic-40B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 749.fotonik3d_r-default-45B
+    - 811.tealeaf_s-default-34631B
+    - 823.llvm_s-particle_handler_0018-8B
+    - 846.minizinc_s-yumi_dynamic-40B
+- trace_mix_77:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-738_diamond-4B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-projection-6B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-matrix_free_0019-7B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/846.minizinc_s-yumi_dynamic-40B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 727.cppcheck_r-738_diamond-4B
+    - 737.gmsh_r-projection-6B
+    - 823.llvm_s-matrix_free_0019-7B
+    - 846.minizinc_s-yumi_dynamic-40B
+- trace_mix_78:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/765.roms_r-benchmark2-900B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/800.pot3d_s-pot3d_n1-1519B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-particle_handler_0015-5B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-ethernet_fraig-186B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 765.roms_r-benchmark2-900B
+    - 800.pot3d_s-pot3d_n1-1519B
+    - 823.llvm_s-particle_handler_0015-5B
+    - 829.abc_s-ethernet_fraig-186B
+- trace_mix_79:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-fp_size1000-424B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-choi-225B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-gasdis-149B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-modelsmodule_0010-23B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 708.sqlite_r-fp_size1000-424B
+    - 737.gmsh_r-choi-225B
+    - 737.gmsh_r-gasdis-149B
+    - 823.llvm_s-modelsmodule_0010-23B
+- trace_mix_80:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-130B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/809.cactus_s-shifted_gauge_wave-6972B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-matrix_free_0019-7B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-bitcoin-750B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 749.fotonik3d_r-default-130B
+    - 809.cactus_s-shifted_gauge_wave-6972B
+    - 823.llvm_s-matrix_free_0019-7B
+    - 829.abc_s-bitcoin-750B
+- trace_mix_81:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-cte_size2000-233B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-des_system90-32B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/736.ocio_r-mntr_srgb_8k-35B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-gasdis-149B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 708.sqlite_r-cte_size2000-233B
+    - 729.abc_r-des_system90-32B
+    - 736.ocio_r-mntr_srgb_8k-35B
+    - 737.gmsh_r-gasdis-149B
+- trace_mix_82:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/734.vpr_r-jpeg_route-49B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-choi-225B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/809.cactus_s-shifted_gauge_wave-202B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/811.tealeaf_s-default-16461B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 734.vpr_r-jpeg_route-49B
+    - 737.gmsh_r-choi-225B
+    - 809.cactus_s-shifted_gauge_wave-202B
+    - 811.tealeaf_s-default-16461B
+- trace_mix_83:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-des_system90-103B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-choi-225B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-insn_recog_0005-15B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/854.graph500_s-bfs-1217B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 729.abc_r-des_system90-103B
+    - 737.gmsh_r-choi-225B
+    - 823.llvm_s-insn_recog_0005-15B
+    - 854.graph500_s-bfs-1217B
+- trace_mix_84:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/721.gcc_r-ref32_O3_inline12000-113B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/721.gcc_r-ref32_O3_inline12000-390B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0009-12B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/854.graph500_s-bfs-3313B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 721.gcc_r-ref32_O3_inline12000-113B
+    - 721.gcc_r-ref32_O3_inline12000-390B
+    - 821.gcc_s-lz4hc_0009-12B
+    - 854.graph500_s-bfs-3313B
+- trace_mix_85:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-738_diamond-63B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0018-20B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-selectiondagbuilder_0007-4B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/865.roms_s-benchmark3-7363B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 727.cppcheck_r-738_diamond-63B
+    - 821.gcc_s-lz4hc_0018-20B
+    - 823.llvm_s-selectiondagbuilder_0007-4B
+    - 865.roms_s-benchmark3-7363B
+- trace_mix_86:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-747_dealii-3B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0005-17B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-matrix_free_0019-11B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/853.ns3_s-tcp_validation-187B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 727.cppcheck_r-747_dealii-3B
+    - 823.llvm_s-etf_inst3_0005-17B
+    - 823.llvm_s-matrix_free_0019-11B
+    - 853.ns3_s-tcp_validation-187B
+- trace_mix_88:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-747_dealii-218B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/811.tealeaf_s-default-33315B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-standardinstrumentations_0014-2B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/834.vpr_s-wb_conmax_route-461B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 727.cppcheck_r-747_dealii-218B
+    - 811.tealeaf_s-default-33315B
+    - 823.llvm_s-standardinstrumentations_0014-2B
+    - 834.vpr_s-wb_conmax_route-461B
+- trace_mix_89:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-770_7z-38B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/820.cloverleaf_s-default-12184B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/822.palm_s-atmos-2602B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/846.minizinc_s-yumi_dynamic-119B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 727.cppcheck_r-770_7z-38B
+    - 820.cloverleaf_s-default-12184B
+    - 822.palm_s-atmos-2602B
+    - 846.minizinc_s-yumi_dynamic-119B
+- trace_mix_90:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/721.gcc_r-ref32_O3_inline12000-113B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0018-20B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-ethernet_fraig-12B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/865.roms_s-benchmark3-3753B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 721.gcc_r-ref32_O3_inline12000-113B
+    - 821.gcc_s-lz4hc_0018-20B
+    - 829.abc_s-ethernet_fraig-12B
+    - 865.roms_s-benchmark3-3753B
+- trace_mix_91:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/809.cactus_s-shifted_gauge_wave-202B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/822.palm_s-atmos-6227B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-insn_recog_0005-26B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/829.abc_s-bitcoin-750B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 809.cactus_s-shifted_gauge_wave-202B
+    - 822.palm_s-atmos-6227B
+    - 823.llvm_s-insn_recog_0005-26B
+    - 829.abc_s-bitcoin-750B
+- trace_mix_92:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-des_system90-88B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/800.pot3d_s-pot3d_n1-1519B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/820.cloverleaf_s-default-11785B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/822.palm_s-atmos-2602B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 729.abc_r-des_system90-88B
+    - 800.pot3d_s-pot3d_n1-1519B
+    - 820.cloverleaf_s-default-11785B
+    - 822.palm_s-atmos-2602B
+- trace_mix_93:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-mediterranean-160B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/765.roms_r-benchmark2-985B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-insn_recog_0005-26B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/867.nest_s-microcircuit-9846B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 737.gmsh_r-mediterranean-160B
+    - 765.roms_r-benchmark2-985B
+    - 823.llvm_s-insn_recog_0005-26B
+    - 867.nest_s-microcircuit-9846B
+- trace_mix_94:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/737.gmsh_r-gasdis-121B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-128B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-dagcombiner_0006-4B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/834.vpr_s-wb_conmax_place-461B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 737.gmsh_r-gasdis-121B
+    - 749.fotonik3d_r-default-128B
+    - 823.llvm_s-dagcombiner_0006-4B
+    - 834.vpr_s-wb_conmax_place-461B
+- trace_mix_95:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/729.abc_r-des_system90-103B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/811.tealeaf_s-default-33315B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/820.cloverleaf_s-default-2345B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-unicodeobject_0015-26B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 729.abc_r-des_system90-103B
+    - 811.tealeaf_s-default-33315B
+    - 820.cloverleaf_s-default-2345B
+    - 821.gcc_s-unicodeobject_0015-26B
+- trace_mix_96:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/809.cactus_s-shifted_gauge_wave-202B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0018-31B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-inst_constrs_3_0017-27B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/867.nest_s-microcircuit-2574B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 809.cactus_s-shifted_gauge_wave-202B
+    - 821.gcc_s-lz4hc_0018-31B
+    - 823.llvm_s-inst_constrs_3_0017-27B
+    - 867.nest_s-microcircuit-2574B
+- trace_mix_97:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/722.palm_r-atmos-1670B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/734.vpr_r-jpeg_route-49B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/765.roms_r-benchmark2-871B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/865.roms_s-benchmark3-3753B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 722.palm_r-atmos-1670B
+    - 734.vpr_r-jpeg_route-49B
+    - 765.roms_r-benchmark2-871B
+    - 865.roms_s-benchmark3-3753B
+- trace_mix_98:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/727.cppcheck_r-770_7z-57B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-etf_inst3_0011-14B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-generic_cpu_exec_6_0012-25B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-insn_recog_0005-15B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 727.cppcheck_r-770_7z-57B
+    - 823.llvm_s-etf_inst3_0011-14B
+    - 823.llvm_s-generic_cpu_exec_6_0012-25B
+    - 823.llvm_s-insn_recog_0005-15B
+- trace_mix_99:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-8B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-grid_tools_dof_handlers_0009-11B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/834.vpr_s-wb_conmax_route-461B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/854.graph500_s-bfs-1217B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 709.cactus_r-shifted_gauge_wave-8B
+    - 823.llvm_s-grid_tools_dof_handlers_0009-11B
+    - 834.vpr_s-wb_conmax_route-461B
+    - 854.graph500_s-bfs-1217B
