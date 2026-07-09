@@ -4,9 +4,10 @@
  "code_pin": "campaign2@0c4a1fa (deadlock-rearm fix; binary a327a7cbb3504a59)",
  "batches": {
   "run01": "20260709T071314Z_campaign2_run01",
-  "run01b": "20260709T083337Z_campaign2_run01b"
+  "run01b": "20260709T083337Z_campaign2_run01b",
+  "run01c": "20260709T225520Z_campaign2_run01c"
  },
- "jobs_total": 1440,
+ "jobs_total": 1632,
  "metric": "geomean-IPC per mix vs per-mix c2_nopf; final geomean over mixes; vs-pythia column on common mix set",
  "log": [
   {
@@ -16,6 +17,10 @@
   {
    "utc": "2026-07-09",
    "event": "INCIDENT + FIX: 606/800 run01 jobs aborted at the warmup barrier \u2014 the deadlock checker read parked cores' stale event_cycles (park ~3M cycles at real 25M warmups) as hangs; the Task-2 review's Minor finding, real at production scale. Fix 0c4a1fa: per-core rearm cycle disarms the checker for DEADLOCK_CYCLE after the barrier. A/B repro at lowered threshold (pre-fix fires with stale COMPLETED head at barrier; post-fix passes; post-fix real-threshold run clean end-to-end); 1-core byte gate empty. Fix touches only the heuristic -> surviving run01 rows remain valid/comparable. run01b=20260709T083337Z_campaign2_run01b resubmits all 80 affected mixes x 8 exps (640 jobs, fixed binary); scoring merge prefers run01b rows."
+  },
+  {
+   "utc": "2026-07-10",
+   "event": "run01+run01b drained: 631/800 pairs valid after merge (prefer run01b); 169 pairs across 24 heavy mixes hit the 12h cap -> run01c retries at 14h: 20260709T225520Z_campaign2_run01c (192 jobs). Zero deadlocks in run01b (fix holds at production scale). Final scoring on run01c drain."
   }
  ]
 }
