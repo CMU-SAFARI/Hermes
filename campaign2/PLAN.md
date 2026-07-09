@@ -10,7 +10,12 @@ under contention is the headline (owner prediction: Big wins multi-core).
   fully isolated from campaign1's frozen checkout.
 - Build: ./build_champsim.sh glc multi multi multi multi 4 1 0
 - Binary: bin/glc-perceptron-no-multi-multi-multi-multi-4core-1ch
-- sha256[:16]: 52357d378d1a036f — FIXED for all of campaign 2.
+- RE-PINNED 2026-07-09 after the fixed-window changes: sha256[:16] ef3b36a358ca948d
+  (campaign2 @ 6319cea; supersedes 52357d378d1a036f). FIXED for all of
+  campaign 2. Windows are now exact per core: every core measures
+  [W, W+S] of its own stream regardless of co-runners (warmup park +
+  finish-boundary cap + full per-core stat checkpoint/restore; all four
+  acceptance criteria PASS — see VERIFICATION.md).
 - libbf dependency copied from the main tree (git-ignored vendored lib).
 - Smokes passed: (a) 4-core baseline w/ real args; (b) shared uncore
   predictor, Hermes-Normal config, embed_cpu_id=true — 113k predictions,
