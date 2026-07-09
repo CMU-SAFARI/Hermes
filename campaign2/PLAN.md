@@ -43,6 +43,16 @@ standard practice: solo = the workload on core 0 of the quad-core system
 with other cores idle is not supported by ChampSim traces; typical method:
 solo = single-core-equivalent run; DISCUSS with owner).
 
+## Decisions closed 2026-07-09
+- DRAM channels: 1 channel for the quad-core (owner-confirmed; pinned binary stands).
+- Shipping configs frozen as config/hermes_uncore_{big,normal,lite}.ini —
+  committed on rbdev (fc49264, the architect handover artifacts) and
+  cherry-picked to campaign2 (8ad4b78); exp_quad.yml now references the
+  ini files instead of spelling knobs. Validated: all three parse through
+  the pinned 1-core binary; 4-core smoke through the lite ini shows exact
+  200000-instruction warmup boundaries on all cores.
+- Uncore predictor stats: remain shared (owner amendment; see above).
+
 ## Open decisions for the owner
 1. DRAM channels: built with 1 channel (max contention — matches the
    precision-under-pressure story). Say the word for a 2-channel variant
