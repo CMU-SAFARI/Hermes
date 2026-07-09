@@ -2561,6 +2561,16 @@ void O3_CPU::retire_rob()
       return;
     }
 #endif
+#if NUM_CPUS > 1
+    // Multi-core fixed windows: pause retirement at exactly W+S until the
+    // completion check (later this same cycle) snapshots this core; the
+    // simulation_complete flag then lifts the cap so the core keeps
+    // running and generating contention for its co-runners.
+    if (warmup_complete[cpu] && !simulation_complete[cpu] &&
+        (num_retired >= begin_sim_instr + simulation_instructions)) {
+      return;
+    }
+#endif
     if (ROB.entry[ROB.head].ip == 0) {
       return;
     }
