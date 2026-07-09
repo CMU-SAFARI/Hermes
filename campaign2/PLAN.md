@@ -1,9 +1,14 @@
 # Campaign 2 — quad-core validation of Hermes-Big/Normal/Lite (STAGING)
 
-Successor to campaign1 (single-core tuning). Goal: with embed_cpu_id=true,
-per-workload precision/recall IN-MIX (shared uncore predictor, 4 cores) must
-match SOLO runs; embedding off/on A-B quantifies isolation; Big-vs-Lite gap
-under contention is the headline (owner prediction: Big wins multi-core).
+Successor to campaign1 (single-core tuning).
+OWNER AMENDMENT 2026-07-09: uncore predictor stats remain SHARED (no
+per-core attribution — pooled LLC_offchip_pred_* is the P/R signal, with
+its full-phase semantics documented). The solo-vs-mix per-workload P/R
+comparison is DROPPED. Campaign 2's goal is the PERFORMANCE-ISOLATION
+study: per-core IPC (and all per-core counters) are exactly window-scoped
+[W, W+S] and mix-independent thanks to the fixed-window platform, so
+in-mix slowdown vs solo IPC, the Big/Normal/Lite gap under contention,
+and the embed_cpu_id on/off A-B are all cleanly measurable.
 
 ## Deliverable 1 — quad-core binary: DONE, PINNED
 - Worktree: /home/rahbera/thesis/Hermes-c2 (branch campaign2 @ b18be0c) —
