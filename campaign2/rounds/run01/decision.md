@@ -28,10 +28,10 @@ transactions, plus redundant fetch pairs) consume bandwidth that
 co-runners needed. This is the owner's own campaign-1 hypothesis —
 "ample bandwidth masks precision" — confirmed from the other side:
 when bandwidth is scarce, precision isn't masked, it's punished.
-Consequence for the roadmap: DDRP needs BANDWIDTH-AWARENESS (e.g., gate
-on the existing DRAM bw-quartile monitor) and/or a higher activation
-threshold at the uncore in multi-core — a concrete, well-scoped
-follow-up campaign.
+Consequence for the roadmap: bandwidth-awareness is the lever — which
+the group's Athena work (HPCA'26) already provides; these results
+characterize the bandwidth sensitivity of plain Hermes@uncore (see also
+the 2-channel sweep) rather than motivating a new mechanism.
 
 ## Finding 2 — the cpu-id embedding works.
 

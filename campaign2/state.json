@@ -7,9 +7,10 @@
   "run01b": "20260709T083337Z_campaign2_run01b",
   "run01c": "20260709T225520Z_campaign2_run01c",
   "run02": "20260710T125056Z_campaign2_run02",
-  "run02b": "20260710T125549Z_campaign2_run02b"
+  "run02b": "20260710T125549Z_campaign2_run02b",
+  "2ch": "20260710T133355Z_campaign2_2ch"
  },
- "jobs_total": 2132,
+ "jobs_total": 2832,
  "metric": "geomean-IPC per mix vs per-mix c2_nopf; final geomean over mixes; vs-pythia column on common mix set",
  "log": [
   {
@@ -35,6 +36,10 @@
   {
    "utc": "2026-07-10",
    "event": "OWNER ADDITION -> run02b: XPT-alone + XPT+Pythia at 4-core x 100 mixes = 200 jobs @14h (20260710T125549Z_campaign2_run02b). Verdict table becomes: pythia | 3x hermes-alone | 3x hermes+pythia | xpt-alone | xpt+pythia."
+  },
+  {
+   "utc": "2026-07-10",
+   "event": "OWNER GO -> 2-CHANNEL sweep: 20260710T133355Z_campaign2_2ch, 700 jobs @14h (7 exps x 100 mixes; binary 4core-2ch built with 4 2 1, remote build_command flipped for this submit then reverted to 4 1 0). Question: does doubling per-core bandwidth restore Hermes's benefit on top of Pythia (and how do Hermes-alone / XPT move)? Fresh nopf/pythia baselines at 2ch within the batch. NOTE: Athena (HPCA'26) already covers bandwidth-aware Hermes \u2014 these results characterize bandwidth sensitivity, not a new-mechanism pitch."
   }
  ]
 }
