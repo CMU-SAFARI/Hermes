@@ -1,0 +1,8 @@
+exp,n_mixes,speedup_vs_nopf,speedup_vs_pythia,mean_precision,mean_recall
+c2_pythia,100,1.0689,1.0,0.0,0.0
+c2_lite,100,1.0638,0.9953,84.0,66.4
+c2_normal,100,1.0636,0.9951,84.8,67.4
+c2_big,100,1.0633,0.9948,85.1,67.6
+c2_big_noembed,100,1.062,0.9936,83.8,66.4
+c2_normal_noembed,100,1.0616,0.9932,83.3,65.6
+c2_lite_noembed,100,1.0598,0.9915,82.4,64.1

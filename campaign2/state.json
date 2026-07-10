@@ -1,6 +1,6 @@
 {
  "campaign": "campaign2-quadcore",
- "status": "run01-running",
+ "status": "run01-scored",
  "code_pin": "campaign2@0c4a1fa (deadlock-rearm fix; binary a327a7cbb3504a59)",
  "batches": {
   "run01": "20260709T071314Z_campaign2_run01",
@@ -21,6 +21,10 @@
   {
    "utc": "2026-07-10",
    "event": "run01+run01b drained: 631/800 pairs valid after merge (prefer run01b); 169 pairs across 24 heavy mixes hit the 12h cap -> run01c retries at 14h: 20260709T225520Z_campaign2_run01c (192 jobs). Zero deadlocks in run01b (fix holds at production scale). Final scoring on run01c drain."
+  },
+  {
+   "utc": "2026-07-10",
+   "event": "run01 SCORED (800/800): Pythia 1.0689 vs nopf; Hermes+Pythia 1.0633-1.0638 (DDRP -0.5% under 4c/1ch bandwidth contention \u2014 single-core hypothesis confirmed inverse); embed A-B positive (+0.12..0.38pp perf, +1.3..1.6pp precision, strongest for Lite); Big-vs-Lite perf gap ~nil (prediction-quality ladder intact). Follow-up direction: bandwidth-aware DDRP."
   }
  ]
 }
