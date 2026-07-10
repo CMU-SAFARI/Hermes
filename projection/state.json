@@ -1,6 +1,6 @@
 {
  "campaign": "projection-handover",
- "status": "running",
+ "status": "scored-handover-delivered",
  "code_pin": "rbdev@fc49264 (b18be0c semantics + frozen inis)",
  "batches": {
   "rate": "20260709T075351Z_projection_rate",
@@ -11,6 +11,10 @@
   {
    "utc": "2026-07-09",
    "event": "PROJECTION LAUNCHED (owner GO): rate=20260709T075351Z_projection_rate (1440), speed=20260709T075505Z_projection_speed (2600); 10 exps x 404 traces, 100M+500M, 12h. Weighted per-workload rubric locked (scripts/collect_proj.py)."
+  },
+  {
+   "utc": "2026-07-10",
+   "event": "Projection scored: 4030/4040 valid (821.gcc_s-lz4hc-0018-0B common-dropped \u2014 pre-existing trace-specific deadlock on the frozen baseline binary, all exps incl. nopf). HANDOVER.md delivered. Combined headline: Hermes-Big+Pythia +3.48% vs nopf / +0.52% vs Pythia (83.2p/66.5r); XPT+Pythia +0.01% vs Pythia (59.1p/7.5r); standalone Hermes 87.7% recall vs XPT 20.2% at equal precision."
   }
  ]
 }

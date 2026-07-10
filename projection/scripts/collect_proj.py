@@ -49,6 +49,12 @@ def main(argv):
             sp = ipc / float(healthy[(t, "proj_pythia")]["ipc"])
             try:
                 pr = (float(r["precision"]), float(r["recall"]))
+                # 0/0 -> nan means the predictor had no prediction
+                # opportunity on this phase; exclude from the means
+                if pr[0] != pr[0] or pr[1] != pr[1]:
+                    pr = None
+                if e in ("proj_nopf", "proj_pythia"):
+                    pr = None
             except (KeyError, ValueError):
                 pr = None
             per_wl.setdefault(wl, []).append((w, sn, sp, pr))

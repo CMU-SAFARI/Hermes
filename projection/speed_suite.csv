@@ -1,0 +1,10 @@
+exp,n_workloads,speedup_vs_nopf,speedup_vs_pythia,precision,recall
+proj_big,11,1.0131,0.9916,92.86,87.87
+proj_big_pythia,11,1.0261,1.0043,83.98,69.33
+proj_lite,11,1.0142,0.9926,93.36,86.27
+proj_lite_pythia,11,1.0249,1.0031,83.08,68.45
+proj_normal,11,1.0135,0.9919,92.82,87.23
+proj_normal_pythia,11,1.0252,1.0034,83.57,69.03
+proj_pythia,11,1.0218,1.0,,
+proj_xpt,11,1.0036,0.9823,88.45,20.15
+proj_xpt_pythia,11,1.0219,1.0002,63.37,9.32
