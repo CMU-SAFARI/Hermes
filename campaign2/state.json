@@ -6,9 +6,10 @@
   "run01": "20260709T071314Z_campaign2_run01",
   "run01b": "20260709T083337Z_campaign2_run01b",
   "run01c": "20260709T225520Z_campaign2_run01c",
-  "run02": "20260710T125056Z_campaign2_run02"
+  "run02": "20260710T125056Z_campaign2_run02",
+  "run02b": "20260710T125549Z_campaign2_run02b"
  },
- "jobs_total": 1932,
+ "jobs_total": 2132,
  "metric": "geomean-IPC per mix vs per-mix c2_nopf; final geomean over mixes; vs-pythia column on common mix set",
  "log": [
   {
@@ -30,6 +31,10 @@
   {
    "utc": "2026-07-10",
    "event": "OWNER QUESTION -> run02 launched: Hermes-ALONE (Lite/Normal/Big, embed on, no Pythia) x 100 mixes = 300 jobs @14h (20260710T125056Z_campaign2_run02). Hypothesis under test: at 4c/1ch scarce bandwidth, high-precision Hermes-alone beats speculative Pythia-alone (single-core order was Pythia 1.0295 > Hermes 1.016). Scoring reuses run01's nopf/pythia per-mix baselines."
+  },
+  {
+   "utc": "2026-07-10",
+   "event": "OWNER ADDITION -> run02b: XPT-alone + XPT+Pythia at 4-core x 100 mixes = 200 jobs @14h (20260710T125549Z_campaign2_run02b). Verdict table becomes: pythia | 3x hermes-alone | 3x hermes+pythia | xpt-alone | xpt+pythia."
   }
  ]
 }
