@@ -1,0 +1,51 @@
+---
+# Single-core DRAM-bandwidth sensitivity sweep (owner spec 2026-07-10):
+# mimic per-core bandwidth of various multicore scenarios. 146-trace
+# memory-intensive list; FULL window (100M+500M); single channel;
+# --dram_io_freq sweeps 200..6400 MTPS (dbus return time auto-derives;
+# tRP/tRCD/tCAS stay constant -> pure bandwidth axis).
+# 6 bandwidth points x 6 configs = 36 exps x 146 traces = 5,256 jobs.
+definitions:
+  - WBASE: "--warmup_instructions=100000000 --simulation_instructions=500000000 --llc_replacement_type=ship --config=$(SIM_HOME_IN_CLUSTER)/config/nopref.ini --num_rob_partitions=3 --rob_partition_size=64,128,320 --rob_frontal_partition_ids=0 --rob_dorsal_partition_ids=2"
+  - PYTHIA: "--l2c_prefetcher_types=scooby --config=$(SIM_HOME_IN_CLUSTER)/config/pythia.ini --scooby_enable_direct_pref_issue=true --scooby_pref_at_lower_level=true --scooby_dyn_degrees_type2=1,1,2,4"
+  - OCPBASE: "--config=$(SIM_HOME_IN_CLUSTER)/config/ocp_hermes.ini"
+  - NORMAL: "--config=$(SIM_HOME_IN_CLUSTER)/config/hermes_uncore_normal.ini"
+  - XPT: "--config=$(SIM_HOME_IN_CLUSTER)/config/ocp_xpt.ini --offchip_pred_location=uncore --ocp_xpt_use_physical_address=true"
+  - HERMES: "--config=$(SIM_HOME_IN_CLUSTER)/config/hermes_base.ini --ddrp_req_latency=1"
+experiments:
+  - bw200_nopf : $(WBASE) --dram_io_freq=200
+  - bw200_pythia : $(WBASE) $(PYTHIA) --dram_io_freq=200
+  - bw200_normal : $(WBASE) $(OCPBASE) $(NORMAL) $(HERMES) --dram_io_freq=200
+  - bw200_normal_pythia : $(WBASE) $(PYTHIA) $(OCPBASE) $(NORMAL) $(HERMES) --dram_io_freq=200
+  - bw200_xpt : $(WBASE) $(XPT) $(HERMES) --dram_io_freq=200
+  - bw200_xpt_pythia : $(WBASE) $(PYTHIA) $(XPT) $(HERMES) --dram_io_freq=200
+  - bw400_nopf : $(WBASE) --dram_io_freq=400
+  - bw400_pythia : $(WBASE) $(PYTHIA) --dram_io_freq=400
+  - bw400_normal : $(WBASE) $(OCPBASE) $(NORMAL) $(HERMES) --dram_io_freq=400
+  - bw400_normal_pythia : $(WBASE) $(PYTHIA) $(OCPBASE) $(NORMAL) $(HERMES) --dram_io_freq=400
+  - bw400_xpt : $(WBASE) $(XPT) $(HERMES) --dram_io_freq=400
+  - bw400_xpt_pythia : $(WBASE) $(PYTHIA) $(XPT) $(HERMES) --dram_io_freq=400
+  - bw800_nopf : $(WBASE) --dram_io_freq=800
+  - bw800_pythia : $(WBASE) $(PYTHIA) --dram_io_freq=800
+  - bw800_normal : $(WBASE) $(OCPBASE) $(NORMAL) $(HERMES) --dram_io_freq=800
+  - bw800_normal_pythia : $(WBASE) $(PYTHIA) $(OCPBASE) $(NORMAL) $(HERMES) --dram_io_freq=800
+  - bw800_xpt : $(WBASE) $(XPT) $(HERMES) --dram_io_freq=800
+  - bw800_xpt_pythia : $(WBASE) $(PYTHIA) $(XPT) $(HERMES) --dram_io_freq=800
+  - bw1600_nopf : $(WBASE) --dram_io_freq=1600
+  - bw1600_pythia : $(WBASE) $(PYTHIA) --dram_io_freq=1600
+  - bw1600_normal : $(WBASE) $(OCPBASE) $(NORMAL) $(HERMES) --dram_io_freq=1600
+  - bw1600_normal_pythia : $(WBASE) $(PYTHIA) $(OCPBASE) $(NORMAL) $(HERMES) --dram_io_freq=1600
+  - bw1600_xpt : $(WBASE) $(XPT) $(HERMES) --dram_io_freq=1600
+  - bw1600_xpt_pythia : $(WBASE) $(PYTHIA) $(XPT) $(HERMES) --dram_io_freq=1600
+  - bw3200_nopf : $(WBASE) --dram_io_freq=3200
+  - bw3200_pythia : $(WBASE) $(PYTHIA) --dram_io_freq=3200
+  - bw3200_normal : $(WBASE) $(OCPBASE) $(NORMAL) $(HERMES) --dram_io_freq=3200
+  - bw3200_normal_pythia : $(WBASE) $(PYTHIA) $(OCPBASE) $(NORMAL) $(HERMES) --dram_io_freq=3200
+  - bw3200_xpt : $(WBASE) $(XPT) $(HERMES) --dram_io_freq=3200
+  - bw3200_xpt_pythia : $(WBASE) $(PYTHIA) $(XPT) $(HERMES) --dram_io_freq=3200
+  - bw6400_nopf : $(WBASE) --dram_io_freq=6400
+  - bw6400_pythia : $(WBASE) $(PYTHIA) --dram_io_freq=6400
+  - bw6400_normal : $(WBASE) $(OCPBASE) $(NORMAL) $(HERMES) --dram_io_freq=6400
+  - bw6400_normal_pythia : $(WBASE) $(PYTHIA) $(OCPBASE) $(NORMAL) $(HERMES) --dram_io_freq=6400
+  - bw6400_xpt : $(WBASE) $(XPT) $(HERMES) --dram_io_freq=6400
+  - bw6400_xpt_pythia : $(WBASE) $(PYTHIA) $(XPT) $(HERMES) --dram_io_freq=6400
