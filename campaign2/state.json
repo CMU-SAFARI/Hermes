@@ -1,13 +1,14 @@
 {
  "campaign": "campaign2-quadcore",
- "status": "run01-scored",
+ "status": "run02-running",
  "code_pin": "campaign2@0c4a1fa (deadlock-rearm fix; binary a327a7cbb3504a59)",
  "batches": {
   "run01": "20260709T071314Z_campaign2_run01",
   "run01b": "20260709T083337Z_campaign2_run01b",
-  "run01c": "20260709T225520Z_campaign2_run01c"
+  "run01c": "20260709T225520Z_campaign2_run01c",
+  "run02": "20260710T125056Z_campaign2_run02"
  },
- "jobs_total": 1632,
+ "jobs_total": 1932,
  "metric": "geomean-IPC per mix vs per-mix c2_nopf; final geomean over mixes; vs-pythia column on common mix set",
  "log": [
   {
@@ -25,6 +26,10 @@
   {
    "utc": "2026-07-10",
    "event": "run01 SCORED (800/800): Pythia 1.0689 vs nopf; Hermes+Pythia 1.0633-1.0638 (DDRP -0.5% under 4c/1ch bandwidth contention \u2014 single-core hypothesis confirmed inverse); embed A-B positive (+0.12..0.38pp perf, +1.3..1.6pp precision, strongest for Lite); Big-vs-Lite perf gap ~nil (prediction-quality ladder intact). Follow-up direction: bandwidth-aware DDRP."
+  },
+  {
+   "utc": "2026-07-10",
+   "event": "OWNER QUESTION -> run02 launched: Hermes-ALONE (Lite/Normal/Big, embed on, no Pythia) x 100 mixes = 300 jobs @14h (20260710T125056Z_campaign2_run02). Hypothesis under test: at 4c/1ch scarce bandwidth, high-precision Hermes-alone beats speculative Pythia-alone (single-core order was Pythia 1.0295 > Hermes 1.016). Scoring reuses run01's nopf/pythia per-mix baselines."
   }
  ]
 }
