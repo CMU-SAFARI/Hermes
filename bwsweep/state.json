@@ -1,6 +1,6 @@
 {
  "campaign": "bwsweep-singlecore",
- "status": "running",
+ "status": "prelim-scored",
  "code_pin": "rbdev@fc49264",
  "batches": {
   "bwsweep": "20260710T173114Z_bwsweep"
@@ -10,6 +10,10 @@
   {
    "utc": "2026-07-10",
    "event": "BANDWIDTH SWEEP LAUNCHED (owner-vetted): 20260710T173114Z_bwsweep, 5256 jobs \u2014 6 BW points (200..6400 MTPS via dram_io_freq) x 6 configs (nopf/pythia/normal/normal+pythia/xpt/xpt+pythia) x 146 traces, full window. Walltimes: 24h at 200/400, 14h at 800+. Purpose: predictor benefit vs per-core bandwidth (multicore mimicry); expected unavoidable timeouts on slowest traces at 200."
+  },
+  {
+   "utc": "2026-07-11",
+   "event": "PRELIMINARY curves delivered (5241/5256): Hermes-alone crosses Pythia-alone between 400-800 MTPS (at 200: Pythia 0.9334 vs nopf \u2014 actively harmful; Hermes-alone +7.3% over Pythia). Hermes+Pythia net-positive above ~600 MTPS, +1.8% at ample. XPT+Pythia never positive anywhere. 3200 cell reproduces campaign-1 headline exactly (1.1708). Final refresh on tail drain."
   }
  ]
 }
