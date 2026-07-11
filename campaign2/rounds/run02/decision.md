@@ -47,3 +47,22 @@ full crossover.
 Pythia 1.0295 > Hermes-alone ~1.016 > XPT-alone 1.004 — the same
 ordering; contention compresses everything toward (and past) parity
 with the baseline but does not reorder alone-configs.
+
+## ADDENDUM (owner discussion): reconciling the two regimes with raw volumes
+
+Mix_0 absolute counts (~300M instr): Hermes-alone 4.61M TP / 0.24M FP
+(3.90M DDRP->DRAM); XPT-alone 1.01M TP / 0.02M FP; Hermes+Pythia 2.09M TP
+/ 0.76M FP (2.55M DDRP); XPT+Pythia 0.067M TP / 0.024M FP (0.07M DDRP).
+
+Unified rule: benefit = TP_volume x value_per_hit - FP_volume x
+bandwidth_cost. TPs are ~bandwidth-free (demand merges with the in-flight
+DDRP read); FPs are pure wasted DRAM reads. Alone: value_per_hit is real
+and FP volumes are trivial -> TP volume (recall) decides -> Hermes wins.
+With Pythia at 1ch saturation: value_per_hit collapses (queueing
+dominates) -> the FP term decides -> ABSOLUTE waste decides, and Hermes's
+better precision RATIO sits on a 37x larger prediction volume (762K vs
+24K wasted reads) -> near-silent XPT loses less. Precision% comparisons
+mislead when prediction volumes differ by an order of magnitude.
+Prediction for 2ch/bwsweep: rising headroom restores value_per_hit and
+shrinks the FP tax -> Hermes re-passes XPT in composition; the sweep
+charts the crossover bandwidth.
