@@ -8,9 +8,10 @@
   "run01c": "20260709T225520Z_campaign2_run01c",
   "run02": "20260710T125056Z_campaign2_run02",
   "run02b": "20260710T125549Z_campaign2_run02b",
-  "2ch": "20260710T133355Z_campaign2_2ch"
+  "2ch": "20260710T133355Z_campaign2_2ch",
+  "2chr": "20260711T135034Z_campaign2_2chr"
  },
- "jobs_total": 2832,
+ "jobs_total": 2895,
  "metric": "geomean-IPC per mix vs per-mix c2_nopf; final geomean over mixes; vs-pythia column on common mix set",
  "log": [
   {
@@ -48,6 +49,10 @@
   {
    "utc": "2026-07-11",
    "event": "2ch SCORED (656/700, n=92): Big+Pythia STILL negative at 2ch (0.9959 vs 0.9948 at 1ch); deep losers barely recover (0.9710->0.9718, 10/14 still <-2%) \u2014 interference-bound, not capacity-bound; Pythia scales to consume added bandwidth (+0.83pp). Naive per-core-MTPS mapping to the single-core curve fails. run02r folded (3 pairs, n=100 for alone rows). 2chr retry (63 @16h) resubmitted after a config-ordering slip (first attempt timed out pre-sbatch, NO wrong-binary jobs landed \u2014 verified empty queue + no ledger)."
+  },
+  {
+   "utc": "2026-07-11",
+   "event": "INCIDENT (contained): the first 2chr submit timed out locally but completed remotely AFTER the empty-queue check \u2014 63 phantom jobs on the 1ch binary under 2ch names (remote batch 20260711T133959Z). Caught on next poll (126 vs 63), cancelled all 63 by WorkDir stamp; snapshot binaries verified (phantom=4core-1ch, good=4core-2ch). No contamination possible: scoring folds are ledger-scoped to 20260711T135034Z. Lesson: after any timed-out submit, re-poll for late-materializing jobs before trusting an empty-queue check."
   }
  ]
 }
