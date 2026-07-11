@@ -1,0 +1,46 @@
+spec26_mix4:
+- trace_mix_72:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/708.sqlite_r-fp_size1000-424B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-27B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-8B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/749.fotonik3d_r-default-130B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 708.sqlite_r-fp_size1000-424B
+    - 709.cactus_r-shifted_gauge_wave-27B
+    - 709.cactus_r-shifted_gauge_wave-8B
+    - 749.fotonik3d_r-default-130B
+- trace_mix_96:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/809.cactus_s-shifted_gauge_wave-202B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/821.gcc_s-lz4hc_0018-31B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-inst_constrs_3_0017-27B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/867.nest_s-microcircuit-2574B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 809.cactus_s-shifted_gauge_wave-202B
+    - 821.gcc_s-lz4hc_0018-31B
+    - 823.llvm_s-inst_constrs_3_0017-27B
+    - 867.nest_s-microcircuit-2574B
+- trace_mix_99:
+    path: /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/709.cactus_r-shifted_gauge_wave-8B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/823.llvm_s-grid_tools_dof_handlers_0009-11B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/834.vpr_s-wb_conmax_route-461B.champsim2.zst /mnt/galactica/rahbera/tracezoo/champsim/version2/spec26/854.graph500_s-bfs-1217B.champsim2.zst
+    version: 2
+    workload: mix4
+    weight: 1.0
+    category: random4_seed20260708
+    subcategory: null
+    tags:
+    - mix4
+    checksum: null
+    components:
+    - 709.cactus_r-shifted_gauge_wave-8B
+    - 823.llvm_s-grid_tools_dof_handlers_0009-11B
+    - 834.vpr_s-wb_conmax_route-461B
+    - 854.graph500_s-bfs-1217B

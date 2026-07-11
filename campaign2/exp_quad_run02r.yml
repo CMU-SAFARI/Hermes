@@ -1,0 +1,17 @@
+---
+# campaign2: quad-core validation of Hermes-Big/Normal/Lite
+# Windows are PER CORE: 25M warmup + 75M sim x 4 cores = 300M simulated total.
+# Binary: Hermes-c2 glc-...-4core-1ch (pinned 52357d37); always pass ship.
+definitions:
+  - TBASE: "--warmup_instructions=25000000 --simulation_instructions=75000000 --llc_replacement_type=ship --config=$(SIM_HOME_IN_CLUSTER)/config/nopref.ini --num_rob_partitions=3 --rob_partition_size=64,128,320 --rob_frontal_partition_ids=0 --rob_dorsal_partition_ids=2"
+  - PYTHIA: "--l2c_prefetcher_types=scooby --config=$(SIM_HOME_IN_CLUSTER)/config/pythia.ini --scooby_enable_direct_pref_issue=true --scooby_pref_at_lower_level=true --scooby_dyn_degrees_type2=1,1,2,4"
+  - OCP_COMMON: "--config=$(SIM_HOME_IN_CLUSTER)/config/ocp_hermes.ini"
+  - LITE:   "--config=$(SIM_HOME_IN_CLUSTER)/config/hermes_uncore_lite.ini"
+  - NORMAL: "--config=$(SIM_HOME_IN_CLUSTER)/config/hermes_uncore_normal.ini"
+  - BIG:    "--config=$(SIM_HOME_IN_CLUSTER)/config/hermes_uncore_big.ini"
+  - XPT: "--config=$(SIM_HOME_IN_CLUSTER)/config/ocp_xpt.ini --offchip_pred_location=uncore --ocp_xpt_use_physical_address=true"
+  - HERMES: "--config=$(SIM_HOME_IN_CLUSTER)/config/hermes_base.ini --ddrp_req_latency=1"
+experiments:
+  - c2_big_alone : $(TBASE) $(OCP_COMMON) $(BIG) --ocp_perc_embed_cpu_id=true $(HERMES)
+  - c2_normal_alone : $(TBASE) $(OCP_COMMON) $(NORMAL) --ocp_perc_embed_cpu_id=true $(HERMES)
+  - c2_xpt_pythia : $(TBASE) $(PYTHIA) $(XPT) $(HERMES)

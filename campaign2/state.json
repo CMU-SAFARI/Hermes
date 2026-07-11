@@ -40,6 +40,10 @@
   {
    "utc": "2026-07-10",
    "event": "OWNER GO -> 2-CHANNEL sweep: 20260710T133355Z_campaign2_2ch, 700 jobs @14h (7 exps x 100 mixes; binary 4core-2ch built with 4 2 1, remote build_command flipped for this submit then reverted to 4 1 0). Question: does doubling per-core bandwidth restore Hermes's benefit on top of Pythia (and how do Hermes-alone / XPT move)? Fresh nopf/pythia baselines at 2ch within the batch. NOTE: Athena (HPCA'26) already covers bandwidth-aware Hermes \u2014 these results characterize bandwidth sensitivity, not a new-mechanism pitch."
+  },
+  {
+   "utc": "2026-07-11",
+   "event": "run02/run02b SCORED (497/500 + 9-job backfill in flight): HYPOTHESIS REFUTED \u2014 Pythia-alone 1.0689 >> Hermes-alone 1.0221-1.0238 at 4c/1ch despite near-perfect prediction (97.5p/96.1r). Mechanism: latency-shaving value-per-hit << stall-removal, and DRAM queueing dominates under contention. Sharp secondary: XPT+Pythia (1.0652) edges Hermes+Pythia (1.0633) at 1ch \u2014 minimal-traffic composition wins when bandwidth binds. 2ch + bwsweep will chart the crossover."
   }
  ]
 }
