@@ -1,8 +1,8 @@
 # Campaign-2 2-channel verdict — 2026-07-11
 
 Same 100 mixes, 4 cores, TWO DRAM channels (binary 4core-2ch, built
-4 2 1). 656/700 valid; scored on n=92 common mixes (63-job 16h retry in
-flight for the 9 capped mixes — refreshes n only, conclusions robust).
+4 2 1). 656/700 valid; scored on n=92 common mixes (FINAL — the 63-job retry
+was terminated at owner request; 9 heavy mixes excluded).
 
 ## 1ch vs 2ch side-by-side (vs same-channel-count, same-mix baselines)
 

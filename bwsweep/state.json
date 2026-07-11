@@ -1,6 +1,6 @@
 {
  "campaign": "bwsweep-singlecore",
- "status": "prelim-scored",
+ "status": "final",
  "code_pin": "rbdev@fc49264",
  "batches": {
   "bwsweep": "20260710T173114Z_bwsweep"
@@ -14,6 +14,10 @@
   {
    "utc": "2026-07-11",
    "event": "PRELIMINARY curves delivered (5241/5256): Hermes-alone crosses Pythia-alone between 400-800 MTPS (at 200: Pythia 0.9334 vs nopf \u2014 actively harmful; Hermes-alone +7.3% over Pythia). Hermes+Pythia net-positive above ~600 MTPS, +1.8% at ample. XPT+Pythia never positive anywhere. 3200 cell reproduces campaign-1 headline exactly (1.1708). Final refresh on tail drain."
+  },
+  {
+   "utc": "2026-07-11",
+   "event": "OWNER: cancel remaining runs \u2014 preliminary numbers finalized as-is; 7 cells dropped."
   }
  ]
 }

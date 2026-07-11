@@ -1,6 +1,6 @@
 {
  "campaign": "campaign2-quadcore",
- "status": "run02-running",
+ "status": "analysis-complete",
  "code_pin": "campaign2@0c4a1fa (deadlock-rearm fix; binary a327a7cbb3504a59)",
  "batches": {
   "run01": "20260709T071314Z_campaign2_run01",
@@ -53,6 +53,10 @@
   {
    "utc": "2026-07-11",
    "event": "INCIDENT (contained): the first 2chr submit timed out locally but completed remotely AFTER the empty-queue check \u2014 63 phantom jobs on the 1ch binary under 2ch names (remote batch 20260711T133959Z). Caught on next poll (126 vs 63), cancelled all 63 by WorkDir stamp; snapshot binaries verified (phantom=4core-1ch, good=4core-2ch). No contamination possible: scoring folds are ledger-scoped to 20260711T135034Z. Lesson: after any timed-out submit, re-poll for late-materializing jobs before trusting an empty-queue check."
+  },
+  {
+   "utc": "2026-07-11",
+   "event": "OWNER: cancel remaining runs (2chr retries terminated; 2ch verdict stands at n=92). Campaign-2 experimental phase CLOSED. Rounds: run01 (800/800), run02+02b (500/500), 2ch (656/700, n=92), + single-core anchors (projection, bwsweep). Deep-dive analysis phase begins."
   }
  ]
 }

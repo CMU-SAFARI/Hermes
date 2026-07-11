@@ -1,4 +1,4 @@
-# Bandwidth Sweep — PRELIMINARY (5,241/5,256; 15 slowest bw200/400 cells still running; final refresh follows)
+# Bandwidth Sweep — FINAL (5,241/5,256; owner terminated the last cells — slowest bw200/400 traces permanently dropped from those points' common sets)
 
 Single core, 146-trace list, full window; --dram_io_freq sweeps the
 single-channel rate; per-point geomeans over the common trace set (n per
@@ -55,7 +55,7 @@ recall drifts 74.7 -> 70.0 as growing bandwidth lets Pythia cover more.
 XPT-alone: 97.7p/25.8r flat; XPT+Pythia: ~61p, recall 9.0 -> 5.8.
 
 ## Data notes
-Preliminary common trace sets: n=141 at 200 MTPS, n=144 at 400 (slowest
-traces still running/at 24h caps -> final refresh may add up to 5
-traces at 200, 2 at 400; other points complete at 146). Batch
+FINAL common trace sets: n=141 at 200 MTPS, n=144 at 400 (slowest traces'
+cells terminated at owner request 2026-07-11 — conclusions unaffected);
+other points complete at 146. Batch
 20260710T173114Z_bwsweep, rbdev fc49264.
