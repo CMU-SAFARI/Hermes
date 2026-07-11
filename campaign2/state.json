@@ -44,6 +44,10 @@
   {
    "utc": "2026-07-11",
    "event": "run02/run02b SCORED (497/500 + 9-job backfill in flight): HYPOTHESIS REFUTED \u2014 Pythia-alone 1.0689 >> Hermes-alone 1.0221-1.0238 at 4c/1ch despite near-perfect prediction (97.5p/96.1r). Mechanism: latency-shaving value-per-hit << stall-removal, and DRAM queueing dominates under contention. Sharp secondary: XPT+Pythia (1.0652) edges Hermes+Pythia (1.0633) at 1ch \u2014 minimal-traffic composition wins when bandwidth binds. 2ch + bwsweep will chart the crossover."
+  },
+  {
+   "utc": "2026-07-11",
+   "event": "2ch SCORED (656/700, n=92): Big+Pythia STILL negative at 2ch (0.9959 vs 0.9948 at 1ch); deep losers barely recover (0.9710->0.9718, 10/14 still <-2%) \u2014 interference-bound, not capacity-bound; Pythia scales to consume added bandwidth (+0.83pp). Naive per-core-MTPS mapping to the single-core curve fails. run02r folded (3 pairs, n=100 for alone rows). 2chr retry (63 @16h) resubmitted after a config-ordering slip (first attempt timed out pre-sbatch, NO wrong-binary jobs landed \u2014 verified empty queue + no ledger)."
   }
  ]
 }
