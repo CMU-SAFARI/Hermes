@@ -23,4 +23,5 @@ Update: speedup_membound146_bw3200 re-gen 2026-07-12 — canonical bar order
 changed to XPT, Hermes-UnC, Pythia, XPT+Pythia, Hermes-UnC+Pythia (in
 hermes_style.R, propagates to all charts); GEOMEAN bars value-labelled
 (1.014/1.058/1.151/1.149/1.171).
-| 2026-07-12 | charts/accuracy_coverage_membound146_bw3200.{png,pdf} | scripts/plot_accuracy_coverage_membound146.R | membound146_bw3200 (raw prec/recall) -> accuracy_coverage_bw3200 (per-cat AVG) | 2 facets Accuracy(=precision)/Coverage(=recall); XPT + Hermes-UnC standalone; non-weighted arith mean; AVG labelled; XPT accuracy on n=145 (1 zero-prediction trace excluded from that mean only) |
+| 2026-07-12 | charts/accuracy_coverage_standalone_membound146_bw3200.{png,pdf} | scripts/plot_accuracy_coverage_membound146.R | membound146_bw3200 -> acc_cov_standalone_bw3200 | XPT & Hermes-UnC standalone; Accuracy/Coverage facets; arith mean; benefit-of-doubt: no-prediction=100% accuracy |
+| 2026-07-12 | charts/accuracy_coverage_pythia_membound146_bw3200.{png,pdf} | scripts/plot_accuracy_coverage_membound146.R | membound146_bw3200 -> acc_cov_pythia_bw3200 | XPT+Pythia & Hermes-UnC+Pythia (predictors atop Pythia); same rule; XPT AVG 65.4 acc / 5.4 cov vs Hermes 85.4 / 69.8 |
