@@ -37,7 +37,7 @@ p <- ggplot(agg, aes(mtps, geomean, colour = ExpName, group = ExpName)) +
                      labels = c("200","400","800","1600","3200","6400")) +
   scale_y_continuous(breaks = scales::breaks_width(0.05)) +
   labs(title = "Speedup vs DRAM bandwidth — 146 memory-intensive traces",
-       subtitle = "1 core, full window. Geomean of per-trace IPC speedup over nopref at the SAME MTPS. n=141/144/146/146/146/146 (low-BW cells partly dropped).",
+       subtitle = "1 core, full window. Geomean of per-trace IPC speedup over nopref at the SAME MTPS.",
        x = "DRAM data rate (MT/s, log scale)", y = "Geomean speedup over nopref (x)") +
   theme_ipsum_rc(base_size = 12, axis_title_size = 13) +
   theme(legend.position = "bottom", axis.title.x = element_text(hjust=0.5),
