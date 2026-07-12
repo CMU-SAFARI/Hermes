@@ -12,18 +12,29 @@ hermes_fill <- c(
   "XPT+Pythia"        = "#D94801",   # strong orange-red
   "Hermes-UnC"        = "#9ECAE1",   # light blue
   "Hermes-UnC+Pythia" = "#08519C",   # strong dark blue
-  # Hermes size variants (for future size charts; greens, coherent within-set)
-  "Hermes-UnC-Lite"   = "#A1D99B",
-  "Hermes-UnC-Big"    = "#238B45"
+  "Hermes-PCless9"        = "#A1D99B",   # light green  (single PC-less feat #9, uncore)
+  "Hermes-PCless9+Pythia" = "#238B45",   # strong green
+  "Hermes-Core"           = "#BCBDDC",   # light purple (original PC-based, core placement)
+  "Hermes-Core+Pythia"    = "#6A51A3",   # strong purple
+  # Size study (own chart): blue = standalone (light->dark = Lite->Big),
+  # orange = +Pythia (light->dark = Lite->Big).
+  "Hermes-Lite"           = "#C6DBEF",
+  "Hermes-Normal"         = "#6BAED6",
+  "Hermes-Big"            = "#2171B5",
+  "Hermes-Lite+Pythia"    = "#FDBE85",
+  "Hermes-Normal+Pythia"  = "#FD8D3C",
+  "Hermes-Big+Pythia"     = "#D94801"
 )
 
 # Canonical display order (legend + dodge). Predictors-alone first, then
 # Pythia, then the +Pythia combos. Subset per chart as needed. Colors are
 # tied to config NAME (hermes_fill), so reordering here never changes a
 # config's color — only its position.
-hermes_levels <- c("nopref", "XPT", "Hermes-UnC", "Pythia",
+hermes_levels <- c("nopref",
+                   "XPT", "Hermes-UnC", "Hermes-PCless9", "Hermes-Core",
+                   "Pythia",
                    "XPT+Pythia", "Hermes-UnC+Pythia",
-                   "Hermes-UnC-Lite", "Hermes-UnC-Big")
+                   "Hermes-PCless9+Pythia", "Hermes-Core+Pythia")
 
 # Map raw ExpName tokens -> canonical display labels. Extend as batches add exps.
 hermes_relabel <- function(x) {
@@ -31,8 +42,9 @@ hermes_relabel <- function(x) {
     "nopref"="nopref", "pythia"="Pythia", "xpt"="XPT",
     "xpt_pythia"="XPT+Pythia", "normal"="Hermes-UnC",
     "normal_pythia"="Hermes-UnC+Pythia",
-    "lite"="Hermes-UnC-Lite", "big"="Hermes-UnC-Big",
-    "lite_pythia"="Hermes-UnC-Lite+Pythia", "big_pythia"="Hermes-UnC-Big+Pythia")
+    "pcless9"="Hermes-PCless9", "pcless9_pythia"="Hermes-PCless9+Pythia",
+    "core_p"="Hermes-Core", "core_p_pythia"="Hermes-Core+Pythia",
+    "core_o"="Hermes-Core-O", "core_o_pythia"="Hermes-Core-O+Pythia")
   x <- sub("^bw[0-9]+_", "", x)   # strip bwNNNN_ prefix
   x <- sub("^proj_", "", x); x <- sub("^c2_", "", x)
   out <- m[x]; ifelse(is.na(out), x, unname(out))

@@ -1,0 +1,13 @@
+---
+# Missing pieces for the size chart: Lite & Big STANDALONE (no Pythia) at
+# bw3200 full window. +Pythia sizes reuse E3' (binary-identical); Normal-alone
+# + Pythia + nopref reuse bwsweep bw3200. Frozen fc49264 binary.
+definitions:
+  - WBASE: "--warmup_instructions=100000000 --simulation_instructions=500000000 --llc_replacement_type=ship --config=$(SIM_HOME_IN_CLUSTER)/config/nopref.ini --num_rob_partitions=3 --rob_partition_size=64,128,320 --rob_frontal_partition_ids=0 --rob_dorsal_partition_ids=2 --dram_io_freq=3200"
+  - OCP: "--config=$(SIM_HOME_IN_CLUSTER)/config/ocp_hermes.ini"
+  - HERMES: "--config=$(SIM_HOME_IN_CLUSTER)/config/hermes_base.ini --ddrp_req_latency=1"
+  - LITE: "--config=$(SIM_HOME_IN_CLUSTER)/config/hermes_uncore_lite.ini"
+  - BIG: "--config=$(SIM_HOME_IN_CLUSTER)/config/hermes_uncore_big.ini"
+experiments:
+  - bw3200_lite : $(WBASE) $(OCP) $(LITE) $(HERMES)
+  - bw3200_big : $(WBASE) $(OCP) $(BIG) $(HERMES)

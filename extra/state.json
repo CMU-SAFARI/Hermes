@@ -3,13 +3,18 @@
  "status": "running",
  "code_pin": "rbdev@fc49264 (matches bwsweep bw3200)",
  "batches": {
-  "extra": "20260712T175426Z_extra_configs"
+  "extra": "20260712T175426Z_extra_configs",
+  "sizes_alone": "20260712T180910Z_sizes_alone"
  },
- "jobs_total": 876,
+ "jobs_total": 1168,
  "log": [
   {
    "utc": "2026-07-12",
    "event": "EXTRA CONFIGS launched (owner curiosity: add pcless9 + core Hermes to the 3 membound146 charts): 20260712T175426Z_extra_configs, 876 jobs \u2014 pcless9(feat9,uncore,phys) + core Hermes-O(ddrp6) + core Hermes-P(ddrp18), each +-Pythia, bw3200 full window x146, frozen fc49264 binary (pairs vs bwsweep bw3200_nopf). FINDINGS: core Hermes never run before (any binary); pcless9 ran pre-campaign on old binaries w/o matched nopref -> re-run for consistency. Owner: run both core O/P, PLOT the P (conservative); pcless9 physical."
+  },
+  {
+   "utc": "2026-07-12",
+   "event": "SIZES batch (owner: Lite/Normal/Big +-Pythia + Pythia speedup chart): 20260712T180910Z_sizes_alone, 292 jobs (Lite-alone + Big-alone only; +Pythia sizes reuse E3' _fw which is binary-identical (146/146 exact IPC match confirmed); Normal-alone/Pythia/nopref reuse bwsweep bw3200). Size chart assembles on drain."
   }
  ]
 }
