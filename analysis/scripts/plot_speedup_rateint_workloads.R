@@ -35,9 +35,8 @@ geo <- wl %>% group_by(ExpName) %>%
   summarise(geomean = exp(mean(log(geomean))), n = sum(n), .groups = "drop") %>%
   mutate(workload = "GEOMEAN")
 
-agg <- bind_rows(wl, geo) %>%
-  mutate(short = ifelse(workload == "GEOMEAN", "GEOMEAN", sub("^[0-9]+\\.", "", workload)))
-wl_order <- c(sort(unique(sub("^[0-9]+\\.", "", wl$workload))), "GEOMEAN")
+agg <- bind_rows(wl, geo) %>% mutate(short = workload)
+wl_order <- c(sort(unique(wl$workload)), "GEOMEAN")   # sorts by full name (7xx numeric)
 agg$short   <- factor(agg$short, levels = wl_order)
 agg$ExpName <- factor(agg$ExpName, levels = intersect(hermes_levels, unique(agg$ExpName)))
 
