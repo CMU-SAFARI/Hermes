@@ -1,0 +1,18 @@
+---
+# Extra configs for the membound146 charts, on the FROZEN fc49264 binary at
+# bw3200 full window — pairs against the existing bwsweep bw3200_nopf baseline.
+# pcless9 = single PC-less feature #9 (128-entry) at uncore, physical.
+# core_o/core_p = original PC-based Hermes at CORE placement, ddrp lat 6/18.
+definitions:
+  - WBASE: "--warmup_instructions=100000000 --simulation_instructions=500000000 --llc_replacement_type=ship --config=$(SIM_HOME_IN_CLUSTER)/config/nopref.ini --num_rob_partitions=3 --rob_partition_size=64,128,320 --rob_frontal_partition_ids=0 --rob_dorsal_partition_ids=2 --dram_io_freq=3200"
+  - PYTHIA: "--l2c_prefetcher_types=scooby --config=$(SIM_HOME_IN_CLUSTER)/config/pythia.ini --scooby_enable_direct_pref_issue=true --scooby_pref_at_lower_level=true --scooby_dyn_degrees_type2=1,1,2,4"
+  - PCLESS9: "--config=$(SIM_HOME_IN_CLUSTER)/config/ocp_hermes.ini --ocp_perc_activated_features=9 --ocp_perc_weight_array_sizes=128 --ocp_perc_feature_hash_types=2 --ocp_perc_activation_threshold=-2 --ocp_perc_pos_train_thresh=10 --ocp_perc_neg_train_thresh=-10 --offchip_pred_location=uncore --ocp_perc_use_physical_address=true --config=$(SIM_HOME_IN_CLUSTER)/config/hermes_base.ini --ddrp_req_latency=1"
+  - COREO: "--config=$(SIM_HOME_IN_CLUSTER)/config/ocp_hermes.ini --config=$(SIM_HOME_IN_CLUSTER)/config/hermes_base.ini --ddrp_req_latency=6"
+  - COREP: "--config=$(SIM_HOME_IN_CLUSTER)/config/ocp_hermes.ini --config=$(SIM_HOME_IN_CLUSTER)/config/hermes_base.ini --ddrp_req_latency=18"
+experiments:
+  - bw3200_pcless9 : $(WBASE) $(PCLESS9)
+  - bw3200_pcless9_pythia : $(WBASE) $(PYTHIA) $(PCLESS9)
+  - bw3200_core_o : $(WBASE) $(COREO)
+  - bw3200_core_o_pythia : $(WBASE) $(PYTHIA) $(COREO)
+  - bw3200_core_p : $(WBASE) $(COREP)
+  - bw3200_core_p_pythia : $(WBASE) $(PYTHIA) $(COREP)
