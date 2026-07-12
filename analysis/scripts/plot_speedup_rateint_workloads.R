@@ -56,7 +56,7 @@ p <- ggplot(agg, aes(short, geomean, fill = ExpName)) +
   coord_cartesian(ylim = c(0.95, NA)) +
   labs(title = "SPEC Rate-Int per-workload speedup over nopref (full suite)",
        subtitle = "Full window, 1 core, DDR-3200. Per workload: SimPoint-weighted geomean of trace speedups. GEOMEAN: non-weighted geomean across workloads.",
-       x = NULL, y = "Speedup over nopref (x)") +
+       x = NULL, y = "Weighted speedup over no-prefetching") +
   theme_ipsum_rc(base_size = 11, axis_title_size = 12) +
   theme(legend.position = "bottom", panel.grid.major.x = element_blank(),
         axis.text.x = element_text(angle = 40, hjust = 1),
