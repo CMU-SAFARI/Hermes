@@ -17,11 +17,12 @@ sp <- stats %>% filter(ExpName == "proj_normal") %>%
 write.csv(sp %>% select(rank, TraceName, speedup),
           file.path(here,"charts","scurve_rateint_hermes_numbers.csv"), row.names = FALSE)
 
-# top-N (highest-speedup) summary for the subtitle
-topstat <- function(N) { g <- tail(sp$speedup, N)
-  sprintf("Top-%d: %.3f-%.3f (geo %.3f)", N, min(g), max(g), exp(mean(log(g)))) }
-sub <- paste0("Full window, 1 core, DDR-3200. All 144 traces sorted by speedup.  ",
-              topstat(10), " . ", topstat(50), " . ", topstat(100), ".")
+# overall min/max + geomean of the top-N (highest-speedup) traces
+topgeo <- function(N) exp(mean(log(tail(sp$speedup, N))))
+sub <- sprintf(paste0("Full window, 1 core, DDR-3200, all 144 traces.  ",
+                      "min: %.2f; max: %.2f; top-10: %.2f; top-50: %.2f; top-100: %.2f",
+                      "  (top-N = geomean of the N highest-speedup traces)."),
+               min(sp$speedup), max(sp$speedup), topgeo(10), topgeo(50), topgeo(100))
 
 col <- "#2171B5"   # Hermes-UnC (blue family)
 p <- ggplot(sp, aes(rank, speedup)) +
