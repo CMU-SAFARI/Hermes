@@ -17,9 +17,12 @@ hermes_fill <- c(
   "Hermes-UnC-Big"    = "#238B45"
 )
 
-# Canonical display order (legend + dodge). Subset per chart as needed.
-hermes_levels <- c("nopref", "Pythia", "XPT", "XPT+Pythia",
-                   "Hermes-UnC", "Hermes-UnC+Pythia",
+# Canonical display order (legend + dodge). Predictors-alone first, then
+# Pythia, then the +Pythia combos. Subset per chart as needed. Colors are
+# tied to config NAME (hermes_fill), so reordering here never changes a
+# config's color — only its position.
+hermes_levels <- c("nopref", "XPT", "Hermes-UnC", "Pythia",
+                   "XPT+Pythia", "Hermes-UnC+Pythia",
                    "Hermes-UnC-Lite", "Hermes-UnC-Big")
 
 # Map raw ExpName tokens -> canonical display labels. Extend as batches add exps.

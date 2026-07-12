@@ -87,6 +87,9 @@ dodge <- position_dodge(width = 0.9)
 p <- ggplot(agg, aes(category, geomean, fill = ExpName)) +
   geom_hline(yintercept = 1, linetype = "dashed", colour = "grey40") +
   geom_col(position = dodge, width = 0.85, colour = "grey25", linewidth = 0.15) +
+  geom_text(data = filter(agg, category == "GEOMEAN"),
+            aes(label = sprintf("%.3f", geomean), group = ExpName),
+            position = dodge, vjust = -0.45, size = 3.2, colour = "grey15") +
   hermes_fill_scale() +
   scale_x_discrete(labels = cat_lab) +
   scale_y_continuous(breaks = scales::breaks_width(0.2),

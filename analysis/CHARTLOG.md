@@ -18,3 +18,8 @@ charts). One entry below per generated chart.
 
 Update: speedup_membound146_bw3200 chart re-generated 2026-07-12 — dropped
 error bars, switched to hermes_style.R palette.
+
+Update: speedup_membound146_bw3200 re-gen 2026-07-12 — canonical bar order
+changed to XPT, Hermes-UnC, Pythia, XPT+Pythia, Hermes-UnC+Pythia (in
+hermes_style.R, propagates to all charts); GEOMEAN bars value-labelled
+(1.014/1.058/1.151/1.149/1.171).
