@@ -7,6 +7,7 @@ suppressPackageStartupMessages({
 })
 
 here     <- "/home/rahbera/thesis/runs/tuning/analysis"
+source(file.path(here, "scripts", "hermes_style.R"))
 csv_path <- file.path(here, "rollup_membound146_native.csv")
 yml_path <- "/home/rahbera/thesis/runs/cluster/spec26.mpki2.yml"
 
@@ -51,7 +52,8 @@ sp <- stats %>%
   mutate(speedup = ipc / base_ipc,
          ExpName = unname(exp_map[ExpName]))
 
-exp_levels <- c("Pythia", "XPT", "XPT+Pythia", "Hermes-UnC", "Hermes-UnC+Pythia")
+exp_levels <- intersect(hermes_levels,
+                        c("Pythia", "XPT", "XPT+Pythia", "Hermes-UnC", "Hermes-UnC+Pythia"))
 cat_levels <- c("specrate-fp", "specrate-int",
                 "specspeed-fp", "specspeed-int", "GEOMEAN")
 
@@ -80,26 +82,18 @@ write.csv(agg %>% select(category, ExpName, n, geomean, gsd, lo, hi),
           file.path(here, "charts", "speedup_membound146_bw3200_numbers.csv"),
           row.names = FALSE)
 
-pal <- c("Pythia"            = "#7f7f7f",
-         "XPT"               = "#fdae6b",
-         "XPT+Pythia"        = "#e6550d",
-         "Hermes-UnC"        = "#9ecae1",
-         "Hermes-UnC+Pythia" = "#3182bd")
-
 dodge <- position_dodge(width = 0.9)
 
 p <- ggplot(agg, aes(category, geomean, fill = ExpName)) +
   geom_hline(yintercept = 1, linetype = "dashed", colour = "grey40") +
   geom_col(position = dodge, width = 0.85, colour = "grey25", linewidth = 0.15) +
-  geom_errorbar(aes(ymin = lo, ymax = hi),
-                position = dodge, width = 0.6, linewidth = 0.3, colour = "grey20") +
-  scale_fill_manual(values = pal, name = NULL) +
+  hermes_fill_scale() +
   scale_x_discrete(labels = cat_lab) +
   scale_y_continuous(breaks = scales::breaks_width(0.2),
                      expand = expansion(mult = c(0, 0.05))) +
   coord_cartesian(ylim = c(0.8, NA)) +
   labs(title    = "Geomean speedup over nopref — 146 memory-intensive traces",
-       subtitle = "Full window, 1 core, DDR-3200. Bars: geomean of per-trace speedup. Error bars: ±1 geometric SD (×/÷).",
+       subtitle = "Full window, 1 core, DDR-3200. Bars: geomean of per-trace IPC speedup.",
        x = NULL, y = "Geomean speedup (×)") +
   theme_ipsum_rc(base_size = 12, axis_title_size = 13) +
   theme(legend.position = "bottom",
