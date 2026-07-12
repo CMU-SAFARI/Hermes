@@ -49,8 +49,8 @@ p <- ggplot(agg, aes(short, geomean, fill = ExpName)) +
   geom_col(position = dodge, width = 0.85, colour = "grey30", linewidth = 0.12) +
   geom_text(data = filter(agg, short == "GEOMEAN"),
             aes(label = sprintf("%.3f", geomean), group = ExpName),
-            position = dodge, vjust = -0.45, size = 2.6, colour = "grey15",
-            angle = 90, hjust = -0.1) +
+            position = dodge, vjust = 0.5, hjust = -0.15, size = 4.2, colour = "grey15",
+            angle = 90) +
   hermes_fill_scale() +
   scale_y_continuous(breaks = scales::breaks_width(0.05), expand = expansion(mult=c(0,0.05))) +
   coord_cartesian(ylim = c(0.95, NA)) +
