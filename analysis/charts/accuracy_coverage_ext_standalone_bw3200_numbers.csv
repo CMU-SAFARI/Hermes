@@ -1,6 +1,6 @@
 "metric","category","ExpName","mean","n"
-"Accuracy","AVG","Hermes-Core",91.0814814814815,135
-"Accuracy","AVG","Hermes-NoPC",90.9747058823529,136
+"Accuracy","AVG","Hermes-Core",90.9641095890411,146
+"Accuracy","AVG","Hermes-NoPC",91.0131506849315,146
 "Accuracy","AVG","Hermes-UnC",95.517397260274,146
 "Accuracy","AVG","XPT",97.6606164383562,146
 "Accuracy","specrate-fp","Hermes-Core",91.448,30
@@ -15,12 +15,12 @@
 "Accuracy","specspeed-fp","Hermes-NoPC",95.5659375,32
 "Accuracy","specspeed-fp","Hermes-UnC",99.1953125,32
 "Accuracy","specspeed-fp","XPT",95.8184375,32
-"Accuracy","specspeed-int","Hermes-Core",86.0295555555556,45
-"Accuracy","specspeed-int","Hermes-NoPC",85.8002173913043,46
+"Accuracy","specspeed-int","Hermes-Core",86.7158928571429,56
+"Accuracy","specspeed-int","Hermes-NoPC",86.8244642857143,56
 "Accuracy","specspeed-int","Hermes-UnC",92.6176785714286,56
 "Accuracy","specspeed-int","XPT",97.5441071428571,56
-"Coverage","AVG","Hermes-Core",91.9735555555555,135
-"Coverage","AVG","Hermes-NoPC",95.7239705882353,136
+"Coverage","AVG","Hermes-Core",92.2755479452055,146
+"Coverage","AVG","Hermes-NoPC",95.9628082191781,146
 "Coverage","AVG","Hermes-UnC",94.9815753424658,146
 "Coverage","AVG","XPT",25.5078082191781,146
 "Coverage","specrate-fp","Hermes-Core",88.6336666666667,30
@@ -35,7 +35,7 @@
 "Coverage","specspeed-fp","Hermes-NoPC",96.1753125,32
 "Coverage","specspeed-fp","Hermes-UnC",97.109375,32
 "Coverage","specspeed-fp","XPT",39.298125,32
-"Coverage","specspeed-int","Hermes-Core",90.2966666666667,45
-"Coverage","specspeed-int","Hermes-NoPC",93.3519565217391,46
+"Coverage","specspeed-int","Hermes-Core",91.4133928571429,56
+"Coverage","specspeed-int","Hermes-NoPC",94.3982142857143,56
 "Coverage","specspeed-int","Hermes-UnC",91.8891071428571,56
 "Coverage","specspeed-int","XPT",17.6676785714286,56

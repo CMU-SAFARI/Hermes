@@ -45,3 +45,5 @@ Update: scurve_rateint_hermes re-gen 2026-07-12 — subtitle reports top-10/50/1
 - Hermes-NoPC = core predictor moved to uncore, PC-augmented features dropped (single PC-less feature #9).
 - Hermes-UnC = the new tuned 3-feature uncore predictor.
 Rename lives in scripts/hermes_style.R (fill/levels/relabel) -> propagates to all charts.
+
+Update 2026-07-13: extended speedup + acc/cov + gap charts REFRESHED to 146/146 (llvm_s node-loss retry 20260713T070427Z_extra_llvm_retry filled the 11). Numbers essentially unchanged from prelim 135. Final GEOMEAN speedup: XPT 1.014, Hermes-UnC 1.058, NoPC 1.053, Core 1.066, Pythia 1.151, XPT+P 1.149, UnC+P 1.171, NoPC+P 1.165, Core+P 1.175. Gap (UnC-NoPC +Pythia): median 0.22, range now on 146.

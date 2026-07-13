@@ -1,6 +1,6 @@
 "metric","category","ExpName","mean","n"
-"Accuracy","AVG","Hermes-Core+Pythia",78.8228676470588,136
-"Accuracy","AVG","Hermes-NoPC+Pythia",66.7657777777778,135
+"Accuracy","AVG","Hermes-Core+Pythia",78.456095890411,146
+"Accuracy","AVG","Hermes-NoPC+Pythia",66.8300684931507,146
 "Accuracy","AVG","Hermes-UnC+Pythia",85.4189726027397,146
 "Accuracy","AVG","XPT+Pythia",65.386095890411,146
 "Accuracy","specrate-fp","Hermes-Core+Pythia",76.8336666666667,30
@@ -15,12 +15,12 @@
 "Accuracy","specspeed-fp","Hermes-NoPC+Pythia",66.95125,32
 "Accuracy","specspeed-fp","Hermes-UnC+Pythia",87.8384375,32
 "Accuracy","specspeed-fp","XPT+Pythia",71.31875,32
-"Accuracy","specspeed-int","Hermes-Core+Pythia",73.8782608695652,46
-"Accuracy","specspeed-int","Hermes-NoPC+Pythia",63.5884444444444,45
+"Accuracy","specspeed-int","Hermes-Core+Pythia",73.805,56
+"Accuracy","specspeed-int","Hermes-NoPC+Pythia",64.3801785714286,56
 "Accuracy","specspeed-int","Hermes-UnC+Pythia",81.2223214285714,56
 "Accuracy","specspeed-int","XPT+Pythia",58.6303571428571,56
-"Coverage","AVG","Hermes-Core+Pythia",69.11125,136
-"Coverage","AVG","Hermes-NoPC+Pythia",64.65,135
+"Coverage","AVG","Hermes-Core+Pythia",69.7043150684931,146
+"Coverage","AVG","Hermes-NoPC+Pythia",66.0830136986301,146
 "Coverage","AVG","Hermes-UnC+Pythia",69.8432191780822,146
 "Coverage","AVG","XPT+Pythia",5.3877397260274,146
 "Coverage","specrate-fp","Hermes-Core+Pythia",63.4406666666667,30
@@ -35,7 +35,7 @@
 "Coverage","specspeed-fp","Hermes-NoPC+Pythia",49.020625,32
 "Coverage","specspeed-fp","Hermes-UnC+Pythia",62.5840625,32
 "Coverage","specspeed-fp","XPT+Pythia",10.04,32
-"Coverage","specspeed-int","Hermes-Core+Pythia",73.8469565217391,46
-"Coverage","specspeed-int","Hermes-NoPC+Pythia",70.1597777777778,45
+"Coverage","specspeed-int","Hermes-Core+Pythia",74.5475,56
+"Coverage","specspeed-int","Hermes-NoPC+Pythia",72.8135714285714,56
 "Coverage","specspeed-int","Hermes-UnC+Pythia",67.0964285714286,56
 "Coverage","specspeed-int","XPT+Pythia",1.16857142857143,56

@@ -87,6 +87,17 @@ TraceName,gap_pp
 822.palm_s-atmos-35579B,-0.1629
 822.palm_s-atmos-4359B,-0.1584
 822.palm_s-atmos-6227B,-0.1639
+823.llvm_s-dagcombiner_0002-14B,-0.6946
+823.llvm_s-dagcombiner_0002-4B,-2.2291
+823.llvm_s-dagcombiner_0006-4B,-2.1557
+823.llvm_s-etf_inst3_0005-11B,0.5165
+823.llvm_s-etf_inst3_0005-17B,0.1541
+823.llvm_s-etf_inst3_0011-10B,-1.5069
+823.llvm_s-etf_inst3_0011-14B,-0.7351
+823.llvm_s-etf_inst3_0011-8B,-0.5842
+823.llvm_s-generic_cpu_exec_6_0012-25B,-1.9773
+823.llvm_s-grid_tools_0008-19B,-0.2432
+823.llvm_s-grid_tools_dof_handlers_0009-11B,-1.0618
 823.llvm_s-insn_recog_0005-10B,-0.1622
 823.llvm_s-insn_recog_0005-14B,0.9698
 823.llvm_s-insn_recog_0005-15B,-0.2426
