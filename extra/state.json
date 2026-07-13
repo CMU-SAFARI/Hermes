@@ -1,6 +1,6 @@
 {
  "campaign": "extra-configs",
- "status": "running",
+ "status": "complete",
  "code_pin": "rbdev@fc49264 (matches bwsweep bw3200)",
  "batches": {
   "extra": "20260712T175426Z_extra_configs",
@@ -19,6 +19,10 @@
   {
    "utc": "2026-07-13",
    "event": "SIZES batch drained (146/146). Size-comparison chart built + delivered: sizes flat at single core (all-alone 1.058; +Pythia 1.169-1.171). EXTRA batch still draining for the extended speedup chart."
+  },
+  {
+   "utc": "2026-07-13",
+   "event": "llvm_s node-loss retry (20260713T070427Z_extra_llvm_retry, 66 jobs) landed -> all extra configs 146/146. Extended speedup + acc/cov + gap charts refreshed to 146, PCless9->NoPC renamed. Extra-configs analysis COMPLETE."
   }
  ]
 }
