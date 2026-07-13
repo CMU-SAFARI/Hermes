@@ -15,6 +15,10 @@
   {
    "utc": "2026-07-12",
    "event": "SIZES batch (owner: Lite/Normal/Big +-Pythia + Pythia speedup chart): 20260712T180910Z_sizes_alone, 292 jobs (Lite-alone + Big-alone only; +Pythia sizes reuse E3' _fw which is binary-identical (146/146 exact IPC match confirmed); Normal-alone/Pythia/nopref reuse bwsweep bw3200). Size chart assembles on drain."
+  },
+  {
+   "utc": "2026-07-13",
+   "event": "SIZES batch drained (146/146). Size-comparison chart built + delivered: sizes flat at single core (all-alone 1.058; +Pythia 1.169-1.171). EXTRA batch still draining for the extended speedup chart."
   }
  ]
 }
