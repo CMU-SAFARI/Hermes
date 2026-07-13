@@ -44,8 +44,8 @@ exp_map <- c(bw3200_pythia        = "Pythia",
              bw3200_xpt_pythia    = "XPT+Pythia",
              bw3200_normal        = "Hermes-UnC",
              bw3200_normal_pythia = "Hermes-UnC+Pythia",
-             bw3200_pcless9       = "Hermes-PCless9",
-             bw3200_pcless9_pythia= "Hermes-PCless9+Pythia",
+             bw3200_pcless9       = "Hermes-NoPC",
+             bw3200_pcless9_pythia= "Hermes-NoPC+Pythia",
              bw3200_core_p        = "Hermes-Core",
              bw3200_core_p_pythia = "Hermes-Core+Pythia")
 
@@ -57,8 +57,8 @@ sp <- stats %>%
          ExpName = unname(exp_map[ExpName]))
 
 exp_levels <- intersect(hermes_levels,
-                        c("XPT","Hermes-UnC","Hermes-PCless9","Hermes-Core","Pythia",
-    "XPT+Pythia","Hermes-UnC+Pythia","Hermes-PCless9+Pythia","Hermes-Core+Pythia"))
+                        c("XPT","Hermes-UnC","Hermes-NoPC","Hermes-Core","Pythia",
+    "XPT+Pythia","Hermes-UnC+Pythia","Hermes-NoPC+Pythia","Hermes-Core+Pythia"))
 cat_levels <- c("specrate-fp", "specrate-int",
                 "specspeed-fp", "specspeed-int", "GEOMEAN")
 
@@ -100,7 +100,7 @@ p <- ggplot(agg, aes(category, geomean, fill = ExpName)) +
   scale_y_continuous(breaks = scales::breaks_width(0.2),
                      expand = expansion(mult = c(0, 0.05))) +
   coord_cartesian(ylim = c(0.8, NA)) +
-  labs(title    = "Geomean speedup over nopref — 146 mem-intensive traces (+ PCless9 & Core)",
+  labs(title    = "Geomean speedup over nopref — 146 mem-intensive traces (+ NoPC & Core)",
        subtitle = "Full window, 1 core, DDR-3200. Bars: geomean of per-trace IPC speedup.",
        x = NULL, y = "Geomean speedup (×)") +
   theme_ipsum_rc(base_size = 12, axis_title_size = 13) +

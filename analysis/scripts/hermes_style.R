@@ -12,8 +12,8 @@ hermes_fill <- c(
   "XPT+Pythia"        = "#D94801",   # strong orange-red
   "Hermes-UnC"        = "#9ECAE1",   # light blue
   "Hermes-UnC+Pythia" = "#08519C",   # strong dark blue
-  "Hermes-PCless9"        = "#A1D99B",   # light green  (single PC-less feat #9, uncore)
-  "Hermes-PCless9+Pythia" = "#238B45",   # strong green
+  "Hermes-NoPC"        = "#A1D99B",   # light green  (core predictor at uncore, PC-augmented features dropped)
+  "Hermes-NoPC+Pythia" = "#238B45",   # strong green
   "Hermes-Core"           = "#BCBDDC",   # light purple (original PC-based, core placement)
   "Hermes-Core+Pythia"    = "#6A51A3",   # strong purple
   # Size study (own chart): blue = standalone (light->dark = Lite->Big),
@@ -31,10 +31,10 @@ hermes_fill <- c(
 # tied to config NAME (hermes_fill), so reordering here never changes a
 # config's color — only its position.
 hermes_levels <- c("nopref",
-                   "XPT", "Hermes-UnC", "Hermes-PCless9", "Hermes-Core",
+                   "XPT", "Hermes-UnC", "Hermes-NoPC", "Hermes-Core",
                    "Pythia",
                    "XPT+Pythia", "Hermes-UnC+Pythia",
-                   "Hermes-PCless9+Pythia", "Hermes-Core+Pythia")
+                   "Hermes-NoPC+Pythia", "Hermes-Core+Pythia")
 
 # Map raw ExpName tokens -> canonical display labels. Extend as batches add exps.
 hermes_relabel <- function(x) {
@@ -42,7 +42,7 @@ hermes_relabel <- function(x) {
     "nopref"="nopref", "pythia"="Pythia", "xpt"="XPT",
     "xpt_pythia"="XPT+Pythia", "normal"="Hermes-UnC",
     "normal_pythia"="Hermes-UnC+Pythia",
-    "pcless9"="Hermes-PCless9", "pcless9_pythia"="Hermes-PCless9+Pythia",
+    "pcless9"="Hermes-NoPC", "pcless9_pythia"="Hermes-NoPC+Pythia",
     "core_p"="Hermes-Core", "core_p_pythia"="Hermes-Core+Pythia",
     "core_o"="Hermes-Core-O", "core_o_pythia"="Hermes-Core-O+Pythia")
   x <- sub("^bw[0-9]+_", "", x)   # strip bwNNNN_ prefix
