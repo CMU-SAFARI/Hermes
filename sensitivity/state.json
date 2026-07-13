@@ -1,0 +1,15 @@
+{
+ "campaign": "sensitivity-multiprefetcher",
+ "status": "running",
+ "code_pin": "rbdev@fc49264",
+ "batches": {
+  "sens_multipf": "20260713T180556Z_sens_multipf"
+ },
+ "jobs_total": 584,
+ "log": [
+  {
+   "utc": "2026-07-13",
+   "event": "SENSITIVITY STUDY launched (owner: does Hermes still help with 2 prefetchers): 20260713T180556Z_sens_multipf, 584 jobs. Stride@L1D + Pythia@L2, then +Hermes-Core(core,ddrp18) / +Hermes-UnC(uncore normal) / +XPT(uncore). 146 mem-intensive, full window, bw3200. Baseline=existing bwsweep bw3200_nopf. Both prefetchers smoke-verified active (mcf: L2 pythia 61883 reqs; libquantum: L1D stride useful). NOT running Hermes-NoPC per owner."
+  }
+ ]
+}

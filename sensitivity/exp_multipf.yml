@@ -1,0 +1,20 @@
+---
+# SENSITIVITY: multi-prefetcher study. Stride @ L1D + Pythia @ L2 (as today),
+# then each off-chip predictor on top. Baseline = existing bwsweep bw3200_nopf.
+# 146 mem-intensive traces, full window, DDR-3200, frozen fc49264 binary.
+# Hermes-Core = core placement, PC features, ddrp_req_latency=18 (the "P"/
+# conservative variant we plot as Hermes-Core).
+definitions:
+  - WBASE: "--warmup_instructions=100000000 --simulation_instructions=500000000 --llc_replacement_type=ship --config=$(SIM_HOME_IN_CLUSTER)/config/nopref.ini --num_rob_partitions=3 --rob_partition_size=64,128,320 --rob_frontal_partition_ids=0 --rob_dorsal_partition_ids=2 --dram_io_freq=3200"
+  - STRIDE: "--l1d_prefetcher_types=stride"
+  - PYTHIA: "--l2c_prefetcher_types=scooby --config=$(SIM_HOME_IN_CLUSTER)/config/pythia.ini --scooby_enable_direct_pref_issue=true --scooby_pref_at_lower_level=true --scooby_dyn_degrees_type2=1,1,2,4"
+  - OCP: "--config=$(SIM_HOME_IN_CLUSTER)/config/ocp_hermes.ini"
+  - UNC: "--config=$(SIM_HOME_IN_CLUSTER)/config/hermes_uncore_normal.ini"
+  - XPT: "--config=$(SIM_HOME_IN_CLUSTER)/config/ocp_xpt.ini --offchip_pred_location=uncore --ocp_xpt_use_physical_address=true"
+  - HERMES1: "--config=$(SIM_HOME_IN_CLUSTER)/config/hermes_base.ini --ddrp_req_latency=1"
+  - COREP: "--config=$(SIM_HOME_IN_CLUSTER)/config/hermes_base.ini --ddrp_req_latency=18"
+experiments:
+  - sens_stride_pythia : $(WBASE) $(STRIDE) $(PYTHIA)
+  - sens_stride_pythia_core : $(WBASE) $(STRIDE) $(PYTHIA) $(OCP) $(COREP)
+  - sens_stride_pythia_unc : $(WBASE) $(STRIDE) $(PYTHIA) $(OCP) $(UNC) $(HERMES1)
+  - sens_stride_pythia_xpt : $(WBASE) $(STRIDE) $(PYTHIA) $(XPT) $(HERMES1)
