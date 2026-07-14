@@ -1,6 +1,6 @@
 {
  "campaign": "sensitivity-multiprefetcher",
- "status": "running",
+ "status": "scored",
  "code_pin": "rbdev@fc49264",
  "batches": {
   "sens_multipf": "20260713T180556Z_sens_multipf"
@@ -10,6 +10,10 @@
   {
    "utc": "2026-07-13",
    "event": "SENSITIVITY STUDY launched (owner: does Hermes still help with 2 prefetchers): 20260713T180556Z_sens_multipf, 584 jobs. Stride@L1D + Pythia@L2, then +Hermes-Core(core,ddrp18) / +Hermes-UnC(uncore normal) / +XPT(uncore). 146 mem-intensive, full window, bw3200. Baseline=existing bwsweep bw3200_nopf. Both prefetchers smoke-verified active (mcf: L2 pythia 61883 reqs; libquantum: L1D stride useful). NOT running Hermes-NoPC per owner."
+  },
+  {
+   "utc": "2026-07-14",
+   "event": "Scored 146/146. ABSOLUTE vs nopref: Pythia 1.151, Stride+Pythia 1.162, +XPT 1.162, +Hermes-UnC 1.185, +Hermes-Core 1.187. INCREMENTAL over Stride+Pythia: XPT 0.999 (adds nothing), Hermes-UnC +1.9%, Hermes-Core +2.1%. HEADLINE: Hermes still adds ~2% even with 2 prefetchers; XPT does not. Charts delivered."
   }
  ]
 }

@@ -47,3 +47,7 @@ Update: scurve_rateint_hermes re-gen 2026-07-12 — subtitle reports top-10/50/1
 Rename lives in scripts/hermes_style.R (fill/levels/relabel) -> propagates to all charts.
 
 Update 2026-07-13: extended speedup + acc/cov + gap charts REFRESHED to 146/146 (llvm_s node-loss retry 20260713T070427Z_extra_llvm_retry filled the 11). Numbers essentially unchanged from prelim 135. Final GEOMEAN speedup: XPT 1.014, Hermes-UnC 1.058, NoPC 1.053, Core 1.066, Pythia 1.151, XPT+P 1.149, UnC+P 1.171, NoPC+P 1.165, Core+P 1.175. Gap (UnC-NoPC +Pythia): median 0.22, range now on 146.
+
+## SENSITIVITY: multi-prefetcher (Stride@L1D + Pythia@L2), 146 mem-intensive, full window, bw3200 (2026-07-14)
+| 2026-07-14 | charts/sens_absolute_membound146.{png,pdf} | scripts/plot_sens_absolute.R | sens_multipf_ipc -> sens_absolute | Speedup vs nopref: Pythia 1.151, Stride+Pythia 1.162, +XPT 1.162, +Hermes-UnC 1.185, +Hermes-Core 1.187 |
+| 2026-07-14 | charts/sens_incremental_membound146.{png,pdf} | scripts/plot_sens_incremental.R | sens_multipf_ipc -> sens_incremental | What each predictor adds OVER Stride+Pythia: XPT 0.999 (nothing/-0.05%), Hermes-UnC +1.9%, Hermes-Core +2.1%. Hermes robust to a 2-prefetcher stack; XPT is not. |

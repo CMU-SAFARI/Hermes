@@ -1,0 +1,16 @@
+"category","ExpName","n","geomean"
+"GEOMEAN","Stride+Pythia+Hermes-Core",146,1.02105936361091
+"GEOMEAN","Stride+Pythia+Hermes-UnC",146,1.01915835659492
+"GEOMEAN","Stride+Pythia+XPT",146,0.99949444466375
+"specrate-fp","Stride+Pythia+Hermes-Core",30,1.01331913491876
+"specrate-fp","Stride+Pythia+Hermes-UnC",30,1.01064923052647
+"specrate-fp","Stride+Pythia+XPT",30,0.998690097441799
+"specrate-int","Stride+Pythia+Hermes-Core",28,1.03749945361187
+"specrate-int","Stride+Pythia+Hermes-UnC",28,1.03508729710213
+"specrate-int","Stride+Pythia+XPT",28,1.00256766577546
+"specspeed-fp","Stride+Pythia+Hermes-Core",32,1.00924822653001
+"specspeed-fp","Stride+Pythia+Hermes-UnC",32,1.00801489434006
+"specspeed-fp","Stride+Pythia+XPT",32,0.996801971251718
+"specspeed-int","Stride+Pythia+Hermes-Core",56,1.02385953327165
+"specspeed-int","Stride+Pythia+Hermes-UnC",56,1.02224049417686
+"specspeed-int","Stride+Pythia+XPT",56,0.999931993435884

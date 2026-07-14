@@ -23,7 +23,12 @@ hermes_fill <- c(
   "Hermes-Big"            = "#2171B5",
   "Hermes-Lite+Pythia"    = "#FDBE85",
   "Hermes-Normal+Pythia"  = "#FD8D3C",
-  "Hermes-Big+Pythia"     = "#D94801"
+  "Hermes-Big+Pythia"     = "#D94801",
+  # Multi-prefetcher sensitivity study (Stride@L1D + Pythia@L2 baseline)
+  "Stride+Pythia"              = "#4D4D4D",   # dark grey (2-prefetcher baseline)
+  "Stride+Pythia+XPT"          = "#D94801",   # XPT strong orange
+  "Stride+Pythia+Hermes-UnC"   = "#08519C",   # Hermes-UnC strong blue
+  "Stride+Pythia+Hermes-Core"  = "#6A51A3"    # Hermes-Core strong purple
 )
 
 # Canonical display order (legend + dodge). Predictors-alone first, then
