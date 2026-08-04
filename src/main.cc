@@ -947,7 +947,7 @@ void finish_warmup()
     ooo_cpu[i].L1D.LATENCY  = L1D_LATENCY;
     ooo_cpu[i].L2C.LATENCY  = L2C_LATENCY;
   }
-  uncore.LLC.LATENCY = LLC_LATENCY;
+  uncore.LLC.LATENCY = knob::llc_latency;
 }
 
 void print_deadlock(uint32_t i)

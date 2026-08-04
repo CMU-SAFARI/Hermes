@@ -85,7 +85,7 @@ void print_cache_config()
        << "llc_wq_size " << LLC_WQ_SIZE << endl
        << "llc_pq_size " << LLC_PQ_SIZE << endl
        << "llc_mshr_size " << LLC_MSHR_SIZE << endl
-       << "llc_latency " << LLC_LATENCY << endl
+       << "llc_latency " << knob::llc_latency << endl
        << "llc_priority_rq " << +knob::enable_llc_priority_rq << endl
        << "llc_priority_rq_type "
        << priority_name_string[knob::llc_priority_rq_priority_type] << endl

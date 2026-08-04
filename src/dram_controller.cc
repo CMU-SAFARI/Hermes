@@ -209,7 +209,7 @@ void MEMORY_CONTROLLER::schedule(PACKET_QUEUE *queue)
             (uint32_t)op_rob_part_type ==
                 knob::pseudo_direct_dram_prefetch_rob_part_type) {
           uint64_t on_chip_cache_lookup_lat =
-              L1D_LATENCY + L2C_LATENCY + LLC_LATENCY;
+              L1D_LATENCY + L2C_LATENCY + knob::llc_latency;
           if (LATENCY > on_chip_cache_lookup_lat) {
             LATENCY = LATENCY - on_chip_cache_lookup_lat;
             stats.pseudo_direct_dram_prefetch.reduced_lat++;

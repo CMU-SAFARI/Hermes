@@ -10,6 +10,10 @@ DEF_KNOB(simulation_instructions, simulation_instructions, uint64_t, uint64, 100
 DEF_KNOB(cloudsuite, cloudsuite, bool, bool, false)
 DEF_KNOB(low_bandwidth, low_bandwidth, bool, bool, false)
 DEF_KNOB(trace_version, trace_version, uint32_t, uint32, 1)
+// LLC access latency (cycles). Runtime knob so it can be swept without a
+// rebuild; defaults to the uarch's compile-time LLC_LATENCY (glc 40 / firestorm
+// 24), so an unset knob reproduces the frozen behavior byte-for-byte.
+DEF_KNOB(llc_latency, llc_latency, uint32_t, uint32, LLC_LATENCY)
 DEF_KNOB(l2c_prefetcher_force_prefetch_at_llc, l2c_prefetcher_force_prefetch_at_llc, bool, bool, false)
 DEF_KNOB(l1d_perfect, l1d_perfect, bool, bool, false)
 DEF_KNOB(l2c_perfect, l2c_perfect, bool, bool, false)
