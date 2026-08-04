@@ -11,6 +11,7 @@
 #include "offchip_pred_hmp_ensemble.h"
 #include "offchip_pred_ttp.h"
 #include "offchip_pred_xpt.h"
+#include "offchip_pred_blind.h"
 #include "knobs.h"
 
 //=============================================================================
@@ -32,10 +33,10 @@ static OffchipPredBase *create_offchip_predictor(uint32_t cpu, string type,
   // a working uncore PACKET* path may live at the LLC. Currently: "none" and
   // "xpt". Relax this further as perc/etc. gain their uncore implementations.
   if (!knob::offchip_pred_location.compare("uncore")) {
-    assert(
-        (!type.compare("none") || !type.compare("xpt") ||
-         !type.compare("perc")) &&
-        "LLC-side offchip predictor currently supports only 'none' and 'xpt'");
+    assert((!type.compare("none") || !type.compare("xpt") ||
+            !type.compare("perc") || !type.compare("blind")) &&
+           "LLC-side offchip predictor currently supports only 'none', 'xpt', "
+           "'perc', and 'blind'");
   }
 
   if (!type.compare("none")) {
@@ -58,6 +59,8 @@ static OffchipPredBase *create_offchip_predictor(uint32_t cpu, string type,
     return new OffchipPredTTP(cpu, type, seed);
   } else if (!type.compare("xpt")) {
     return new OffchipPredXPT(cpu, type, seed);
+  } else if (!type.compare("blind")) {
+    return new OffchipPredBlind(cpu, type, seed);
   }
   return NULL;
 }

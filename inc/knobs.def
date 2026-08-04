@@ -14,6 +14,10 @@ DEF_KNOB(trace_version, trace_version, uint32_t, uint32, 1)
 // rebuild; defaults to the uarch's compile-time LLC_LATENCY (glc 40 / firestorm
 // 24), so an unset knob reproduces the frozen behavior byte-for-byte.
 DEF_KNOB(llc_latency, llc_latency, uint32_t, uint32, LLC_LATENCY)
+// Blind bandwidth-gated DDRP fires iff the current DRAM bandwidth bucket < this
+// threshold; default 0 means never fire (inert -- no existing config selects the
+// blind predictor).
+DEF_KNOB(blind_ddrp_bw_thresh, blind_ddrp_bw_thresh, uint32_t, uint32, 0)
 DEF_KNOB(l2c_prefetcher_force_prefetch_at_llc, l2c_prefetcher_force_prefetch_at_llc, bool, bool, false)
 DEF_KNOB(l1d_perfect, l1d_perfect, bool, bool, false)
 DEF_KNOB(l2c_perfect, l2c_perfect, bool, bool, false)
