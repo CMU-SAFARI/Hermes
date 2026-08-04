@@ -207,6 +207,7 @@ void O3_CPU::issue_ddrp_request(uint32_t lq_index, uint32_t call_type)
   data_packet.rob_part_type = LQ.entry[lq_index].rob_part_type;
   data_packet.ip            = LQ.entry[lq_index].ip;
   data_packet.type          = PREFETCH;
+  data_packet.row_open      = knob::ddrp_row_open;
   data_packet.asid[0]       = LQ.entry[lq_index].asid[0];
   data_packet.asid[1]       = LQ.entry[lq_index].asid[1];
   data_packet.event_cycle =
@@ -347,6 +348,7 @@ void CACHE::issue_ddrp_request(PACKET *packet)
   ddrp_packet.full_addr  = packet->full_addr;
   ddrp_packet.ip         = packet->ip;
   ddrp_packet.type       = PREFETCH;
+  ddrp_packet.row_open   = knob::ddrp_row_open;
   ddrp_packet.event_cycle =
       current_core_cycle[ddrp_cpu] + knob::ddrp_req_latency;
 

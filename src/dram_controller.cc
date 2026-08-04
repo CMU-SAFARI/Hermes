@@ -224,6 +224,14 @@ void MEMORY_CONTROLLER::schedule(PACKET_QUEUE *queue)
       }
     }
 
+    // Row-open action: activate the target row only -- no column read (no
+    // tCAS, no data return). Cost is the activation (tRP+tRCD) on a row miss,
+    // nothing if the row is already open. open_row is still set below, so a
+    // later demand access to this row becomes a row-buffer hit.
+    if (queue->entry[index].row_open) {
+      LATENCY = row_buffer_hit ? 0 : (tRP + tRCD);
+    }
+
     // this bank is now busy
     bank_request[op_channel][op_rank][op_bank].working = 1;
     bank_request[op_channel][op_rank][op_bank].working_type =
@@ -331,6 +339,22 @@ void MEMORY_CONTROLLER::process(PACKET_QUEUE *queue)
   // paid all DRAM access latency, data is ready to be processed
   if (bank_request[op_channel][op_rank][op_bank].cycle_available <=
       current_core_cycle[op_cpu]) {
+    // Row-open action complete: the target row is now open. No data transfer --
+    // skip the data bus, the fill, and the RQ read-traffic counters. Free the
+    // bank and drop the request; open_row persists so a later demand access to
+    // this row is a row-buffer hit.
+    if (queue->entry[request_index].row_open) {
+      bank_request[op_channel][op_rank][op_bank].request_index  = -1;
+      bank_request[op_channel][op_rank][op_bank].row_buffer_hit = 0;
+      bank_request[op_channel][op_rank][op_bank].working        = false;
+      bank_request[op_channel][op_rank][op_bank].is_write       = 0;
+      bank_request[op_channel][op_rank][op_bank].is_read        = 0;
+      scheduled_reads[op_channel]--;
+      queue->remove_queue(&queue->entry[request_index], uncore.cycle);
+      update_process_cycle(queue);
+      return;
+    }
+
     // check if data bus is available
     if (dbus_cycle_available[op_channel] <= current_core_cycle[op_cpu]) {
       if (queue->is_WQ) {
@@ -591,6 +615,15 @@ int MEMORY_CONTROLLER::add_rq(PACKET *packet)
 
   // check for duplicates in the read queue
   int index = check_dram_queue(&RQ[channel], packet);
+  // Row-open requests must never merge in the RQ. A row-open completes
+  // independently (activates the row), and a demand read must NOT inherit a
+  // row-open's activation-only, tCAS-skipping event_cycle -- otherwise the
+  // demand would return data without paying the column read. So a demand and a
+  // row-open for the same row coexist as separate RQ entries; the demand is
+  // then scheduled as a normal read that finds the row already open.
+  if (index != -1 && (RQ[channel].entry[index].row_open || packet->row_open)) {
+    index = -1;
+  }
   // request should not merge in DRAM's RQ, unless DDRP is turned on
   assert(index == -1 || knob::enable_ddrp);
   if (index != -1) {
@@ -665,7 +698,12 @@ int MEMORY_CONTROLLER::add_rq(PACKET *packet)
       RQ[channel].entry[index] = *packet;
       RQ[channel].occupancy++;
       RQ[channel].entry[index].enque_cycle[IS_DRAM][IS_RQ] = uncore.cycle;
-      rq_enqueue_count++;
+      // Row-open requests transfer no data, so they must not count toward the
+      // DRAM bandwidth measure -- otherwise they would spuriously raise the
+      // measured bw that gates the blind predictor (a self-suppressing loop).
+      if (!packet->row_open) {
+        rq_enqueue_count++;
+      }
 
       // cout << "[ENQUEUE_" << RQ[channel].NAME << "] " << " id: " <<
       // packet->id << " cpu: " << packet->cpu << " instr_id: " <<

@@ -82,6 +82,10 @@ DEF_KNOB(enable_pseudo_direct_dram_prefetch_on_prefetch, enable_pseudo_direct_dr
 DEF_KNOB(pseudo_direct_dram_prefetch_rob_part_type, pseudo_direct_dram_prefetch_rob_part_type, uint32_t, uint32, FRONTAL)
 DEF_KNOB(enable_ddrp, enable_ddrp, bool, bool, false)
 DEF_KNOB(ddrp_req_latency, ddrp_req_latency, uint32_t, uint32, 0)
+// Row-open DDRP action: instead of a full direct-DRAM read, the DDRP request
+// only opens (activates) the target row -- no column read, no data-bus
+// bandwidth, no fill. Default false = normal full-read DDRP.
+DEF_KNOB(ddrp_row_open, ddrp_row_open, bool, bool, false)
 DEF_KNOB(dram_cntlr_enable_ddrp_buffer, dram_cntlr_enable_ddrp_buffer, bool, bool, false)
 DEF_KNOB(dram_cntlr_ddrp_buffer_sets, dram_cntlr_ddrp_buffer_sets, uint32_t, uint32, 64)
 DEF_KNOB(dram_cntlr_ddrp_buffer_assoc, dram_cntlr_ddrp_buffer_assoc, uint32_t, uint32, 16)

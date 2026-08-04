@@ -130,6 +130,7 @@ public:
   uint8_t fetched;       // has been fetched
   uint8_t prefetched;    // issued by a prefetcher
   uint8_t drc_tag_read;  // DRAM-cache tag read
+  uint8_t row_open;      // DDRP row-open action: activate the row, no data read
 
   int fill_level;       // cache level to fill on return
   int pf_origin_level;  // prefetch origin level
@@ -198,6 +199,7 @@ public:
     fetched      = 0;
     prefetched   = 0;
     drc_tag_read = 0;
+    row_open     = 0;
 
     returned = 0;
     asid[0]  = UINT8_MAX;
