@@ -10,6 +10,16 @@ It complements, rather than overlaps, the power infrastructure already in the
 tree — [`mcpat/`](../../mcpat) + `scripts/run_mcpat.pl` cover core and caches,
 [`pcacti/`](../../pcacti) covers SRAM arrays. Neither models the DRAM devices.
 
+## Layout
+
+```
+dram_energy.py                            the equations + .out parsing (no device numbers)
+devices/micron_mt40a1g8_ddr4_3200.ini     device parameters, one file per DRAM model
+```
+
+Device parameters are deliberately **not** in the script: adding a DRAM model
+is a new `.ini`, never an edit to the code.
+
 ## Usage
 
 ```bash
@@ -19,14 +29,41 @@ tools/dram_energy/dram_energy.py results/*.out
 # machine-readable, for downstream analysis/plotting
 tools/dram_energy/dram_energy.py --csv energy.csv results/*.out
 
+# a different DRAM model, and what is available
+tools/dram_energy/dram_energy.py --device ddr5_6400 run.out
+tools/dram_energy/dram_energy.py --list-devices
+
 # non-default core clock (cycles -> seconds); default is 4000 MHz (glc)
 tools/dram_energy/dram_energy.py --cpu-freq-mhz 3400 run.out
 ```
+
+`--device` takes a bare profile name (resolved against `devices/`) or a path.
 
 Runs that did not reach `Finished CPU` (deadlock, timeout) are skipped with a
 note — they are never silently counted as zero. Output columns are absolute
 Joules per component plus the raw event counts; normalizing to a baseline is
 left to the analysis step, since the choice of baseline is a study decision.
+
+## Adding a DRAM model
+
+Copy `devices/micron_mt40a1g8_ddr4_3200.ini`, name it after the part and speed
+grade (`<vendor>_<part>_<type>_<rate>.ini`), and fill in these sections:
+
+| Section | Keys |
+|---|---|
+| `[device]` | `name`, `part`, `source`, `verified` (`true` once transcribed from a datasheet) |
+| `[organization]` | `devices_per_rank`, `burst_transfers`, `line_bits`, `data_rate_mtps` |
+| `[voltage_v]` | `vdd`, `vpp` (set `vpp`/`ipp0` to 0 for DDR3, which has no VPP rail) |
+| `[current_ma]` | `idd0`, `idd2n`, `idd3n`, `idd4r`, `idd4w`, `idd5b`, `ipp0` |
+| `[timing_ns]` | `tras`, `trc`, `trfc`, `trefi` |
+| `[io_pj_per_bit]` | `read`, `write` |
+
+Set `verified = true` only when the values come from a specific datasheet
+revision; the tool prints a caveat note for unverified profiles. Comment each
+value with where it came from — the shipped profile shows the style.
+
+The equations in `dram_energy.py` are device-independent, so a new profile
+needs no code change.
 
 ## The model
 
@@ -52,9 +89,9 @@ P_BG      = IDD3N·VDD
 P_REF     = (IDD5B − IDD3N)·VDD·tRFC/tREFI
 ```
 
-all scaled by 8 devices per 64-bit rank. The default profile is an 8Gb x8
-DDR4-3200 device. At DDR4-3200 this gives **E_ACT ≈ 10.8 nJ**, **E_RD+I/O ≈
-5.6 nJ**, **P_BG+REF ≈ 552 mW** per rank — note an activation costs roughly
+all scaled by `devices_per_rank`. With the shipped 8Gb x8 DDR4-3200 profile
+this gives **E_ACT ≈ 10.8 nJ**, **E_RD+I/O ≈ 5.6 nJ**, **P_BG+REF ≈ 552 mW**
+per rank — note an activation costs roughly
 twice a 64B read, which is why "bandwidth-free" mechanisms are not
 automatically energy-free.
 
@@ -91,9 +128,10 @@ counter.
 The comparison between configurations is robust (every configuration shares the
 model), but the absolute numbers carry roughly ±10–20%:
 
-1. **The IDD values are representative, not datasheet-verified.** Check them
-   against the actual part (e.g. Micron MT40A1G8) before publishing. One is
-   known-odd: `IDD4W < IDD4R` is atypical, and writes are a small share here.
+1. **The shipped IDD values are representative, not datasheet-verified**
+   (`verified = false` in the profile, and the tool says so on every run).
+   Transcribe them from the real part before publishing. One is known-odd:
+   `idd4w < idd4r` is atypical, and writes are a small share here.
 2. **VPP is simplified** to `IPP0·tRC·VPP`, without the IPP2N/IPP3N background
    subtraction the VDD term gets — overstates E_ACT by ~5% (~1.5% of total).
 3. **Background assumes 100% active-standby** (IDD3N, CKE high). Power-down
@@ -104,10 +142,10 @@ model), but the absolute numbers carry roughly ±10–20%:
    weakest assumption in the model.
 5. **Refresh is analytic** (tRFC/tREFI), since ChampSim does not simulate
    refresh at all. It is workload-independent per unit time by construction.
-6. **Only the burst time rescales with `dram_io_freq`.** The IDD values and
-   timings describe DDR4-3200; the tool warns when a run used a different data
-   rate, and the profile constants should be swapped for a serious study at
-   another speed grade.
+6. **Only the burst time rescales with `dram_io_freq`.** A profile's IDD
+   values and timings describe one data rate (`data_rate_mtps`); the tool warns
+   when a run used a different one. For a serious study at another speed grade,
+   add a profile for it rather than relying on the rescale.
 
 Items 2–5 are common-mode across configurations, so they largely cancel in a
 comparison.

@@ -6,55 +6,93 @@ counts x per-event energy (the Micron TN-40-07 / TN-41-01 methodology). This
 reads one or more ChampSim .out files and reports, per run, the DRAM energy
 split into activation, read, write and background+refresh components.
 
-See README.md for the model, the counter semantics and the caveats.
+Device parameters (IDD currents, timings, voltages) are NOT in this file --
+they live in devices/*.ini, one per DRAM model. This file holds only the
+equations. See README.md for the model, counter semantics and caveats.
 
 Usage:
     dram_energy.py run.out [more.out ...]            # table on stdout
     dram_energy.py --csv energy.csv results/*.out    # machine-readable
+    dram_energy.py --device ddr5_6400 run.out        # another DRAM model
+    dram_energy.py --list-devices
 """
 
 import argparse
+import configparser
 import csv
+import glob
 import os
 import re
 import sys
 
-# --- DDR4-3200 device profile (Micron 8Gb x8; a rank is 8 such devices) -----
-# IDD/IPP are per device in mA, timings in ns, voltages in V. These are
-# representative datasheet values -- see README.md "Caveats" before quoting
-# absolute Joules.
-VDD, VPP = 1.2, 2.5
-IDD0, IDD2N, IDD3N = 65.0, 34.0, 52.0
-IDD4R, IDD4W, IDD5B = 200.0, 160.0, 175.0
-IPP0 = 3.0
-tRAS, tRC = 32.0, 45.75
-tRFC, tREFI = 350.0, 7800.0
-DEVICES_PER_RANK = 8
-PROFILE_MTPS = 3200          # data rate the timings/IDDs above describe
-BURST_TRANSFERS = 8          # BL8
-LINE_BITS = 512              # 64B cache line
-
-# I/O + termination, NOT from the Micron note -- a literature approximation.
-IO_READ_PJ_PER_BIT = 4.0
-IO_WRITE_PJ_PER_BIT = 6.0
+DEVICE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "devices")
+DEFAULT_DEVICE = "micron_mt40a1g8_ddr4_3200"
 
 
-def energy_per_event(mtps):
-    """Per-rank energy (J) for one ACT+PRE, one read burst, one write burst,
-    and the steady background+refresh power (W), at data rate `mtps`."""
-    n = DEVICES_PER_RANK
-    # ACT+PRE: IDD0 averaged over tRC, minus the background it already includes
-    # (IDD3N while the row is active, IDD2N for the rest). Micron TN-41-01 Eq.10.
-    e_act = n * (VDD * (IDD0 * tRC - (IDD3N * tRAS + IDD2N * (tRC - tRAS)))
-                 + VPP * IPP0 * tRC) * 1e-12
-    t_burst = BURST_TRANSFERS / (mtps * 1e6) * 1e9          # ns
-    e_rd = n * VDD * (IDD4R - IDD3N) * t_burst * 1e-12
-    e_wr = n * VDD * (IDD4W - IDD3N) * t_burst * 1e-12
-    e_rd += IO_READ_PJ_PER_BIT * 1e-12 * LINE_BITS
-    e_wr += IO_WRITE_PJ_PER_BIT * 1e-12 * LINE_BITS
-    p_bg = n * VDD * IDD3N * 1e-3                            # W
-    p_ref = n * VDD * (IDD5B - IDD3N) * tRFC / tREFI * 1e-3  # W
-    return e_act, e_rd, e_wr, p_bg + p_ref
+class Device:
+    """Device parameters loaded from a devices/*.ini profile."""
+
+    def __init__(self, path):
+        cp = configparser.ConfigParser(inline_comment_prefixes=("#", ";"))
+        if not cp.read(path):
+            raise SystemExit(f"cannot read device profile: {path}")
+        self.path = path
+        try:
+            self.name = cp.get("device", "name", fallback=os.path.basename(path))
+            self.verified = cp.getboolean("device", "verified", fallback=False)
+            o = cp["organization"]
+            self.devices_per_rank = o.getint("devices_per_rank")
+            self.burst_transfers = o.getint("burst_transfers")
+            self.line_bits = o.getint("line_bits")
+            self.data_rate_mtps = o.getint("data_rate_mtps")
+            self.vdd = cp.getfloat("voltage_v", "vdd")
+            self.vpp = cp.getfloat("voltage_v", "vpp")
+            c = cp["current_ma"]
+            for k in ("idd0", "idd2n", "idd3n", "idd4r", "idd4w", "idd5b", "ipp0"):
+                setattr(self, k, c.getfloat(k))
+            t = cp["timing_ns"]
+            for k in ("tras", "trc", "trfc", "trefi"):
+                setattr(self, k, t.getfloat(k))
+            self.io_read_pj = cp.getfloat("io_pj_per_bit", "read")
+            self.io_write_pj = cp.getfloat("io_pj_per_bit", "write")
+        except (configparser.Error, KeyError, TypeError, ValueError) as exc:
+            raise SystemExit(f"malformed device profile {path}: {exc}")
+
+    def energy_per_event(self, mtps):
+        """Per-rank energy (J) for one ACT+PRE, one read burst, one write burst,
+        and the steady background+refresh power (W), at data rate `mtps`."""
+        n = self.devices_per_rank
+        # ACT+PRE: IDD0 averaged over tRC, minus the background it already
+        # includes (IDD3N while the row is active, IDD2N for the rest).
+        # Micron TN-41-01 Eq. 10.
+        e_act = n * (self.vdd * (self.idd0 * self.trc
+                                 - (self.idd3n * self.tras
+                                    + self.idd2n * (self.trc - self.tras)))
+                     + self.vpp * self.ipp0 * self.trc) * 1e-12
+        t_burst = self.burst_transfers / (mtps * 1e6) * 1e9          # ns
+        e_rd = n * self.vdd * (self.idd4r - self.idd3n) * t_burst * 1e-12
+        e_wr = n * self.vdd * (self.idd4w - self.idd3n) * t_burst * 1e-12
+        e_rd += self.io_read_pj * 1e-12 * self.line_bits
+        e_wr += self.io_write_pj * 1e-12 * self.line_bits
+        p_bg = n * self.vdd * self.idd3n * 1e-3                       # W
+        p_ref = n * self.vdd * (self.idd5b - self.idd3n) * self.trfc / self.trefi * 1e-3
+        return e_act, e_rd, e_wr, p_bg + p_ref
+
+
+def available_devices():
+    return sorted(os.path.splitext(os.path.basename(p))[0]
+                  for p in glob.glob(os.path.join(DEVICE_DIR, "*.ini")))
+
+
+def resolve_device(spec):
+    """Accept a bare profile name (looked up in devices/) or a path."""
+    if os.path.sep in spec or spec.endswith(".ini"):
+        return spec
+    path = os.path.join(DEVICE_DIR, spec + ".ini")
+    if not os.path.exists(path):
+        raise SystemExit(f"unknown device '{spec}'. Available: "
+                         + ", ".join(available_devices()))
+    return path
 
 
 RE_CH = re.compile(r"^Channel_(\d+)_(RQ|WQ)_row_buffer_(hit|miss)\s+(\d+)")
@@ -96,9 +134,9 @@ def parse(path):
     return c if c["cycles"] else None
 
 
-def compute(c, cpu_freq_mhz):
-    mtps = c["mtps"] or PROFILE_MTPS
-    e_act1, e_rd1, e_wr1, p_bg = energy_per_event(mtps)
+def compute(c, dev, cpu_freq_mhz):
+    mtps = c["mtps"] or dev.data_rate_mtps
+    e_act1, e_rd1, e_wr1, p_bg = dev.energy_per_event(mtps)
     # Reads/writes are real column accesses. Row-opens move no data and are
     # excluded from the RQ counters by construction, so their activations come
     # from the dedicated counter instead.
@@ -119,11 +157,29 @@ def compute(c, cpu_freq_mhz):
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("out_files", nargs="+", help="ChampSim .out file(s)")
+    ap.add_argument("out_files", nargs="*", help="ChampSim .out file(s)")
     ap.add_argument("--csv", metavar="PATH", help="write results as CSV")
+    ap.add_argument("--device", default=DEFAULT_DEVICE,
+                    help=f"DRAM model profile name or path (default {DEFAULT_DEVICE})")
+    ap.add_argument("--list-devices", action="store_true",
+                    help="list the available device profiles and exit")
     ap.add_argument("--cpu-freq-mhz", type=float, default=4000.0,
                     help="core clock used to turn cycles into seconds (default 4000)")
     args = ap.parse_args()
+
+    if args.list_devices:
+        for name in available_devices():
+            print(f"  {name:40s} {Device(resolve_device(name)).name}")
+        return
+    if not args.out_files:
+        ap.error("no .out files given")
+
+    dev = Device(resolve_device(args.device))
+    if not dev.verified:
+        print(f"NOTE: device profile '{dev.name}' is marked unverified — its "
+              f"parameters are representative, not transcribed from a datasheet. "
+              f"Comparisons are sound; absolute Joules carry ~10-20%.",
+              file=sys.stderr)
 
     rows, skipped = [], []
     for path in args.out_files:
@@ -131,13 +187,13 @@ def main():
         if c is None:
             skipped.append(path)
             continue
-        r = compute(c, args.cpu_freq_mhz)
+        r = compute(c, dev, args.cpu_freq_mhz)
         r["run"] = os.path.basename(path)[:-4] if path.endswith(".out") else os.path.basename(path)
         rows.append(r)
-        if r["mtps"] != PROFILE_MTPS:
-            print(f"WARNING: {r['run']}: dram_io_freq={r['mtps']} MT/s but the device "
-                  f"profile describes DDR4-{PROFILE_MTPS}; only the burst time is "
-                  f"rescaled (see README caveats).", file=sys.stderr)
+        if r["mtps"] != dev.data_rate_mtps:
+            print(f"WARNING: {r['run']}: dram_io_freq={r['mtps']} MT/s but profile "
+                  f"'{dev.name}' describes {dev.data_rate_mtps} MT/s; only the burst "
+                  f"time is rescaled (see README caveats).", file=sys.stderr)
         if r["stale_act_counter"]:
             print(f"WARNING: {r['run']}: run uses --ddrp_row_open but has no "
                   f"DRAM_DDRP_row_open_act counter, so its row activations are "
@@ -158,8 +214,9 @@ def main():
             w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore")
             w.writeheader()
             w.writerows(rows)
-        print(f"wrote {args.csv} ({len(rows)} run(s))")
+        print(f"wrote {args.csv} ({len(rows)} run(s), device: {dev.name})")
     else:
+        print(f"device: {dev.name}")
         print(f"{'run':<44} {'ACTs':>12} {'reads':>12} {'E_act':>9} {'E_rd':>9} "
               f"{'E_bg':>9} {'E_total':>10}")
         for r in rows:
