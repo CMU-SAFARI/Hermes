@@ -71,6 +71,10 @@ public:
         uint64_t ddrp_buffer_hit;
       } ddrp_req;
 
+      // actual row activations performed by row-open requests (scheduled with
+      // a row-buffer miss); opens onto an already-open row cost nothing
+      uint64_t row_open_act;
+
       struct {
         uint64_t total[NUM_TYPES];
         uint64_t went_to_dram[NUM_TYPES];

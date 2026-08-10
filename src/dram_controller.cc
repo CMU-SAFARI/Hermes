@@ -230,6 +230,9 @@ void MEMORY_CONTROLLER::schedule(PACKET_QUEUE *queue)
     // later demand access to this row becomes a row-buffer hit.
     if (queue->entry[index].row_open) {
       LATENCY = row_buffer_hit ? 0 : (tRP + tRCD);
+      if (!row_buffer_hit) {
+        stats.ddrp.row_open_act++;
+      }
     }
 
     // this bank is now busy

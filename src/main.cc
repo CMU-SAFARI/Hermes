@@ -834,6 +834,8 @@ void print_dram_stats()
        << uncore.DRAM.stats.ddrp.ddrp_req.rq_hit[1] << endl
        << "DRAM_DDRP_ddrp_req_ddrp_buffer_hit "
        << uncore.DRAM.stats.ddrp.ddrp_req.ddrp_buffer_hit << endl
+       << "DRAM_DDRP_row_open_act " << uncore.DRAM.stats.ddrp.row_open_act
+       << endl
        << endl;
 
   for (uint32_t type = 0; type < NUM_TYPES; ++type) {
