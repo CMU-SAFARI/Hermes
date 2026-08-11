@@ -90,10 +90,15 @@ P_REF     = (IDD5B − IDD3N)·VDD·tRFC/tREFI
 ```
 
 all scaled by `devices_per_rank`. With the shipped 8Gb x8 DDR4-3200 profile
-this gives **E_ACT ≈ 10.8 nJ**, **E_RD+I/O ≈ 5.6 nJ**, **P_BG+REF ≈ 552 mW**
-per rank — note an activation costs roughly
-twice a 64B read, which is why "bandwidth-free" mechanisms are not
-automatically energy-free.
+this gives **E_ACT ≈ 5.95 nJ**, **E_RD+I/O ≈ 5.22 nJ**, **E_WR+I/O ≈ 3.31 nJ**,
+**P_BG+REF ≈ 443 mW** per rank.
+
+So **an activation costs about the same as a 64B read** (1.14x), not double.
+That matters for interpreting "bandwidth-free" mechanisms: skipping the column
+read but still activating the row saves roughly half the per-access dynamic
+energy, not a negligible slice — but it is not free either. An earlier version
+of this profile used unsourced IDD values that put the ratio at 1.93x and
+supported a stronger "activations dominate" claim; the datasheet does not.
 
 ## Why row-opens need their own counter
 
@@ -128,18 +133,34 @@ counter.
 The comparison between configurations is robust (every configuration shares the
 model), but the absolute numbers carry roughly ±10–20%:
 
-1. **The shipped IDD values are representative, not datasheet-verified**
-   (`verified = false` in the profile, and the tool says so on every run).
-   Transcribe them from the real part before publishing. One is known-odd:
-   `idd4w < idd4r` is atypical, and writes are a small share here.
-2. **VPP is simplified** to `IPP0·tRC·VPP`, without the IPP2N/IPP3N background
-   subtraction the VDD term gets — overstates E_ACT by ~5% (~1.5% of total).
+1. **Every value is now datasheet-sourced and cited inline in the profile**
+   (`verified = true`): currents from Micron's 8Gb DDR4 component data sheet
+   Table 151 (Rev E die, 0-95C, DDR4-3200, x8), timings from Table 163,
+   voltages/refresh/BL8 from JESD79-4, I/O from TN-40-07 Table 26. The residual
+   uncertainty is which **die revision** you assume: Tables 148-153 span ~25% on
+   IDD0. Note `idd4w < idd4r` is correct for DDR4, not a typo -- see caveat 4.
+2. **VPP is an upper bound.** The activate term charges the full
+   `IPP0·tRC·VPP` without the background subtraction the VDD term gets, because
+   the datasheet reports `IPP0 = IPP3N = 3 mA` — the activate-specific wordline
+   current is below its 1 mA resolution. This term is ~46% of E_ACT: subtracting
+   the background as the VDD side does would take E_ACT from 5.95 to 3.21 nJ
+   (ACT/RD ratio 1.14x -> 0.60x). Both readings support the conclusion that an
+   activation is *not* expensive relative to a read; the upper bound is used, so
+   activation-heavy mechanisms are charged conservatively.
 3. **Background assumes 100% active-standby** (IDD3N, CKE high). Power-down
    states are not modelled, and the precharge/active time split needed for
    Micron's full background equation is not available from the counters.
-4. **I/O at 4 pJ/bit (read) and 6 pJ/bit (write) is not from the Micron note** —
-   it is a literature approximation standing in for ODT/termination, and is the
-   weakest assumption in the model.
+4. **I/O comes from TN-40-07 Table 26** (pdqRD 11.73 mW/DQ, pdqWR 4.15 mW/DQ),
+   rescaled to 3200 MT/s as 3.67 / 1.30 pJ/bit. Scope is the *accessed device
+   in a single-rank system*, matching the IDD scope; a second rank would add
+   idle-rank ODT (5.9 / 4.0 pJ/bit) and the full DQ link including the
+   controller is higher still (6.1 / 6.5). Micron calls these "a first-order
+   approximation": they are DC estimates that ignore data-toggle dependence,
+   which measurements show is large. **Write < read is correct for DDR4** —
+   POD12 termination is pull-up-only, so the written device pays only its ODT
+   while the read device pays its full output driver. (DDR3's center-tapped
+   termination gives the opposite order; carrying that intuition over is an
+   easy way to get this backwards.)
 5. **Refresh is analytic** (tRFC/tREFI), since ChampSim does not simulate
    refresh at all. It is workload-independent per unit time by construction.
 6. **Only the burst time rescales with `dram_io_freq`.** A profile's IDD
@@ -152,7 +173,19 @@ comparison.
 
 ## References
 
-1. Micron, *TN-40-07: Calculating Memory Power for DDR4 SDRAM*.
-   <https://www.mouser.com/pdfDocs/tn4007_ddr4_power_calculation.pdf>
-2. Micron, *TN-41-01: Calculating Memory System Power for DDR3*.
+1. Micron, *8Gb DDR4 SDRAM* component data sheet (MT40A1G8 / MT40A512M16),
+   CCMTD-1406124318-10419 Rev. L 12/2023 — currents (Table 151), timings
+   (Table 163), refresh (Table 52).
+   <https://www.alliancememory.com/wp-content/uploads/Micron_8gb-Commercial-ddr4-dram-Alliance_MT40A512M16TD-062ER-MT40A1G8AG-062ER_reduced.pdf>
+2. Micron, *TN-40-07: Calculating Memory Power for DDR4 SDRAM*, Rev. B 8/18 —
+   the equations, and I/O termination power (Table 26).
+   <https://web.archive.org/web/2020/https://www.mouser.com/pdfDocs/tn4007_ddr4_power_calculation.pdf>
+3. Micron, *TN-41-01: Calculating Memory System Power for DDR3* — same
+   equations with worked numeric examples (Eq. 10 ACT, Eq. 13 WR).
    <https://kolegite.com/EE_library/application_notes/memories/TN41_01DDR3_Power.pdf>
+4. JEDEC, *JESD79-4 DDR4 SDRAM* (Sept 2012) — VDD/VPP (Table 63), tRFC1/tREFI,
+   BL8 (sec. 4.3).
+   <https://e2e.ti.com/cfs-file/__key/communityserver-discussions-components-files/196/JESD79_2D00_4.pdf>
+5. SK hynix, *8Gb DDR4 SDRAM* Rev 1.4 (Apr 2020) — corroborates the DDR4-3200
+   22-22-22 tRC/tRAS/tRCD/tRP row.
+   <https://product.skhynix.com/download.do?attNo=1638&attTypeCd=TRT06>
