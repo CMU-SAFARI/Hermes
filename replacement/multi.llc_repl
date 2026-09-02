@@ -6,6 +6,7 @@
 #include "mp3b.h"
 #include "ship.h"
 #include "lru.h"
+#include "rand_repl.h"
 #include "knobs.h"
 
 // initialize replacement state
@@ -31,6 +32,10 @@ void CACHE::llc_initialize_replacement()
   } else if (!knob::llc_replacement_type.compare("lru")) {
     cout << "Adding LLC replacement type: LRU" << endl;
     llc_repl = (LRURepl *)new LRURepl(knob::llc_replacement_type, this);
+    llc_repl->initialize_replacement();
+  } else if (!knob::llc_replacement_type.compare("random")) {
+    cout << "Adding LLC replacement type: Random" << endl;
+    llc_repl = (RandRepl *)new RandRepl(knob::llc_replacement_type);
     llc_repl->initialize_replacement();
   }
 }
