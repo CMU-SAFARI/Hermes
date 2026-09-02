@@ -40,6 +40,8 @@ DEF_KNOB(l2c_access_trace_filename, l2c_access_trace_filename, string, string, "
 DEF_KNOB(llc_access_trace_filename, llc_access_trace_filename, string, string, "sim.llc")
 DEF_KNOB(l2c_dump_access_trace_type, l2c_dump_access_trace_type, uint32_t, uint32, 0)
 DEF_KNOB(llc_dump_access_trace_type, llc_dump_access_trace_type, uint32_t, uint32, 0)
+// Trace warmup too, so an offline OPT replay starts from a warm cache.
+DEF_KNOB(dump_access_trace_in_warmup, dump_access_trace_in_warmup, bool, bool, false)
 DEF_KNOB(llc_replacement_type, llc_replacement_type, string, string, "")
 DEF_KNOB(track_load_hit_dependency_in_cache, track_load_hit_dependency_in_cache, bool, bool, false)
 DEF_KNOB(load_hit_dependency_max_level, load_hit_dependency_max_level, uint32_t, uint32, 5)

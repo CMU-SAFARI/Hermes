@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 
   if (argc < 6) {
     cout << "Usage: ./optcache_driver <sets> <assoc> <cache_trace_file> "
-            "<reuse_dist_file> <bypass>"
+            "<reuse_dist_file> <bypass> [--roi-marker]"
          << endl;
     assert(false);
   }
@@ -26,10 +26,18 @@ int main(int argc, char **argv)
   string   reuse_dist_filename  = string(argv[4]);
   bool     bypass_en            = atoi(argv[5]) != 0 ? true : false;
 
+  bool roi_marker_en = false;
+  for (int i = 6; i < argc; ++i) {
+    if (string(argv[i]) == "--roi-marker") {
+      roi_marker_en = true;
+    }
+  }
+
   cout << "Sets " << sets << endl
        << "Assoc " << assoc << endl
        << "Size " << (sets * assoc * 64) / 1024 << endl
        << "Bypass_enabled " << bypass_en << endl
+       << "Roi_marker_enabled " << roi_marker_en << endl
        << "Cache_trace_file " << cache_trace_filename << endl
        << "Reuse_dist_file " << reuse_dist_filename << endl
        << endl;
@@ -54,6 +62,22 @@ int main(int argc, char **argv)
     gzread(cache_trace_file, (void *)(&type), sizeof(uint8_t));
     gzread(cache_trace_file, (void *)(&hit), sizeof(bool));
     gzread(reuse_dist_file, (void *)(&reuse_dist), sizeof(uint64_t));
+
+    if (type == ROI_MARKER_TYPE) {
+      assert(address == ROI_MARKER_ADDR);
+      // Never pass a marker to access(): it indexes stats[] by type.
+      if (!roi_marker_en) {
+        cout << "ERROR: ROI marker at record " << counter
+             << " but --roi-marker not given; stats would include warmup"
+             << endl;
+        assert(false);
+      }
+      optcache->reset_stats();
+      cout << "ROI marker at record " << counter
+           << ": stats reset, cache left warm" << endl;
+      counter++;
+      continue;
+    }
 
     optcache->access(address, type, hit, reuse_dist);
 

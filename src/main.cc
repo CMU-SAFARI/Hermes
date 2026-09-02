@@ -938,6 +938,14 @@ void finish_warmup()
   }
   uncore.DRAM.reset_stats();
 
+  // ROI boundary, only in traces that contain warmup; no-op if tracing is off.
+  if (knob::dump_access_trace_in_warmup) {
+    for (uint32_t i = 0; i < NUM_CPUS; i++) {
+      ooo_cpu[i].L2C.tracer.record_roi_marker();
+    }
+    uncore.LLC.tracer.record_roi_marker();
+  }
+
   cout << endl;
 
   // set actual cache latency

@@ -467,12 +467,14 @@ void CACHE::handle_writeback()
 
       // RBERA-TODO: Dump cache access trace
       if (knob::l2c_dump_access_trace && cache_type == IS_L2C &&
-          warmup_complete[writeback_cpu]) {
+          (warmup_complete[writeback_cpu] ||
+           knob::dump_access_trace_in_warmup)) {
         tracer.record_trace(WQ.entry[index].full_addr, WQ.entry[index].type,
                             true);
       }
       if (knob::llc_dump_access_trace && cache_type == IS_LLC &&
-          warmup_complete[writeback_cpu]) {
+          (warmup_complete[writeback_cpu] ||
+           knob::dump_access_trace_in_warmup)) {
         tracer.record_trace(WQ.entry[index].full_addr, WQ.entry[index].type,
                             true);
       }
@@ -748,12 +750,14 @@ void CACHE::handle_writeback()
 
           // RBERA-TODO: Dump cache access trace
           if (knob::l2c_dump_access_trace && cache_type == IS_L2C &&
-              warmup_complete[writeback_cpu]) {
+              (warmup_complete[writeback_cpu] ||
+               knob::dump_access_trace_in_warmup)) {
             tracer.record_trace(WQ.entry[index].full_addr, WQ.entry[index].type,
                                 false);
           }
           if (knob::llc_dump_access_trace && cache_type == IS_LLC &&
-              warmup_complete[writeback_cpu]) {
+              (warmup_complete[writeback_cpu] ||
+               knob::dump_access_trace_in_warmup)) {
             tracer.record_trace(WQ.entry[index].full_addr, WQ.entry[index].type,
                                 false);
           }
@@ -909,11 +913,11 @@ void CACHE::handle_read()
 
         // RBERA-TODO: Dump cache access trace
         if (knob::l2c_dump_access_trace && cache_type == IS_L2C &&
-            warmup_complete[read_cpu]) {
+            (warmup_complete[read_cpu] || knob::dump_access_trace_in_warmup)) {
           tracer.record_trace(rq_entry.full_addr, rq_entry.type, true);
         }
         if (knob::llc_dump_access_trace && cache_type == IS_LLC &&
-            warmup_complete[read_cpu]) {
+            (warmup_complete[read_cpu] || knob::dump_access_trace_in_warmup)) {
           tracer.record_trace(rq_entry.full_addr, rq_entry.type, true);
         }
 
@@ -1207,11 +1211,13 @@ void CACHE::handle_read()
 
           // Record at arrival, not fill: OPT needs true access order.
           if (knob::l2c_dump_access_trace && cache_type == IS_L2C &&
-              warmup_complete[read_cpu]) {
+              (warmup_complete[read_cpu] ||
+               knob::dump_access_trace_in_warmup)) {
             tracer.record_trace(rq_entry.full_addr, rq_entry.type, false);
           }
           if (knob::llc_dump_access_trace && cache_type == IS_LLC &&
-              warmup_complete[read_cpu]) {
+              (warmup_complete[read_cpu] ||
+               knob::dump_access_trace_in_warmup)) {
             tracer.record_trace(rq_entry.full_addr, rq_entry.type, false);
           }
 
@@ -1286,12 +1292,14 @@ void CACHE::handle_prefetch()
 
         // RBERA-TODO: Dump cache access trace
         if (knob::l2c_dump_access_trace && cache_type == IS_L2C &&
-            warmup_complete[prefetch_cpu]) {
+            (warmup_complete[prefetch_cpu] ||
+             knob::dump_access_trace_in_warmup)) {
           tracer.record_trace(PQ.entry[index].full_addr, PQ.entry[index].type,
                               true);
         }
         if (knob::llc_dump_access_trace && cache_type == IS_LLC &&
-            warmup_complete[prefetch_cpu]) {
+            (warmup_complete[prefetch_cpu] ||
+             knob::dump_access_trace_in_warmup)) {
           tracer.record_trace(PQ.entry[index].full_addr, PQ.entry[index].type,
                               true);
         }
@@ -1498,12 +1506,14 @@ void CACHE::handle_prefetch()
 
           // Record at arrival, not fill: OPT needs true access order.
           if (knob::l2c_dump_access_trace && cache_type == IS_L2C &&
-              warmup_complete[prefetch_cpu]) {
+              (warmup_complete[prefetch_cpu] ||
+               knob::dump_access_trace_in_warmup)) {
             tracer.record_trace(PQ.entry[index].full_addr, PQ.entry[index].type,
                                 false);
           }
           if (knob::llc_dump_access_trace && cache_type == IS_LLC &&
-              warmup_complete[prefetch_cpu]) {
+              (warmup_complete[prefetch_cpu] ||
+               knob::dump_access_trace_in_warmup)) {
             tracer.record_trace(PQ.entry[index].full_addr, PQ.entry[index].type,
                                 false);
           }

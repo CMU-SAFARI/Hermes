@@ -21,6 +21,10 @@ using namespace std;
 #define WRITEBACK 3
 #define NUM_TYPES 4
 
+// ROI boundary marker. Must match TRACE_ROI_MARKER_* in inc/cache_tracer.h.
+#define ROI_MARKER_TYPE 255
+#define ROI_MARKER_ADDR 0xdeadbeefULL
+
 class OptCacheBlock
 {
 public:
@@ -76,6 +80,7 @@ public:
   OptCache(uint32_t sets, uint32_t assoc, bool bypass_en);
   ~OptCache();
   void access(uint64_t addr, uint8_t type, bool hit, uint64_t reuse_dist);
+  void reset_stats();
   void dump_stats();
 };
 
@@ -198,6 +203,12 @@ int32_t OptCache::find_victim(uint32_t set, uint64_t &victim_reuse_dist)
   assert(victim_way != -1);
   victim_reuse_dist = max_reuse_dist;
   return victim_way;
+}
+
+// Zeroes counters only; cache contents stay warm across the ROI boundary.
+void OptCache::reset_stats()
+{
+  bzero(&stats, sizeof(stats));
 }
 
 void OptCache::dump_stats()

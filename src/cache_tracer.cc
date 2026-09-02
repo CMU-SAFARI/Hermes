@@ -32,6 +32,20 @@ void CacheTracer::fini_tracing()
   }
 }
 
+// Bypasses the access_type filter: the marker must survive any trace type.
+void CacheTracer::record_roi_marker()
+{
+  if (trace_file == Z_NULL) {
+    return;
+  }
+  uint64_t address = TRACE_ROI_MARKER_ADDR;
+  uint8_t  type    = TRACE_ROI_MARKER_TYPE;
+  bool     hit     = false;
+  gzwrite(trace_file, (void *)(&address), sizeof(uint64_t));
+  gzwrite(trace_file, (void *)(&type), sizeof(uint8_t));
+  gzwrite(trace_file, (void *)(&hit), sizeof(bool));
+}
+
 void CacheTracer::record_trace(uint64_t address, uint8_t type, bool hit)
 {
   if (access_type == NUM_TYPES || type == access_type) {

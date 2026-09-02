@@ -12,6 +12,8 @@ using namespace std;
 
 #define LOG2_BLOCK_SIZE 6
 #define LOG_INTERVAL    1000000
+// Must match TRACE_ROI_MARKER_TYPE in inc/cache_tracer.h.
+#define ROI_MARKER_TYPE 255
 
 int main(int argc, char **argv)
 {
@@ -48,6 +50,14 @@ int main(int argc, char **argv)
 
     // cout << "Addr: " << hex << address << dec << " type " << (uint32_t)type
     // << " hit " << hit << endl;
+
+    // Marker: emit a placeholder so the reuse file stays positionally
+    // aligned with the trace, but keep its address out of age_map.
+    if (type == ROI_MARKER_TYPE) {
+      reuse_dist.push_back(0);
+      timestamp++;
+      continue;
+    }
 
     uint64_t ca_address = (address >> LOG2_BLOCK_SIZE) << LOG2_BLOCK_SIZE;
 
