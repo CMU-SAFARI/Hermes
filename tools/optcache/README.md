@@ -18,6 +18,7 @@ access *trace* the run has to be asked to emit.
 ```
 optcache.h            the OPT cache model (header-only): set indexing, victim
                       selection by max forward reuse distance, bypass, stats
+zstd_file.h           streaming zstd read/write shared by both tools
 optcache_driver.cc    replays a (trace, reuse) file pair through OptCache
 gen_fwd_reuse.cc      annotates a trace with forward reuse distances
 build_tools.sh        builds both binaries into this directory
@@ -44,14 +45,14 @@ tools/optcache/build_tools.sh
   ... -traces <trace>
 ```
 
-Produces `sim.llc.gz`: a flat, uncounted sequence of 10-byte records —
-`uint64_t full_addr`, `uint8_t type`, `bool hit` (`src/cache_tracer.cc:49-58`).
+Produces `sim.llc.zst`: a flat, uncounted sequence of 10-byte records —
+`uint64_t full_addr`, `uint8_t type`, `bool hit` (`src/cache_tracer.cc:83-90`).
 The `hit` field records what the **online** policy of that run did, which is
 what makes the validation gate below possible.
 
 > **`llc_dump_access_trace_type` defaults to `0`, which is LOAD only.**
 > The filter is `if (access_type == NUM_TYPES || type == access_type)`
-> (`src/cache_tracer.cc:51`), so only the sentinel `4` (= `NUM_TYPES`, "ALL")
+> (`src/cache_tracer.cc:85`), so only the sentinel `4` (= `NUM_TYPES`, "ALL")
 > records all four access types. Set it explicitly to `4` unless you really
 > want a load-only stream.
 
@@ -75,8 +76,8 @@ reuse map.
 ### 2. Generate forward reuse distances
 
 ```bash
-tools/optcache/gen_fwd_reuse.sh sim.llc.gz sim.llc
-# -> sim.llc.reuse.gz
+tools/optcache/gen_fwd_reuse.sh sim.llc.zst sim.llc
+# -> sim.llc.reuse.zst
 ```
 
 One `uint64_t` per access, positionally aligned with the trace: the number of
@@ -85,11 +86,11 @@ accesses until that block is next touched, or `UINT64_MAX` if it never is.
 ### 3. Replay through OPT
 
 ```bash
-tools/optcache/optcache_driver.sh <sets> <assoc> <trace.gz> <reuse.gz> <bypass> \
+tools/optcache/optcache_driver.sh <sets> <assoc> <trace.zst> <reuse.zst> <bypass> \
                                   [--roi-marker]
 
 # 3 MB glc LLC (LLC_SET 4096 x LLC_WAY 12), bypass enabled:
-tools/optcache/optcache_driver.sh 4096 12 sim.llc.gz sim.llc.reuse.gz 1 --roi-marker
+tools/optcache/optcache_driver.sh 4096 12 sim.llc.zst sim.llc.reuse.zst 1 --roi-marker
 ```
 
 `--roi-marker` says the trace contains a ROI marker: at that record the driver
@@ -152,8 +153,7 @@ larger:
 - reads that merged into an in-flight MSHR (`src/cache.cc:1170`) — one trace
   record, no fill of their own,
 - prefetches released from the PQ without allocating an MSHR, which happens
-  when `PQ.entry[].fill_level > fill_level` (`src/cache.cc:1409`),
-- plus one for the duplicated final record noted below.
+  when `PQ.entry[].fill_level > fill_level` (`src/cache.cc:1409`).
 
 Measured excess, 1M warmup, LRU, `--llc_dump_access_trace_type=4`:
 
@@ -214,18 +214,19 @@ online policy never performed.
 
 **`gen_fwd_reuse` is memory-hungry.** It holds one `uint64_t` per access in a
 `vector` plus an `unordered_map` over unique blocks (`gen_fwd_reuse.cc:41`,
-`:82`), all resident. Tens of millions of LLC accesses means hundreds of MB to
+`:80`), all resident. Tens of millions of LLC accesses means hundreds of MB to
 several GB. Size it before launching a batch.
 
-**Trace and reuse files are consumed in lockstep with no consistency check.**
-`optcache_driver.cc:60-64` reads one record from each per iteration; a reuse
-file regenerated from a different trace misaligns silently. Keep the pair
-together and regenerate both.
+**Trace and reuse files are consumed in lockstep.** The driver reads one record
+from each per iteration and aborts if the reuse file runs out first, but a reuse
+file of the *same length* from a *different* trace still misaligns silently.
+Keep the pair together and regenerate both.
 
-**Both readers use `while (!gzeof(f))` with unchecked `gzread`**
-(`gen_fwd_reuse.cc:46-49`, `optcache_driver.cc:60-64`), so each processes its
-final record twice. One duplicated access out of millions — immaterial for MPKI,
-but it is there.
+**Files are zstd, not gzip.** Both tools stream through `ZstdReader` /
+`ZstdWriter` in `zstd_file.h`, which read exact record lengths, so a short final
+read is a clean EOF. (The old zlib readers used `while (!gzeof(f))` with
+unchecked `gzread` and processed the final record twice; that is gone.) On a
+9.9 MB mcf trace zstd is 10.3% smaller than gzip and 5.4x faster to write.
 
 **OPT here is per-set, single-core, address-only.** Victim selection is optimal
 *within* a set under fixed indexing (`optcache.h:186-206`), which is the

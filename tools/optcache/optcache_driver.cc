@@ -1,8 +1,8 @@
 #ifndef OPTCACHE_DRIVER_H
 #define OPTCACHE_DRIVER_H
 
-#include <zlib.h>
 #include "optcache.h"
+#include "zstd_file.h"
 
 #define LOG_INTERVAL 1000000
 
@@ -46,10 +46,9 @@ int main(int argc, char **argv)
   OptCache *optcache = new OptCache(sets, assoc, bypass_en);
   assert(optcache);
 
-  gzFile cache_trace_file = gzopen(cache_trace_filename.c_str(), "rb");
-  assert(cache_trace_file);
-  gzFile reuse_dist_file = gzopen(reuse_dist_filename.c_str(), "rb");
-  assert(reuse_dist_file);
+  ZstdReader cache_trace_file, reuse_dist_file;
+  cache_trace_file.open(cache_trace_filename);
+  reuse_dist_file.open(reuse_dist_filename);
 
   uint64_t address, reuse_dist;
   uint8_t  type;
@@ -57,11 +56,14 @@ int main(int argc, char **argv)
 
   uint64_t counter = 0;
 
-  while (!gzeof(cache_trace_file)) {
-    gzread(cache_trace_file, (void *)(&address), sizeof(uint64_t));
-    gzread(cache_trace_file, (void *)(&type), sizeof(uint8_t));
-    gzread(cache_trace_file, (void *)(&hit), sizeof(bool));
-    gzread(reuse_dist_file, (void *)(&reuse_dist), sizeof(uint64_t));
+  while (cache_trace_file.read(&address, sizeof(uint64_t)) &&
+         cache_trace_file.read(&type, sizeof(uint8_t)) &&
+         cache_trace_file.read(&hit, sizeof(bool))) {
+    if (!reuse_dist_file.read(&reuse_dist, sizeof(uint64_t))) {
+      cout << "ERROR: reuse file ends at record " << counter
+           << " but the trace continues; regenerate it from this trace" << endl;
+      assert(false);
+    }
 
     if (type == ROI_MARKER_TYPE) {
       assert(address == ROI_MARKER_ADDR);
@@ -87,8 +89,8 @@ int main(int argc, char **argv)
     }
   }
 
-  gzclose(cache_trace_file);
-  gzclose(reuse_dist_file);
+  cache_trace_file.close();
+  reuse_dist_file.close();
 
   cout << endl;
   optcache->dump_stats();

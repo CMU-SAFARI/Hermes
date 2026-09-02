@@ -2,8 +2,10 @@
 #define CACHE_TRACER_H
 
 #include <stdint.h>
+#include <stdio.h>
 #include <string>
-#include "zlib.h"
+#include <vector>
+#include <zstd.h>
 
 using namespace std;
 
@@ -15,8 +17,14 @@ using namespace std;
 class CacheTracer
 {
 private:
-  uint8_t access_type = 0;
-  gzFile  trace_file  = Z_NULL;
+  uint8_t      access_type = 0;
+  FILE        *trace_file  = NULL;
+  ZSTD_CCtx   *cctx        = NULL;
+  vector<char> in_buf;
+  vector<char> out_buf;
+
+  void stage(const void *src, size_t len);
+  void drain(ZSTD_EndDirective mode);
 
 public:
   void init_tracing(string filename, uint32_t type, int32_t cpu = -1);
