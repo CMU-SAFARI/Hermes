@@ -127,6 +127,16 @@ uint32_t HawkeyeRepl::find_victim(uint32_t cpu, uint64_t instr_id, uint32_t set,
 {
   // cout << "=== Finding victim for set " << set << endl;
   stats.find_victim.called++;
+
+  // Fill invalid ways first, as lru_victim does. rrip is calloc'd to 0, so an
+  // untouched way never matches max_rrip and would otherwise sit unused.
+  for (uint32_t way = 0; way < LLC_WAY; ++way) {
+    if (current_set[way].valid == false) {
+      stats.find_victim.invalid_way++;
+      return way;
+    }
+  }
+
   // find the candidate that has the highest RRIP value
   for (uint32_t way = 0; way < LLC_WAY; ++way) {
     // cout << "set " << set << " way " << way << endl;
@@ -173,6 +183,8 @@ void HawkeyeRepl::dump_stats()
        << stats.update_repl_state.cache_adverse_miss << endl
        << endl
        << "hawkeye.repl.find_victim.called " << stats.find_victim.called << endl
+       << "hawkeye.repl.find_victim.invalid_way "
+       << stats.find_victim.invalid_way << endl
        << "hawkeye.repl.find_victim.max_rrip_found "
        << stats.find_victim.max_rrip_found << endl
        << "hawkeye.repl.find_victim.max_rrip_not_found "

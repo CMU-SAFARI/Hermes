@@ -96,6 +96,7 @@ public:
 
     struct {
       uint64_t called;
+      uint64_t invalid_way;
       uint64_t max_rrip_found;
       uint64_t max_rrip_not_found;
     } find_victim;
