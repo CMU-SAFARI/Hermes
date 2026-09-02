@@ -1,5 +1,8 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR" || exit 1
+
 echo "Building gen_fwd_reuse.cc ..."
 g++ --std=c++11 -O2 gen_fwd_reuse.cc -o gen_fwd_reuse -lz
 

@@ -18,8 +18,8 @@ bin/
 obj/
 .vscode/
 
-tools/gen_fwd_reuse
-tools/optcache_driver
+tools/optcache/gen_fwd_reuse
+tools/optcache/optcache_driver
 tracer/obj-intel64/
 
 # AI coding files
