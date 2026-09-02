@@ -81,7 +81,7 @@ int main(int argc, char **argv)
       continue;
     }
 
-    optcache->access(address, type, hit, reuse_dist);
+    optcache->access(address, type, hit, reuse_dist, counter);
 
     counter++;
     if (counter % LOG_INTERVAL == 0) {

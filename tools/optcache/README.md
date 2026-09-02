@@ -17,7 +17,7 @@ access *trace* the run has to be asked to emit.
 
 ```
 optcache.h            the OPT cache model (header-only): set indexing, victim
-                      selection by max forward reuse distance, bypass, stats
+                      selection by furthest next use, bypass, stats
 zstd_file.h           streaming zstd read/write shared by both tools
 optcache_driver.cc    replays a (trace, reuse) file pair through OptCache
 gen_fwd_reuse.cc      annotates a trace with forward reuse distances
@@ -124,7 +124,7 @@ Set `<bypass>` to `1` to match the simulator, which has `LLC_BYPASS` defined
 `way == LLC_WAY` (`src/cache.cc:177-179`). OptCache bypasses on the same
 condition — incoming reuse distance worse than the victim's — and, like the
 simulator (`src/cache.cc:650-654`), never bypasses a WRITEBACK
-(`optcache.h:143-145`). A bypassed access still counts as a miss.
+(`optcache.h:150-152`). A bypassed access still counts as a miss.
 
 ## Output
 
@@ -229,8 +229,8 @@ unchecked `gzread` and processed the final record twice; that is gone.) On a
 9.9 MB mcf trace zstd is 10.3% smaller than gzip and 5.4x faster to write.
 
 **OPT here is per-set, single-core, address-only.** Victim selection is optimal
-*within* a set under fixed indexing (`optcache.h:186-206`), which is the
+*within* a set under fixed indexing (`optcache.h:192-213`), which is the
 standard set-associative OPT, not fully-associative MIN. Set indexing matches
-the simulator: OptCache uses `(addr >> 6) % num_sets` (`optcache.h:169-173`),
+the simulator: OptCache uses `(addr >> 6) % num_sets` (`optcache.h:175-179`),
 the simulator `block_addr & (NUM_SET-1)` (`src/cache.cc:1551`) — equivalent for
 power-of-2 set counts, which all the uarch variants have.

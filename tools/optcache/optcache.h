@@ -29,15 +29,18 @@ class OptCacheBlock
 {
 public:
   uint64_t tag;
-  uint64_t reuse_dist;
+  // Absolute record index of this block's next use, not a distance: distances
+  // are relative to the access that set them, so they are not comparable
+  // across blocks touched at different times.
+  uint64_t next_use;
   bool     valid;
 
 public:
   OptCacheBlock()
   {
-    tag        = 0xdeadbeef;
-    reuse_dist = 0;
-    valid      = false;
+    tag      = 0xdeadbeef;
+    next_use = 0;
+    valid    = false;
   }
   ~OptCacheBlock() {}
 };
@@ -74,12 +77,13 @@ private:
 private:
   uint32_t get_set(uint64_t address);
   int32_t  lookup_set(uint64_t ca_address, uint32_t set);
-  int32_t  find_victim(uint32_t set, uint64_t &victim_reuse_dist);
+  int32_t  find_victim(uint32_t set, uint64_t &victim_next_use);
 
 public:
   OptCache(uint32_t sets, uint32_t assoc, bool bypass_en);
   ~OptCache();
-  void access(uint64_t addr, uint8_t type, bool hit, uint64_t reuse_dist);
+  void access(uint64_t addr, uint8_t type, bool hit, uint64_t reuse_dist,
+              uint64_t now);
   void reset_stats();
   void dump_stats();
 };
@@ -115,9 +119,12 @@ OptCache::~OptCache()
 }
 
 void OptCache::access(uint64_t address, uint8_t type, bool hit,
-                      uint64_t reuse_dist)
+                      uint64_t reuse_dist, uint64_t now)
 {
   uint64_t ca_address = (address >> LOG2_BLOCK_SIZE) << LOG2_BLOCK_SIZE;
+  // gen_fwd_reuse emits UINT64_MAX for "never used again".
+  uint64_t next_use =
+      (reuse_dist == UINT64_MAX) ? UINT64_MAX : now + reuse_dist;
 
   // capture trace stats
   stats.trace.total[type]++;
@@ -132,16 +139,15 @@ void OptCache::access(uint64_t address, uint8_t type, bool hit,
 
   if (way != -1)  // cache hit
   {
-    blocks[set][way]->reuse_dist = reuse_dist;
+    blocks[set][way]->next_use = next_use;
     stats.cache.promotion++;
     stats.access.hit[type]++;
     stats.access.total[type]++;
   } else  // cache miss
   {
-    uint64_t victim_reuse_dist = 0;
-    way                        = find_victim(set, victim_reuse_dist);
-    if (bypass_en && blocks[set][way]->valid &&
-        reuse_dist > victim_reuse_dist &&
+    uint64_t victim_next_use = 0;
+    way                      = find_victim(set, victim_next_use);
+    if (bypass_en && blocks[set][way]->valid && next_use > victim_next_use &&
         type != 3)  // all other types of accesses can be bypassed, except
                     // WRITEBACKs
     {
@@ -154,9 +160,9 @@ void OptCache::access(uint64_t address, uint8_t type, bool hit,
       }
 
       // insertion
-      blocks[set][way]->tag        = ca_address;
-      blocks[set][way]->reuse_dist = reuse_dist;
-      blocks[set][way]->valid      = true;
+      blocks[set][way]->tag      = ca_address;
+      blocks[set][way]->next_use = next_use;
+      blocks[set][way]->valid    = true;
       stats.cache.insertion++;
     }
 
@@ -183,25 +189,26 @@ int32_t OptCache::lookup_set(uint64_t ca_address, uint32_t set)
   return -1;
 }
 
-int32_t OptCache::find_victim(uint32_t set, uint64_t &victim_reuse_dist)
+int32_t OptCache::find_victim(uint32_t set, uint64_t &victim_next_use)
 {
-  uint64_t max_reuse_dist = 0;
-  int32_t  victim_way     = -1;
+  uint64_t max_next_use = 0;
+  int32_t  victim_way   = -1;
 
   for (uint32_t way = 0; way < num_assoc; ++way) {
     if (!blocks[set][way]->valid) {
-      victim_reuse_dist = 0;
+      // Caller only reads victim_next_use when the way is valid.
+      victim_next_use = 0;
       return way;
     }
 
-    if (blocks[set][way]->reuse_dist >= max_reuse_dist) {
-      victim_way     = way;
-      max_reuse_dist = blocks[set][way]->reuse_dist;
+    if (blocks[set][way]->next_use >= max_next_use) {
+      victim_way   = way;
+      max_next_use = blocks[set][way]->next_use;
     }
   }
 
   assert(victim_way != -1);
-  victim_reuse_dist = max_reuse_dist;
+  victim_next_use = max_next_use;
   return victim_way;
 }
 
