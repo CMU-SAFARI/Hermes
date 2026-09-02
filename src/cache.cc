@@ -347,18 +347,6 @@ void CACHE::handle_fill()
       sim_miss[fill_cpu][MSHR.entry[mshr_index].type]++;
       sim_access[fill_cpu][MSHR.entry[mshr_index].type]++;
 
-      // RBERA-TODO: Dump cache access trace
-      if (knob::l2c_dump_access_trace && cache_type == IS_L2C &&
-          warmup_complete[fill_cpu]) {
-        tracer.record_trace(MSHR.entry[mshr_index].full_addr,
-                            MSHR.entry[mshr_index].type, false);
-      }
-      if (knob::llc_dump_access_trace && cache_type == IS_LLC &&
-          warmup_complete[fill_cpu]) {
-        tracer.record_trace(MSHR.entry[mshr_index].full_addr,
-                            MSHR.entry[mshr_index].type, false);
-      }
-
       fill_cache(set, way, &MSHR.entry[mshr_index]);
 
       // RFO marks cache line dirty
@@ -1217,6 +1205,16 @@ void CACHE::handle_read()
           MISS[rq_entry.type]++;
           ACCESS[rq_entry.type]++;
 
+          // Record at arrival, not fill: OPT needs true access order.
+          if (knob::l2c_dump_access_trace && cache_type == IS_L2C &&
+              warmup_complete[read_cpu]) {
+            tracer.record_trace(rq_entry.full_addr, rq_entry.type, false);
+          }
+          if (knob::llc_dump_access_trace && cache_type == IS_LLC &&
+              warmup_complete[read_cpu]) {
+            tracer.record_trace(rq_entry.full_addr, rq_entry.type, false);
+          }
+
           // Uncore (beside-LLC) off-chip predictor: train exactly once, here at
           // RQ release (LLC miss => off-chip). This release is under
           // if (miss_handled), so a retried entry is not trained here.
@@ -1497,6 +1495,18 @@ void CACHE::handle_prefetch()
 
           MISS[PQ.entry[index].type]++;
           ACCESS[PQ.entry[index].type]++;
+
+          // Record at arrival, not fill: OPT needs true access order.
+          if (knob::l2c_dump_access_trace && cache_type == IS_L2C &&
+              warmup_complete[prefetch_cpu]) {
+            tracer.record_trace(PQ.entry[index].full_addr, PQ.entry[index].type,
+                                false);
+          }
+          if (knob::llc_dump_access_trace && cache_type == IS_LLC &&
+              warmup_complete[prefetch_cpu]) {
+            tracer.record_trace(PQ.entry[index].full_addr, PQ.entry[index].type,
+                                false);
+          }
 
           // remove this entry from PQ
           uint64_t deque_cycle = cache_type == IS_LLC

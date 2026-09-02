@@ -99,7 +99,7 @@ Set `<bypass>` to `1` to match the simulator, which has `LLC_BYPASS` defined
 (`inc/champsim.h:27`): a policy may decline to fill by returning
 `way == LLC_WAY` (`src/cache.cc:177-179`). OptCache bypasses on the same
 condition — incoming reuse distance worse than the victim's — and, like the
-simulator (`src/cache.cc:660-664`), never bypasses a WRITEBACK
+simulator (`src/cache.cc:648-652`), never bypasses a WRITEBACK
 (`optcache.h:138-140`). A bypassed access still counts as a miss.
 
 ## Output
@@ -120,17 +120,43 @@ There is no MPKI here — the trace carries no instruction count. Divide
 
 `OptCache.trace.{total,hit,miss}` is the online policy's own outcome replayed
 from the trace, so it must reproduce that run's `LLC TOTAL ACCESS/HIT/MISS`
-from `print_roi_stats` (`src/main.cc:355-400`) to within the one duplicated
-final record noted under Caveats — expect a difference of 0 or 1, never more.
-A larger gap means the dumped stream is not a faithful record of what reached
-the LLC, and any OPT number computed from it is unsound. Check this before
-trusting a sweep.
+from `print_roi_stats` (`src/main.cc:355-400`) to a *tiny fraction*, not
+exactly. The trace counts an access when it arrives; `sim_access` counts a miss
+when it fills. Three things fall in that gap, all making the trace slightly
+larger:
+
+- requests still in the LLC MSHR when the ROI ends (traced, never filled),
+- reads that merged into an in-flight MSHR (`src/cache.cc:1166`) — one trace
+  record, no fill of their own,
+- prefetches released from the PQ without allocating an MSHR, which happens
+  when `PQ.entry[].fill_level > fill_level` (`src/cache.cc:1401`),
+- plus one for the duplicated final record noted below.
+
+Measured excess, 1M warmup, LRU, `--llc_dump_access_trace_type=4`:
+
+| run | sim access | trace | excess |
+|---|---|---|---|
+| 462.libquantum, 1M/5M/20M sim, no pref | 27,319 / 129,227 / 507,249 | +3 each | 0.001% |
+| 605.mcf, 5M sim, no pref | 238,672 | +0 | 0% |
+| 607.cactuBSSN, 5M sim, no pref | 13,262 | +0 | 0% |
+| 605.mcf, 5M sim, spp_dev2 @L2C | 241,708 | +5 | 0.002% |
+| 605.mcf, 20M sim, spp_dev2 @L2C | 968,692 | +10 | 0.001% |
+
+Without a prefetcher the excess is a constant boundary residue. With one it
+grows slowly, and lands entirely in PREFETCH records. Either way it stays around
+0.001%, far below anything that moves an MPKI figure.
+
+**Gate:** excess must be non-negative and under ~0.1% of the access count. A
+deficit, or a percentage that climbs as the run lengthens, means the dumped
+stream is not a faithful record of what reached the LLC, and any OPT number
+computed from it is unsound. Check this before trusting a sweep.
 
 ## Caveats
 
 **The trace is ROI-only, so OPT starts cold.** Every `record_trace` call site is
-gated on `warmup_complete[cpu]` (`src/cache.cc:924-930`, `:482-489`, `:763-770`,
-`:1291-1298`, `:352-359`). The online policy enters the ROI with a warm LLC;
+gated on `warmup_complete[cpu]` — six L2C/LLC call-site pairs, one per queue
+outcome; the LLC halves are `src/cache.cc:476`, `:757`, `:917`, `:1215`,
+`:1295`, `:1507`. The online policy enters the ROI with a warm LLC;
 OptCache enters it with an empty array and pays compulsory misses the online run
 already paid during warmup. The bias is bounded by min(cache blocks, footprint)
 and therefore **grows with cache size** — at 24 MB it is up to 393,216 extra
@@ -138,19 +164,23 @@ misses, ~0.79 MPKI over a 500M-instruction ROI, versus ~0.10 at 3 MB. Any
 capacity sweep must correct for this or it will understate the OPT gap at large
 sizes.
 
-**Misses enter the trace at fill time, not at request time.** A hit is recorded
-when the request is serviced (`src/cache.cc:925`), but a miss is recorded in
-`handle_fill` when the data returns (`src/cache.cc:353`), hundreds of cycles
-later. The recorded order matches the simulator's own `sim_access` accounting,
-but it is not the arrival order, and forward reuse distances are computed on the
-recorded order.
+**The trace is in arrival order, which is not `sim_access` order.** Both hits
+and misses are recorded when the request is released from its queue — read hits
+at `src/cache.cc:917`, read misses at `:1215`, prefetch misses at `:1507`, the
+latter two inside `if (miss_handled)` and immediately before the queue removal,
+so a retried entry is recorded exactly once. Misses were previously recorded in
+`handle_fill` when the data
+returned, hundreds of cycles late, which reordered the stream and corrupted the
+forward reuse distances OPT depends on. The cost of the fix is that the trace no
+longer matches `sim_access` exactly — see the validation gate above.
 
-**The LLC bypass path is not traced.** `src/cache.cc:194` increments
-`sim_access`/`sim_miss` on a bypassed fill with no matching `record_trace`, so
-the trace undercounts whenever a policy actually bypasses. Inert for an
-all-LRU dump run — `LRURepl::find_victim` delegates to `lru_victim`
-(`replacement/lru.cc:11-18`), which never returns `LLC_WAY` — but it would bite
-a trace dumped from Hawkeye or SHiP. The validation gate above catches it.
+**The trace does not say the online policy bypassed.** A read miss the LLC
+later declines to fill (`way == LLC_WAY`, `src/cache.cc:179`) was already
+recorded at RQ release, so it appears in the trace as an ordinary miss and
+OptCache installs it. Inert for an all-LRU dump run — `LRURepl::find_victim`
+delegates to `lru_victim` (`replacement/lru.cc:11-18`), which never returns
+`LLC_WAY` — but a trace dumped from Hawkeye or SHiP would model installs the
+online policy never performed.
 
 **`gen_fwd_reuse` is memory-hungry.** It holds one `uint64_t` per access in a
 `vector` plus an `unordered_map` over unique blocks (`gen_fwd_reuse.cc:39`,
@@ -171,5 +201,5 @@ but it is there.
 *within* a set under fixed indexing (`optcache.h:181-201`), which is the
 standard set-associative OPT, not fully-associative MIN. Set indexing matches
 the simulator: OptCache uses `(addr >> 6) % num_sets` (`optcache.h:164-168`),
-the simulator `block_addr & (NUM_SET-1)` (`src/cache.cc:1533`) — equivalent for
+the simulator `block_addr & (NUM_SET-1)` (`src/cache.cc:1541`) — equivalent for
 power-of-2 set counts, which all the uarch variants have.
