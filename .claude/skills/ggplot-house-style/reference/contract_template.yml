@@ -1,0 +1,70 @@
+# .plot-contract.yml  --  per-project data contract for house-style plotting.
+#
+# WRITTEN ONCE per project, after the first-use handshake (Claude infers these
+# from your data, echoes them for your confirmation, then saves this file into
+# the ANALYSIS DIRECTORY -- the directory holding the rollup CSVs). Later
+# sessions read it and skip the handshake. Delete or edit it to re-orient.
+#
+# Every field below is illustrated with the Hermes values; replace with yours.
+
+data:
+  # File or glob of the rollup CSV(s) the charts read.
+  path: rollup_*.csv
+  # The columns present, in order. The handshake fills this from `head`.
+  schema: [TraceName, ExpName, ipc, precision, recall, Filter]
+  # Optional: a column whose value must equal `keep_value` to include a row
+  # (e.g. a completion filter). Omit if none.
+  filter: {column: Filter, keep_value: 1}
+
+baseline:
+  # Which column identifies the baseline row, and its value. Speedup of every
+  # other row = metric / (baseline row's metric), matched within each item.
+  by: ExpName
+  value: nopref
+
+metric:
+  # Default metric column to plot / take speedup of.
+  default: ipc
+  # Optional extra metrics some charts use directly (no speedup), e.g. P/R.
+  extra: [precision, recall]
+
+labels:
+  # Raw series token (a `by`-column value) -> display name. Extend as new
+  # experiments appear. Feeds house_relabel() in the style file.
+  hermes_uncore_phys_o: Hermes-UnC
+  hermes_uncore_pcless9_o: Hermes-NoPC
+  pythia: Pythia
+
+metadata:
+  # Optional per-row join for category / workload / weight. Omit the whole
+  # block if the data needs no join.
+  file: /home/rahbera/thesis/runs/cluster/spec26.mpki2.yml
+  join_key: TraceName
+  provides: [category, workload, weight]   # which fields the join yields
+
+aggregation:
+  # geomean | weighted_geomean | mean  (within a group)
+  default: geomean
+  # Field supplying weights when default is weighted_geomean.
+  weight_field: weight
+  # How the summary group across all groups is computed (usually unweighted).
+  summary: geomean
+
+palette:
+  # Display-name -> color. Feeds house_fill in the style file. Keep families
+  # coherent; reordering charts must never recolor a series.
+  nopref: "#CCCCCC"
+  Pythia: "#6E6E6E"
+  Hermes-UnC: "#9ECAE1"
+  Hermes-NoPC: "#A1D99B"
+
+order:
+  # Canonical legend / dodge order. Feeds house_levels.
+  - nopref
+  - Hermes-UnC
+  - Hermes-NoPC
+  - Pythia
+
+output:
+  # Where charts + their *_numbers.csv are written.
+  dir: charts
