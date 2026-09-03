@@ -2,6 +2,7 @@
 #define ZSTD_FILE_H
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <assert.h>
 #include <string>
@@ -11,7 +12,9 @@
 using namespace std;
 
 // Streaming zstd I/O for the offline tools. Reads are exact-length, so a short
-// final read is a clean EOF rather than a silently repeated record.
+// final read is a clean EOF rather than a silently repeated record. EOF inside
+// an unclosed frame is fatal, not a clean EOF: a run that died mid-trace would
+// otherwise replay as a complete but shorter one.
 class ZstdReader
 {
 private:
@@ -19,6 +22,9 @@ private:
   ZSTD_DCtx   *dctx = NULL;
   vector<char> in, out;
   size_t       in_pos = 0, in_size = 0, out_pos = 0, out_size = 0;
+  size_t       frame_rc  = 0;  // non-zero: mid-frame, zstd expects more input
+  bool         saw_input = false;
+  string       filename;
 
   bool refill();
 
@@ -45,7 +51,8 @@ public:
 
 void ZstdReader::open(const string &path)
 {
-  f = fopen(path.c_str(), "rb");
+  filename = path;
+  f        = fopen(path.c_str(), "rb");
   assert(f != NULL);
   dctx = ZSTD_createDCtx();
   assert(dctx != NULL);
@@ -61,13 +68,23 @@ bool ZstdReader::refill()
       in_size = fread(&in[0], 1, in.size(), f);
       in_pos  = 0;
       if (in_size == 0) {
+        if (frame_rc != 0 || !saw_input) {
+          fprintf(stderr,
+                  "zstd_file: %s is truncated (%s). Refusing to replay it as a "
+                  "complete trace.\n",
+                  filename.c_str(),
+                  saw_input ? "unterminated frame" : "no data");
+          exit(1);
+        }
         return false;
       }
+      saw_input = true;
     }
     ZSTD_inBuffer  zin  = {&in[0], in_size, in_pos};
     ZSTD_outBuffer zout = {&out[0], out.size(), 0};
     size_t         rc   = ZSTD_decompressStream(dctx, &zout, &zin);
     assert(!ZSTD_isError(rc));
+    frame_rc = rc;
     in_pos   = zin.pos;
     out_pos  = 0;
     out_size = zout.pos;

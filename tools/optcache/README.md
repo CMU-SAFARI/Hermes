@@ -228,6 +228,14 @@ read is a clean EOF. (The old zlib readers used `while (!gzeof(f))` with
 unchecked `gzread` and processed the final record twice; that is gone.) On a
 9.9 MB mcf trace zstd is 10.3% smaller than gzip and 5.4x faster to write.
 
+**A truncated trace is refused, not silently shortened.** A run that dies
+mid-simulation (deadlock, OOM, scancel) never calls `fini_tracing()`, so its
+`.zst` ends inside an unclosed frame. `ZstdReader` treats EOF there — and an
+empty file — as fatal and exits 1 naming the file, because both tools terminate
+their read loop on `read() == false` and would otherwise replay the partial
+stream as a complete, shorter trace and report plausible wrong numbers. Only
+publish a dump whose producing run exited 0; `zstd -t` is a cheap second check.
+
 **OPT here is per-set, single-core, address-only.** Victim selection is optimal
 *within* a set under fixed indexing (`optcache.h:192-213`), which is the
 standard set-associative OPT, not fully-associative MIN. Set indexing matches
