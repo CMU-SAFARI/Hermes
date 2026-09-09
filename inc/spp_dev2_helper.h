@@ -1,6 +1,8 @@
 #ifndef SPP_DEV2_HELPER_H
 #define SPP_DEV2_HELPER_H
 
+#include <cstdint>
+
 // namespace spp{
 
 // SPP functional knobs

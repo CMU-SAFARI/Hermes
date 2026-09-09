@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <zlib.h>
+#include <cstdint>
 #include <string>
 #include <unordered_map>
 

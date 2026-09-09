@@ -1,6 +1,7 @@
 #ifndef BAKSHALIPOUR_FRAMEWORK
 #define BAKSHALIPOUR_FRAMEWORK
 
+#include <cstdint>
 #include <vector>
 #include <string>
 #include <iomanip>
