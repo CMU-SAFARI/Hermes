@@ -38,25 +38,6 @@ public:
   // offchip_pred_location==uncore; NULL otherwise (core mode uses
   // ooo_cpu[i].offchip_pred).
   OffchipPredBase *offchip_pred;
-  // Off-chip predictor accuracy stats. In uncore mode the LLC owns the
-  // predictor and tracks these here; in core mode O3_CPU::stats.offchip_pred is
-  // used instead.
-  struct {
-    uint64_t pred_called;
-    uint64_t true_pos;
-    uint64_t false_pos;
-    uint64_t false_neg;
-  } offchip_pred_stats = {};
-  // DDRP (speculative direct-DRAM) stats. Like offchip_pred_stats, the LLC owns
-  // these in uncore mode (mirrors O3_CPU::stats.ddrp, which the core uses in
-  // core mode).
-  struct {
-    uint64_t total;
-    uint64_t
-        issued;  // single call site at the uncore (unlike the core's issued[2])
-    uint64_t dram_rq_full;
-    uint64_t dram_mshr_full;
-  } ddrp_stats = {};
 
   // prefetch stats
   uint64_t pf_requested, pf_issued, pf_useful, pf_useless, pf_dropped,
@@ -125,7 +106,23 @@ public:
       uint64_t data_load_miss_promoted_pseudo_hit;
     } pseudo_perfect;
 
-  } stats;
+    // Uncore mode only: the LLC owns the predictor, so it owns these too.
+    // Core mode uses the O3_CPU members of the same names.
+    struct {
+      uint64_t pred_called;
+      uint64_t true_pos;
+      uint64_t false_pos;
+      uint64_t false_neg;
+    } offchip_pred;
+
+    struct {
+      uint64_t total;
+      uint64_t issued;  // one uncore call site, unlike the core's issued[2]
+      uint64_t dram_rq_full;
+      uint64_t dram_mshr_full;
+    } ddrp;
+
+  } stats = {};
   std::unordered_map<uint64_t, uint64_t> dependent_map;
 
   uint64_t total_miss_latency;
@@ -237,6 +234,7 @@ public:
     WQ.is_WQ    = 1;
 
     bzero(&(stats), sizeof(stats));
+    reset_offchip_predictor_stats();
     dependent_map.clear();
     for (uint32_t type = LOAD; type < NUM_TYPES; ++type) {
       stats.eviction.cat_reuse_min[type] = UINT64_MAX;
@@ -377,6 +375,7 @@ public:
   void dump_stats_offchip_predictor();
   void offchip_pred_stats_and_train(PACKET *packet);
   void offchip_predictor_update_dram_bw(uint8_t dram_bw);
+  void reset_offchip_predictor_stats();
   void issue_ddrp_request(
       PACKET *packet);  // uncore analog of O3_CPU::issue_ddrp_request
 };

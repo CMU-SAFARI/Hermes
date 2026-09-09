@@ -237,6 +237,14 @@ void CACHE::initialize_offchip_predictor(uint64_t seed)
   offchip_pred = create_offchip_predictor(cpu, knob::offchip_pred_type, seed);
 }
 
+// cache.h only forward-declares OffchipPredBase, so it cannot make this call.
+void CACHE::reset_offchip_predictor_stats()
+{
+  if (offchip_pred) {
+    offchip_pred->reset_stats();
+  }
+}
+
 void CACHE::offchip_predictor_update_dram_bw(uint8_t dram_bw)
 {
   if (offchip_pred) {
@@ -262,26 +270,26 @@ void CACHE::print_config_offchip_predictor()
 void CACHE::dump_stats_offchip_predictor()
 {
   float precision =
-            (float)offchip_pred_stats.true_pos /
-            (offchip_pred_stats.true_pos + offchip_pred_stats.false_pos),
-        recall = (float)offchip_pred_stats.true_pos /
-                 (offchip_pred_stats.true_pos + offchip_pred_stats.false_neg);
+            (float)stats.offchip_pred.true_pos /
+            (stats.offchip_pred.true_pos + stats.offchip_pred.false_pos),
+        recall = (float)stats.offchip_pred.true_pos /
+                 (stats.offchip_pred.true_pos + stats.offchip_pred.false_neg);
 
-  cout << "LLC_offchip_pred_pred_called " << offchip_pred_stats.pred_called
+  cout << "LLC_offchip_pred_pred_called " << stats.offchip_pred.pred_called
        << endl
-       << "LLC_offchip_pred_true_pos " << offchip_pred_stats.true_pos << endl
-       << "LLC_offchip_pred_false_pos " << offchip_pred_stats.false_pos << endl
-       << "LLC_offchip_pred_false_neg " << offchip_pred_stats.false_neg << endl
+       << "LLC_offchip_pred_true_pos " << stats.offchip_pred.true_pos << endl
+       << "LLC_offchip_pred_false_pos " << stats.offchip_pred.false_pos << endl
+       << "LLC_offchip_pred_false_neg " << stats.offchip_pred.false_neg << endl
        << "LLC_offchip_pred_precision " << precision * 100 << endl
        << "LLC_offchip_pred_recall " << recall * 100 << endl
        << endl;
 
   // LLC-owned DDRP (speculative direct-DRAM) stats (mirrors the core's
   // Core_*_DDRP_*)
-  cout << "LLC_DDRP_total " << ddrp_stats.total << endl
-       << "LLC_DDRP_issued " << ddrp_stats.issued << endl
-       << "LLC_DDRP_dram_RQ_full " << ddrp_stats.dram_rq_full << endl
-       << "LLC_DDRP_dram_MSHR_full " << ddrp_stats.dram_mshr_full << endl
+  cout << "LLC_DDRP_total " << stats.ddrp.total << endl
+       << "LLC_DDRP_issued " << stats.ddrp.issued << endl
+       << "LLC_DDRP_dram_RQ_full " << stats.ddrp.dram_rq_full << endl
+       << "LLC_DDRP_dram_MSHR_full " << stats.ddrp.dram_mshr_full << endl
        << endl;
 
   if (offchip_pred) {
@@ -297,13 +305,13 @@ void CACHE::offchip_pred_stats_and_train(PACKET *packet)
 {
   // accuracy bookkeeping owned by the LLC (same TP/FP/FN scheme as the core
   // path)
-  offchip_pred_stats.pred_called++;
+  stats.offchip_pred.pred_called++;
   if (packet->went_offchip && packet->went_offchip_pred) {
-    offchip_pred_stats.true_pos++;
+    stats.offchip_pred.true_pos++;
   } else if (!packet->went_offchip && packet->went_offchip_pred) {
-    offchip_pred_stats.false_pos++;
+    stats.offchip_pred.false_pos++;
   } else if (packet->went_offchip && !packet->went_offchip_pred) {
-    offchip_pred_stats.false_neg++;
+    stats.offchip_pred.false_neg++;
   }
 
   // train the LLC-owned predictor, then release the per-request feature state
@@ -326,7 +334,7 @@ void CACHE::issue_ddrp_request(PACKET *packet)
 {
   uint32_t ddrp_cpu = packet->cpu;
 
-  ddrp_stats.total++;
+  stats.ddrp.total++;
   assert(packet->full_addr != 0);
   assert(knob::enable_ddrp);
 
@@ -341,7 +349,7 @@ void CACHE::issue_ddrp_request(PACKET *packet)
   // RQ occupancy first.
   if (dram_controller->get_occupancy(1, packet->address) ==
       dram_controller->get_size(1, packet->address)) {
-    ddrp_stats.dram_rq_full++;
+    stats.ddrp.dram_rq_full++;
     return;
   }
 
@@ -369,5 +377,5 @@ void CACHE::issue_ddrp_request(PACKET *packet)
   });
 
   dram_controller->add_rq(&ddrp_packet);
-  ddrp_stats.issued++;
+  stats.ddrp.issued++;
 }

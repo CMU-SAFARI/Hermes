@@ -111,6 +111,9 @@ void OffchipPredPerc::reset_stats()
   bzero(&stats, sizeof(stats));
   stats.act_thresh_update.max_observed_thresh = -999999999;
   stats.act_thresh_update.min_observed_thresh = 999999999;
+  true_pos = false_pos = false_neg = true_neg = 0;
+  train_count                                 = 0;
+  unique_pages.clear();
   perc_pred->reset_stats();
 }
 
