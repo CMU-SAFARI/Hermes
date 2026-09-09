@@ -1359,44 +1359,57 @@ int main(int argc, char **argv)
   int found_traces = 0;
   int count_traces = 0;
   cout << endl;
+
+  // NOTE: strtok below rewrites the path in place, so this consumes argv[i].
+  auto add_trace = [&](char *trace_path) {
+    // Bound before indexing ooo_cpu[count_traces].
+    if (count_traces >= NUM_CPUS) {
+      printf(
+          "\n*** Too many traces for the configured number of cores ***\n\n");
+      assert(0);
+    }
+
+    printf("CPU_%d runs %s\n", count_traces, trace_path);
+
+    try {
+      ooo_cpu[count_traces].trace_reader.reset(new TraceReader(trace_path));
+    } catch (const std::exception &e) {
+      std::cerr << "*** " << e.what() << " ***" << std::endl;
+      exit(1);
+    }
+
+    char *pch[100];
+    int   count_str = 0;
+    pch[0]          = strtok(trace_path, " /,.-");
+    while (pch[count_str] != NULL) {
+      count_str++;
+      pch[count_str] = strtok(NULL, " /,.-");
+    }
+
+    int j = 0;
+    while (pch[count_str - 3][j] != '\0') {
+      seed_number += pch[count_str - 3][j];
+      j++;
+    }
+
+    count_traces++;
+  };
+
   for (int i = 0; i < argc; i++) {
     if (found_traces) {
-      printf("CPU_%d runs %s\n", count_traces, argv[i]);
-
-      try {
-        ooo_cpu[count_traces].trace_reader.reset(new TraceReader(argv[i]));
-      } catch (const std::exception &e) {
-        std::cerr << "*** " << e.what() << " ***" << std::endl;
-        exit(1);
-      }
-
-      char *pch[100];
-      int   count_str = 0;
-      pch[0]          = strtok(argv[i], " /,.-");
-      while (pch[count_str] != NULL) {
-        // printf ("%s %d\n", pch[count_str], count_str);
-        count_str++;
-        pch[count_str] = strtok(NULL, " /,.-");
-      }
-
-      // printf("max count_str: %d\n", count_str);
-      // printf("application: %s\n", pch[count_str-3]);
-
-      int j = 0;
-      while (pch[count_str - 3][j] != '\0') {
-        seed_number += pch[count_str - 3][j];
-        // printf("%c %d %d\n", pch[count_str-3][j], j, seed_number);
-        j++;
-      }
-
-      count_traces++;
-      if (count_traces > NUM_CPUS) {
-        printf(
-            "\n*** Too many traces for the configured number of cores ***\n\n");
-        assert(0);
-      }
+      add_trace(argv[i]);
     } else if (strcmp(argv[i], "-traces") == 0) {
       found_traces = 1;
+    }
+  }
+
+  // No -traces marker: current ChampSim tooling passes paths positionally.
+  // parse_knobs also accepts knobs without the "--", so skip anything with '='.
+  if (count_traces == 0) {
+    for (int i = 1; i < argc; i++) {
+      if (argv[i][0] != '-' && strchr(argv[i], '=') == NULL) {
+        add_trace(argv[i]);
+      }
     }
   }
 

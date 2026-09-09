@@ -110,10 +110,19 @@ vector<float> get_floatv(const char *str)
 // come straight from knobs.def; only the accumulating prefetcher lists are
 // hand-written. Asserts and derived knobs are handled after all parsing, in
 // validate_knobs() and compute_derived_knobs().
-int apply_knob(void *user, const char *section, const char *name,
+int apply_knob(void *user, const char *section, const char *name_in,
                const char *value)
 {
   char config_file_name[MAX_LEN];
+
+  // Some tooling hyphenates knob names; knobs.def spells them all with '_'.
+  char   name_buf[MAX_LEN];
+  size_t i = 0;
+  for (; i < MAX_LEN - 1 && name_in[i] != '\0'; ++i) {
+    name_buf[i] = (name_in[i] == '-') ? '_' : name_in[i];
+  }
+  name_buf[i]      = '\0';
+  const char *name = name_buf;
 
   if (MATCH("", "config")) {
     strcpy(config_file_name, value);
@@ -138,8 +147,8 @@ int apply_knob(void *user, const char *section, const char *name,
   }
 
   else {
-    printf("unable to parse section: %s, name: %s, value: %s\n", section, name,
-           value);
+    printf("unable to parse section: %s, name: %s, value: %s\n", section,
+           name_in, value);
     return 0;
   }
   return 1;
