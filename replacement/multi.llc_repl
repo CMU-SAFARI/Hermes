@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 #include "cache.h"
 #include "cache_repl_base.h"
 #include "hawkeye.h"
@@ -37,6 +38,10 @@ void CACHE::llc_initialize_replacement()
     cout << "Adding LLC replacement type: Random" << endl;
     llc_repl = (RandRepl *)new RandRepl(knob::llc_replacement_type);
     llc_repl->initialize_replacement();
+  } else {
+    cout << "Unknown llc_replacement_type: " << knob::llc_replacement_type
+         << endl;
+    exit(1);
   }
 }
 

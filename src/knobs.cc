@@ -162,8 +162,8 @@ int handler(void *user, const char *section, const char *name,
   if (MATCH("", "config")) {
     strcpy(config_file_name, value);
     parse_config(config_file_name);
-  } else {
-    apply_knob(user, section, name, value);
+  } else if (!apply_knob(user, section, name, value)) {
+    exit(1);
   }
   return 1;
 }
@@ -171,8 +171,14 @@ int handler(void *user, const char *section, const char *name,
 void parse_config(char *config_file_name)
 {
   cout << "parsing config file: " << string(config_file_name) << endl;
-  if (ini_parse(config_file_name, apply_knob, NULL) < 0) {
+  // inih reports a bad knob as its line number, not a negative.
+  int rc = ini_parse(config_file_name, apply_knob, NULL);
+  if (rc < 0) {
     printf("Failed to load %s\n", config_file_name);
+    exit(1);
+  }
+  if (rc > 0) {
+    printf("bad knob or syntax at %s:%d\n", config_file_name, rc);
     exit(1);
   }
 }
@@ -182,6 +188,11 @@ void parse_knobs(int argc, char *argv[])
   for (int index = 0; index < argc; ++index) {
     string arg = string(argv[index]);
     if (arg.compare(0, 2, "--") == 0) {
+      // Only "--" tokens must be knobs; argv[0], -traces and paths are not.
+      if (arg.find('=') == string::npos) {
+        printf("malformed knob (expected name=value): %s\n", argv[index]);
+        exit(1);
+      }
       arg = arg.substr(2);
     }
     if (ini_parse_string(arg.c_str(), handler, NULL) < 0) {

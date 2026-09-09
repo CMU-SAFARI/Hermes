@@ -1378,18 +1378,21 @@ int main(int argc, char **argv)
       exit(1);
     }
 
-    char *pch[100];
-    int   count_str = 0;
-    pch[0]          = strtok(trace_path, " /,.-");
-    while (pch[count_str] != NULL) {
+    // Seed off the third-from-last token; guard short paths and pch overrun.
+    const int max_tokens = 100;
+    char     *pch[max_tokens];
+    int       count_str = 0;
+    pch[0]              = strtok(trace_path, " /,.-");
+    while (pch[count_str] != NULL && count_str + 1 < max_tokens) {
       count_str++;
       pch[count_str] = strtok(NULL, " /,.-");
     }
 
-    int j = 0;
-    while (pch[count_str - 3][j] != '\0') {
-      seed_number += pch[count_str - 3][j];
-      j++;
+    if (count_str > 0) {
+      const char *seed_token = pch[count_str >= 3 ? count_str - 3 : 0];
+      for (int j = 0; seed_token[j] != '\0'; ++j) {
+        seed_number += seed_token[j];
+      }
     }
 
     count_traces++;
@@ -1780,6 +1783,8 @@ int main(int argc, char **argv)
         for (uint32_t i = 0; i < NUM_CPUS; ++i) {
           ooo_cpu[i].offchip_predictor_update_dram_bw(uncore.DRAM.bw);
         }
+      } else {
+        uncore.LLC.offchip_predictor_update_dram_bw(uncore.DRAM.bw);
       }
     }
 

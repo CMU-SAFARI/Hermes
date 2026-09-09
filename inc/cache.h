@@ -376,6 +376,7 @@ public:
   void print_config_offchip_predictor();
   void dump_stats_offchip_predictor();
   void offchip_pred_stats_and_train(PACKET *packet);
+  void offchip_predictor_update_dram_bw(uint8_t dram_bw);
   void issue_ddrp_request(
       PACKET *packet);  // uncore analog of O3_CPU::issue_ddrp_request
 };

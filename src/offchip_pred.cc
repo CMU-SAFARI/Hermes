@@ -237,6 +237,13 @@ void CACHE::initialize_offchip_predictor(uint64_t seed)
   offchip_pred = create_offchip_predictor(cpu, knob::offchip_pred_type, seed);
 }
 
+void CACHE::offchip_predictor_update_dram_bw(uint8_t dram_bw)
+{
+  if (offchip_pred) {
+    offchip_pred->update_dram_bw(dram_bw);
+  }
+}
+
 void CACHE::print_config_offchip_predictor()
 {
   cout << "offchip_pred_type " << knob::offchip_pred_type << endl
