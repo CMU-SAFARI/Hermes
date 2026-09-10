@@ -258,6 +258,8 @@ void CACHE::print_config_offchip_predictor()
        << "offchip_pred_mark_merged_load "
        << knob::offchip_pred_mark_merged_load << endl
        << "offchip_pred_location " << knob::offchip_pred_location << endl
+       << "offchip_pred_llc_mshr_merged_load_as_offchip "
+       << knob::offchip_pred_llc_mshr_merged_load_as_offchip << endl
        << endl;
 
   if (offchip_pred) {
@@ -299,6 +301,10 @@ void CACHE::dump_stats_offchip_predictor()
        << endl
        << "LLC_offchip_pred_train_llc_wq_fwd_offchip " << train.llc_wq_fwd[1]
        << endl
+       << "LLC_offchip_pred_train_llc_mshr_merge_onchip "
+       << train.llc_mshr_merge[0] << endl
+       << "LLC_offchip_pred_train_llc_mshr_merge_offchip "
+       << train.llc_mshr_merge[1] << endl
        << endl;
 
   // LLC-owned DDRP (speculative direct-DRAM) stats (mirrors the core's

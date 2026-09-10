@@ -385,6 +385,7 @@ DEF_KNOB(le_trace_state, le_trace_state, uint32_t, hex32, 0)
 DEF_KNOB(offchip_pred_type, offchip_pred_type, string, string, "none")
 DEF_KNOB(offchip_pred_mark_merged_load, offchip_pred_mark_merged_load, bool, bool, false)
 DEF_KNOB(offchip_pred_location, offchip_pred_location, string, string, "core")
+DEF_KNOB(offchip_pred_llc_mshr_merged_load_as_offchip, offchip_pred_llc_mshr_merged_load_as_offchip, bool, bool, true)
 
 // ==========================================================================
 // Off-chip predictor — Basic

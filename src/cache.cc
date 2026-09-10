@@ -973,6 +973,7 @@ void CACHE::handle_read()
 
         // check mshr
         uint8_t miss_handled = 1;
+        uint8_t mshr_merged  = 0;
         int     mshr_index   = check_mshr(&rq_entry);
 
         if (mshr_index == -2) {
@@ -1145,6 +1146,7 @@ void CACHE::handle_read()
               MSHR.entry[mshr_index].event_cycle = prior_event_cycle;
             }
 
+            mshr_merged = 1;
             MSHR_MERGED[rq_entry.type]++;
 
             DP(if (warmup_complete[read_cpu]) {
@@ -1200,8 +1202,14 @@ void CACHE::handle_read()
           }
 
           // Under if (miss_handled), so a retried entry is not trained here.
-          offchip_pred_resolve(&rq_entry, true,
-                               stats.offchip_pred.train.llc_miss);
+          if (mshr_merged) {
+            offchip_pred_resolve(
+                &rq_entry, knob::offchip_pred_llc_mshr_merged_load_as_offchip,
+                stats.offchip_pred.train.llc_mshr_merge);
+          } else {
+            offchip_pred_resolve(&rq_entry, true,
+                                 stats.offchip_pred.train.llc_miss);
+          }
 
           // remove this entry from RQ
           uint64_t deque_cycle = cache_type == IS_LLC

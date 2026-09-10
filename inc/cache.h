@@ -125,6 +125,7 @@ public:
         uint64_t llc_miss[2];
         uint64_t llc_rq_merge[2];
         uint64_t llc_wq_fwd[2];
+        uint64_t llc_mshr_merge[2];
       } train;
     } offchip_pred;
 
