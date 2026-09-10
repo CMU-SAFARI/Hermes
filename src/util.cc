@@ -38,6 +38,18 @@ uint32_t folded_xor(uint64_t value, uint32_t num_folds)
   return folded_value;
 }
 
+/* folded_xor only takes power-of-2 fold counts; this takes any chunk width. */
+uint64_t folded_xor_fixed_width(uint64_t value, uint32_t width)
+{
+  assert(width > 0 && width < 64);
+  uint64_t mask   = (1ull << width) - 1;
+  uint64_t folded = 0;
+  for (; value; value >>= width) {
+    folded ^= value & mask;
+  }
+  return folded;
+}
+
 /* MurmurHash3's 64-bit finalizer (fmix64), truncated to 32 bits. Full
  * avalanche: every input bit flips ~half the output bits. The non-linear
  * alternative to folded_xor, which is XOR-linear -- with folded_xor, two
@@ -364,6 +376,8 @@ uint32_t HashZoo::getHash(uint32_t selector, uint32_t key)
     return Wang4shift(key);
   case 14:
     return Wang3shift(key);
+  case 15:
+    return fnv1a64(key);
 
   /* three hybrid */
   case 101:

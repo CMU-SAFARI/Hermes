@@ -126,6 +126,7 @@ private:
   void     get_data_flow_signatures(state_info_t *info, uint64_t addr,
                                     uint32_t req_cpu);
   uint32_t get_set(uint64_t page);
+  uint64_t get_tag(uint64_t page);
   void     record_page_outcome(uint64_t page, bool went_offchip);
 
   string print_activated_features(vector<int32_t> activated_features);

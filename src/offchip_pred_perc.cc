@@ -48,6 +48,14 @@ void OffchipPredPerc::print_config()
        << endl
        << "ocp_perc_page_buf_sets " << knob::ocp_perc_page_buf_sets << endl
        << "ocp_perc_page_buf_assoc " << knob::ocp_perc_page_buf_assoc << endl
+       << "ocp_perc_page_buf_set_hash_type "
+       << knob::ocp_perc_page_buf_set_hash_type << endl
+       << "ocp_perc_page_buf_use_hashed_tag "
+       << knob::ocp_perc_page_buf_use_hashed_tag << endl
+       << "ocp_perc_page_buf_tag_hash_type "
+       << knob::ocp_perc_page_buf_tag_hash_type << endl
+       << "ocp_perc_page_buf_tag_bit_width "
+       << knob::ocp_perc_page_buf_tag_bit_width << endl
        << "ocp_perc_last_n_load_pcs " << knob::ocp_perc_last_n_load_pcs << endl
        << "ocp_perc_last_n_pcs " << knob::ocp_perc_last_n_pcs << endl
        << "ocp_perc_region_size_log2 " << knob::ocp_perc_region_size_log2
@@ -284,8 +292,21 @@ void OffchipPredPerc::train_helper(ocp_perc_feature_t *feature,
 
 uint32_t OffchipPredPerc::get_set(uint64_t page)
 {
-  uint32_t hash = HashZoo::fnv1a64(page);
+  uint32_t hash = HashZoo::getHash(knob::ocp_perc_page_buf_set_hash_type, page);
   return hash % knob::ocp_perc_page_buf_sets;
+}
+
+uint64_t OffchipPredPerc::get_tag(uint64_t page)
+{
+  if (!knob::ocp_perc_page_buf_use_hashed_tag) {
+    return page;
+  }
+  if (knob::ocp_perc_page_buf_tag_hash_type == 2) {
+    return folded_xor_fixed_width(page, knob::ocp_perc_page_buf_tag_bit_width);
+  }
+  assert(knob::ocp_perc_page_buf_tag_hash_type == 1);
+  return (page >> lg2(knob::ocp_perc_page_buf_sets)) %
+         (1ull << knob::ocp_perc_page_buf_tag_bit_width);
 }
 
 void OffchipPredPerc::get_data_flow_signatures(state_info_t *info,
@@ -311,9 +332,10 @@ void OffchipPredPerc::get_data_flow_signatures(state_info_t *info,
 
   ocp_perc_page_buf_entry_t *entry = NULL;
   uint32_t                   set   = get_set(page);
+  uint64_t                   tag   = get_tag(page);
   auto                       it    = find_if(
       m_page_buffer[set].begin(), m_page_buffer[set].end(),
-      [page](ocp_perc_page_buf_entry_t *entry) { return entry->page == page; });
+      [tag](ocp_perc_page_buf_entry_t *entry) { return entry->page == tag; });
 
   if (it != m_page_buffer[set].end())  // page hit
   {
@@ -348,7 +370,7 @@ void OffchipPredPerc::get_data_flow_signatures(state_info_t *info,
     }
 
     entry       = new ocp_perc_page_buf_entry_t();
-    entry->page = page;
+    entry->page = tag;
     entry->bmp_access.set(offset);
     entry->age = 0;
     // first touch while resident: zero prior accesses, zero outcomes;
@@ -377,9 +399,10 @@ void OffchipPredPerc::get_data_flow_signatures(state_info_t *info,
 void OffchipPredPerc::record_page_outcome(uint64_t page, bool went_offchip)
 {
   uint32_t set = get_set(page);
+  uint64_t tag = get_tag(page);
   auto     it  = find_if(
       m_page_buffer[set].begin(), m_page_buffer[set].end(),
-      [page](ocp_perc_page_buf_entry_t *entry) { return entry->page == page; });
+      [tag](ocp_perc_page_buf_entry_t *entry) { return entry->page == tag; });
   if (it != m_page_buffer[set].end()) {
     (*it)->trained_count++;
     if (went_offchip) {
