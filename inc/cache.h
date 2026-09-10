@@ -109,10 +109,23 @@ public:
     // Uncore mode only: the LLC owns the predictor, so it owns these too.
     // Core mode uses the O3_CPU members of the same names.
     struct {
-      uint64_t pred_called;
-      uint64_t true_pos;
-      uint64_t false_pos;
-      uint64_t false_neg;
+      struct {
+        uint64_t called;
+      } predict;
+
+      // accuracy needs the ground truth, so it is a train-site property
+      struct {
+        uint64_t called;
+        uint64_t true_pos;
+        uint64_t false_pos;
+        uint64_t false_neg;
+
+        // per train site; [0] resolved on-chip, [1] resolved off-chip
+        uint64_t llc_hit[2];
+        uint64_t llc_miss[2];
+        uint64_t llc_rq_merge[2];
+        uint64_t llc_wq_fwd[2];
+      } train;
     } offchip_pred;
 
     struct {
@@ -374,6 +387,9 @@ public:
   void print_config_offchip_predictor();
   void dump_stats_offchip_predictor();
   void offchip_pred_stats_and_train(PACKET *packet);
+  void offchip_pred_predict(PACKET *packet, CACHE *llc);
+  void offchip_pred_resolve(PACKET *packet, bool went_offchip,
+                            uint64_t (&site)[2]);
   void offchip_predictor_update_dram_bw(uint8_t dram_bw);
   void reset_offchip_predictor_stats();
   void issue_ddrp_request(

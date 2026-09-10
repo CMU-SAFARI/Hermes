@@ -950,16 +950,11 @@ void CACHE::handle_read()
         HIT[rq_entry.type]++;
         ACCESS[rq_entry.type]++;
 
-        // Uncore (beside-LLC) off-chip predictor: train exactly once, here at
-        // RQ release (LLC hit => not off-chip). Doing it at release rather than
-        // on every handle_read pass means a retried entry trains only once.
-        // predict() set went_offchip_pred + the feature state at the L2 miss.
-        if (cache_type == IS_LLC && offchip_pred &&
-            !knob::offchip_pred_location.compare("uncore") &&
-            rq_entry.is_data && rq_entry.type == LOAD) {
-          rq_entry.went_offchip = (way < 0) ? 1 : 0;
-          offchip_pred_stats_and_train(&rq_entry);
-        }
+        // Train at RQ release, not on every handle_read pass, so a retried
+        // entry trains only once. predict() set went_offchip_pred + the feature
+        // state back at the L2 miss.
+        offchip_pred_resolve(&rq_entry, false,
+                             stats.offchip_pred.train.llc_hit);
 
         // remove this entry from RQ
         uint64_t deque_cycle =
@@ -1024,26 +1019,9 @@ void CACHE::handle_read()
                 // add it to mshr (read miss)
                 add_mshr(&rq_entry);
 
-                // Uncore off-chip predictor: predict as early as possible —
-                // here, where L2 has allocated its MSHR and is about to forward
-                // the demand data-LOAD to the LLC's RQ. Predicting now (rather
-                // than when the LLC controller later dequeues the request)
-                // hides the LLC RQ queuing latency. The prediction + feature
-                // state ride on the PACKET copied into the LLC RQ; the LLC
-                // trains on it after the tag lookup resolves. Uses the
-                // LLC-owned predictor (the same instance that will train it).
-                if (cache_type == IS_L2C && uncore.LLC.offchip_pred &&
-                    !knob::offchip_pred_location.compare("uncore") &&
-                    rq_entry.is_data && rq_entry.type == LOAD) {
-                  rq_entry.went_offchip_pred =
-                      uncore.LLC.offchip_pred->predict(&rq_entry);
-
-                  // mirror the core-side gate (ooo_cpu.cc:2123): on a positive
-                  // prediction, fire the uncore speculative direct-DRAM fetch
-                  if (rq_entry.went_offchip_pred && knob::enable_ddrp) {
-                    uncore.LLC.issue_ddrp_request(&rq_entry);
-                  }
-                }
+                // Predict before forwarding, while the L2 MSHR is allocated
+                // and the request has not yet queued at the LLC.
+                offchip_pred_predict(&rq_entry, &uncore.LLC);
                 lower_level->add_rq(&rq_entry);
               }
 
@@ -1221,15 +1199,9 @@ void CACHE::handle_read()
             tracer.record_trace(rq_entry.full_addr, rq_entry.type, false);
           }
 
-          // Uncore (beside-LLC) off-chip predictor: train exactly once, here at
-          // RQ release (LLC miss => off-chip). This release is under
-          // if (miss_handled), so a retried entry is not trained here.
-          if (cache_type == IS_LLC && offchip_pred &&
-              !knob::offchip_pred_location.compare("uncore") &&
-              rq_entry.is_data && rq_entry.type == LOAD) {
-            rq_entry.went_offchip = (way < 0) ? 1 : 0;
-            offchip_pred_stats_and_train(&rq_entry);
-          }
+          // Under if (miss_handled), so a retried entry is not trained here.
+          offchip_pred_resolve(&rq_entry, true,
+                               stats.offchip_pred.train.llc_miss);
 
           // remove this entry from RQ
           uint64_t deque_cycle = cache_type == IS_LLC
@@ -1815,6 +1787,8 @@ int CACHE::add_rq(PACKET *packet)
     WQ.FORWARD++;
     RQ->ACCESS++;
 
+    offchip_pred_resolve(packet, false, stats.offchip_pred.train.llc_wq_fwd);
+
     return -1;
   }
 
@@ -1885,6 +1859,8 @@ int CACHE::add_rq(PACKET *packet)
 
     RQ->MERGED++;
     RQ->ACCESS++;
+
+    offchip_pred_resolve(packet, false, stats.offchip_pred.train.llc_rq_merge);
 
     return index;  // merged index
   }

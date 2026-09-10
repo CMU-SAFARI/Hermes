@@ -269,19 +269,36 @@ void CACHE::print_config_offchip_predictor()
 // stats (LLC_offchip_pred_*) plus the predictor's own internal counters.
 void CACHE::dump_stats_offchip_predictor()
 {
-  float precision =
-            (float)stats.offchip_pred.true_pos /
-            (stats.offchip_pred.true_pos + stats.offchip_pred.false_pos),
-        recall = (float)stats.offchip_pred.true_pos /
-                 (stats.offchip_pred.true_pos + stats.offchip_pred.false_neg);
+  auto &predict = stats.offchip_pred.predict;
+  auto &train   = stats.offchip_pred.train;
 
-  cout << "LLC_offchip_pred_pred_called " << stats.offchip_pred.pred_called
-       << endl
-       << "LLC_offchip_pred_true_pos " << stats.offchip_pred.true_pos << endl
-       << "LLC_offchip_pred_false_pos " << stats.offchip_pred.false_pos << endl
-       << "LLC_offchip_pred_false_neg " << stats.offchip_pred.false_neg << endl
+  float precision = (float)train.true_pos / (train.true_pos + train.false_pos),
+        recall    = (float)train.true_pos / (train.true_pos + train.false_neg);
+
+  cout << "LLC_offchip_pred_predict_called " << predict.called << endl << endl;
+
+  // Counted at the train sites: accuracy, then which site supplied the ground
+  // truth and the label it carried. A predict/train gap wider than the requests
+  // in flight at an ROI edge means a site released a load without resolving it.
+  cout << "LLC_offchip_pred_train_called " << train.called << endl
+       << "LLC_offchip_pred_true_pos " << train.true_pos << endl
+       << "LLC_offchip_pred_false_pos " << train.false_pos << endl
+       << "LLC_offchip_pred_false_neg " << train.false_neg << endl
        << "LLC_offchip_pred_precision " << precision * 100 << endl
        << "LLC_offchip_pred_recall " << recall * 100 << endl
+       << "LLC_offchip_pred_train_llc_hit_onchip " << train.llc_hit[0] << endl
+       << "LLC_offchip_pred_train_llc_hit_offchip " << train.llc_hit[1] << endl
+       << "LLC_offchip_pred_train_llc_miss_onchip " << train.llc_miss[0] << endl
+       << "LLC_offchip_pred_train_llc_miss_offchip " << train.llc_miss[1]
+       << endl
+       << "LLC_offchip_pred_train_llc_rq_merge_onchip " << train.llc_rq_merge[0]
+       << endl
+       << "LLC_offchip_pred_train_llc_rq_merge_offchip "
+       << train.llc_rq_merge[1] << endl
+       << "LLC_offchip_pred_train_llc_wq_fwd_onchip " << train.llc_wq_fwd[0]
+       << endl
+       << "LLC_offchip_pred_train_llc_wq_fwd_offchip " << train.llc_wq_fwd[1]
+       << endl
        << endl;
 
   // LLC-owned DDRP (speculative direct-DRAM) stats (mirrors the core's
@@ -297,6 +314,29 @@ void CACHE::dump_stats_offchip_predictor()
   }
 }
 
+// Sole entry point for the uncore predict site. Called on the L2C as it
+// forwards a demand load to `llc`'s RQ: predicting here rather than at LLC
+// dequeue hides the LLC RQ queuing latency. The prediction and the feature
+// state ride on the packet into the LLC RQ; `llc` owns the predictor and trains
+// it once the tag lookup resolves. On a positive prediction, fire the
+// speculative direct-DRAM fetch -- same gate as the core side
+// (ooo_cpu.cc:2123).
+void CACHE::offchip_pred_predict(PACKET *packet, CACHE *llc)
+{
+  if (cache_type != IS_L2C || !llc->offchip_pred ||
+      knob::offchip_pred_location != "uncore" || !packet->is_data ||
+      packet->type != LOAD) {
+    return;
+  }
+
+  llc->stats.offchip_pred.predict.called++;
+  packet->went_offchip_pred = llc->offchip_pred->predict(packet);
+
+  if (packet->went_offchip_pred && knob::enable_ddrp) {
+    llc->issue_ddrp_request(packet);
+  }
+}
+
 // Uncore train path: mirror of O3_CPU::offchip_pred_stats_and_train. The
 // hit/miss outcome (packet->went_offchip) is set by the caller in
 // CACHE::handle_read; the prediction (packet->went_offchip_pred) + feature
@@ -305,13 +345,12 @@ void CACHE::offchip_pred_stats_and_train(PACKET *packet)
 {
   // accuracy bookkeeping owned by the LLC (same TP/FP/FN scheme as the core
   // path)
-  stats.offchip_pred.pred_called++;
   if (packet->went_offchip && packet->went_offchip_pred) {
-    stats.offchip_pred.true_pos++;
+    stats.offchip_pred.train.true_pos++;
   } else if (!packet->went_offchip && packet->went_offchip_pred) {
-    stats.offchip_pred.false_pos++;
+    stats.offchip_pred.train.false_pos++;
   } else if (packet->went_offchip && !packet->went_offchip_pred) {
-    stats.offchip_pred.false_neg++;
+    stats.offchip_pred.train.false_neg++;
   }
 
   // train the LLC-owned predictor, then release the per-request feature state
@@ -322,6 +361,26 @@ void CACHE::offchip_pred_stats_and_train(PACKET *packet)
     delete packet->ocp_feature;
     packet->ocp_feature = NULL;
   }
+}
+
+// Sole entry point for the uncore train sites. `went_offchip` is the ground
+// truth the site resolved; `site` counts it. A demand load reaches DRAM only on
+// an LLC miss -- an LLC hit, an RQ merge and a WQ forward are all on-chip.
+// Every site that releases a demand load must call this, or the prediction
+// escapes the accuracy counters and its feature state is never freed.
+void CACHE::offchip_pred_resolve(PACKET *packet, bool went_offchip,
+                                 uint64_t (&site)[2])
+{
+  if (cache_type != IS_LLC || !offchip_pred ||
+      knob::offchip_pred_location != "uncore" || !packet->is_data ||
+      packet->type != LOAD) {
+    return;
+  }
+
+  packet->went_offchip = went_offchip;
+  stats.offchip_pred.train.called++;
+  site[went_offchip]++;
+  offchip_pred_stats_and_train(packet);
 }
 
 // Uncore analog of O3_CPU::issue_ddrp_request: on a positive uncore prediction,
