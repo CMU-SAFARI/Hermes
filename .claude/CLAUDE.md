@@ -32,6 +32,23 @@ Design entrypoints live in [docs/](../docs) — e.g.
 [pcless-offchip-features.md](../docs/pcless-offchip-features.md),
 [knob-framework-integration-design.md](../docs/knob-framework-integration-design.md).
 
+## Branches
+
+- `main` — the upstream default branch, at the fork point (`626d131`).
+- `rbdev` — this fork's development branch; all work lands here.
+
+`campaign2`, `tracev2` and `tuning` were deleted from `origin` on 2026-09-15.
+None was merged, so each tip was tagged first and the tag is now the only way to
+reach that history:
+
+| tag | tip | what it holds |
+|---|---|---|
+| `archive/campaign2` | `0c4a1fa` | campaign 2: the frozen Big/Normal/Lite configs, the finish-boundary cap, the deadlock-heuristic change |
+| `archive/tracev2` | `a398338` | the first ChampSim v2 trace-format support and buffered trace reading |
+| `archive/tuning` | `787fc91` | the tuning campaigns: closeouts and the `analysis/` chart library that the `hermes_uncore_*` configs cite as their tuning evidence |
+
+Restore one with `git checkout -b tuning archive/tuning`.
+
 ## Project Rules
 
 ## Skills
